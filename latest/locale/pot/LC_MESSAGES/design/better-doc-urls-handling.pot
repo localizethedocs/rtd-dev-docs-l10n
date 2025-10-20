@@ -1,0 +1,947 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/better-doc-urls-handling.rst:2
+msgid "Better handling of docs URLs"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:4
+msgid ""
+"``proxito`` is the component of our code base in charge of serving "
+"documentation to users and handling any other URLs from the user "
+"documentation domain."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:7
+msgid ""
+"The current implementation has some problems that are discussed in this "
+"document, and an alternative implementation is proposed to solve those "
+"problems."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:11
+msgid "Goals"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:13
+msgid "Simplifying our parsing logic for URLs"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:14
+msgid "Removing reserved paths and ambiguities from URLs"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:15
+msgid "Allow serving docs from a different prefix and subproject prefix."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:18
+msgid "Non-goals"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:20
+msgid ""
+"Allowing fully arbitrary URL generation for projects, like changing the "
+"order of the elements or removing them."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:24
+msgid "Current implementation"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:26
+msgid ""
+"The current implementation is based on Django URLs trying to match a pattern "
+"that looks like a single project, a versioned project, or a subproject, this "
+"means that a couple of URLs are *reserved*, and won't resolve to the correct "
+"file if it exists (https://github.com/readthedocs/readthedocs.org/"
+"issues/8399, https://github.com/readthedocs/readthedocs.org/issues/2292), "
+"this usually happens with single version projects."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:33
+msgid ""
+"And to support custom URLs we are hacking into Django's urlconf to override "
+"it at runtime, this doesn't allow us to implement custom URLs for "
+"subprojects easily (https://github.com/readthedocs/readthedocs.org/"
+"pull/8327)."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:39
+msgid "Alternative implementation"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:41
+msgid ""
+"Instead of trying to map a URL to a view, we first analyze the root project "
+"(given from the subdomain), and based on that we map each part of the URL to "
+"the *current* project and version."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:45
+msgid ""
+"This will allow us to reuse this code in our unresolver without the need to "
+"override the Django's urlconf at runtime, or guessing a project only by the "
+"structure of its URL."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:49
+msgid "Terminology:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:51
+msgid "Root project"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:52
+msgid ""
+"The project from where the documentation is served (usually the parent "
+"project of a subproject or translation)."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:54
+#: ../../../design/better-doc-urls-handling.rst:149
+#: ../../../design/better-doc-urls-handling.rst:203
+#: ../../../design/better-doc-urls-handling.rst:248
+#: ../../../design/better-doc-urls-handling.rst:305
+#: ../../../design/better-doc-urls-handling.rst:349
+#: ../../../design/better-doc-urls-handling.rst:386
+msgid "Current project"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:55
+msgid ""
+"The project that owns the current file being served (a subproject, a "
+"translation, etc)."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:57
+#: ../../../design/better-doc-urls-handling.rst:148
+#: ../../../design/better-doc-urls-handling.rst:202
+#: ../../../design/better-doc-urls-handling.rst:247
+#: ../../../design/better-doc-urls-handling.rst:304
+#: ../../../design/better-doc-urls-handling.rst:348
+#: ../../../design/better-doc-urls-handling.rst:385
+msgid "Requested file"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:58
+msgid ""
+"The final path to the file that we need to serve from the current project."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:61
+msgid "Look up process"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:63
+msgid ""
+"Proxito will process all documentation requests from a single *docs serve* "
+"view, excluding ``/_`` URLs."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:66
+msgid ""
+"This view then will process the current URL using the root project as "
+"follows:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:68
+msgid ""
+"Check if the root project has translations (the project itself is a "
+"translation if isn't a single version project), and the first part is a "
+"language code and the second is a version."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:72
+msgid "If the lang code doesn't match, we continue."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:73
+msgid "If the lang code matches, but the version doesn't, we return 404."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:75
+msgid ""
+"Check if it has subprojects and the first part of the URL matches the "
+"subprojects prefix (``projects``), and if the second part of the URL matches "
+"a subproject alias."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:78
+msgid "If the subproject prefix or the alias don't match, we continue."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:79
+msgid ""
+"If they match, we try to match the rest of the URL for translations/versions "
+"and single versions (i.e, we don't search for subprojects) and we use the "
+"subproject as the new *root project*."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:82
+msgid ""
+"Check if the project is a single version. Here we just try to serve the rest "
+"of the URL as the file."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:85
+msgid ""
+"Check if the first part of the URL is ``page``, then this is a ``page`` "
+"redirect. Note that this is done after we have discarded the project being a "
+"single version project, since it doesn't makes sense to use that redirect "
+"with single version projects, and it could collide with the project having a "
+"``page/`` directory."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:91
+msgid "404 if none of the above rules match."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:94
+msgid "Custom URLs"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:96
+msgid ""
+"We are using custom URLs mainly to serve the documentation from a different "
+"directory:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:99
+#: ../../../design/better-doc-urls-handling.rst:100
+msgid "deeplearning/nemo/user-guide/docs/$language/$version/$filename"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:101
+msgid ""
+"deeplearning/frameworks/nvtx-plugins/user-guide/docs/$language/$version/"
+"$filename"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:103
+msgid ""
+"We always keep the lang/version/filename order, do we need/want to support "
+"changing this order? Doesn't seem useful to do so."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:107
+msgid ""
+"So, what we need is have a way to specify a prefix only. We would have a "
+"prefix used for translations and another one used for subprojects. These "
+"prefixes will be set in the root project."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:111
+msgid "The look up order would be as follow:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:113
+msgid ""
+"If the root project has a custom prefix, and the current URL matches that "
+"prefix, remove the prefix and follow the translations and single version "
+"look up process. We exclude subprojects from it, i.e, we don't check for "
+"``{prefix}/projects``."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:116
+msgid ""
+"If the root project has subprojects and a custom subprojects prefix "
+"(``projects`` by default), and if the current URL matches that prefix, and "
+"the next part of the URL matches a subproject alias, continue with the "
+"subproject look up process."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:122
+msgid "Examples"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:124
+msgid "The next examples are organized in the following way:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:126
+msgid ""
+"First there is a list of the projects involved, with their available "
+"versions."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:128
+msgid "The first project would be the root project."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:129
+msgid ""
+"The other projects will be related to the root project (their relationship "
+"is given by their name)."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:131
+msgid "Next we will have a table of the requests, and their result."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:135
+msgid "Project with versions and translations"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:137
+#: ../../../design/better-doc-urls-handling.rst:191
+#: ../../../design/better-doc-urls-handling.rst:237
+#: ../../../design/better-doc-urls-handling.rst:294
+msgid "Projects:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:139
+#: ../../../design/better-doc-urls-handling.rst:193
+#: ../../../design/better-doc-urls-handling.rst:296
+#: ../../../design/better-doc-urls-handling.rst:339
+#: ../../../design/better-doc-urls-handling.rst:375
+msgid "project (latest, 1.0)"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:140
+#: ../../../design/better-doc-urls-handling.rst:194
+#: ../../../design/better-doc-urls-handling.rst:297
+msgid "project-es (latest, 1.0)"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:142
+msgid "Requests:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:147
+#: ../../../design/better-doc-urls-handling.rst:201
+#: ../../../design/better-doc-urls-handling.rst:246
+#: ../../../design/better-doc-urls-handling.rst:303
+#: ../../../design/better-doc-urls-handling.rst:347
+#: ../../../design/better-doc-urls-handling.rst:384
+msgid "Request"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:150
+#: ../../../design/better-doc-urls-handling.rst:204
+#: ../../../design/better-doc-urls-handling.rst:249
+#: ../../../design/better-doc-urls-handling.rst:306
+#: ../../../design/better-doc-urls-handling.rst:350
+#: ../../../design/better-doc-urls-handling.rst:387
+msgid "Note"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:151
+#: ../../../design/better-doc-urls-handling.rst:327
+#: ../../../design/better-doc-urls-handling.rst:351
+#: ../../../design/better-doc-urls-handling.rst:388
+msgid "/en/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:152
+#: ../../../design/better-doc-urls-handling.rst:168
+#: ../../../design/better-doc-urls-handling.rst:206
+#: ../../../design/better-doc-urls-handling.rst:218
+#: ../../../design/better-doc-urls-handling.rst:251
+#: ../../../design/better-doc-urls-handling.rst:263
+#: ../../../design/better-doc-urls-handling.rst:275
+#: ../../../design/better-doc-urls-handling.rst:308
+#: ../../../design/better-doc-urls-handling.rst:328
+#: ../../../design/better-doc-urls-handling.rst:356
+#: ../../../design/better-doc-urls-handling.rst:364
+#: ../../../design/better-doc-urls-handling.rst:389
+#: ../../../design/better-doc-urls-handling.rst:397
+#: ../../../design/better-doc-urls-handling.rst:401
+msgid "/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:153
+#: ../../../design/better-doc-urls-handling.rst:157
+#: ../../../design/better-doc-urls-handling.rst:161
+#: ../../../design/better-doc-urls-handling.rst:165
+#: ../../../design/better-doc-urls-handling.rst:185
+#: ../../../design/better-doc-urls-handling.rst:227
+#: ../../../design/better-doc-urls-handling.rst:231
+#: ../../../design/better-doc-urls-handling.rst:272
+#: ../../../design/better-doc-urls-handling.rst:276
+#: ../../../design/better-doc-urls-handling.rst:280
+#: ../../../design/better-doc-urls-handling.rst:284
+#: ../../../design/better-doc-urls-handling.rst:288
+#: ../../../design/better-doc-urls-handling.rst:325
+#: ../../../design/better-doc-urls-handling.rst:329
+#: ../../../design/better-doc-urls-handling.rst:333
+#: ../../../design/better-doc-urls-handling.rst:353
+#: ../../../design/better-doc-urls-handling.rst:357
+#: ../../../design/better-doc-urls-handling.rst:361
+#: ../../../design/better-doc-urls-handling.rst:369
+#: ../../../design/better-doc-urls-handling.rst:390
+#: ../../../design/better-doc-urls-handling.rst:394
+#: ../../../design/better-doc-urls-handling.rst:402
+msgid "project"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:155
+msgid "/en/1.0/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:156
+#: ../../../design/better-doc-urls-handling.rst:172
+msgid "/1.0/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:159
+msgid "/en/1.0/404"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:160
+#: ../../../design/better-doc-urls-handling.rst:164
+#: ../../../design/better-doc-urls-handling.rst:176
+#: ../../../design/better-doc-urls-handling.rst:180
+#: ../../../design/better-doc-urls-handling.rst:184
+#: ../../../design/better-doc-urls-handling.rst:210
+#: ../../../design/better-doc-urls-handling.rst:214
+#: ../../../design/better-doc-urls-handling.rst:222
+#: ../../../design/better-doc-urls-handling.rst:226
+#: ../../../design/better-doc-urls-handling.rst:230
+#: ../../../design/better-doc-urls-handling.rst:255
+#: ../../../design/better-doc-urls-handling.rst:259
+#: ../../../design/better-doc-urls-handling.rst:267
+#: ../../../design/better-doc-urls-handling.rst:271
+#: ../../../design/better-doc-urls-handling.rst:279
+#: ../../../design/better-doc-urls-handling.rst:312
+#: ../../../design/better-doc-urls-handling.rst:316
+#: ../../../design/better-doc-urls-handling.rst:324
+#: ../../../design/better-doc-urls-handling.rst:332
+#: ../../../design/better-doc-urls-handling.rst:352
+#: ../../../design/better-doc-urls-handling.rst:360
+#: ../../../design/better-doc-urls-handling.rst:368
+#: ../../../design/better-doc-urls-handling.rst:393
+msgid "404"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:162
+#: ../../../design/better-doc-urls-handling.rst:281
+msgid "The file doesn't exist"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:163
+msgid "/en/2.0/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:166
+msgid "The version doesn't exist"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:167
+msgid "/es/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:169
+#: ../../../design/better-doc-urls-handling.rst:173
+#: ../../../design/better-doc-urls-handling.rst:177
+#: ../../../design/better-doc-urls-handling.rst:181
+msgid "project-es"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:171
+msgid "/es/1.0/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:175
+msgid "/es/1.0/404"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:178
+msgid "The translation exist, but not the file"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:179
+msgid "/es/2.0/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:182
+msgid "The translation exist, but not the version"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:183
+msgid "/pt/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:186
+msgid "The translation doesn't exist"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:189
+msgid "Project with subprojects and translations"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:195
+#: ../../../design/better-doc-urls-handling.rst:240
+#: ../../../design/better-doc-urls-handling.rst:340
+#: ../../../design/better-doc-urls-handling.rst:376
+msgid "subproject (latest, 1.0)"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:196
+#: ../../../design/better-doc-urls-handling.rst:241
+msgid "subproject-es (latest, 1.0)"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:205
+#: ../../../design/better-doc-urls-handling.rst:250
+#: ../../../design/better-doc-urls-handling.rst:311
+#: ../../../design/better-doc-urls-handling.rst:359
+#: ../../../design/better-doc-urls-handling.rst:392
+msgid "/projects/subproject/en/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:207
+#: ../../../design/better-doc-urls-handling.rst:211
+#: ../../../design/better-doc-urls-handling.rst:215
+#: ../../../design/better-doc-urls-handling.rst:223
+#: ../../../design/better-doc-urls-handling.rst:252
+#: ../../../design/better-doc-urls-handling.rst:256
+#: ../../../design/better-doc-urls-handling.rst:260
+#: ../../../design/better-doc-urls-handling.rst:268
+#: ../../../design/better-doc-urls-handling.rst:309
+#: ../../../design/better-doc-urls-handling.rst:313
+#: ../../../design/better-doc-urls-handling.rst:317
+#: ../../../design/better-doc-urls-handling.rst:321
+#: ../../../design/better-doc-urls-handling.rst:365
+#: ../../../design/better-doc-urls-handling.rst:398
+msgid "subproject"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:209
+#: ../../../design/better-doc-urls-handling.rst:254
+msgid "/projects/subproject/en/latest/404"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:212
+msgid "The subproject exists, but not the file"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:213
+#: ../../../design/better-doc-urls-handling.rst:258
+msgid "/projects/subproject/en/2.x/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:216
+msgid "The subproject exists, but not the version"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:217
+#: ../../../design/better-doc-urls-handling.rst:262
+msgid "/projects/subproject/es/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:219
+#: ../../../design/better-doc-urls-handling.rst:264
+msgid "subproject-es"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:221
+#: ../../../design/better-doc-urls-handling.rst:266
+#: ../../../design/better-doc-urls-handling.rst:319
+msgid "/projects/subproject/br/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:224
+msgid "The subproject exists, but not the translation"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:225
+#: ../../../design/better-doc-urls-handling.rst:270
+msgid "/projects/nothing/en/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:228
+#: ../../../design/better-doc-urls-handling.rst:273
+#: ../../../design/better-doc-urls-handling.rst:326
+#: ../../../design/better-doc-urls-handling.rst:370
+msgid "The subproject doesn't exist"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:229
+#: ../../../design/better-doc-urls-handling.rst:274
+msgid "/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:235
+msgid "Single version project with subprojects"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:239
+msgid "project (latest)"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:257
+#: ../../../design/better-doc-urls-handling.rst:318
+msgid "The subproject exists, but the file doesn't"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:261
+msgid "The subproject exists, but the version doesn't"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:269
+msgid "The subproject exists, but the translation doesn't"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:278
+#: ../../../design/better-doc-urls-handling.rst:331
+msgid "/404"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:282
+msgid "/projects/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:283
+msgid "/latest/projects/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:285
+msgid "The project has a ``projects`` directory!"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:286
+msgid "/en/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:287
+msgid "/latest/en/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:289
+msgid "The project has an ``en`` directory!"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:292
+msgid "Project with single version subprojects"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:298
+msgid "subproject (latest)"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:307
+msgid "/projects/subproject/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:314
+msgid "The subproject is single version"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:315
+msgid "/projects/subproject/404"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:320
+msgid "/latest/br/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:322
+msgid "The subproject has a ``br`` directory!"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:323
+msgid "/projects/nothing/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:337
+msgid "Project with custom prefix"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:342
+msgid "``project`` has the ``prefix`` prefix, and ``sub`` subproject prefix."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:354
+msgid "The prefix doesn't match"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:355
+msgid "/prefix/en/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:362
+#: ../../../design/better-doc-urls-handling.rst:395
+msgid "The subproject prefix doesn't match"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:363
+msgid "/sub/subproject/en/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:367
+msgid "/sub/nothing/en/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:373
+msgid "Project with custom subproject prefix (empty)"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:378
+msgid ""
+"``project`` has the ``/`` subproject prefix, this allow us to serve "
+"subprojects without using a prefix."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:396
+msgid "/subproject/en/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:400
+msgid "/nothing/en/latest/manual/index.html"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:403
+msgid "The subproject/file doesn't exist"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:406
+msgid "Implementation example"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:408
+msgid ""
+"This is a simplified version of the implementation, there are some small "
+"optimizations and validations that will be in the final implementation."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:412
+msgid ""
+"In the final implementation we will be using regular expressions to extract "
+"the parts from the URL."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:415
+msgid ""
+"from readthedocs.projects.models import Project\n"
+"\n"
+"LANGUAGES = {\"es\", \"en\"}\n"
+"\n"
+"\n"
+"def pop_parts(path, n):\n"
+"    if path[0] == \"/\":\n"
+"        path = path[1:]\n"
+"    parts = path.split(\"/\", maxsplit=n)\n"
+"    start, end = parts[:n], parts[n:]\n"
+"    end = end[0] if end else \"\"\n"
+"    return start, end\n"
+"\n"
+"\n"
+"def resolve(canonical_project: Project, path: str, check_subprojects=True):\n"
+"    prefix = \"/\"\n"
+"    if canonical_project.prefix:\n"
+"        prefix = canonical_project.prefix\n"
+"    subproject_prefix = \"/projects\"\n"
+"    if canonical_project.subproject_prefix:\n"
+"        subproject_prefix = canonical_project.subproject_prefix\n"
+"\n"
+"    # Multiversion project.\n"
+"    if path.startswith(prefix):\n"
+"        new_path = path.removeprefix(prefix)\n"
+"        parts, new_path = pop_parts(new_path, 2)\n"
+"        language, version_slug = parts\n"
+"        if not canonical_project.single_version and language in LANGUAGES:\n"
+"            if canonical_project.language == language:\n"
+"                project = canonical_project\n"
+"        else:\n"
+"            project = canonical_project.translations."
+"filter(language=language).first()\n"
+"            if project:\n"
+"                version = project.versions.filter(slug=version_slug)."
+"first()\n"
+"                if version:\n"
+"                    return project, version, new_path\n"
+"                return project, None, None\n"
+"\n"
+"    # Subprojects.\n"
+"    if check_subprojects and path.startswith(subproject_prefix):\n"
+"        new_path = path.removeprefix(subproject_prefix)\n"
+"        parts, new_path = pop_parts(new_path, 1)\n"
+"        project_slug = parts[0]\n"
+"        project = canonical_project.subprojects.filter(alias=project_slug)."
+"first()\n"
+"        if project:\n"
+"            return resolve(\n"
+"                canonical_project=project,\n"
+"                path=new_path,\n"
+"                check_subprojects=False,\n"
+"            )\n"
+"\n"
+"    # Single project.\n"
+"    if path.startswith(prefix):\n"
+"        new_path = path.removeprefix(prefix)\n"
+"        if canonical_project.single_version:\n"
+"            version = canonical_project.versions.filter(\n"
+"                slug=canonical_project.default_version\n"
+"            ).first()\n"
+"            if version:\n"
+"                return canonical_project, version, new_path\n"
+"            return canonical_project, None, None\n"
+"\n"
+"    return None, None, None\n"
+"\n"
+"\n"
+"def view(canonical_project, path):\n"
+"    current_project, version, file = resolve(\n"
+"        canonical_project=canonical_project,\n"
+"        path=path,\n"
+"    )\n"
+"    if current_project and version:\n"
+"        return serve(current_project, version, file)\n"
+"\n"
+"    if current_project:\n"
+"        return serve_404(current_project)\n"
+"\n"
+"    return serve_404(canonical_project)\n"
+"\n"
+"\n"
+"def serve_404(project, version=None):\n"
+"    pass\n"
+"\n"
+"\n"
+"def serve(project, version, file):\n"
+"    pass"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:505
+msgid "Performance"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:507
+msgid ""
+"Performance is mainly driven by the number of database lookups. There is an "
+"additional impact performing a regex lookup."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:510
+msgid "A single version project:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:512
+msgid "``/index.html``: 1, the version."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:513
+msgid ""
+"``/projects/guides/index.html``: 2, the version and one additional lookup "
+"for a path that looks like a subproject."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:515
+msgid "A multi version project:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:517
+msgid "``/en/latest/index.html``: 1, the version."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:518
+msgid "``/es/latest/index.html``: 2, the translation and the version."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:519
+msgid "``/br/latest/index.html``: 1, the translation (it doesn't exist)."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:521
+msgid "A project with single version subprojects:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:523
+msgid "``/projects/subproject/index.html``: 2, the subproject and its version."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:525
+msgid "A project with multi version subprojects:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:527
+msgid ""
+"``/projects/subproject/en/latest/index.html``: 2, the subproject and its "
+"version."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:528
+msgid ""
+"``/projects/subproject/es/latest/index.html``: 3, the subproject, the "
+"translation, and its version."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:529
+msgid ""
+"``/projects/subproject/br/latest/index.html``: 2, the subproject and the "
+"translation (it doesn't exist)."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:531
+msgid ""
+"As seen, the number of database lookups are the minimal required to get the "
+"current project and version, this is a minimum of 1, and maximum of 3."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:536
+msgid "Questions"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:538
+msgid ""
+"When using custom URLs, should we support changing the URLs that aren't "
+"related to doc serving?"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:542
+msgid "These are:"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:544
+msgid "Health check"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:545
+msgid "Proxied APIs"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:546
+msgid "robots and sitemap"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:547
+msgid "The ``page`` redirect"
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:549
+msgid "This can be useful for people that proxy us from another path."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:551
+msgid ""
+"Should we use the urlconf from the subproject when processing it? This is an "
+"URL like ``/projects/subproject/custom/prefix/en/latest/index.html``."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:554
+msgid ""
+"I don't think that's useful, but it should be easy to support if needed."
+msgstr ""
+
+#: ../../../design/better-doc-urls-handling.rst:556
+msgid ""
+"Should we support the page redirect when using a custom subproject prefix? "
+"This is ``/{prefix}/subproject/page/index.html``."
+msgstr ""
