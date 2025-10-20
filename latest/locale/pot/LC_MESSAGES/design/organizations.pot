@@ -1,0 +1,344 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/organizations.rst:2
+msgid "Organizations"
+msgstr ""
+
+#: ../../../design/organizations.rst:4
+msgid ""
+"Currently we don't support organizations in the community site (a way to "
+"group different projects), we only support individual accounts."
+msgstr ""
+
+#: ../../../design/organizations.rst:8
+msgid ""
+"Several integrations that we support like GitHub and Bitbucket have "
+"organizations, where users group their repositories and manage them in "
+"groups rather than individually."
+msgstr ""
+
+#: ../../../design/organizations.rst:12
+msgid "Why move organizations in the community site?"
+msgstr ""
+
+#: ../../../design/organizations.rst:14
+msgid ""
+"We support organizations in the commercial site, having no organizations in "
+"the community site makes the code maintenance difficult for Read the Docs "
+"developers. Having organizations in the community site will make the "
+"differences between both more easy to manage."
+msgstr ""
+
+#: ../../../design/organizations.rst:18
+msgid ""
+"Users from the community site can have organizations in external sites from "
+"where we import their projects (like GitHub, Gitlab). Currently users have "
+"all projects from different organizations in their account. Having not a "
+"clear way to group/separate those."
+msgstr ""
+
+#: ../../../design/organizations.rst:23
+msgid ""
+"We are going to first move the code, and after that enable the feature on "
+"the community site."
+msgstr ""
+
+#: ../../../design/organizations.rst:27
+msgid "How are we going to support organizations?"
+msgstr ""
+
+#: ../../../design/organizations.rst:29
+msgid ""
+"Currently only users can own projects in the community site. With "
+"organizations this is going to change to: Users and organizations can own "
+"projects."
+msgstr ""
+
+#: ../../../design/organizations.rst:33
+msgid ""
+"With this, the migration process would be straightforward for the community "
+"site."
+msgstr ""
+
+#: ../../../design/organizations.rst:35
+msgid ""
+"For the commercial site we are only to allow organizations to own projects "
+"for now (since the we have only subscriptions per organizations)."
+msgstr ""
+
+#: ../../../design/organizations.rst:39
+msgid "What features of organizations are we going to support?"
+msgstr ""
+
+#: ../../../design/organizations.rst:41
+msgid ""
+"We have the following features in the commercial site that we don't have on "
+"the community site:"
+msgstr ""
+
+#: ../../../design/organizations.rst:43
+msgid "Owners"
+msgstr ""
+
+#: ../../../design/organizations.rst:44
+msgid "Teams"
+msgstr ""
+
+#: ../../../design/organizations.rst:45
+msgid "Permissions"
+msgstr ""
+
+#: ../../../design/organizations.rst:46
+msgid "Subscriptions"
+msgstr ""
+
+#: ../../../design/organizations.rst:48
+msgid ""
+"Owners should be included to represent owners of the current organization."
+msgstr ""
+
+#: ../../../design/organizations.rst:50
+msgid ""
+"Teams, this is also handy to manage access to different projects under the "
+"same organization."
+msgstr ""
+
+#: ../../../design/organizations.rst:52
+msgid ""
+"Permissions, currently we have two type of permissions for teams: admin and "
+"read only. Read only permissions doesn't make sense in the community site "
+"since we only support public projects/versions (we do support private "
+"versions now, but we are planning to remove those). So, we should only "
+"support admin permissions for teams."
+msgstr ""
+
+#: ../../../design/organizations.rst:58
+msgid ""
+"Subscriptions, this is only valid for the corporate site, since we don't "
+"charge for use in the community site."
+msgstr ""
+
+#: ../../../design/organizations.rst:62
+msgid "How to migrate current projects"
+msgstr ""
+
+#: ../../../design/organizations.rst:64
+msgid ""
+"Since we are not replacing the current implementation, we don't need to "
+"migrate current projects from the community site nor from the corporate site."
+msgstr ""
+
+#: ../../../design/organizations.rst:68
+msgid "How to migrate the organizations app"
+msgstr ""
+
+#: ../../../design/organizations.rst:70
+msgid "The migration can be split in:"
+msgstr ""
+
+#: ../../../design/organizations.rst:72
+msgid "Remove/simplify code from the organizations app on the corporate site."
+msgstr ""
+
+#: ../../../design/organizations.rst:73
+msgid "Isolate/separate models and code that isn't going to be moved."
+msgstr ""
+
+#: ../../../design/organizations.rst:74
+msgid ""
+"Start by moving the models, managers, and figure out how to handle "
+"migrations."
+msgstr ""
+
+#: ../../../design/organizations.rst:75
+msgid "Move the rest of the code as needed."
+msgstr ""
+
+#: ../../../design/organizations.rst:76
+msgid "Activate organizations app on the community site."
+msgstr ""
+
+#: ../../../design/organizations.rst:77
+msgid "Integrate the code from the community site to the new code."
+msgstr ""
+
+#: ../../../design/organizations.rst:78
+msgid "UI changes"
+msgstr ""
+
+#: ../../../design/organizations.rst:80
+msgid ""
+"We should start by removing unused features and dead code from the "
+"organizations in the corporate site, and simplify existing code if possible "
+"(some of this was already done)."
+msgstr ""
+
+#: ../../../design/organizations.rst:83
+msgid ""
+"Isolate/separate the models to be moved from the ones that aren't going to "
+"be moved. We should move the models that aren't going to me moved to another "
+"app."
+msgstr ""
+
+#: ../../../design/organizations.rst:86
+msgid "Plan"
+msgstr ""
+
+#: ../../../design/organizations.rst:87
+msgid "PlanFeature"
+msgstr ""
+
+#: ../../../design/organizations.rst:88
+msgid "Subscription"
+msgstr ""
+
+#: ../../../design/organizations.rst:90
+msgid ""
+"This app can be named *subscriptions*. We can get around the table names and "
+"migrations by setting the explicitly the table name to "
+"``organizations_<model>``, and doing a fake migration. Following suggestions "
+"in https://stackoverflow.com/questions/48860227/moving-multiple-models-from-"
+"one-django-app-to-another, that way we avoid having any downtime during the "
+"migration and any inconvenient caused from renaming the tables manually."
+msgstr ""
+
+#: ../../../design/organizations.rst:96
+msgid ""
+"Code related to subscriptions should be moved out from the organizations app."
+msgstr ""
+
+#: ../../../design/organizations.rst:98
+msgid ""
+"After that, it should be easier to move the organizations *app* (or part of "
+"it) to the community site (and no changes to table names would be required)."
+msgstr ""
+
+#: ../../../design/organizations.rst:101
+msgid "We start by moving the models."
+msgstr ""
+
+#: ../../../design/organizations.rst:103
+msgid "Organization"
+msgstr ""
+
+#: ../../../design/organizations.rst:104
+msgid "OrganizationOwner"
+msgstr ""
+
+#: ../../../design/organizations.rst:105
+msgid "Team"
+msgstr ""
+
+#: ../../../design/organizations.rst:106
+msgid "TeamInvite"
+msgstr ""
+
+#: ../../../design/organizations.rst:107
+msgid "TeamMember"
+msgstr ""
+
+#: ../../../design/organizations.rst:109
+msgid ""
+"Migrations aren't moved, since all current migrations depend on other models "
+"that aren't going to be moved. In the community site we run an initial "
+"migration, for the corporate site we run a fake migration. The migrations "
+"left from the commercial site can be removed after that."
+msgstr ""
+
+#: ../../../design/organizations.rst:115
+msgid ""
+"For managers and querysets that depend on subscriptions, we can use our "
+"pattern to make overridable classes (inheriting from "
+"``SettingsOverrideObject``)."
+msgstr ""
+
+#: ../../../design/organizations.rst:118
+msgid ""
+"Templates, urls, views, forms, notifications, signals, tasks can be moved "
+"later (we just need to make use of the models from the ``readthedocs."
+"organizations`` module)."
+msgstr ""
+
+#: ../../../design/organizations.rst:121
+msgid ""
+"If we decide to integrate organizations in the community site, we can add/"
+"move the UI elements and enable the app."
+msgstr ""
+
+#: ../../../design/organizations.rst:124
+msgid ""
+"After the app is moved, we can move more code that depends on organizations "
+"to the community site."
+msgstr ""
+
+#: ../../../design/organizations.rst:128
+msgid "Namespace"
+msgstr ""
+
+#: ../../../design/organizations.rst:130
+msgid ""
+"Currently we use the project's slug as namespace, in the commercial site we "
+"use the combination of ``organization.slug`` + ``project.slug`` as "
+"namespace, since in the corporate site we don't care so much about a unique "
+"namespace between all users, but a unique namespace per organization."
+msgstr ""
+
+#: ../../../design/organizations.rst:135
+msgid ""
+"For the community site probably this approach isn't the best, since we "
+"always serve docs publicly from ``slug.readthedocs.io``. And most of the "
+"users don't have a custom domain."
+msgstr ""
+
+#: ../../../design/organizations.rst:139
+msgid ""
+"The corporate site will use ``organization.slug`` + ``project.slug`` as "
+"slug, And the community site will always use ``project.slug`` as slug, even "
+"if the project belongs to an organization."
+msgstr ""
+
+#: ../../../design/organizations.rst:142
+msgid ""
+"We need to refactor the way we get the namespace to be more easy to manage "
+"in both sites."
+msgstr ""
+
+#: ../../../design/organizations.rst:145
+msgid "Future Changes"
+msgstr ""
+
+#: ../../../design/organizations.rst:147
+msgid ""
+"Changes that aren't needed immediately after the migration, but that should "
+"be done:"
+msgstr ""
+
+#: ../../../design/organizations.rst:150
+msgid "UI for organizations in the community site."
+msgstr ""
+
+#: ../../../design/organizations.rst:151
+msgid "Add new endpoints to the API (v3 only)."
+msgstr ""
+
+#: ../../../design/organizations.rst:152
+msgid ""
+"Make the relationship between the models ``Organization`` and ``Project`` "
+"one to many (currently many to many)."
+msgstr ""

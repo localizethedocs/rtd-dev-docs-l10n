@@ -1,0 +1,347 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/in-doc-search-ui.rst:2
+msgid "In-doc search UI"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:4
+msgid ""
+"Giving readers the ability to easily search the information that they are "
+"looking for is important for us. We have already upgraded to the latest "
+"version of `Elasticsearch`_ and we plan to implement `search as you type` "
+"feature for all the documentations hosted by us. It will be designed to "
+"provide instant results as soon as the user starts typing in the search bar "
+"with a clean and minimal frontend. This design document aims to provides the "
+"details of it. This is a GSoC'19 project."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:15
+msgid ""
+"This design document details future features that are **not yet "
+"implemented**. To discuss this document, please get in touch in the `issue "
+"tracker`_."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:19
+msgid "The final result may look something like this:"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:24
+msgid "Short demo"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:28
+msgid "Goals And non-Goals"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:31
+msgid "Project goals"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:33
+msgid "Support a search-as-you-type/autocomplete interface."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:34
+msgid "Support across all (or virtually all) Sphinx themes."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:35
+msgid ""
+"Support for the JavaScript user experience down to IE11 or graceful "
+"degradation where we can't support it."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:36
+msgid ""
+"Project maintainers should have a way to opt-in/opt-out of this feature."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:37
+msgid ""
+"(Optional) Project maintainers should have the flexibility to change some of "
+"the styles using custom CSS and JS files."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:40
+msgid "Non-goals"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:42
+msgid ""
+"For the initial release, we are targeting only Sphinx documentations as we "
+"don't index MkDocs documentations to our Elasticsearch index."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:47
+msgid "Existing search implementation"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:49
+msgid ""
+"We have a detailed documentation explaining the underlying architecture of "
+"our search backend and how we index documents to our Elasticsearch index. "
+"You can read about it :doc:`here </server-side-search>`."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:55
+msgid "Proposed architecture for in-doc search UI"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:58
+msgid "Frontend"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:61
+msgid "Technologies"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:63
+msgid ""
+"Frontend is to designed in a theme agnostics way. For that, we explored "
+"various libraries which may be of use but none of them fits our needs. So, "
+"we might be using vanilla JavaScript for this purpose. This will provide us "
+"some advantages over using any third party library:"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:68
+msgid "Better control over the DOM."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:69
+msgid "Performance benefits."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:73
+msgid "Proposed architecture"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:75
+msgid ""
+"We plan to select the search bar, which is present in every theme, and use "
+"the `querySelector()`_ method of JavaScript. Then add an event listener to "
+"it to listen for the changes and fire a search query to our backend as soon "
+"as there is any change. Our backend will then return the suggestions, which "
+"will be shown to the user in a clean and minimal UI. We will be using "
+"`document.createElement()`_ and `node.removeChild()`_ method provided by "
+"JavaScript as we don't want empty `<div>` hanging out in the DOM."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:84
+msgid ""
+"We have a few ways to include the required JavaScript and CSS files in all "
+"the projects:"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:86
+msgid ""
+"Add CSS into `readthedocs-doc-embed.css` and JS into `readthedocs-doc-embed."
+"js` and it will get included."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:88
+msgid ""
+"Package the in-doc search into it's own self-contained CSS and JS files and "
+"include them in a similar manner to `readthedocs-doc-embed.*`."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:90
+msgid ""
+"It might be possible to package up the in-doc CSS/JS as a sphinx extension. "
+"This might be nice because then it's easy to enable it on a per-project "
+"basis. When we are ready to roll it out to a wider audience, we can make a "
+"decision to just turn it on for everybody (put it in `here`_) or we could "
+"enable it as an opt-in feature like the `404 extension`_."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:98
+msgid "UI/UX"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:100
+msgid "We have two ways which can be used to show suggestions to the user."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:102
+msgid "Show suggestions below the search bar."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:103
+msgid "Open a full page search interface when the user click on search field."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:107
+msgid "Backend"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:109
+msgid ""
+"We have a few options to support `search as you type` feature, but we need "
+"to decide that which option would be best for our use-case."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:113
+msgid "Edge NGram Tokenizer"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:115
+#: ../../../design/in-doc-search-ui.rst:131
+msgid "Pros"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:117
+msgid ""
+"More effective than Completion Suggester when it comes to autocompleting "
+"words that can appear in any order."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:119
+msgid ""
+"It is considerable fast because most of the work is being done at index "
+"time, hence the time taken for autocompletion is reduced."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:121
+msgid "Supports highlighting of the matching terms."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:123
+#: ../../../design/in-doc-search-ui.rst:136
+msgid "Cons"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:125
+msgid "Requires greater disk space."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:129
+msgid "Completion suggester"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:133
+msgid "Really fast as it is optimized for speed."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:134
+msgid "Does not require large disk space."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:138
+msgid ""
+"Matching always starts at the beginning of the text. So, for example, "
+"\"Hel\" will match \"Hello, World\" but not \"World Hello\"."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:140
+msgid "Highlighting of the matching words is not supported."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:141
+msgid ""
+"According to the official docs for Completion Suggester, fast lookups are "
+"costly to build and are stored in-memory."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:146
+msgid "Milestones"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:149
+msgid "Milestone"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:149
+msgid "Due Date"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:151
+msgid "A local implementation of the project."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:151
+msgid "12th June, 2019"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:153
+msgid ""
+"In-doc search on a test project hosted on Read the Docs using the RTD Search "
+"API."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:153
+#: ../../../design/in-doc-search-ui.rst:155
+msgid "20th June, 2019"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:155
+msgid "In-doc search on docs.readthedocs.io."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:157
+msgid "Friendly user trial where users can add this on their own docs."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:157
+msgid "5th July, 2019"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:159
+msgid "Additional UX testing on the top-10 Sphinx themes."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:159
+msgid "15th July, 2019"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:161
+msgid "Finalize the UI."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:161
+msgid "25th July, 2019"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:163
+msgid "Improve the search backend for efficient and fast search results."
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:163
+msgid "10th August, 2019"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:168
+msgid "Open questions"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:170
+msgid ""
+"Should we rely on jQuery, any third party library or pure vanilla JavaScript?"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:171
+msgid "Are the subprojects to be searched?"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:172
+msgid "Is our existing Search API is sufficient?"
+msgstr ""
+
+#: ../../../design/in-doc-search-ui.rst:173
+msgid "Should we go for edge ngrams or completion suggester?"
+msgstr ""
