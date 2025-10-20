@@ -1,0 +1,390 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation stable\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/apiv3.rst:3
+msgid "API v3 design document"
+msgstr ""
+
+#: ../../../design/apiv3.rst:5
+msgid ""
+"This document describes the design, some decisions already made and built "
+"(current Version 1 of APIv3) and an implementation plan for next Versions of "
+"APIv3."
+msgstr ""
+
+#: ../../../design/apiv3.rst:9
+msgid ""
+"APIv3 will be designed to be easy to use and useful to perform read and "
+"write operations as the main two goals."
+msgstr ""
+
+#: ../../../design/apiv3.rst:11
+msgid ""
+"It will be based on Resources as APIv2 but considering the ``Project`` "
+"resource as the main one, from where most of the endpoint will be based on "
+"it."
+msgstr ""
+
+#: ../../../design/apiv3.rst:21
+msgid "Goals"
+msgstr ""
+
+#: ../../../design/apiv3.rst:23
+msgid "Easy to use for our users (access most of resources by ``slug``)"
+msgstr ""
+
+#: ../../../design/apiv3.rst:24
+msgid "Useful to perform read and write operations"
+msgstr ""
+
+#: ../../../design/apiv3.rst:25
+msgid "Authentication/Authorization"
+msgstr ""
+
+#: ../../../design/apiv3.rst:27
+msgid "Authentication based on scoped-tokens"
+msgstr ""
+
+#: ../../../design/apiv3.rst:28
+msgid "Handle Authorization nicely using an abstraction layer"
+msgstr ""
+
+#: ../../../design/apiv3.rst:30
+msgid "Cover most useful cases:"
+msgstr ""
+
+#: ../../../design/apiv3.rst:32
+msgid "Integration on CI (check build status, trigger new build, etc)"
+msgstr ""
+
+#: ../../../design/apiv3.rst:33
+msgid "Usage from public Sphinx/MkDocs extensions"
+msgstr ""
+
+#: ../../../design/apiv3.rst:34
+msgid "Allow creation of flyout menu client-side"
+msgstr ""
+
+#: ../../../design/apiv3.rst:35
+msgid ""
+"Simplify migration from other services (import projects, create multiple "
+"redirects, etc)"
+msgstr ""
+
+#: ../../../design/apiv3.rst:39
+msgid "Non-Goals"
+msgstr ""
+
+#: ../../../design/apiv3.rst:41
+msgid "Filter by arbitrary and useless fields"
+msgstr ""
+
+#: ../../../design/apiv3.rst:43
+msgid "\"Builds with ``exit_code=1``\""
+msgstr ""
+
+#: ../../../design/apiv3.rst:44
+msgid "\"Builds containing ``ERROR`` on their output\""
+msgstr ""
+
+#: ../../../design/apiv3.rst:45
+msgid "\"Projects created after X datetime\""
+msgstr ""
+
+#: ../../../design/apiv3.rst:46
+msgid "\"Versions with tag ``python``\""
+msgstr ""
+
+#: ../../../design/apiv3.rst:48
+msgid "Cover *all the actions* available from the WebUI"
+msgstr ""
+
+#: ../../../design/apiv3.rst:52
+msgid "Problems with APIv2"
+msgstr ""
+
+#: ../../../design/apiv3.rst:54
+msgid "There are several problem with our current APIv2 that we can list:"
+msgstr ""
+
+#: ../../../design/apiv3.rst:56
+msgid "No authentication"
+msgstr ""
+
+#: ../../../design/apiv3.rst:57
+msgid "It's read-only"
+msgstr ""
+
+#: ../../../design/apiv3.rst:58
+msgid "Not designed for slugs"
+msgstr ""
+
+#: ../../../design/apiv3.rst:59
+msgid "Useful APIs not exposed (only for internal usage currently)"
+msgstr ""
+
+#: ../../../design/apiv3.rst:60
+msgid "Error reporting is a mess"
+msgstr ""
+
+#: ../../../design/apiv3.rst:61
+msgid "Relationships between API resources is not obvious"
+msgstr ""
+
+#: ../../../design/apiv3.rst:62
+msgid "Footer API endpoint returns HTML"
+msgstr ""
+
+#: ../../../design/apiv3.rst:66
+msgid "Implementation stages"
+msgstr ""
+
+#: ../../../design/apiv3.rst:69
+msgid "Version 1"
+msgstr ""
+
+#: ../../../design/apiv3.rst:71
+msgid "The first implementation of APIv3 will cover the following aspects:"
+msgstr ""
+
+#: ../../../design/apiv3.rst:73
+msgid "Authentication"
+msgstr ""
+
+#: ../../../design/apiv3.rst:75
+msgid ""
+"all endpoints require authentication via ``Authorization:`` request header"
+msgstr ""
+
+#: ../../../design/apiv3.rst:76
+msgid "detail endpoints are available for all authenticated users"
+msgstr ""
+
+#: ../../../design/apiv3.rst:77
+msgid "only Project's maintainers can access listing endpoints"
+msgstr ""
+
+#: ../../../design/apiv3.rst:78
+msgid "personalized listing"
+msgstr ""
+
+#: ../../../design/apiv3.rst:80
+msgid "Read and Write"
+msgstr ""
+
+#: ../../../design/apiv3.rst:82
+msgid "edit attributes from Version (only ``active`` and ``privacy_level``)"
+msgstr ""
+
+#: ../../../design/apiv3.rst:83
+msgid "trigger Build for a specific Version"
+msgstr ""
+
+#: ../../../design/apiv3.rst:85
+msgid "Accessible by slug"
+msgstr ""
+
+#: ../../../design/apiv3.rst:87
+msgid "Projects are accessed by ``slug``"
+msgstr ""
+
+#: ../../../design/apiv3.rst:88
+msgid "Versions are accessed by ``slug``"
+msgstr ""
+
+#: ../../../design/apiv3.rst:89
+msgid ""
+"``/projects/`` endpoint is the main one and all of the other are nested "
+"under it"
+msgstr ""
+
+#: ../../../design/apiv3.rst:90
+msgid "Builds are accessed by  ``id``, as exception to this rule"
+msgstr ""
+
+#: ../../../design/apiv3.rst:91
+msgid "access all (active/non-active) Versions of a Project by ``slug``"
+msgstr ""
+
+#: ../../../design/apiv3.rst:92
+msgid "get latest Build for a Project (and Version) by ``slug``"
+msgstr ""
+
+#: ../../../design/apiv3.rst:93
+msgid "filter by relevant fields"
+msgstr ""
+
+#: ../../../design/apiv3.rst:95
+msgid "Proper status codes to report errors"
+msgstr ""
+
+#: ../../../design/apiv3.rst:97
+msgid "Browse-able endpoints"
+msgstr ""
+
+#: ../../../design/apiv3.rst:99
+msgid "browse is allowed hitting ``/api/v3/projects/`` as starting point"
+msgstr ""
+
+#: ../../../design/apiv3.rst:100
+msgid ""
+"ability to navigate clicking on other resources under ``_links`` attribute"
+msgstr ""
+
+#: ../../../design/apiv3.rst:102
+msgid "Rate limited"
+msgstr ""
+
+#: ../../../design/apiv3.rst:106
+msgid "Version 2"
+msgstr ""
+
+#: ../../../design/apiv3.rst:110
+msgid "This is currently implemented and live."
+msgstr ""
+
+#: ../../../design/apiv3.rst:112
+msgid ""
+"Second iteration will polish issues found from the first step, and add new "
+"endpoints to allow *import a project and configure it* without the needed of "
+"using the WebUI as a main goal."
+msgstr ""
+
+#: ../../../design/apiv3.rst:116
+msgid ""
+"After Version 2 is deployed, we will invite users that reach us as beta "
+"testers to receive more feedback and continue improving it by supporting "
+"more use cases."
+msgstr ""
+
+#: ../../../design/apiv3.rst:120
+msgid "This iteration will include:"
+msgstr ""
+
+#: ../../../design/apiv3.rst:122
+msgid "Minor changes to fields returned in the objects"
+msgstr ""
+
+#: ../../../design/apiv3.rst:123
+msgid "Import Project endpoint"
+msgstr ""
+
+#: ../../../design/apiv3.rst:124
+msgid ""
+"Edit Project attributes (\"Settings\" and \"Advanced settings-Global "
+"settings\" in the WebUI)"
+msgstr ""
+
+#: ../../../design/apiv3.rst:125
+msgid "Trigger Build for default version"
+msgstr ""
+
+#: ../../../design/apiv3.rst:126
+msgid ""
+"Allow CRUD for Redirect, Environment Variables and Notifications "
+"(``WebHook`` and ``EmailHook``)"
+msgstr ""
+
+#: ../../../design/apiv3.rst:127
+msgid "Create/Delete a Project as subproject of another Project"
+msgstr ""
+
+#: ../../../design/apiv3.rst:128
+msgid "Documentation"
+msgstr ""
+
+#: ../../../design/apiv3.rst:132
+msgid "Version 3"
+msgstr ""
+
+#: ../../../design/apiv3.rst:134
+msgid ""
+"Third iteration will implement granular permissions. Keeping in mind how "
+"Sphinx extension will use it:"
+msgstr ""
+
+#: ../../../design/apiv3.rst:137
+msgid ""
+"``sphinx-version-warning`` needs to get *all active Versions of a Project*"
+msgstr ""
+
+#: ../../../design/apiv3.rst:138
+msgid ""
+"An extension that creates a landing page, will need *all the subprojects of "
+"a Project*"
+msgstr ""
+
+#: ../../../design/apiv3.rst:140
+msgid "To fulfill these requirements, this iteration will include:"
+msgstr ""
+
+#: ../../../design/apiv3.rst:142
+msgid "Scope-based authorization token"
+msgstr ""
+
+#: ../../../design/apiv3.rst:146
+msgid "Version 4"
+msgstr ""
+
+#: ../../../design/apiv3.rst:148
+msgid "Specific endpoint for our flyout menu (returning JSON instead of HTML)"
+msgstr ""
+
+#: ../../../design/apiv3.rst:152
+msgid "Out of roadmap"
+msgstr ""
+
+#: ../../../design/apiv3.rst:154
+msgid ""
+"These are some features that we may want to build at some point. Although, "
+"they are currently out of our near roadmap because they don't affect too "
+"many users, or are for internal usage only."
+msgstr ""
+
+#: ../../../design/apiv3.rst:158
+msgid "CRUD for Domain"
+msgstr ""
+
+#: ../../../design/apiv3.rst:159
+msgid "Add User as maintainer"
+msgstr ""
+
+#: ../../../design/apiv3.rst:160
+msgid ""
+"Give access to a documentation page (``objects.inv``, ``/design/core.html``)"
+msgstr ""
+
+#: ../../../design/apiv3.rst:161
+msgid "Internal Build process"
+msgstr ""
+
+#: ../../../design/apiv3.rst:165
+msgid "Nice to have"
+msgstr ""
+
+#: ../../../design/apiv3.rst:167
+msgid "``Request-ID`` header"
+msgstr ""
+
+#: ../../../design/apiv3.rst:168
+msgid "`JSON minified by default`_ (maybe with ``?pretty=true``)"
+msgstr ""
+
+#: ../../../design/apiv3.rst:169
+msgid "`JSON schema and validation`_ with docs_"
+msgstr ""

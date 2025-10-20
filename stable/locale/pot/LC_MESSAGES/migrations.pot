@@ -1,0 +1,201 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation stable\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../migrations.rst:2
+msgid "Database migrations"
+msgstr ""
+
+#: ../../../migrations.rst:4
+msgid ""
+"We use `Django migrations <https://docs.djangoproject.com/en/4.2/topics/"
+"migrations/>`__ to manage database schema changes, and the `django-"
+"safemigrate <https://github.com/aspiredu/django-safemigrate>`__ package to "
+"ensure that migrations are run in a given order to avoid downtime."
+msgstr ""
+
+#: ../../../migrations.rst:7
+msgid ""
+"To make sure that migrations don't cause downtime, the following rules "
+"should be followed for each case."
+msgstr ""
+
+#: ../../../migrations.rst:11
+msgid "Adding a new field"
+msgstr ""
+
+#: ../../../migrations.rst:13
+msgid ""
+"**When adding a new field to a model, it should be nullable.** This way, the "
+"database can be migrated without downtime, and the field can be populated "
+"later. Don't forget to make the field non-nullable in a separate migration "
+"after the data has been populated. You can achieve this by following these "
+"steps:"
+msgstr ""
+
+#: ../../../migrations.rst:18
+msgid "Set the new field as ``null=True`` and ``blank=True`` in the model."
+msgstr ""
+
+#: ../../../migrations.rst:20
+msgid ""
+"class MyModel(models.Model):\n"
+"    new_field = models.CharField(\n"
+"        max_length=100, null=True, blank=True, default=\"default\"\n"
+"    )"
+msgstr ""
+
+#: ../../../migrations.rst:27
+msgid ""
+"Make sure that the field is always populated with a proper value in the new "
+"code, and the code handles the case where the field is null."
+msgstr ""
+
+#: ../../../migrations.rst:30
+msgid ""
+"if my_model.new_field in [None, \"default\"]:\n"
+"    pass\n"
+"\n"
+"\n"
+"# If it's a boolean field, make sure that the null option is removed from "
+"the form.\n"
+"class MyModelForm(forms.ModelForm):\n"
+"    def __init__(self, *args, **kwargs):\n"
+"        super().__init__(*args, **kwargs)\n"
+"        self.fields[\"new_field\"].widget = forms.CheckboxInput()\n"
+"        self.fields[\"new_field\"].empty_value = False"
+msgstr ""
+
+#: ../../../migrations.rst:43 ../../../migrations.rst:104
+msgid ""
+"Create the migration file (let's call this migration ``app 0001``), and mark "
+"it as ``Safe.before_deploy()``."
+msgstr ""
+
+#: ../../../migrations.rst:46 ../../../migrations.rst:107
+msgid ""
+"from django.db import migrations, models\n"
+"from django_safemigrate import Safe\n"
+"\n"
+"\n"
+"class Migration(migrations.Migration):\n"
+"    safe = Safe.before_deploy()"
+msgstr ""
+
+#: ../../../migrations.rst:55
+msgid ""
+"Create a data migration to populate all null values of the new field with a "
+"proper value (let's call this migration ``app 0002``), and mark it as ``Safe."
+"after_deploy()``."
+msgstr ""
+
+#: ../../../migrations.rst:58
+msgid ""
+"from django.db import migrations\n"
+"\n"
+"\n"
+"def migrate(apps, schema_editor):\n"
+"    MyModel = apps.get_model(\"app\", \"MyModel\")\n"
+"    MyModel.objects.filter(new_field=None).update(new_field=\"default\")\n"
+"\n"
+"\n"
+"class Migration(migrations.Migration):\n"
+"    safe = Safe.after_deploy()\n"
+"\n"
+"    operations = [\n"
+"        migrations.RunPython(migrate),\n"
+"    ]"
+msgstr ""
+
+#: ../../../migrations.rst:75
+msgid ""
+"After the deploy has been completed, create a new migration to set the field "
+"as non-nullable (let's call this migration ``app 0003``). Run this migration "
+"on a new deploy, you can mark it as ``Safe.before_deploy()`` or ``Safe."
+"always()``."
+msgstr ""
+
+#: ../../../migrations.rst:77
+msgid "Remove any handling of the null case from the code."
+msgstr ""
+
+#: ../../../migrations.rst:79 ../../../migrations.rst:128
+msgid "At the end, the deploy should look like this:"
+msgstr ""
+
+#: ../../../migrations.rst:81 ../../../migrations.rst:130
+msgid "Deploy web-extra."
+msgstr ""
+
+#: ../../../migrations.rst:82 ../../../migrations.rst:131
+msgid "Run ``django-admin safemigrate`` to run the migration ``app 0001``."
+msgstr ""
+
+#: ../../../migrations.rst:83 ../../../migrations.rst:132
+msgid "Deploy the webs"
+msgstr ""
+
+#: ../../../migrations.rst:84 ../../../migrations.rst:133
+msgid "Run ``django-admin migrate`` to run the migration ``app 0002``."
+msgstr ""
+
+#: ../../../migrations.rst:85
+msgid ""
+"Create a new migration to set the field as non-nullable, and apply it on the "
+"next deploy."
+msgstr ""
+
+#: ../../../migrations.rst:89
+msgid "Removing a field"
+msgstr ""
+
+#: ../../../migrations.rst:91
+msgid ""
+"**When removing a field from a model, all usages of the field should be "
+"removed from the code before the field is removed from the model, and the "
+"field should be nullable.** You can achieve this by following these steps:"
+msgstr ""
+
+#: ../../../migrations.rst:96
+msgid "Remove all usages of the field from the code."
+msgstr ""
+
+#: ../../../migrations.rst:97
+msgid "Set the field as ``null=True`` and ``blank=True`` in the model."
+msgstr ""
+
+#: ../../../migrations.rst:99
+msgid ""
+"class MyModel(models.Model):\n"
+"    field_to_delete = models.CharField(max_length=100, null=True, blank=True)"
+msgstr ""
+
+#: ../../../migrations.rst:116
+msgid ""
+"Create a migration to remove the field from the database (let's call this "
+"migration ``app 0002``), and mark it as ``Safe.after_deploy()``."
+msgstr ""
+
+#: ../../../migrations.rst:119
+msgid ""
+"from django.db import migrations, models\n"
+"from django_safemigrate import Safe\n"
+"\n"
+"\n"
+"class Migration(migrations.Migration):\n"
+"    safe = Safe.after_deploy()"
+msgstr ""

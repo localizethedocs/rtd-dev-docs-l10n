@@ -1,0 +1,389 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation stable\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/yaml-file.rst:2
+msgid "YAML configuration file"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:5
+msgid "Background"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:7
+msgid ""
+"The current YAML configuration file is in beta state. There are many options "
+"and features that it doesn't support yet. This document will serve as a "
+"design document for discuss how to implement the missing features."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:12
+msgid "Scope"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:14
+msgid "Finish the spec to include all the missing options"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:15
+msgid "Have consistency around the spec"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:16
+msgid "Proper documentation for the end user"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:17
+msgid "Allow to specify the spec's version used on the YAML file"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:18
+msgid "Collect/show metadata about the YAML file and build configuration"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:19
+msgid "Promote the adoption of the configuration file"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:22
+msgid "RTD settings"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:24
+msgid ""
+"No all the RTD settings are applicable to the YAML file, others are "
+"applicable for each build (or version), and others for the global project."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:29
+msgid "Not applicable settings"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:31
+msgid ""
+"Those settings can't be on the YAML file because: may depend for the initial "
+"project setup, are planned to be removed, security and privacy reasons."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:36
+msgid "Project Name"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:37
+msgid "Repo URL"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:38
+msgid "Repo type"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:39
+msgid "Privacy level (this feature is planned to be removed [#privacy-level]_)"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:40
+msgid ""
+"Project description (this feature is planned to be removed [#project-"
+"description]_)"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:41
+msgid "Single version"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:42
+msgid "Default branch"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:43
+msgid "Default version"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:44
+msgid "Domains"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:45
+msgid "Active versions"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:46
+msgid "Translations"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:47
+msgid "Subprojects"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:48
+msgid "Integrations"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:49
+msgid "Notifications"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:50
+msgid "Language"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:51
+msgid "Programming Language"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:52
+msgid "Project homepage"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:53
+msgid "Tags"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:54
+msgid "Analytics code"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:55
+msgid "Global redirects"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:58
+msgid "Global settings"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:60
+msgid ""
+"To keep consistency with the per-version settings and avoid confusion, this "
+"settings will not be stored in the YAML file and will be stored in the "
+"database only."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:64
+msgid "Local settings"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:66
+msgid ""
+"Those configurations will be read from the YAML file in the current version "
+"that is being built."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:68
+msgid ""
+"Several settings are already implemented and documented on https://docs."
+"readthedocs.io/en/latest/yaml-config.html. So, they aren't covered with much "
+"detail here."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:72
+msgid "Documentation type"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:73
+msgid ""
+"Project installation (virtual env, requirements file, sphinx configuration "
+"file, etc)"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:74
+msgid "Additional builds (pdf, epub)"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:75
+msgid "Python interpreter"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:76
+msgid "Per-version redirects"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:79
+msgid "Configuration file"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:82
+msgid "Format"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:84
+msgid ""
+"The file format is based on the YAML spec 1.2 [#yaml-spec]_ (latest version "
+"on the time of this writing)."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:87
+msgid ""
+"The file must be on the root directory of the repository, and must be named "
+"as:"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:89
+msgid "``readthedocs.yml``"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:90
+msgid "``readthedocs.yaml``"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:91
+msgid "``.readthedocs.yml``"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:92
+msgid "``.readthedocs.yaml``"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:95
+msgid "Conventions"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:97
+msgid "The spec of the configuration file must use this conventions."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:99
+msgid "Use `[]` to indicate an empty list"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:100
+msgid "Use `null` to indicate a null value"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:101
+msgid ""
+"Use `all` (internal string keyword) to indicate that all options are "
+"included on a list with predetermined choices."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:102
+msgid "Use `true`  and `false` as only options on boolean fields"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:105
+msgid "Spec"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:107
+msgid ""
+"The current spec is documented on https://docs.readthedocs.io/en/latest/yaml-"
+"config.html. It will be used as base for the future spec. The spec will be "
+"written using a validation schema such as https://json-schema-everywhere."
+"github.io/yaml."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:112
+msgid "Versioning the spec"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:114
+msgid ""
+"The version of the spec that the user wants to use will be specified on the "
+"YAML file. The spec only will have mayor versions (1.0, not 1.2) "
+"[#specversioning]_. For keeping compatibility with older projects using a "
+"configuration file without a version, the latest compatible version will be "
+"used (1.0)."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:120
+msgid "Adoption of the configuration file"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:122
+msgid ""
+"When a user creates a new project or it's on the settings page, we could "
+"suggest her/him an example of a functional configuration file with a minimal "
+"setup. And making clear where to put global configurations."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:126
+msgid ""
+"For users that already have a project, we can suggest him/her a "
+"configuration file on each build based on the current settings."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:130
+msgid "Configuration file and database"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:132
+msgid ""
+"The settings used in the build from the configuration file (and other "
+"metadata) needs to be stored in the database, this is for later usage only, "
+"not to populate existing fields."
+msgstr ""
+
+#: ../../../design/yaml-file.rst:137
+msgid "The build process"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:139
+msgid "The repository is updated"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:140
+msgid "Checkout to the current version"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:141
+msgid "Retrieve the settings from the database"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:142
+msgid "Try to parse the YAML file (the build fails if there is an error)"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:143
+msgid "Merge the both settings (YAML file and database)"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:144
+msgid "The version is built according to the settings"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:145
+msgid "The settings used to build the documentation can be seen by the user"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:148
+msgid "Dependencies"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:150
+msgid ""
+"Current repository which contains the code related to the configuration "
+"file: https://github.com/readthedocs/readthedocs-build"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:154
+msgid "Footnotes"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:156
+msgid "https://github.com/readthedocs/readthedocs.org/issues/2663"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:157
+msgid "https://github.com/readthedocs/readthedocs.org/issues/3689"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:158
+msgid "https://yaml.org/spec/1.2/spec.html"
+msgstr ""
+
+#: ../../../design/yaml-file.rst:159
+msgid "https://github.com/readthedocs/readthedocs.org/issues/3806"
+msgstr ""
