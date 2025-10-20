@@ -214,7 +214,7 @@ msgstr ""
 
 #: ../../../design/yaml-file.rst:79
 msgid "Configuration file"
-msgstr ""
+msgstr "組態檔"
 
 #: ../../../design/yaml-file.rst:82
 msgid "Format"

@@ -46,7 +46,7 @@ msgstr ""
 
 #: ../../../style-guide.rst:19
 msgid "Titles"
-msgstr ""
+msgstr "標題"
 
 #: ../../../style-guide.rst:21
 msgid ""

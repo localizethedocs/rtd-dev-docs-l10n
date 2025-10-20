@@ -235,7 +235,7 @@ msgstr ""
 
 #: ../../../design/build-images.rst:88
 msgid "UID and GID"
-msgstr ""
+msgstr "UID 和 GID"
 
 #: ../../../design/build-images.rst:90
 msgid ""

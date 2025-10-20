@@ -100,7 +100,7 @@ msgstr ""
 
 #: ../../../design/telemetry.rst:40
 msgid "Configuration file"
-msgstr ""
+msgstr "組態檔"
 
 #: ../../../design/telemetry.rst:42
 msgid ""
@@ -123,7 +123,7 @@ msgstr ""
 
 #: ../../../design/telemetry.rst:53
 msgid "PIP packages"
-msgstr ""
+msgstr "PIP 軟體包"
 
 #: ../../../design/telemetry.rst:55
 msgid ""
@@ -176,7 +176,7 @@ msgstr ""
 
 #: ../../../design/telemetry.rst:97
 msgid "Conda packages"
-msgstr ""
+msgstr "Conda 軟體包"
 
 #: ../../../design/telemetry.rst:99
 msgid ""
@@ -226,7 +226,7 @@ msgstr ""
 
 #: ../../../design/telemetry.rst:142
 msgid "APT packages"
-msgstr ""
+msgstr "APT 軟體包"
 
 #: ../../../design/telemetry.rst:144
 msgid ""

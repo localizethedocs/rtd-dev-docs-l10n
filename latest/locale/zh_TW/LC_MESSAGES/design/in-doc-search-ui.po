@@ -53,7 +53,7 @@ msgstr ""
 
 #: ../../../design/in-doc-search-ui.rst:31
 msgid "Project goals"
-msgstr ""
+msgstr "專案目標"
 
 #: ../../../design/in-doc-search-ui.rst:33
 msgid "Support a search-as-you-type/autocomplete interface."
@@ -107,7 +107,7 @@ msgstr ""
 
 #: ../../../design/in-doc-search-ui.rst:58
 msgid "Frontend"
-msgstr ""
+msgstr "前端"
 
 #: ../../../design/in-doc-search-ui.rst:61
 msgid "Technologies"
@@ -261,11 +261,11 @@ msgstr ""
 
 #: ../../../design/in-doc-search-ui.rst:146
 msgid "Milestones"
-msgstr ""
+msgstr "里程碑"
 
 #: ../../../design/in-doc-search-ui.rst:149
 msgid "Milestone"
-msgstr ""
+msgstr "里程碑"
 
 #: ../../../design/in-doc-search-ui.rst:149
 msgid "Due Date"
