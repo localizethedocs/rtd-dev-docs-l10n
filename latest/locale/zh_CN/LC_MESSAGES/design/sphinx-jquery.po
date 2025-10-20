@@ -1,0 +1,286 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/sphinx-jquery.rst:2
+msgid "sphinxcontrib-jquery"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:4
+msgid ""
+"jQuery will be removed from Sphinx 6.0.0. We can expect 6.0.0 to ship in "
+"late 2022."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:8
+msgid "https://github.com/sphinx-doc/sphinx/issues/7405"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:9
+msgid "https://github.com/sphinx-doc/sphinx/issues/10070"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:10
+msgid "https://github.com/readthedocs/sphinx-hoverxref/issues/160"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:11
+msgid "https://github.com/readthedocs/sphinx_rtd_theme/issues/1253"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:12
+msgid "https://github.com/pydata/pydata-sphinx-theme/issues/764"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:14
+msgid ""
+"This is a \"request for comments\" for a community-owned Sphinx extension "
+"that bundles jQuery."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:18
+msgid "Overview"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:20
+msgid "Comment deadline:"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:21
+msgid "November 1st, 2022"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:23
+msgid "Package-name:"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:24
+msgid "``sphinxcontrib-jquery``"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:26
+msgid "Python package:"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:27
+msgid "``sphinxcontrib.jquery``"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:29
+msgid "Dependencies:"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:30
+msgid "Python 3+, Sphinx 1.8+ (or perhaps no lower bound?)"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:32
+msgid "Ownership:"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:33
+msgid ""
+"Read the Docs core team will implement the initial releases of an otherwise "
+"community-owned package that lives in https://github.com/sphinx-contrib/"
+"jquery"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:35
+msgid "Functionality:"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:36
+msgid ""
+"sphinxcontrib-jquery is a Sphinx extension that provides a simple mechanism "
+"for other Sphinx extensions and themes to ensure that jQuery is included "
+"into the HTML build outputs and loaded in the HTML DOM itself. More "
+"specifically, the extension ensures that jQuery is loaded exactly once no "
+"matter how many themes and extensions that request to include jQuery nor the "
+"version of Sphinx."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:39
+msgid "Scope:"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:40
+msgid ""
+"This extension assumes that it's enough to provide a single version of "
+"jQuery for all of its dependent extensions and themes. As the name implies, "
+"this extension is built to handle jQuery only. It's not a general asset "
+"manager and it's not looking to do dependency resolution of jQuery versions."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:45
+msgid "Usage"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:47
+msgid ""
+"The primary users of this package are **theme and extension developers** and "
+"**documentation project owners**."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:53
+msgid "Theme and extension developers"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:55
+msgid "The following 2 steps need to be completed:"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:57
+msgid ""
+"A Sphinx theme or extension should depend on the python package "
+"``sphinxcontrib-jquery``."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:58
+msgid ""
+"In your extension's or theme's ``setup(app)``, call ``app."
+"setup_extension(\"sphinxcontrib.jquery\")``."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:60
+msgid ""
+"In addition to this, we recommend extension and theme developers to log to "
+"the browser's ``console.error`` in case jQuery isn't found. The log message "
+"could for instance say::"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:62
+msgid ""
+"if (typeof $ == \"undefined\") console.error(\"<package-name> depends on "
+"sphinxcontrib-jquery. Please ensure that <package-name>.setup(app) is called "
+"or add 'sphinxcontrib-jquery' to your conf.py extensions setting.\")"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:66
+msgid "Documentation project owners"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:68
+msgid ""
+"If you are depending on a theme or extension that did not itself address the "
+"removal of jQuery from Sphinx 6, you can patch up your project like this:"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:70
+msgid "Add ``sphinxcontrib-jquery`` to your installed dependencies."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:71
+msgid ""
+"Add ``sphinxcontrib.jquery`` to your ``extensions`` setting in ``conf.py``."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:75
+msgid "Calling ``app.setup_extension(\"sphinxcontrib.jquery\")``"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:77
+msgid ""
+"When a Sphinx theme or extension calls `setup_extension() <https://www."
+"sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx."
+"setup_extension>`_, a call to ``sphinxcontrib.jquery.setup(app)`` will "
+"happen. Adding ``sphinxcontrib.jquery`` to a documentation project's ``conf."
+"extensions`` will also call ``sphinxcontrib.jquery.setup(app)`` (at most "
+"once)."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:79
+msgid ""
+"In ``sphinxcontrib.jquery.setup(app)``, jQuery is added. The default "
+"behaviour is to detect the Sphinx version and include jQuery via `app."
+"add_js_file <https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx."
+"application.Sphinx.add_js_file>`__ when Sphinx is from version 6 and up. "
+"jQuery is added at most once."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:83
+msgid "Config value: ``jquery_force_enable``"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:85
+msgid ""
+"When setting ``jquery_force_enable=True``, jQuery is added no matter the "
+"Sphinx version, but at most once. This is useful if you want to handle "
+"alternative conditions for adding jQuery."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:89
+msgid ""
+"If you set ``jquery_force_enable=True``, you most likely should also add "
+"``Sphinx>=6`` to your theme's/extension's dependencies since versions before "
+"this already bundles jQuery!"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:93
+msgid "jQuery version and inclusion"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:95
+msgid ""
+"jQuery should be shipped together with the Python package and not be "
+"referenced from a CDN."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:97
+msgid ""
+"Sphinx has kept relatively up to date with jQuery, and this package intends "
+"to follow. The most recently bundled jQuery version was v3.5.1 and only two "
+"releases have happened since: 3.6.0 and 3.6.1. The 3.6.0 release had a very "
+"small backwards incompatibility which illustrates how harmless these "
+"upgrades are for the general purpose Sphinx package."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:101
+msgid ""
+"Therefore, we propose to start the release of ``sphinxcontrib-jquery`` at "
+"3.5.1 (the currently shipped version) and subsequently release 3.6.1 in an "
+"update. This will give users that need 3.5.1 a choice of a lower version."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:103
+msgid ""
+"The bundled jQuery version will be NPM pre-minified and distributed together "
+"with the PyPI package."
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:105
+msgid ""
+"The minified jQuery JS file is ultimately included by calling `app."
+"add_js_file <https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx."
+"application.Sphinx.add_js_file>`__, which is passed the following arguments:"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:107
+msgid ""
+"app.add_js_file(\n"
+"    get_jquery_url_path(),\n"
+"    loading_method=\"defer\",\n"
+"    priority=200,\n"
+"    integrity=\"sha256-{}\".format(get_jquery_sha256_checksum()),\n"
+")"
+msgstr ""
+
+#: ../../../design/sphinx-jquery.rst:117
+msgid ""
+"It's possible to include jQuery in other ways, but this ultimately doesn't "
+"require this extension and is therefore not supported."
+msgstr ""

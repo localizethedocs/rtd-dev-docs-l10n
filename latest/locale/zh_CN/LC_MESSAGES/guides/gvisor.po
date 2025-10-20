@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../guides/gvisor.rst:2
+msgid "gVisor installation"
+msgstr ""
+
+#: ../../../guides/gvisor.rst:4
+msgid ""
+"You can mostly get by just following installation instructions in the "
+"`gVisor Docker Quick Start`_ guide."
+msgstr ""
+
+#: ../../../guides/gvisor.rst:7
+msgid ""
+"There are a few caveats to installation, which likely depend on your local "
+"environment. For ``systemd`` based OS, you do need to configure the Docker "
+"daemon to avoid systemd cgroups."
+msgstr ""
+
+#: ../../../guides/gvisor.rst:13
+msgid "Arch"
+msgstr ""
+
+#: ../../../guides/gvisor.rst:15
+msgid "Follow the installation and quick start directions like normal:"
+msgstr ""
+
+#: ../../../guides/gvisor.rst:17
+msgid ""
+"% yay -S gvisor-bin\n"
+"...\n"
+"% sudo runsc install"
+msgstr ""
+
+#: ../../../guides/gvisor.rst:23
+msgid ""
+"You do need to instruct Docker to avoid systemd cgroups. You will need to "
+"make further changes to ``/etc/docker/daemon.json`` and restart the Docker "
+"service:"
+msgstr ""
+
+#: ../../../guides/gvisor.rst:27
+msgid ""
+"{\n"
+"    \"runtimes\": {\n"
+"        \"runsc\": {\n"
+"            \"path\": \"/usr/bin/runsc\"\n"
+"        }\n"
+"    },\n"
+"    \"exec-opts\": [\"native.cgroupdriver=cgroupfs\"]\n"
+"}"
+msgstr ""
+
+#: ../../../guides/gvisor.rst:38
+msgid "Fedora"
+msgstr ""
+
+#: ../../../guides/gvisor.rst:40
+msgid ""
+"Install docker from their repositories, the one included in Fedora doesn't "
+"work, using their `convenience script`_ is an easy way to do it."
+msgstr ""
+
+#: ../../../guides/gvisor.rst:43
+msgid "`Install gvisor manually`_, the one included in Fedora doesn't work."
+msgstr ""
+
+#: ../../../guides/gvisor.rst:44
+msgid "Enable cgroups v1:"
+msgstr ""
+
+#: ../../../guides/gvisor.rst:46
+msgid ""
+"% sudo grubby --update-kernel=ALL --args=\"systemd."
+"unified_cgroup_hierarchy=0\""
+msgstr ""
+
+#: ../../../guides/gvisor.rst:53
+msgid ""
+"Docker is correctly configured when you can run this command from the quick "
+"start guide:"
+msgstr ""
+
+#: ../../../guides/gvisor.rst:56
+msgid ""
+"% docker run --rm -ti --runtime=runsc readthedocs/build dmesg\n"
+"[    0.000000] Starting gVisor...\n"
+"..."
+msgstr ""
+
+#: ../../../guides/gvisor.rst:65
+msgid "Testing gVisor"
+msgstr ""
+
+#: ../../../guides/gvisor.rst:67
+msgid ""
+"You can enable the gVisor feature flag on a project and you should see the "
+"container created with ``runtime=runsc`` now."
+msgstr ""

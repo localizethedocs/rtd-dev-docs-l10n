@@ -1,0 +1,479 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../search-integration.rst:2
+msgid "Server side search integration"
+msgstr ""
+
+#: ../../../search-integration.rst:4
+msgid ""
+"Read the Docs provides :doc:`server side search (SSS) <rtd:server-side-"
+"search/index>` in replace of the default search engine of your site. To "
+"accomplish this, Read the Docs parses the content directly from your HTML "
+"pages [*]_."
+msgstr ""
+
+#: ../../../search-integration.rst:8
+msgid ""
+"If you are the author of a theme or a static site generator you can read "
+"this document, and follow some conventions in order to improve the "
+"integration of SSS with your theme/site."
+msgstr ""
+
+#: ../../../search-integration.rst:12
+msgid "Indexing"
+msgstr ""
+
+#: ../../../search-integration.rst:14
+msgid ""
+"The content of the page is parsed into sections, in general, the indexing "
+"process happens in three steps:"
+msgstr ""
+
+#: ../../../search-integration.rst:17
+msgid "Identify the main content node."
+msgstr ""
+
+#: ../../../search-integration.rst:18
+msgid "Remove any irrelevant content from the main node."
+msgstr ""
+
+#: ../../../search-integration.rst:19
+msgid "Parse all sections inside the main node."
+msgstr ""
+
+#: ../../../search-integration.rst:21
+msgid ""
+"Read the Docs makes use of ARIA_ roles and other heuristics in order to "
+"process the content."
+msgstr ""
+
+#: ../../../search-integration.rst:25
+msgid ""
+"Following the ARIA_ conventions will also improve the accessibility of your "
+"site. See also https://webaim.org/techniques/semanticstructure/."
+msgstr ""
+
+#: ../../../search-integration.rst:31
+msgid "Main content node"
+msgstr ""
+
+#: ../../../search-integration.rst:33
+msgid ""
+"The main content should be inside a ``<main>`` tag or an element with "
+"``role=main``, and there should only be one per page. This node is the one "
+"that contains all the page content to be indexed. Example:"
+msgstr ""
+
+#: ../../../search-integration.rst:37
+msgid ""
+"<html>\n"
+"   <head>\n"
+"      ...\n"
+"   </head>\n"
+"   <body>\n"
+"      <div>\n"
+"         This content isn't processed\n"
+"      </div>\n"
+"\n"
+"      <div role=\"main\">\n"
+"         All content inside the main node is processed\n"
+"      </div>\n"
+"\n"
+"      <footer>\n"
+"         This content isn't processed\n"
+"      </footer>\n"
+"   </body>\n"
+"</html>"
+msgstr ""
+
+#: ../../../search-integration.rst:59
+msgid ""
+"If a main node isn't found, we try to infer the main node from the parent of "
+"the first section with a ``h1`` tag. Example:"
+msgstr ""
+
+#: ../../../search-integration.rst:63
+msgid ""
+"<html>\n"
+"   <head>\n"
+"      ...\n"
+"   </head>\n"
+"   <body>\n"
+"      <div>\n"
+"         This content isn't processed\n"
+"      </div>\n"
+"\n"
+"      <div id=\"parent\">\n"
+"         <h1>First title</h1>\n"
+"         <p>\n"
+"            The parent of the h1 title will\n"
+"            be taken as the main node,\n"
+"            this is the div tag.\n"
+"         </p>\n"
+"\n"
+"         <h2>Second title</h2>\n"
+"         <p>More content</p>\n"
+"      </div>\n"
+"   </body>\n"
+"</html>"
+msgstr ""
+
+#: ../../../search-integration.rst:89
+msgid ""
+"If a section title isn't found, we default to the ``body`` tag. Example:"
+msgstr ""
+
+#: ../../../search-integration.rst:92
+msgid ""
+"<html>\n"
+"   <head>\n"
+"      ...\n"
+"   </head>\n"
+"   <body>\n"
+"      <p>Content</p>\n"
+"   </body>\n"
+"</html>"
+msgstr ""
+
+#: ../../../search-integration.rst:105
+msgid "Irrelevant content"
+msgstr ""
+
+#: ../../../search-integration.rst:107
+msgid ""
+"If you have content inside the main node that isn't relevant to the page "
+"(like navigation items, menus, or search box), make sure to use the correct "
+"role or tag for it."
+msgstr ""
+
+#: ../../../search-integration.rst:111
+msgid "Roles to be ignored:"
+msgstr ""
+
+#: ../../../search-integration.rst:113
+msgid "``navigation``"
+msgstr ""
+
+#: ../../../search-integration.rst:114
+msgid "``search``"
+msgstr ""
+
+#: ../../../search-integration.rst:116
+msgid "Tags to be ignored:"
+msgstr ""
+
+#: ../../../search-integration.rst:118
+msgid "``nav``"
+msgstr ""
+
+#: ../../../search-integration.rst:120
+msgid ""
+"Special rules that are derived from specific documentation tools applied in "
+"the generic parser:"
+msgstr ""
+
+#: ../../../search-integration.rst:124
+msgid ""
+"``.linenos``, ``.lineno`` (line numbers in code-blocks, comes from both "
+"MkDocs and Sphinx)"
+msgstr ""
+
+#: ../../../search-integration.rst:125
+msgid "``.headerlink`` (added by Sphinx to links in headers)"
+msgstr ""
+
+#: ../../../search-integration.rst:126
+msgid ""
+"``.toctree-wrapper`` (added by Sphinx to the table of contents generated "
+"from the ``toctree`` directive)"
+msgstr ""
+
+#: ../../../search-integration.rst:128
+msgid "Example:"
+msgstr ""
+
+#: ../../../search-integration.rst:130
+msgid ""
+"<div role=\"main\">\n"
+"   ...\n"
+"   <nav role=\"navigation\">\n"
+"      ...\n"
+"   </nav>\n"
+"   ...\n"
+"</div>"
+msgstr ""
+
+#: ../../../search-integration.rst:142
+msgid "Sections"
+msgstr ""
+
+#: ../../../search-integration.rst:144
+msgid ""
+"Sections are stored in a dictionary composed of an ``id``, ``title`` and "
+"``content`` key."
+msgstr ""
+
+#: ../../../search-integration.rst:146
+msgid "Sections are defined as:"
+msgstr ""
+
+#: ../../../search-integration.rst:148
+msgid ""
+"``h1-h7``, all content between one heading level and the next header on the "
+"same level is used as content for that section."
+msgstr ""
+
+#: ../../../search-integration.rst:149
+msgid ""
+"``dt`` elements with an ``id`` attribute, we map the ``title`` to the ``dt`` "
+"element and the content to the ``dd`` element."
+msgstr ""
+
+#: ../../../search-integration.rst:151
+msgid ""
+"All sections have to be identified by a DOM container's ``id`` attribute, "
+"which will be used to link to the section. How the id is detected varies "
+"with the type of element:"
+msgstr ""
+
+#: ../../../search-integration.rst:155
+msgid ""
+"``h1-h7`` elements use the ``id`` attribute of the header itself if present, "
+"or its ``section`` parent (if exists)."
+msgstr ""
+
+#: ../../../search-integration.rst:157
+msgid "``dt`` elements use the ``id`` attribute of the ``dt`` element."
+msgstr ""
+
+#: ../../../search-integration.rst:159
+msgid ""
+"To avoid duplication and ambiguous section references, all indexed ``dl`` "
+"elements are removed from the DOM before indexing of other sections happen."
+msgstr ""
+
+#: ../../../search-integration.rst:162
+msgid ""
+"Here is an example of how all content below the title, until a new section "
+"is found, will be indexed as part of the section content:"
+msgstr ""
+
+#: ../../../search-integration.rst:166
+msgid ""
+"<div role=\"main\">\n"
+"   <h1 id=\"section-title\">\n"
+"      Section title\n"
+"   </h1>\n"
+"   <p>\n"
+"      Content to be indexed\n"
+"   </p>\n"
+"   <ul>\n"
+"      <li>This is also part of the section and will be indexed as well</li>\n"
+"   </ul>\n"
+"\n"
+"   <h2 id=\"2\">\n"
+"      This is the start of a new section\n"
+"   </h2>\n"
+"   <p>\n"
+"      ...\n"
+"   </p>\n"
+"\n"
+"   ...\n"
+"\n"
+"   <header>\n"
+"      <h1 id=\"3\">This is also a valid section title</h1>\n"
+"   </header>\n"
+"   <p>\n"
+"      This is the content of the third section.\n"
+"   </p>\n"
+"</div>"
+msgstr ""
+
+#: ../../../search-integration.rst:197
+msgid ""
+"Sections can be contained in up to two nested tags, and can contain other "
+"sections (nested sections). Note that the section content still needs to be "
+"below the section title. Example:"
+msgstr ""
+
+#: ../../../search-integration.rst:201
+msgid ""
+"<div role=\"main\">\n"
+"   <div class=\"section\">\n"
+"      <h1 id=\"section-title\">\n"
+"         Section title\n"
+"      </h1>\n"
+"      <p>\n"
+"         Content to be indexed\n"
+"      </p>\n"
+"      <ul>\n"
+"         <li>This is also part of the section</li>\n"
+"      </ul>\n"
+"\n"
+"      <div class=\"section\">\n"
+"         <div id=\"nested-section\">\n"
+"            <h2>\n"
+"               This is the start of a sub-section\n"
+"            </h2>\n"
+"            <p>\n"
+"               With the h tag within two levels\n"
+"            </p>\n"
+"         </div>\n"
+"      </div>\n"
+"   </div>\n"
+"</div>"
+msgstr ""
+
+#: ../../../search-integration.rst:231
+msgid ""
+"The title of the first section will be the title of the page, falling back "
+"to the ``title`` tag."
+msgstr ""
+
+#: ../../../search-integration.rst:235
+msgid "Other special nodes"
+msgstr ""
+
+#: ../../../search-integration.rst:237
+msgid ""
+"**Anchors**: If the title of your section contains an anchor, wrap it in a "
+"``headerlink`` class, so it won't be indexed as part of the title."
+msgstr ""
+
+#: ../../../search-integration.rst:240
+msgid ""
+"<h2>\n"
+"   Section title\n"
+"   <a class=\"headerlink\" title=\"Permalink to this headline\">¶</a>\n"
+"</h2>"
+msgstr ""
+
+#: ../../../search-integration.rst:248
+msgid ""
+"**Code blocks**: If a code block contains line numbers, wrap them in a "
+"``linenos`` or ``lineno`` class, so they won't be indexed as part of the "
+"code."
+msgstr ""
+
+#: ../../../search-integration.rst:252
+msgid ""
+"<table class=\"highlighttable\">\n"
+"   <tr>\n"
+"      <td class=\"linenos\">\n"
+"         <div class=\"linenodiv\">\n"
+"            <pre>1 2 3</pre>\n"
+"         </div>\n"
+"      </td>\n"
+"\n"
+"      <td class=\"code\">\n"
+"         <div class=\"highlight\">\n"
+"            <pre>First line\n"
+"Second line\n"
+"Third line</pre>\n"
+"         </div>\n"
+"      </td>\n"
+"   </tr>\n"
+"</table>"
+msgstr ""
+
+#: ../../../search-integration.rst:274
+msgid "Overriding the default search"
+msgstr ""
+
+#: ../../../search-integration.rst:276
+msgid ""
+"Static sites usually have their own static search index, and search results "
+"are retrieved via JavaScript. Read the Docs overrides the default search for "
+"Sphinx projects only, and provides a fallback to the original search in case "
+"of an error or no results."
+msgstr ""
+
+#: ../../../search-integration.rst:281
+msgid "Sphinx"
+msgstr ""
+
+#: ../../../search-integration.rst:283
+msgid ""
+"Sphinx's basic theme provides the `static/searchtools.js`_ file, which "
+"initializes search with the ``Search.init()`` method. Read the Docs "
+"overrides the ``Search.query`` method and makes use of ``Search.output."
+"append`` to add the results. A simplified example looks like this:"
+msgstr ""
+
+#: ../../../search-integration.rst:288
+msgid ""
+"var original_search = Search.query;\n"
+"\n"
+"function search_override(query) {\n"
+"   var results = fetch_resuls(query);\n"
+"   if (results) {\n"
+"      for (var i = 0; i < results.length; i += 1) {\n"
+"         var result = process_result(results[i]);\n"
+"         Search.output.append(result);\n"
+"      }\n"
+"   } else {\n"
+"      original_search(query);\n"
+"   }\n"
+"}\n"
+"\n"
+"Search.query = search_override;\n"
+"\n"
+"$(document).ready(function() {\n"
+"   Search.init();\n"
+"});"
+msgstr ""
+
+#: ../../../search-integration.rst:310
+msgid ""
+"Highlights from results will be in a ``span`` tag with the ``highlighted`` "
+"class (``This is a <span class=\"highlighted\">result</span>``). If your "
+"theme works with the search from the basic theme, it will work with Read the "
+"Docs' SSS."
+msgstr ""
+
+#: ../../../search-integration.rst:317
+msgid "Other static site generators"
+msgstr ""
+
+#: ../../../search-integration.rst:319
+msgid ""
+"All projects that have HTML pages that follow the conventions described in "
+"this document can make use of the server side search from the dashboard or "
+"by calling the API."
+msgstr ""
+
+#: ../../../search-integration.rst:323
+msgid "Supporting more themes and static site generators"
+msgstr ""
+
+#: ../../../search-integration.rst:325
+msgid ""
+"All themes that follow these conventions should work as expected. If you "
+"think other generators or other conventions should be supported, or content "
+"that should be ignored or have an especial treatment, or if you found an "
+"error with our indexing, let us know in `our issue tracker`_."
+msgstr ""
+
+#: ../../../search-integration.rst:333
+msgid ""
+"For Sphinx projects, the content of the main node is provided by an "
+"intermediate step in the build process, but the HTML components from the "
+"node are preserved."
+msgstr ""

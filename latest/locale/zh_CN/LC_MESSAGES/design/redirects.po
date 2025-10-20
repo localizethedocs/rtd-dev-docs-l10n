@@ -1,0 +1,747 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/redirects.rst:2
+msgid "Improving redirects"
+msgstr ""
+
+#: ../../../design/redirects.rst:4
+msgid ""
+"Redirects are a core feature of Read the Docs, they allow users to keep old "
+"URLs working when they rename or move a page."
+msgstr ""
+
+#: ../../../design/redirects.rst:7
+msgid ""
+"The current implementation lacks some features and has some undefined/"
+"undocumented behaviors."
+msgstr ""
+
+#: ../../../design/redirects.rst:14
+msgid "Goals"
+msgstr ""
+
+#: ../../../design/redirects.rst:16
+msgid "Improve the user experience when creating redirects."
+msgstr ""
+
+#: ../../../design/redirects.rst:17
+msgid "Improve the current implementation without big breaking changes."
+msgstr ""
+
+#: ../../../design/redirects.rst:20
+msgid "Non-goals"
+msgstr ""
+
+#: ../../../design/redirects.rst:22
+msgid ""
+"Replicate every feature of other services without having a clear use case "
+"for them."
+msgstr ""
+
+#: ../../../design/redirects.rst:24
+msgid ""
+"Improve the performance of redirects. This can be discussed in an issue or "
+"pull request. Performance should be considered when implementing new "
+"improvements."
+msgstr ""
+
+#: ../../../design/redirects.rst:27
+msgid "Allow importing redirects. We should push users to use our API instead."
+msgstr ""
+
+#: ../../../design/redirects.rst:29
+msgid ""
+"Allow specifying redirects in the RTD config file. We have had several "
+"discussions around this, but we haven't reached a consensus."
+msgstr ""
+
+#: ../../../design/redirects.rst:34
+msgid "Current implementation"
+msgstr ""
+
+#: ../../../design/redirects.rst:36
+msgid "We have five types of redirects:"
+msgstr ""
+
+#: ../../../design/redirects.rst:38
+msgid "Prefix redirect:"
+msgstr ""
+
+#: ../../../design/redirects.rst:39
+msgid ""
+"Allows to redirect all the URLs that start with a prefix to a new URL using "
+"the default version and language of the project. For example: a prefix "
+"redirect with the value ``/prefix/`` will redirect ``/prefix/foo/bar`` to ``/"
+"en/latest/foo/bar``."
+msgstr ""
+
+#: ../../../design/redirects.rst:44
+msgid ""
+"They are basically the same as an exact redirect with a wildcard at the end. "
+"They are a shortcut for a redirect like:"
+msgstr ""
+
+#: ../../../design/redirects.rst:47 ../../../design/redirects.rst:176
+#: ../../../design/redirects.rst:218 ../../../design/redirects.rst:223
+#: ../../../design/redirects.rst:243 ../../../design/redirects.rst:258
+#: ../../../design/redirects.rst:271 ../../../design/redirects.rst:276
+#: ../../../design/redirects.rst:284
+msgid "From:"
+msgstr ""
+
+#: ../../../design/redirects.rst:48
+msgid "``/prefix/$rest``"
+msgstr ""
+
+#: ../../../design/redirects.rst:49 ../../../design/redirects.rst:178
+#: ../../../design/redirects.rst:220 ../../../design/redirects.rst:225
+#: ../../../design/redirects.rst:245 ../../../design/redirects.rst:260
+#: ../../../design/redirects.rst:278 ../../../design/redirects.rst:286
+msgid "To:"
+msgstr ""
+
+#: ../../../design/redirects.rst:50
+msgid "``/en/latest/``"
+msgstr ""
+
+#: ../../../design/redirects.rst:52
+msgid ""
+"Or maybe we could use a prefix redirect to replace the exact redirect with a "
+"wildcard?"
+msgstr ""
+
+#: ../../../design/redirects.rst:54
+msgid "Page redirect:"
+msgstr ""
+
+#: ../../../design/redirects.rst:55
+msgid ""
+"Allows to redirect a single page to a new URL using the current version and "
+"language. For example: a page redirect with the value ``/old/page.html`` "
+"will redirect ``/en/latest/old/page.html`` to ``/en/latest/new/page.html``."
+msgstr ""
+
+#: ../../../design/redirects.rst:59
+msgid ""
+"Cross domain redirects are not allowed in page redirects. They apply to all "
+"versions, if you want it to apply only to a specific version you can use an "
+"exact redirect."
+msgstr ""
+
+#: ../../../design/redirects.rst:63
+msgid ""
+"A whole directory can't be redirected with a page redirect, an exact "
+"redirect with a wildcard at the end needs to be used instead."
+msgstr ""
+
+#: ../../../design/redirects.rst:66
+msgid ""
+"A page redirect on a single version project is the same as an exact redirect."
+msgstr ""
+
+#: ../../../design/redirects.rst:68
+msgid "Exact redirect:"
+msgstr ""
+
+#: ../../../design/redirects.rst:69
+msgid ""
+"Allows to redirect an exact URL to a new URL, it allows a wildcard at the "
+"end to redirect. For example: an exact redirect with the value ``/en/latest/"
+"page.html`` will redirect ``/en/latest/page.html`` to the new URL."
+msgstr ""
+
+#: ../../../design/redirects.rst:74
+msgid ""
+"If an exact redirect with the value ``/en/latest/dir/$rest`` is created, it "
+"will redirect all paths that start with ``/en/latest/dir/``, the rest of the "
+"path will be added to the new URL automatically."
+msgstr ""
+
+#: ../../../design/redirects.rst:78
+msgid "Cross domain redirects are allowed in exact redirects."
+msgstr ""
+
+#: ../../../design/redirects.rst:79
+msgid "They apply to all versions."
+msgstr ""
+
+#: ../../../design/redirects.rst:80
+msgid "A wildcard is allowed at the end of the URL."
+msgstr ""
+
+#: ../../../design/redirects.rst:81
+msgid ""
+"If a wildcard is used, the rest of the path will be added to the new URL "
+"automatically."
+msgstr ""
+
+#: ../../../design/redirects.rst:83
+msgid "Sphinx HTMLDir to HTML:"
+msgstr ""
+
+#: ../../../design/redirects.rst:84
+msgid ""
+"Allows to redirect clean-URLs to HTML URLs. Useful in case a project changed "
+"the style of their URLs."
+msgstr ""
+
+#: ../../../design/redirects.rst:87 ../../../design/redirects.rst:93
+msgid "They apply to all projects, not just Sphinx projects."
+msgstr ""
+
+#: ../../../design/redirects.rst:89
+msgid "Sphinx HTML to HTMLDir:"
+msgstr ""
+
+#: ../../../design/redirects.rst:90
+msgid ""
+"Allows to redirect HTML URLs to clean-URLs. Useful in case a project changed "
+"the style of their URLs."
+msgstr ""
+
+#: ../../../design/redirects.rst:96
+msgid "How other services implement redirects"
+msgstr ""
+
+#: ../../../design/redirects.rst:98
+msgid "Gitbook implementation is very basic, they only allow page redirects."
+msgstr ""
+
+#: ../../../design/redirects.rst:101
+msgid ""
+"https://docs.gitbook.com/integrations/git-sync/content-"
+"configuration#redirects"
+msgstr ""
+
+#: ../../../design/redirects.rst:103
+msgid ""
+"Cloudflare pages allow to capture placeholders and one wildcard (in any part "
+"of the URL). They also allow you to set the status code of the redirect, and "
+"redirects can be specific in a ``_redirects`` file."
+msgstr ""
+
+#: ../../../design/redirects.rst:107
+msgid "https://developers.cloudflare.com/pages/platform/redirects/"
+msgstr ""
+
+#: ../../../design/redirects.rst:109
+msgid ""
+"They have a limit of 2100 redirects. In case of multiple matches, the "
+"topmost redirect will be used."
+msgstr ""
+
+#: ../../../design/redirects.rst:112
+msgid ""
+"Netlify allows to capture placeholders and a wildcard (only allowed at the "
+"end). They also allow you to set the status code of the redirect, and "
+"redirects can be specific in a ``_redirects`` file."
+msgstr ""
+
+#: ../../../design/redirects.rst:116
+msgid "Forced redirects"
+msgstr ""
+
+#: ../../../design/redirects.rst:117
+msgid "Match query arguments"
+msgstr ""
+
+#: ../../../design/redirects.rst:118
+msgid "Match by country/language and cookies"
+msgstr ""
+
+#: ../../../design/redirects.rst:119
+msgid "Per-domain and protocol redirects"
+msgstr ""
+
+#: ../../../design/redirects.rst:120
+msgid "In case of multiple matches, the topmost redirect will be used."
+msgstr ""
+
+#: ../../../design/redirects.rst:121
+msgid "Rewrites, serve a different file without redirecting."
+msgstr ""
+
+#: ../../../design/redirects.rst:123
+msgid "https://docs.netlify.com/routing/redirects/"
+msgstr ""
+
+#: ../../../design/redirects.rst:125
+msgid ""
+"GitLab pages supports the same syntax as Netlify, and supports a subset of "
+"their features:"
+msgstr ""
+
+#: ../../../design/redirects.rst:128
+msgid "``_redirects`` config file"
+msgstr ""
+
+#: ../../../design/redirects.rst:129
+msgid "Status codes"
+msgstr ""
+
+#: ../../../design/redirects.rst:130
+msgid "Rewrites"
+msgstr ""
+
+#: ../../../design/redirects.rst:131
+msgid "Wildcards (splats)"
+msgstr ""
+
+#: ../../../design/redirects.rst:132
+msgid "Placeholders"
+msgstr ""
+
+#: ../../../design/redirects.rst:134
+msgid "https://docs.gitlab.com/ee/user/project/pages/redirects.html"
+msgstr ""
+
+#: ../../../design/redirects.rst:137
+msgid "Improvements"
+msgstr ""
+
+#: ../../../design/redirects.rst:140
+msgid "General improvements"
+msgstr ""
+
+#: ../../../design/redirects.rst:142
+msgid "The following improvements will be applied to all types of redirects."
+msgstr ""
+
+#: ../../../design/redirects.rst:144
+msgid ""
+"Allow choosing the status code of the redirect. We already have a field for "
+"this, but it's not exposed to users."
+msgstr ""
+
+#: ../../../design/redirects.rst:146
+msgid ""
+"Allow to explicitly define the order of redirects. This will be similar to "
+"the automation rules feature, where users can reorder the rules so the most "
+"specific ones are first. We currently rely on the implicit order of the "
+"redirects (updated_at)."
+msgstr ""
+
+#: ../../../design/redirects.rst:150
+msgid ""
+"Allow to disable redirects. It's useful when testing redirects, or when "
+"debugging a problem. Instead of having to re-create the redirect, we can "
+"just disable it and re-enable it later."
+msgstr ""
+
+#: ../../../design/redirects.rst:154
+msgid ""
+"Allow to add a short description. It's useful to document why the redirect "
+"was created."
+msgstr ""
+
+#: ../../../design/redirects.rst:158
+msgid "Don't run redirects on domains from pull request previews"
+msgstr ""
+
+#: ../../../design/redirects.rst:160
+msgid ""
+"We currently run redirects on domains from pull request previews, this is a "
+"problem when moving a whole project to a new domain."
+msgstr ""
+
+#: ../../../design/redirects.rst:163
+msgid ""
+"We don't the need to run redirects on external domains, they should be "
+"treated as temporary domains."
+msgstr ""
+
+#: ../../../design/redirects.rst:167
+msgid "Normalize paths with trailing slashes"
+msgstr ""
+
+#: ../../../design/redirects.rst:169
+msgid ""
+"Currently, if users want to redirect a path with a trailing slash and "
+"without it, they need to create two separate redirects (``/page/`` and ``/"
+"page``)."
+msgstr ""
+
+#: ../../../design/redirects.rst:172
+msgid ""
+"We can simplify this by normalizing the path before matching it, or before "
+"saving it."
+msgstr ""
+
+#: ../../../design/redirects.rst:174 ../../../design/redirects.rst:269
+msgid "For example:"
+msgstr ""
+
+#: ../../../design/redirects.rst:177
+msgid "``/page/``"
+msgstr ""
+
+#: ../../../design/redirects.rst:179
+msgid "``/new/page``"
+msgstr ""
+
+#: ../../../design/redirects.rst:181
+msgid ""
+"The from path will be normalized to ``/page``, and the filename to match "
+"will also be normalized before matching it. This is similar to what Netlify "
+"does: https://docs.netlify.com/routing/redirects/redirect-options/#trailing-"
+"slash."
+msgstr ""
+
+#: ../../../design/redirects.rst:186
+msgid ""
+"Page and exact redirects without a wildcard at the end will be normalized, "
+"all other redirects need to be matched as is."
+msgstr ""
+
+#: ../../../design/redirects.rst:189
+msgid "This makes it impossible to match a path with a trailing slash."
+msgstr ""
+
+#: ../../../design/redirects.rst:192
+msgid "Use ``*`` and ``:splat`` for wildcards"
+msgstr ""
+
+#: ../../../design/redirects.rst:194
+msgid ""
+"Currently we are using ``$rest`` at the end of the ``From URL`` to indicate "
+"that the rest of the path should be added to the target URL."
+msgstr ""
+
+#: ../../../design/redirects.rst:197
+msgid ""
+"A similar feature is implemented in other services using ``*`` and ``:"
+"splat``."
+msgstr ""
+
+#: ../../../design/redirects.rst:199
+msgid ""
+"Instead of using ``$rest`` in the URL for the suffix wildcard, we now will "
+"use ``*``, and ``:splat`` as a placeholder in the target URL to be more "
+"consistent with other services. Existing redirects can be migrated "
+"automatically."
+msgstr ""
+
+#: ../../../design/redirects.rst:204
+msgid "Explicit ``:splat`` placeholder"
+msgstr ""
+
+#: ../../../design/redirects.rst:206
+msgid ""
+"Explicitly place the ``:splat`` placeholder in the target URL, instead of "
+"adding it automatically."
+msgstr ""
+
+#: ../../../design/redirects.rst:209
+msgid ""
+"Some times users want to redirect to a different path, we have been adding a "
+"query parameter in the target URL to prevent the old path from being added "
+"in the final path. For example ``/new/path/?_=``."
+msgstr ""
+
+#: ../../../design/redirects.rst:214
+msgid ""
+"Instead of adding the path automatically, users have to add the ``:splat`` "
+"placeholder in the target URL. For example:"
+msgstr ""
+
+#: ../../../design/redirects.rst:219 ../../../design/redirects.rst:224
+#: ../../../design/redirects.rst:259
+msgid "``/old/path/*``"
+msgstr ""
+
+#: ../../../design/redirects.rst:221 ../../../design/redirects.rst:261
+msgid "``/new/path/:splat``"
+msgstr ""
+
+#: ../../../design/redirects.rst:226
+msgid "``/new/path/?page=:splat&foo=bar``"
+msgstr ""
+
+#: ../../../design/redirects.rst:229
+msgid "Improving page redirects"
+msgstr ""
+
+#: ../../../design/redirects.rst:231
+msgid ""
+"Allow to redirect to external domains. This can be useful to apply a "
+"redirect of a well known path in all versions to another domain."
+msgstr ""
+
+#: ../../../design/redirects.rst:235
+msgid ""
+"For example, ``/security/`` to a their security policy page in another "
+"domain."
+msgstr ""
+
+#: ../../../design/redirects.rst:237
+msgid ""
+"This new feature isn't strictly needed, but it will be useful to simplify "
+"the explanation of the feature (one less restriction to explain)."
+msgstr ""
+
+#: ../../../design/redirects.rst:241 ../../../design/redirects.rst:256
+msgid "Example:"
+msgstr ""
+
+#: ../../../design/redirects.rst:244
+msgid "``/security/``"
+msgstr ""
+
+#: ../../../design/redirects.rst:246
+msgid "``https://example.com/security/``"
+msgstr ""
+
+#: ../../../design/redirects.rst:248
+msgid ""
+"Allow a wildcard at the end of the from path. This will allow users to "
+"migrate a whole directory to a new path without having to create an exact "
+"redirect for each version."
+msgstr ""
+
+#: ../../../design/redirects.rst:252
+msgid ""
+"Similar to exact redirects, users need to add the ``:splat`` placeholder "
+"explicitly. This means that page redirects are the same as exact redirects, "
+"with the only difference that they apply to all versions."
+msgstr ""
+
+#: ../../../design/redirects.rst:264
+msgid "Merge prefix redirects with exact redirects"
+msgstr ""
+
+#: ../../../design/redirects.rst:266
+msgid ""
+"Prefix redirects are the same as exact redirects with a wildcard at the end. "
+"We will migrate all prefix redirects to exact redirects with a wildcard at "
+"the end."
+msgstr ""
+
+#: ../../../design/redirects.rst:272
+msgid "``/prefix/``"
+msgstr ""
+
+#: ../../../design/redirects.rst:274
+msgid "Will be migrated to:"
+msgstr ""
+
+#: ../../../design/redirects.rst:277 ../../../design/redirects.rst:285
+msgid "``/prefix/*``"
+msgstr ""
+
+#: ../../../design/redirects.rst:279
+msgid "``/en/latest/:splat``"
+msgstr ""
+
+#: ../../../design/redirects.rst:281
+msgid ""
+"Where ``/en/latest`` is the default version and language of the project. For "
+"single version projects, the redirect will be:"
+msgstr ""
+
+#: ../../../design/redirects.rst:287
+msgid "``/:splat``"
+msgstr ""
+
+#: ../../../design/redirects.rst:290
+msgid "Improving Sphinx redirects"
+msgstr ""
+
+#: ../../../design/redirects.rst:292
+msgid ""
+"These redirects are useful, but we should rename them to something more "
+"general, since they apply to all types of projects, not just Sphinx projects."
+msgstr ""
+
+#: ../../../design/redirects.rst:295
+msgid "Proposed names:"
+msgstr ""
+
+#: ../../../design/redirects.rst:297
+msgid "HTML URL to clean URL redirect (``file.html`` to ``file/``)"
+msgstr ""
+
+#: ../../../design/redirects.rst:298
+msgid "Clean URL to HTML URL redirect (``file/`` to ``file.html``)"
+msgstr ""
+
+#: ../../../design/redirects.rst:301
+msgid "Other ideas to improve redirects"
+msgstr ""
+
+#: ../../../design/redirects.rst:303
+msgid ""
+"The following improvements will not be implemented in the first iteration."
+msgstr ""
+
+#: ../../../design/redirects.rst:305
+msgid ""
+"Run forced redirects before built-in redirects. We currently run built-in "
+"redirects before forced redirects, this is a problem when moving a whole "
+"project to a new domain. For example, a forced redirect like ``/$rest``, "
+"won't work for the root URL of the project, since ``/`` will first redirect "
+"to ``/en/latest/``."
+msgstr ""
+
+#: ../../../design/redirects.rst:312
+msgid ""
+"But shouldn't be a real problem, since users will still need to handle the "
+"``/en/latest/file/`` paths."
+msgstr ""
+
+#: ../../../design/redirects.rst:315
+msgid ""
+"Run redirects on the edge. Cloudflare allow us to create redirects on the "
+"edge, but they have some limitations around the number of redirect rules "
+"that can be created."
+msgstr ""
+
+#: ../../../design/redirects.rst:320
+msgid ""
+"And they will be useful for forced exact redirects only, since we can't "
+"match a redirect based on the response of the origin server."
+msgstr ""
+
+#: ../../../design/redirects.rst:323
+msgid ""
+"Merge all redirects into a single type. This may simplify the "
+"implementation, but it will make it harder to explain the feature to users. "
+"And to replace some redirects we need to implement some new features."
+msgstr ""
+
+#: ../../../design/redirects.rst:328
+msgid ""
+"Placeholders. I haven't seen users requesting this feature. We can consider "
+"adding it in the future. Maybe we can expose the current language and "
+"version as placeholders."
+msgstr ""
+
+#: ../../../design/redirects.rst:333
+msgid "Per-protocol redirects. We should push users to always use HTTPS."
+msgstr ""
+
+#: ../../../design/redirects.rst:336
+msgid ""
+"Allow a prefix wildcard. We currently only allow a suffix wildcard, adding "
+"support for a prefix wildcard should be easy. But do users need this feature?"
+msgstr ""
+
+#: ../../../design/redirects.rst:341
+msgid ""
+"Per-domain redirects. The main problem that originated this request was that "
+"we were applying redirects on external domains, if we stop doing that, there "
+"is no need for this feature. We can also try to improve how our built-in "
+"redirects work (specially our canonical domain redirect)."
+msgstr ""
+
+#: ../../../design/redirects.rst:348
+msgid "Allow matching query arguments"
+msgstr ""
+
+#: ../../../design/redirects.rst:350
+msgid "We can do this in three ways:"
+msgstr ""
+
+#: ../../../design/redirects.rst:352
+msgid ""
+"At the DB level with some restrictions. If done at the DB level, we would "
+"need to have a different field with just the path, and other with the query "
+"arguments normalized and sorted."
+msgstr ""
+
+#: ../../../design/redirects.rst:357
+msgid ""
+"For example, if we have a redirect with the value ``/foo?"
+"blue=1&yellow=2&red=3``, if would be normalized in the DB as ``/foo`` and "
+"``blue=1&red=3&yellow=2``. This implies that the URL to be matched must have "
+"the exact same query arguments, it can't have more or less."
+msgstr ""
+
+#: ../../../design/redirects.rst:362
+msgid ""
+"I believe the implementation described here is the same being used by "
+"Netlify, since they have that same restriction."
+msgstr ""
+
+#: ../../../design/redirects.rst:365
+msgid ""
+"If the URL contains other parameters in addition to or instead of id, the "
+"request doesn't match that rule."
+msgstr ""
+
+#: ../../../design/redirects.rst:367
+msgid ""
+"https://docs.netlify.com/routing/redirects/redirect-options/#query-parameters"
+msgstr ""
+
+#: ../../../design/redirects.rst:369
+msgid ""
+"At the DB level using a JSONField. All query arguments will be saved "
+"normalized as a dictionary. When matching the URL, we will need to normalize "
+"the query arguments, and use some a combination of ``has_keys`` and "
+"``contained_by`` to match the exact number of query arguments."
+msgstr ""
+
+#: ../../../design/redirects.rst:374
+msgid ""
+"At the Python level. If done at the DB level, we would need to have a "
+"different field with just the path, and other with query arguments."
+msgstr ""
+
+#: ../../../design/redirects.rst:379
+msgid ""
+"The matching of the path would be done at the DB level, and the matching of "
+"the query arguments would be done at the Python level. Here we can be more "
+"flexible, allowing any query arguments in the matched URL."
+msgstr ""
+
+#: ../../../design/redirects.rst:383
+msgid ""
+"We had some performance problems in the past, but I believe it was mainly "
+"due to the use of regex instead of using string operations. And matching the "
+"path is still done at the DB level. We could limit the number of redirects "
+"that can be created with query arguments, or the number of redirects in "
+"general."
+msgstr ""
+
+#: ../../../design/redirects.rst:389
+msgid ""
+"We have had only one user requesting this feature, so this is not a priority."
+msgstr ""
+
+#: ../../../design/redirects.rst:393
+msgid "Migration"
+msgstr ""
+
+#: ../../../design/redirects.rst:395
+msgid ""
+"Most of the proposed improvements are backwards compatible, and just need a "
+"data migration to normalize existing redirects."
+msgstr ""
+
+#: ../../../design/redirects.rst:398
+msgid ""
+"For the exception of adding the ``$rest`` placeholder in the target URL "
+"explicitly, that needs users to re-learn how this feature works, i.e, they "
+"may be expecting to have the path added automatically in the target URL."
+msgstr ""
+
+#: ../../../design/redirects.rst:402
+msgid "We can create a small blog post explaining the changes."
+msgstr ""

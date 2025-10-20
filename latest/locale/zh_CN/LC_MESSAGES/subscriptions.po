@@ -1,0 +1,174 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../subscriptions.rst:2
+msgid "Subscriptions"
+msgstr ""
+
+#: ../../../subscriptions.rst:4
+msgid ""
+"Subscriptions are available on |com_brand|, we make use of Stripe to handle "
+"the payments and subscriptions. We use dj-stripe to handle the integration "
+"with Stripe."
+msgstr ""
+
+#: ../../../subscriptions.rst:9
+msgid "Local testing"
+msgstr ""
+
+#: ../../../subscriptions.rst:11
+msgid ""
+"To test subscriptions locally, you need to have access to the Stripe "
+"account, and define add the API key and webhook using the Django Admin."
+msgstr ""
+
+#: ../../../subscriptions.rst:14
+msgid "API key: https://dashboard.stripe.com/test/apikeys"
+msgstr ""
+
+#: ../../../subscriptions.rst:15
+msgid "Webhook: https://dashboard.stripe.com/test/webhooks"
+msgstr ""
+
+#: ../../../subscriptions.rst:17
+msgid ""
+"To test the webhook locally, follow `the official guide from djstripe "
+"<https://dj-stripe.dev/2.9/usage/local_webhook_testing/>`_"
+msgstr ""
+
+#: ../../../subscriptions.rst:19
+msgid ""
+"If this is your first time setting up subscriptions, you will to re-sync "
+"djstripe with Stripe:"
+msgstr ""
+
+#: ../../../subscriptions.rst:21
+msgid "inv docker.manage djstripe_sync_models"
+msgstr ""
+
+#: ../../../subscriptions.rst:25
+msgid ""
+"The subscription settings (``RTD_PRODUCTS``) already mapped to match the "
+"Stripe prices from the test mode. To subscribe to any plan, you can use any "
+"`test card from Stripe <https://stripe.com/docs/testing>`__, for example: "
+"``4242 4242 4242 4242`` (use any future date and any value for the other "
+"fields)."
+msgstr ""
+
+#: ../../../subscriptions.rst:30
+msgid "Modeling"
+msgstr ""
+
+#: ../../../subscriptions.rst:32
+msgid ""
+"Subscriptions are attached to an organization (customer), and can have "
+"multiple products attached to it. A product can have multiple prices, "
+"usually monthly and yearly."
+msgstr ""
+
+#: ../../../subscriptions.rst:36
+msgid ""
+"When a user subscribes to a plan (product), they are subscribing to a price "
+"of a product, for example, the monthly price of the \"Basic plan\" product."
+msgstr ""
+
+#: ../../../subscriptions.rst:39
+msgid ""
+"A subscription has a \"main\" product (``RTDProduct(extra=False)``), and can "
+"have several \"extra\" products (``RTDProduct(extra=True)``). For example, "
+"an organization can have a subscription with a \"Basic Plan\" product, and "
+"an \"Extra builder\" product."
+msgstr ""
+
+#: ../../../subscriptions.rst:43
+msgid ""
+"Each product is mapped to a set of features (``RTD_PRODUCTS``) that the user "
+"will have access to (different prices of the same product have the same "
+"features). If a subscription has multiple products, the features are "
+"multiplied by the quantity and added together. For example, if a "
+"subscription has a \"Basic Plan\" product with a two concurrent builders, "
+"and an \"Extra builder\" product with quantity three, the total number of "
+"concurrent builders the organization has will be five."
+msgstr ""
+
+#: ../../../subscriptions.rst:51
+msgid "Life cycle of a subscription"
+msgstr ""
+
+#: ../../../subscriptions.rst:53
+msgid ""
+"When a new organization is created, a stripe customer is created for that "
+"organization, and this customer is subscribed to the trial product "
+"(``RTD_ORG_DEFAULT_STRIPE_SUBSCRIPTION_PRICE``)."
+msgstr ""
+
+#: ../../../subscriptions.rst:56
+msgid ""
+"After the trial period is over, the subscription is canceled, and their "
+"organization is disabled."
+msgstr ""
+
+#: ../../../subscriptions.rst:59
+msgid ""
+"During or after the trial a user can upgrade their subscription to a paid "
+"plan (``RTDProduct(listed=True)``)."
+msgstr ""
+
+#: ../../../subscriptions.rst:63
+msgid "Custom products"
+msgstr ""
+
+#: ../../../subscriptions.rst:65
+msgid ""
+"We provide 3 paid plans that users can subscribe to: Basic, Advanced and "
+"Pro. Additionally, we provide an Enterprise plan, this plan is customized "
+"for each customer, and it's manually created by the RTD core team."
+msgstr ""
+
+#: ../../../subscriptions.rst:69
+msgid ""
+"To create a custom plan, you need to create a new product in Stripe, and add "
+"the product id to the ``RTD_PRODUCTS`` setting mapped to the features that "
+"the plan will provide. After that, you can create a subscription for the "
+"organization with the custom product, our application will automatically "
+"relate this new product to the organization."
+msgstr ""
+
+#: ../../../subscriptions.rst:75
+msgid "Extra products"
+msgstr ""
+
+#: ../../../subscriptions.rst:77
+msgid "We have one extra product: Extra builder."
+msgstr ""
+
+#: ../../../subscriptions.rst:79
+msgid ""
+"To create a new extra product, you need to create a new product in Stripe, "
+"and add the product id to the ``RTD_PRODUCTS`` setting mapped to the "
+"features that the extra product will provide, this product should have the "
+"``extra`` attribute set to ``True``."
+msgstr ""
+
+#: ../../../subscriptions.rst:83
+msgid ""
+"To subscribe an organization to an extra product, you just need to add the "
+"product to its subscription with the desired quantity, our application will "
+"automatically relate this new product to the organization."
+msgstr ""

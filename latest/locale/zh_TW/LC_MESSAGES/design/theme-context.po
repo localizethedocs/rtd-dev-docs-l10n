@@ -1,0 +1,208 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/theme-context.rst:2
+msgid "Read the Docs data passed to Sphinx build context"
+msgstr ""
+
+#: ../../../design/theme-context.rst:4
+msgid ""
+"Before calling `sphinx-build` to render your docs, Read the Docs injects "
+"some extra context in the templates by using the `html_context Sphinx "
+"setting`_ in the ``conf.py`` file. This extra context can be used to build "
+"some awesome features in your own theme."
+msgstr ""
+
+#: ../../../design/theme-context.rst:12
+msgid ""
+"This design document details future features that are **not yet "
+"implemented**. To discuss this document, please get in touch in the `issue "
+"tracker`_."
+msgstr ""
+
+#: ../../../design/theme-context.rst:19
+msgid ""
+"The `Read the Docs Sphinx Theme`_ uses this context to add additional "
+"features to the built documentation."
+msgstr ""
+
+#: ../../../design/theme-context.rst:24
+msgid "Context injected"
+msgstr ""
+
+#: ../../../design/theme-context.rst:26
+msgid ""
+"Here is the full list of values injected by Read the Docs as a Python "
+"dictionary. Note that this dictionary is injected under the main key "
+"`readthedocs`:"
+msgstr ""
+
+#: ../../../design/theme-context.rst:33
+msgid ""
+"{\n"
+"    \"readthedocs\": {\n"
+"        \"v1\": {\n"
+"            \"version\": {\n"
+"                \"id\": int,\n"
+"                \"slug\": str,\n"
+"                \"verbose_name\": str,\n"
+"                \"identifier\": str,\n"
+"                \"type\": str,\n"
+"                \"build_date\": str,\n"
+"                \"downloads\": {\"pdf\": str, \"htmlzip\": str, \"epub\": "
+"str},\n"
+"                \"links\": [\n"
+"                    {\n"
+"                        \"href\": \"https://app.readthedocs.org/api/v2/"
+"version/{id}/\",\n"
+"                        \"rel\": \"self\",\n"
+"                    }\n"
+"                ],\n"
+"            },\n"
+"            \"project\": {\n"
+"                \"id\": int,\n"
+"                \"name\": str,\n"
+"                \"slug\": str,\n"
+"                \"description\": str,\n"
+"                \"language\": str,\n"
+"                \"canonical_url\": str,\n"
+"                \"subprojects\": [\n"
+"                    {\n"
+"                        \"id\": int,\n"
+"                        \"name\": str,\n"
+"                        \"slug\": str,\n"
+"                        \"description\": str,\n"
+"                        \"language\": str,\n"
+"                        \"canonical_url\": str,\n"
+"                        \"links\": [\n"
+"                            {\n"
+"                                \"href\": \"https://app.readthedocs.org/api/"
+"v2/project/{id}/\",\n"
+"                                \"rel\": \"self\",\n"
+"                            }\n"
+"                        ],\n"
+"                    }\n"
+"                ],\n"
+"                \"links\": [\n"
+"                    {\n"
+"                        \"href\": \"https://app.readthedocs.org/api/v2/"
+"project/{id}/\",\n"
+"                        \"rel\": \"self\",\n"
+"                    }\n"
+"                ],\n"
+"            },\n"
+"            \"sphinx\": {\"html_theme\": str, \"source_suffix\": str},\n"
+"            \"analytics\": {\"user_analytics_code\": str, "
+"\"global_analytics_code\": str},\n"
+"            \"vcs\": {\n"
+"                \"type\": str,  # 'bitbucket', 'github', 'gitlab' or 'svn'\n"
+"                \"user\": str,\n"
+"                \"repo\": str,\n"
+"                \"commit\": str,\n"
+"                \"version\": str,\n"
+"                \"display\": bool,\n"
+"                \"conf_py_path\": str,\n"
+"            },\n"
+"            \"meta\": {\n"
+"                \"API_HOST\": str,\n"
+"                \"MEDIA_URL\": str,\n"
+"                \"PRODUCTION_DOMAIN\": str,\n"
+"                \"READTHEDOCS\": True,\n"
+"            },\n"
+"        }\n"
+"    }\n"
+"}"
+msgstr ""
+
+#: ../../../design/theme-context.rst:107
+msgid ""
+"Read the Docs passes information to `sphinx-build` that may change in the "
+"future (e.g. at the moment of building the version `0.6` this was the "
+"`latest` but then `0.7` and `0.8` were added to the project and also built "
+"under Read the Docs) so it's your responsibility to use this context in a "
+"proper way."
+msgstr ""
+
+#: ../../../design/theme-context.rst:112
+msgid ""
+"In case you want *fresh data* at the moment of reading your documentation, "
+"you should consider using the :doc:`Read the Docs Public API <rtd:api/"
+"index>` via Javascript."
+msgstr ""
+
+#: ../../../design/theme-context.rst:117
+msgid "Using Read the Docs context in your theme"
+msgstr ""
+
+#: ../../../design/theme-context.rst:119
+msgid ""
+"In case you want to access to this data from your theme, you can use it like "
+"this:"
+msgstr ""
+
+#: ../../../design/theme-context.rst:121
+msgid ""
+"{% if readthedocs.v1.vcs.type == 'github' %}\n"
+"    <a href=\"https://github.com/{{ readthedocs.v1.vcs.user }}/"
+"{{ readthedocs.v1.vcs.repo }}\n"
+"    /blob/{{ readthedocs.v1.vcs.version }}{{ readthedocs.v1.vcs."
+"conf_py_path }}{{ pagename }}.rst\">\n"
+"    Show on GitHub</a>\n"
+"{% endif %}"
+msgstr ""
+
+#: ../../../design/theme-context.rst:132
+msgid ""
+"In this example, we are using ``pagename`` which is a Sphinx variable "
+"representing the name of the page you are on. More information about Sphinx "
+"variables can be found in the `Sphinx documentation`_."
+msgstr ""
+
+#: ../../../design/theme-context.rst:141
+msgid "Customizing the context"
+msgstr ""
+
+#: ../../../design/theme-context.rst:143
+msgid ""
+"In case you want to add some extra context you will have to declare your own "
+"``html_context`` in your ``conf.py`` like this:"
+msgstr ""
+
+#: ../../../design/theme-context.rst:146
+msgid ""
+"html_context = {\n"
+"    \"author\": \"My Name\",\n"
+"    \"date\": datetime.date.today().strftime(\"%d/%m/%y\"),\n"
+"}"
+msgstr ""
+
+#: ../../../design/theme-context.rst:153
+msgid "and use it inside your theme as:"
+msgstr ""
+
+#: ../../../design/theme-context.rst:155
+msgid "<p>This documentation was written by {{ author }} on {{ date }}.</p>"
+msgstr ""
+
+#: ../../../design/theme-context.rst:162
+msgid ""
+"Take into account that the Read the Docs context is injected after your "
+"definition of ``html_context`` so, it's not possible to override Read the "
+"Docs context values."
+msgstr ""
