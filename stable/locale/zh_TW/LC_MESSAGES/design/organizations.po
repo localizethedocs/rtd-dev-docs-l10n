@@ -107,7 +107,7 @@ msgstr ""
 
 #: ../../../design/organizations.rst:46
 msgid "Subscriptions"
-msgstr ""
+msgstr "訂閱"
 
 #: ../../../design/organizations.rst:48
 msgid ""
@@ -207,7 +207,7 @@ msgstr ""
 
 #: ../../../design/organizations.rst:88
 msgid "Subscription"
-msgstr ""
+msgstr "訂閱"
 
 #: ../../../design/organizations.rst:90
 msgid ""

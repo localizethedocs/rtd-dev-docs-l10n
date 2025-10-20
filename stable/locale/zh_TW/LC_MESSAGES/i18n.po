@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../i18n.rst:2
 msgid "Internationalization"
-msgstr ""
+msgstr "國際化"
 
 #: ../../../i18n.rst:5
 msgid ""
@@ -175,7 +175,7 @@ msgstr ""
 
 #: ../../../i18n.rst:105
 msgid "ngettext('singular sentence', 'plural sentence', count)"
-msgstr ""
+msgstr "ngettext('singular sentence', 'plural sentence', count)"
 
 #: ../../../i18n.rst:107
 msgid "A more realistic example might be::"
@@ -217,7 +217,7 @@ msgstr ""
 
 #: ../../../i18n.rst:130
 msgid "<h1>{% trans \"Heading\" context \"section name\" %}</h1>"
-msgstr ""
+msgstr "<h1>{% trans \"Heading\" context \"section name\" %}</h1>"
 
 #: ../../../i18n.rst:132
 msgid ""
@@ -345,7 +345,7 @@ msgstr ""
 
 #: ../../../i18n.rst:208
 msgid "msg = pgettext('the context', 'Search')"
-msgstr ""
+msgstr "msg = pgettext('the context', 'Search')"
 
 #: ../../../i18n.rst:210
 msgid "Translator comments are normal one-line Python comments::"
@@ -446,7 +446,7 @@ msgstr ""
 
 #: ../../../i18n.rst:277
 msgid "python manage.py compilemessages -a"
-msgstr ""
+msgstr "python manage.py compilemessages -a"
 
 #: ../../../i18n.rst:278
 msgid ""
@@ -464,7 +464,7 @@ msgstr ""
 
 #: ../../../i18n.rst:288
 msgid "Transifex integration"
-msgstr ""
+msgstr "Transifex 整合"
 
 #: ../../../i18n.rst:290
 msgid ""
@@ -497,4 +497,4 @@ msgstr ""
 
 #: ../../../i18n.rst:315
 msgid "Pull the updated translations from Transifex:"
-msgstr ""
+msgstr "從 Transifex 拉取已更新的翻譯："

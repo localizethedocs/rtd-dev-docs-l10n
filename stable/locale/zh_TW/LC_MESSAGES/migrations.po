@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../migrations.rst:2
 msgid "Database migrations"
-msgstr ""
+msgstr "資料庫遷移"
 
 #: ../../../migrations.rst:4
 msgid ""

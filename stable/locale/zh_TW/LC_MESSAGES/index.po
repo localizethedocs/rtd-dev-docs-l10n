@@ -19,15 +19,15 @@ msgstr ""
 
 #: ../../../index.rst:7
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 #: ../../../index.rst:17
 msgid "Development"
-msgstr ""
+msgstr "開發"
 
 #: ../../../index.rst:2
 msgid "Read the Docs developer documentation"
-msgstr ""
+msgstr "Read the Docs 開發者文件"
 
 #: ../../../index.rst:4
 msgid ""

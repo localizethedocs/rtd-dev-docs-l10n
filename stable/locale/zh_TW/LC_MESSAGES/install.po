@@ -169,7 +169,7 @@ msgstr ""
 
 #: ../../../install.rst:107
 msgid "Visit http://devthedocs.org"
-msgstr ""
+msgstr "訪問 http://devthedocs.org"
 
 #: ../../../install.rst:109
 msgid ""
