@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../roadmap.rst:2
 msgid "Roadmap"
-msgstr ""
+msgstr "路線圖"
 
 #: ../../../roadmap.rst:5
 msgid "Process"

@@ -29,23 +29,23 @@ msgstr ""
 
 #: ../../../design/sphinx-jquery.rst:8
 msgid "https://github.com/sphinx-doc/sphinx/issues/7405"
-msgstr ""
+msgstr "https://github.com/sphinx-doc/sphinx/issues/7405"
 
 #: ../../../design/sphinx-jquery.rst:9
 msgid "https://github.com/sphinx-doc/sphinx/issues/10070"
-msgstr ""
+msgstr "https://github.com/sphinx-doc/sphinx/issues/10070"
 
 #: ../../../design/sphinx-jquery.rst:10
 msgid "https://github.com/readthedocs/sphinx-hoverxref/issues/160"
-msgstr ""
+msgstr "https://github.com/readthedocs/sphinx-hoverxref/issues/160"
 
 #: ../../../design/sphinx-jquery.rst:11
 msgid "https://github.com/readthedocs/sphinx_rtd_theme/issues/1253"
-msgstr ""
+msgstr "https://github.com/readthedocs/sphinx_rtd_theme/issues/1253"
 
 #: ../../../design/sphinx-jquery.rst:12
 msgid "https://github.com/pydata/pydata-sphinx-theme/issues/764"
-msgstr ""
+msgstr "https://github.com/pydata/pydata-sphinx-theme/issues/764"
 
 #: ../../../design/sphinx-jquery.rst:14
 msgid ""

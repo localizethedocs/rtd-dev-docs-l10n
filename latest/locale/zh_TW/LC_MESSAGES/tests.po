@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../tests.rst:2
 msgid "Testing"
-msgstr ""
+msgstr "測試"
 
 #: ../../../tests.rst:6
 msgid ""
@@ -163,6 +163,8 @@ msgid ""
 "DJANGO_SETTINGS_MODULE=custom.settings.file pytest -m mark\n"
 "DJANGO_SETTINGS_MODULE=another.settings.file pytest -m \"not mark\""
 msgstr ""
+"DJANGO_SETTINGS_MODULE=custom.settings.file pytest -m mark\n"
+"DJANGO_SETTINGS_MODULE=another.settings.file pytest -m \"not mark\""
 
 #: ../../../tests.rst:99
 msgid "Current marks are:"
@@ -182,7 +184,7 @@ msgstr ""
 
 #: ../../../tests.rst:107
 msgid "Continuous Integration"
-msgstr ""
+msgstr "持續整合"
 
 #: ../../../tests.rst:109
 msgid ""

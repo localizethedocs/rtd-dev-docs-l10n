@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../guides/gvisor.rst:2
 msgid "gVisor installation"
-msgstr ""
+msgstr "gVisor 安裝"
 
 #: ../../../guides/gvisor.rst:4
 msgid ""
@@ -91,6 +91,8 @@ msgid ""
 "% sudo grubby --update-kernel=ALL --args=\"systemd."
 "unified_cgroup_hierarchy=0\""
 msgstr ""
+"% sudo grubby --update-kernel=ALL --args=\"systemd."
+"unified_cgroup_hierarchy=0\""
 
 #: ../../../guides/gvisor.rst:53
 msgid ""
@@ -104,6 +106,9 @@ msgid ""
 "[    0.000000] Starting gVisor...\n"
 "..."
 msgstr ""
+"% docker run --rm -ti --runtime=runsc readthedocs/build dmesg\n"
+"[    0.000000] Starting gVisor...\n"
+"..."
 
 #: ../../../guides/gvisor.rst:65
 msgid "Testing gVisor"

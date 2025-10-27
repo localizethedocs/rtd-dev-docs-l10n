@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../issue-labels.rst:2
 msgid "Overview of issue labels"
-msgstr ""
+msgstr "議題標籤概覽"
 
 #: ../../../issue-labels.rst:4
 msgid ""

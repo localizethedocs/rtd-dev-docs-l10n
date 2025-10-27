@@ -464,15 +464,15 @@ msgstr ""
 #: ../../../design/redirects.rst:219 ../../../design/redirects.rst:224
 #: ../../../design/redirects.rst:259
 msgid "``/old/path/*``"
-msgstr ""
+msgstr "``/old/path/*``"
 
 #: ../../../design/redirects.rst:221 ../../../design/redirects.rst:261
 msgid "``/new/path/:splat``"
-msgstr ""
+msgstr "``/new/path/:splat``"
 
 #: ../../../design/redirects.rst:226
 msgid "``/new/path/?page=:splat&foo=bar``"
-msgstr ""
+msgstr "``/new/path/?page=:splat&foo=bar``"
 
 #: ../../../design/redirects.rst:229
 msgid "Improving page redirects"
@@ -498,15 +498,15 @@ msgstr ""
 
 #: ../../../design/redirects.rst:241 ../../../design/redirects.rst:256
 msgid "Example:"
-msgstr ""
+msgstr "範例："
 
 #: ../../../design/redirects.rst:244
 msgid "``/security/``"
-msgstr ""
+msgstr "``/security/``"
 
 #: ../../../design/redirects.rst:246
 msgid "``https://example.com/security/``"
-msgstr ""
+msgstr "``https://example.com/security/``"
 
 #: ../../../design/redirects.rst:248
 msgid ""

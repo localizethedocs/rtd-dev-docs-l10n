@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../subscriptions.rst:2
 msgid "Subscriptions"
-msgstr ""
+msgstr "訂閱"
 
 #: ../../../subscriptions.rst:4
 msgid ""

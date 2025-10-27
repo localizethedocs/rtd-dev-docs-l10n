@@ -282,7 +282,7 @@ msgstr ""
 
 #: ../../../style-guide.rst:118
 msgid "Cross-references"
-msgstr ""
+msgstr "交叉參照"
 
 #: ../../../style-guide.rst:120
 msgid ""
@@ -308,7 +308,7 @@ msgstr ""
 
 #: ../../../style-guide.rst:138
 msgid "Differentiating .org and .com"
-msgstr ""
+msgstr "區分 .org 和 .com"
 
 #: ../../../style-guide.rst:140
 msgid ""

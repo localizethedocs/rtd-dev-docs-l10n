@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../design.rst:2
 msgid "Designing Read the Docs"
-msgstr ""
+msgstr "設計 Read the Docs"
 
 #: ../../../design.rst:4
 msgid ""
@@ -53,7 +53,7 @@ msgstr ""
 
 #: ../../../design.rst:28
 msgid "Readthedocs.org changes"
-msgstr ""
+msgstr "Readthedocs.org 變更"
 
 #: ../../../design.rst:30
 msgid "Styles for the primary RTD site are located in ``media/css`` directory."

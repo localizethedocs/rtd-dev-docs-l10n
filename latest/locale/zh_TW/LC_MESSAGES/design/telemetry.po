@@ -30,7 +30,7 @@ msgstr ""
 
 #: ../../../design/telemetry.rst:13
 msgid "Tools"
-msgstr ""
+msgstr "工具"
 
 #: ../../../design/telemetry.rst:15
 msgid "Kibana:"

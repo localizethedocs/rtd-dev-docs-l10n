@@ -92,11 +92,11 @@ msgstr ""
 
 #: ../../../design/new-search-api.rst:42
 msgid "``project:docs/latest``"
-msgstr ""
+msgstr "``project:docs/latest``"
 
 #: ../../../design/new-search-api.rst:43
 msgid "``project:docs``"
-msgstr ""
+msgstr "``project:docs``"
 
 #: ../../../design/new-search-api.rst:45
 msgid "It can be one or more project parameters. At least one is required."
