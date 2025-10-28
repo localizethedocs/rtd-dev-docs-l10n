@@ -208,6 +208,12 @@ msgid ""
 "    \"context\": \"continuous-documentation/read-the-docs\"\n"
 "}"
 msgstr ""
+"{\n"
+"    \"state\": \"success\",\n"
+"    \"target_url\": \"<pr_build_url>\",\n"
+"    \"description\": \"The build succeeded!\",\n"
+"    \"context\": \"continuous-documentation/read-the-docs\"\n"
+"}"
 
 #: ../../../design/pr-builder.rst:105
 msgid "Storing pull request docs"

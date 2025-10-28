@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../../install.rst:2
 msgid "Development installation"
-msgstr ""
+msgstr "開發安裝"
 
 #: ../../../install.rst:7
 msgid ""

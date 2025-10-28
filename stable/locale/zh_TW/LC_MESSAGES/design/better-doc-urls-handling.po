@@ -659,7 +659,7 @@ msgstr ""
 
 #: ../../../design/better-doc-urls-handling.rst:323
 msgid "/projects/nothing/manual/index.html"
-msgstr ""
+msgstr "/projects/nothing/manual/index.html"
 
 #: ../../../design/better-doc-urls-handling.rst:337
 msgid "Project with custom prefix"
@@ -675,7 +675,7 @@ msgstr ""
 
 #: ../../../design/better-doc-urls-handling.rst:355
 msgid "/prefix/en/latest/manual/index.html"
-msgstr ""
+msgstr "/prefix/en/latest/manual/index.html"
 
 #: ../../../design/better-doc-urls-handling.rst:362
 #: ../../../design/better-doc-urls-handling.rst:395
@@ -702,11 +702,11 @@ msgstr ""
 
 #: ../../../design/better-doc-urls-handling.rst:396
 msgid "/subproject/en/latest/manual/index.html"
-msgstr ""
+msgstr "/subproject/en/latest/manual/index.html"
 
 #: ../../../design/better-doc-urls-handling.rst:400
 msgid "/nothing/en/latest/manual/index.html"
-msgstr ""
+msgstr "/nothing/en/latest/manual/index.html"
 
 #: ../../../design/better-doc-urls-handling.rst:403
 msgid "The subproject/file doesn't exist"
@@ -822,7 +822,7 @@ msgstr ""
 
 #: ../../../design/better-doc-urls-handling.rst:505
 msgid "Performance"
-msgstr ""
+msgstr "效能"
 
 #: ../../../design/better-doc-urls-handling.rst:507
 msgid ""

@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../front-end.rst:2
 msgid "Front-end development"
-msgstr ""
+msgstr "前端開發"
 
 #: ../../../front-end.rst:5
 msgid "Background"

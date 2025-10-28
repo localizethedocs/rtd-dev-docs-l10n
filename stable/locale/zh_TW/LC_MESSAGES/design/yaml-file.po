@@ -132,7 +132,7 @@ msgstr ""
 
 #: ../../../design/yaml-file.rst:48
 msgid "Integrations"
-msgstr ""
+msgstr "整合"
 
 #: ../../../design/yaml-file.rst:49
 msgid "Notifications"
