@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../settings.rst:2
 msgid "Interesting settings"
-msgstr ""
+msgstr "有趣的設定"
 
 #: ../../../settings.rst:5
 msgid "BUILD_MEMORY_LIMIT"

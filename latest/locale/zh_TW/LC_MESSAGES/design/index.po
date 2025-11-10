@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../design/index.rst:2
 msgid "Design documents"
-msgstr ""
+msgstr "設計文件"
 
 #: ../../../design/index.rst:4
 msgid ""
