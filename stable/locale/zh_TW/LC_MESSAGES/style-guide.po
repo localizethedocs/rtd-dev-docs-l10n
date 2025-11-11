@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../../style-guide.rst:2
 msgid "Documentation style guide"
-msgstr ""
+msgstr "文件風格指南"
 
 #: ../../../style-guide.rst:4
 msgid ""
