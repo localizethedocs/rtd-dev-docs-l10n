@@ -1,0 +1,113 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation stable\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../roadmap.rst:2
+msgid "Roadmap"
+msgstr ""
+
+#: ../../../roadmap.rst:5
+msgid "Process"
+msgstr ""
+
+#: ../../../roadmap.rst:7
+msgid ""
+"We publicly organize our product roadmap, on our `GitHub Roadmap`_. Here, "
+"you will find several views into our roadmap:"
+msgstr ""
+
+#: ../../../roadmap.rst:10
+msgid ""
+"`Current sprint <https://github.com/orgs/readthedocs/projects/156/views/1>`_"
+msgstr ""
+
+#: ../../../roadmap.rst:11
+msgid "Work that core team is currently responsible for."
+msgstr ""
+
+#: ../../../roadmap.rst:13
+msgid "`Backlog <https://github.com/orgs/readthedocs/projects/156/views/4>`_"
+msgstr ""
+
+#: ../../../roadmap.rst:14
+msgid ""
+"Work that we have planned for future sprints. Items with an assigned "
+"timeframe have generally been discussed already by the team. Items that do "
+"not yet have a timeframe assigned are not yet a priority of the core team."
+msgstr ""
+
+#: ../../../roadmap.rst:18
+msgid ""
+"The focus of the core team will be on roadmap and sprint items. These items "
+"are promoted from our backlog before each sprint begins."
+msgstr ""
+
+#: ../../../roadmap.rst:24
+msgid "Triaging issues for the Roadmap"
+msgstr ""
+
+#: ../../../roadmap.rst:26
+msgid ""
+"Issues are triaged before they are worked on, involving a number of steps "
+"that are covered in :doc:`/contribute`. Everyone can take part in helping to "
+"triage issues, read more in :ref:`contribute:Triaging issues`. Additionally, "
+"issues are considered for the Roadmap according to the following process:"
+msgstr ""
+
+#: ../../../roadmap.rst:31
+msgid ""
+"New issues coming in will be triaged, but won't yet be considered part of "
+"our roadmap."
+msgstr ""
+
+#: ../../../roadmap.rst:33
+msgid ""
+"If the issue is a valid bug, it will be assigned the ``Accepted`` label and "
+"will be prioritized, likely on an upcoming release."
+msgstr ""
+
+#: ../../../roadmap.rst:35
+msgid ""
+"If the issues are a feature or improvement, the issue might go through a "
+"design decision phase before being accepted and assigned to our roadmap. "
+"This is a good time to discuss how to address the problem technically. "
+"Skipping this phase might result in your PR being blocked, sent back to "
+"design decision, or perhaps even discarded. It's best to be active here "
+"before submitting a PR for a feature or improvement."
+msgstr ""
+
+#: ../../../roadmap.rst:41
+msgid ""
+"The core team will only work on accepted issues, and will give PR review "
+"priority to accepted roadmap/sprint issues. Pull requests addressing issues "
+"that are not on our roadmap are welcome, but we cannot guarantee review "
+"response, even for small or easy to review pull requests."
+msgstr ""
+
+#: ../../../roadmap.rst:47
+msgid "Where to contribute"
+msgstr ""
+
+#: ../../../roadmap.rst:49
+msgid ""
+"It's best to pick off issues from our roadmap, and specifically from `our "
+"backlog`_, to ensure your pull request gets attention. If you find an issue "
+"that is not currently on our roadmap, we suggest asking about the priority "
+"of the issue. In some cases, we might put the issue on our roadmap to give "
+"it priority."
+msgstr ""

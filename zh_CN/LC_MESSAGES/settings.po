@@ -1,0 +1,265 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation stable\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 06:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../settings.rst:2
+msgid "Interesting settings"
+msgstr ""
+
+#: ../../../settings.rst:5
+msgid "BUILD_MEMORY_LIMIT"
+msgstr ""
+
+#: ../../../settings.rst:7
+msgid ""
+"The maximum memory allocated to the virtual machine. If this limit is hit, "
+"build processes will be automatically killed. Examples: '200m' for 200MB of "
+"total memory, or '2g' for 2GB of total memory."
+msgstr ""
+
+#: ../../../settings.rst:12
+msgid "BUILD_TIME_LIMIT"
+msgstr ""
+
+#: ../../../settings.rst:14
+msgid ""
+"An integer representing the total allowed time limit (in seconds) of build "
+"processes. This time limit affects the parent process to the virtual machine "
+"and will force a virtual machine to die if a build is still running after "
+"the allotted time expires."
+msgstr ""
+
+#: ../../../settings.rst:19
+msgid "PRODUCTION_DOMAIN"
+msgstr ""
+
+#: ../../../settings.rst:21
+msgid ""
+"This is the domain that is used by the main application dashboard (not "
+"documentation pages)."
+msgstr ""
+
+#: ../../../settings.rst:24
+msgid "RTD_INTERSPHINX_URL"
+msgstr ""
+
+#: ../../../settings.rst:26
+msgid ""
+"This is the domain that is used to fetch the intersphinx inventory file. If "
+"not set explicitly this is the ``PRODUCTION_DOMAIN``."
+msgstr ""
+
+#: ../../../settings.rst:30
+msgid "DEFAULT_PRIVACY_LEVEL"
+msgstr ""
+
+#: ../../../settings.rst:32
+msgid ""
+"What privacy projects default to having. Generally set to `public`. Also "
+"acts as a proxy setting for blocking certain historically insecure options, "
+"like serving generated artifacts directly from the media server."
+msgstr ""
+
+#: ../../../settings.rst:35
+msgid "PUBLIC_DOMAIN"
+msgstr ""
+
+#: ../../../settings.rst:37
+msgid ""
+"A special domain for serving public documentation. If set, public docs will "
+"be linked here instead of the `PRODUCTION_DOMAIN`."
+msgstr ""
+
+#: ../../../settings.rst:42
+msgid "PUBLIC_DOMAIN_USES_HTTPS"
+msgstr ""
+
+#: ../../../settings.rst:44
+msgid ""
+"If ``True`` and ``PUBLIC_DOMAIN`` is set, that domain will default to "
+"serving public documentation over HTTPS. By default, documentation is served "
+"over HTTP."
+msgstr ""
+
+#: ../../../settings.rst:50
+msgid "ALLOW_ADMIN"
+msgstr ""
+
+#: ../../../settings.rst:52
+msgid "Whether to include `django.contrib.admin` in the URL's."
+msgstr ""
+
+#: ../../../settings.rst:56
+msgid "RTD_BUILD_MEDIA_STORAGE"
+msgstr ""
+
+#: ../../../settings.rst:58
+msgid ""
+"Use this storage class to upload build artifacts to cloud storage (S3, Azure "
+"storage). This should be a dotted path to the relevant class (eg. ``'path.to."
+"MyBuildMediaStorage'``). Your class should mixin :class:`readthedocs.builds."
+"storage.BuildMediaStorageMixin`."
+msgstr ""
+
+#: ../../../settings.rst:63
+msgid "RTD_FILETREEDIFF_ALL"
+msgstr ""
+
+#: ../../../settings.rst:65
+msgid "Set to ``True`` to enable the file tree diff feature for all projects."
+msgstr ""
+
+#: ../../../settings.rst:69
+msgid "ELASTICSEARCH_DSL"
+msgstr ""
+
+#: ../../../settings.rst:71 ../../../settings.rst:88
+msgid "Default:"
+msgstr ""
+
+#: ../../../settings.rst:73
+msgid ""
+"{\n"
+"   'default': {\n"
+"      'hosts': '127.0.0.1:9200'\n"
+"   },\n"
+"}"
+msgstr ""
+
+#: ../../../settings.rst:81
+msgid ""
+"Settings for elasticsearch connection. This settings then pass to "
+"`elasticsearch-dsl-py.connections.configure`_"
+msgstr ""
+
+#: ../../../settings.rst:86
+msgid "ES_INDEXES"
+msgstr ""
+
+#: ../../../settings.rst:90
+msgid ""
+"{\n"
+"     'project': {\n"
+"         'name': 'project_index',\n"
+"         'settings': {'number_of_shards': 5,\n"
+"                      'number_of_replicas': 0\n"
+"                      }\n"
+"     },\n"
+"     'page': {\n"
+"         'name': 'page_index',\n"
+"         'settings': {\n"
+"             'number_of_shards': 5,\n"
+"             'number_of_replicas': 0,\n"
+"         }\n"
+"     },\n"
+" }"
+msgstr ""
+
+#: ../../../settings.rst:108
+msgid ""
+"Define the elasticsearch name and settings of all the index separately. The "
+"key is the type of index, like ``project`` or ``page`` and the value is "
+"another dictionary containing ``name`` and ``settings``. Here the ``name`` "
+"is the index name and the ``settings`` is used for configuring the "
+"particular index."
+msgstr ""
+
+#: ../../../settings.rst:115
+msgid "ES_TASK_CHUNK_SIZE"
+msgstr ""
+
+#: ../../../settings.rst:117
+msgid ""
+"The maximum number of data send to each elasticsearch indexing celery task. "
+"This has been used while running ``elasticsearch_reindex`` management "
+"command."
+msgstr ""
+
+#: ../../../settings.rst:122
+msgid "ES_PAGE_IGNORE_SIGNALS"
+msgstr ""
+
+#: ../../../settings.rst:124
+msgid ""
+"This settings is used to determine whether to index each page separately "
+"into elasticsearch. If the setting is ``True``, each ``HTML`` page will not "
+"be indexed separately but will be indexed by bulk indexing."
+msgstr ""
+
+#: ../../../settings.rst:130
+msgid "ELASTICSEARCH_DSL_AUTOSYNC"
+msgstr ""
+
+#: ../../../settings.rst:132
+msgid ""
+"This setting is used for automatically indexing objects to elasticsearch."
+msgstr ""
+
+#: ../../../settings.rst:138
+msgid "Docker pass-through settings"
+msgstr ""
+
+#: ../../../settings.rst:140
+msgid ""
+"If you run a Docker environment, it is possible to pass some secrets through "
+"to the Docker containers from your host system. For security reasons, we do "
+"not commit these secrets to our repository. Instead, we individually define "
+"these settings for our local environments."
+msgstr ""
+
+#: ../../../settings.rst:145
+msgid "We recommend using `direnv`_ for storing local development secrets."
+msgstr ""
+
+#: ../../../settings.rst:150
+msgid "Allauth secrets"
+msgstr ""
+
+#: ../../../settings.rst:152
+msgid ""
+"It is possible to set the Allauth application secrets for our supported "
+"providers using the following environment variables:"
+msgstr ""
+
+#: ../../../settings.rst:167
+msgid "AWS configuration"
+msgstr ""
+
+#: ../../../settings.rst:169
+msgid ""
+"The following variables can be used to use AWS in your local environment. "
+"Useful for testing :doc:`temporary credentials </aws-temporary-credentials>`."
+msgstr ""
+
+#: ../../../settings.rst:183
+msgid "GitHub App"
+msgstr ""
+
+#: ../../../settings.rst:185
+msgid ""
+"You can use the following environment variables to set the settings used by "
+"the GitHub App:"
+msgstr ""
+
+#: ../../../settings.rst:193
+msgid "Ethical Ads variables"
+msgstr ""
+
+#: ../../../settings.rst:195
+msgid "The following variables are required to use ``ethicalads`` in dev:"
+msgstr ""
