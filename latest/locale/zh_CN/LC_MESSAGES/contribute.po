@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Read the Docs developer documentation latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 08:22+0000\n"
+"POT-Creation-Date: 2025-11-24 08:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,7 +275,7 @@ msgid ""
 msgstr ""
 
 #: ../../../contribute.rst:177
-msgid "*Refactor namedtuples to dataclasess*"
+msgid "*Refactor namedtuples to dataclasses*"
 msgstr ""
 
 #: ../../../contribute.rst:178
