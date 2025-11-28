@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Read the Docs developer documentation stable\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-20 06:24+0000\n"
+"POT-Creation-Date: 2025-11-25 08:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,7 +220,7 @@ msgstr ""
 #: ../../../design/new-notifications-system.rst:66
 msgid ""
 "Since the ``Build`` object could have more than 1 notification, when showing "
-"them, we will sort them by importane: errors, warnings, note, tip."
+"them, we will sort them by importance: errors, warnings, note, tip."
 msgstr ""
 
 #: ../../../design/new-notifications-system.rst:67
@@ -755,7 +755,7 @@ msgstr ""
 
 #: ../../../design/new-notifications-system.rst:455
 msgid ""
-"It's not strickly required, but if we want, we could extract the current "
+"It's not strictly required, but if we want, we could extract the current "
 "notification logic from:"
 msgstr ""
 
