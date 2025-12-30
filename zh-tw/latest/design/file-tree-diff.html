@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Version file tree diff" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/file-tree-diff.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Goals: Compare files from two versions to identify the files that have been added, removed, or modified., Provide an API for this feature., Integrate this feature to suggest redirects on files that were removed., Integrate this feature to list the files that changed in a pull request.. Non-goals:..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Goals: Compare files from two versions to identify the files that have been added, removed, or modified., Provide an API for this feature., Integrate this feature to suggest redirects on files that were removed., Integrate this feature to list the files that changed in a pull request.. Non-goals:..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Version file tree diff &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/file-tree-diff.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=0dc62304"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=cbf116e0"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="Flyout Redesign Design Document" href="flyout-redesign.html" />
+    <link rel="prev" title="Embed APIv3" href="embed-api.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">一般</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">行為守則</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">議題標籤概覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">路線圖</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">設計文件</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Version file tree diff</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#non-goals">Non-goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#current-problems">Current problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proposed-solution">Proposed solution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diff-between-two-versions">Diff between two versions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-a-manifest">Using a manifest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-rclone">Using rclone</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#changed-files">Changed files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hashing-the-main-content">Hashing the main content</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lines-changed-between-two-files">Lines changed between two files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#storing-results">Storing results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integrations">整合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-implementation">Initial implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#possible-issues">Possible issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#future-improvements-and-ideas">Future improvements and ideas</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">開發</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">開發安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">開發指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">設計 Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">文件風格指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">前端開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">國際化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">資料庫遷移</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">訂閱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">有趣的設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">測試</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">設計文件</a></li>
+      <li class="breadcrumb-item active">Version file tree diff</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/file-tree-diff.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="version-file-tree-diff">
+<h1>Version file tree diff<a class="headerlink" href="#version-file-tree-diff" title="連結到這個標頭"></a></h1>
+<section id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="連結到這個標頭"></a></h2>
+<ul class="simple">
+<li><p>Compare files from two versions to identify the files that have been added, removed, or modified.</p></li>
+<li><p>Provide an API for this feature.</p></li>
+<li><p>Integrate this feature to suggest redirects on files that were removed.</p></li>
+<li><p>Integrate this feature to list the files that changed in a pull request.</p></li>
+</ul>
+</section>
+<section id="non-goals">
+<h2>Non-goals<a class="headerlink" href="#non-goals" title="連結到這個標頭"></a></h2>
+<ul class="simple">
+<li><p>Replace the <a class="reference external" href="https://github.com/readthedocs/addons?tab=readme-ov-file#docdiff">docdiff</a> feature from addons.
+That works on the client side, and it's good for comparing the content of files.</p></li>
+</ul>
+</section>
+<section id="current-problems">
+<h2>Current problems<a class="headerlink" href="#current-problems" title="連結到這個標頭"></a></h2>
+<p>Currently, when a user opens a PRs, they need to manually search for the files of interest (new and modified files).
+We have a GitHub action that links to the root of the documentation preview, that helps a little, but it's not enough.</p>
+<p>When files are removed or renamed, users may not be aware that a redirect may be needed.
+We track 404s in our traffic analytics, but they don't keep track of the version,
+and it may be too late to add a redirect when users are already seeing a 404.</p>
+<p>In the past, we haven't implemented those features, because it's hard to map the source files to the generated files,
+since that depends on the build tool and configuration used by the project.</p>
+<p>Git providers may already offer a way to compare file trees, but again,
+they work on the source files, and not on the generated files.</p>
+<p>All hope was lost for having nice features like this, until now.</p>
+</section>
+<section id="proposed-solution">
+<h2>Proposed solution<a class="headerlink" href="#proposed-solution" title="連結到這個標頭"></a></h2>
+<p>Since redirects and files of interest are related to the generated files,
+instead of working over the source files, we will work over the generated files, which we have access to.</p>
+<p>The key points of this feature are:</p>
+<ul class="simple">
+<li><p>Get the diff of the file tree between two versions.</p></li>
+<li><p>Expose that as an API.</p></li>
+<li><p>Integrate that in PR previews.</p></li>
+</ul>
+</section>
+<section id="diff-between-two-versions">
+<h2>Diff between two versions<a class="headerlink" href="#diff-between-two-versions" title="連結到這個標頭"></a></h2>
+<section id="using-a-manifest">
+<h3>Using a manifest<a class="headerlink" href="#using-a-manifest" title="連結到這個標頭"></a></h3>
+<p>We can create a manifest that contains the hashes and other important metadata of the files,
+we can save this manifest in storage or in the DB.</p>
+<p>When a build finishes, we generate this manifest for all HTML files, and store it.
+When we need to compare two versions, we can just compare the manifests.</p>
+<p>This doesn't require downloading the files, but it requires building a version to generate the manifest.</p>
+<p>The manifest will be a JSON object with the following structure:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;index.html&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">           </span><span class="nt">&quot;hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1234567890&quot;</span>
+<span class="w">       </span><span class="p">},</span>
+<span class="w">       </span><span class="nt">&quot;path/to/file.html&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">           </span><span class="nt">&quot;hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1234567890&quot;</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="using-rclone">
+<h3>Using rclone<a class="headerlink" href="#using-rclone" title="連結到這個標頭"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>This solution won't be used in the final implementation, it's kept here for reference.</p>
+</div>
+<p>We are already using <code class="docutils literal notranslate"><span class="pre">rclone</span></code> to speed up uploads to S3,
+<code class="docutils literal notranslate"><span class="pre">rclone</span></code> has a command (<code class="docutils literal notranslate"><span class="pre">rclone</span> <span class="pre">check</span></code>) to return the diff between two directories.
+For this, it uses the metadata of the files, like size and hash
+(it doesn't download the files).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ls<span class="w"> </span>a
+<span class="go">changed.txt  new.txt  unchanged.txt</span>
+<span class="gp">$ </span>ls<span class="w"> </span>b
+<span class="go">changed.txt  deleted.txt  unchanged.txt</span>
+<span class="gp">$ </span>rclone<span class="w"> </span>check<span class="w"> </span>--combined<span class="o">=</span>-<span class="w"> </span>/usr/src/app/checkouts/readthedocs.org/a<span class="w"> </span>/usr/src/app/checkouts/readthedocs.org/b
+<span class="go">+ new.txt</span>
+<span class="go">- deleted.txt</span>
+<span class="go">= unchanged.txt</span>
+<span class="go">* changed.txt</span>
+</pre></div>
+</div>
+<p>The result is a list of files with a mark indicating if they were added, removed, or modified, or if they were unchanged.
+The result is easy to parse.
+There is no option to exclude the files that were unchanged when using <code class="docutils literal notranslate"><span class="pre">--combined</span></code>,
+another option can be to output each type of change to a different file (<code class="docutils literal notranslate"><span class="pre">--missing-on-dst</span></code>, <code class="docutils literal notranslate"><span class="pre">--missing-on-src</span></code>, <code class="docutils literal notranslate"><span class="pre">--differ</span></code>).</p>
+<p>To start, we will only consider HTML files (<code class="docutils literal notranslate"><span class="pre">--include=*.html</span></code>).</p>
+</section>
+</section>
+<section id="changed-files">
+<h2>Changed files<a class="headerlink" href="#changed-files" title="連結到這個標頭"></a></h2>
+<p>Listing the files that were added or deleted is straightforward,
+but when listing the files that were modified, we want to list files that had relevant changes only.</p>
+<p>For example, if the build injects some content that changes on every build (like a timestamp or commit),
+we don't want to list all files as modified.</p>
+<p>We have a couple of options to improve this list.</p>
+<section id="hashing-the-main-content">
+<h3>Hashing the main content<a class="headerlink" href="#hashing-the-main-content" title="連結到這個標頭"></a></h3>
+<p>Timestamps and other metadata is usually added in the footer of the files, outside the main content.
+Instead of hashing the whole file, we can hash only the main content of the file,
+and use that hash to compare the files.</p>
+<p>This will allow us to better detect files that were modified in a meaningful way.</p>
+<p>Since we don't need a secure hash, we can use MD5, since it's built-in in Python.</p>
+</section>
+<section id="lines-changed-between-two-files">
+<h3>Lines changed between two files<a class="headerlink" href="#lines-changed-between-two-files" title="連結到這個標頭"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>This solution won't be used in the final implementation, it's kept here for reference.</p>
+</div>
+<p>In order to provide more useful information, we can sort the files by some metrics,
+like the number of lines that changed.</p>
+<p>Once we have the list of files that changed, we can use a tool like <code class="docutils literal notranslate"><span class="pre">diff</span></code> to get the lines that changed.
+This is useful to link to the most relevant files that changed in a PR.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat<span class="w"> </span>a.txt
+<span class="go">One</span>
+<span class="go">Two</span>
+<span class="go">Three</span>
+<span class="go">Four</span>
+<span class="go">Five</span>
+<span class="gp">$ </span>cat<span class="w"> </span>b.txt
+<span class="go">Ore</span>
+<span class="go">Three</span>
+<span class="go">Four</span>
+<span class="go">Five</span>
+<span class="go">Six</span>
+<span class="gp">$ </span>diff<span class="w"> </span>--side-by-side<span class="w"> </span>--suppress-common-lines<span class="w"> </span>a.txt<span class="w"> </span>b.txt
+<span class="go">One                                                           | Ore</span>
+<span class="go">Two                                                           &lt;</span>
+<span class="go">                                                              &gt; Six</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>Taken from <a class="reference external" href="https://stackoverflow.com/questions/27236891/diff-command-to-get-number-of-different-lines-only">https://stackoverflow.com/questions/27236891/diff-command-to-get-number-of-different-lines-only</a>.</p>
+</div>
+<p>The command will return only the lines that changed between the two files.
+We can just count the lines, or maybe even parse each symbol to check if the line was added or removed.</p>
+<p>Another alternative is to use the <a class="reference external" href="https://docs.python.org/3/library/difflib.html">difflib</a> module,
+the only downside is that it doesn't distinguish lines that were changed from lines that were added or removed.
+But maybe that's ok? Do we really need to know if a line was changed instead of added or removed?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">difflib</span>
+
+<span class="n">diff</span> <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">ndiff</span><span class="p">([</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="s2">&quot;four&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;ore&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="s2">&quot;four&quot;</span><span class="p">,</span> <span class="s2">&quot;five&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">diff</span><span class="p">))</span>
+<span class="c1"># [&#39;+ ore&#39;, &#39;- one&#39;, &#39;- two&#39;, &#39;  three&#39;, &#39;  four&#39;, &#39;+ five&#39;]</span>
+</pre></div>
+</div>
+<p>A good thing of using Python is that we don't need to write the files to disk,
+and the result is easier to parse.</p>
+<section id="alternative-metrics">
+<h4>Alternative metrics<a class="headerlink" href="#alternative-metrics" title="連結到這個標頭"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>This solution won't be used in the final implementation, it's kept here for reference.</p>
+</div>
+<p>Checking the number of lines that changed is a good metric, but it requires downloading the files.
+Another metric we could use is the size of the files, that can be obtained from the metadata (no need of downloading the files),
+The most a file size has changed, the most lines have likely been added or removed,
+this still leaves lines that changed with the same amount of characters as irrelevant in the listing.</p>
+</section>
+</section>
+</section>
+<section id="storing-results">
+<h2>Storing results<a class="headerlink" href="#storing-results" title="連結到這個標頭"></a></h2>
+<p>Doing a diff between two versions can be expensive, so we need to store the results.</p>
+<p>We can store the results in the DB (<code class="docutils literal notranslate"><span class="pre">VersionDiff</span></code>).
+The information to store would contain some information about the versions compared, the builds, and the diff itself.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">VersionDiff</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">version_a</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">Version</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s2">&quot;diff_a&quot;</span>
+    <span class="p">)</span>
+    <span class="n">version_b</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">Version</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s2">&quot;diff_b&quot;</span>
+    <span class="p">)</span>
+    <span class="n">build_a</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Build</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s2">&quot;diff_a&quot;</span><span class="p">)</span>
+    <span class="n">build_b</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Build</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s2">&quot;diff_b&quot;</span><span class="p">)</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">JSONField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The diff will be a JSON object with the files that were added, removed, or modified.
+With an structure like this:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;added&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;new.txt&quot;</span><span class="p">}],</span>
+<span class="w">    </span><span class="nt">&quot;removed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deleted.txt&quot;</span><span class="p">}],</span>
+<span class="w">    </span><span class="nt">&quot;modified&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;changed.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;lines&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;added&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;removed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The information is stored in a similar way that it will be returned by the API.
+Things important to note:</p>
+<ul class="simple">
+<li><p>We need to take into consideration the diff of the latest successful builds only.
+If any of the builds from the stored diff don't match the latest successful build of any of the versions,
+we need to the diff again.</p></li>
+<li><p>Once we have the diff between versions <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code>, we can infer the diff between <code class="docutils literal notranslate"><span class="pre">B</span></code> and <code class="docutils literal notranslate"><span class="pre">A</span></code>.
+We can store that information as well, or just calculate it on the fly.</p></li>
+<li><p>The list of files are objects, so we can store additional information in the future.</p></li>
+<li><p>When a file has been modified, we also store the number of lines that changed.
+We could also show this for files that were added or removed.</p></li>
+<li><p>If a project or version is deleted (or deactivated), we should delete the diff as well.</p></li>
+<li><p>Using the DB to save this information will serve as the lock for the API,
+so we don't calculate the diff multiple times for the same versions.</p></li>
+</ul>
+<p>We could store the changed files sorted by the number of changes, or make that an option in the API,
+or just let the client sort the files as they see fit.</p>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="連結到這個標頭"></a></h2>
+<p>The initial diff operation can be expensive, so we may consider not exposing this feature to unauthenticated users.
+And a diff can only be done between versions of the same project that the user has access to.</p>
+<p>The endpoint will be:</p>
+<blockquote>
+<div><p>GET /api/v3/projects/{project_slug}/diff/?version_a={version_a}&amp;version_b={version_b}</p>
+</div></blockquote>
+<p>And the response will be:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;version_a&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}},</span>
+<span class="w">    </span><span class="nt">&quot;version_b&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">}},</span>
+<span class="w">    </span><span class="nt">&quot;diff&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;added&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;new.txt&quot;</span><span class="p">}],</span>
+<span class="w">        </span><span class="nt">&quot;removed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deleted.txt&quot;</span><span class="p">}],</span>
+<span class="w">        </span><span class="nt">&quot;modified&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;changed.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;lines&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;added&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;removed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The version and build can be the full objects, or just the IDs and slugs.</p>
+<p>We will generate a lock on this request, to avoid multiple calls to the API for the same versions.
+We can reply with a <code class="docutils literal notranslate"><span class="pre">202</span> <span class="pre">Accepted</span></code> if the diff is being calculated in another request.</p>
+</section>
+<section id="integrations">
+<h2>整合<a class="headerlink" href="#integrations" title="連結到這個標頭"></a></h2>
+<p>You may be thinking that once we have an API, it will be just a matter of calling that API from a GitHub action. Wrong!</p>
+<p>Doing the API call is easy, but knowing <em>when</em> to call it is hard.
+We need to call the API after the build has finished successfully,
+or we will be comparing the files of an incomplete or stale build.</p>
+<p>Luckily, we have a webhook that tells us when a build has finished successfully.
+But, we don't want users to have to implement the integration by themselves.</p>
+<p>We could:</p>
+<ul class="simple">
+<li><p>Use this as an opportunity to explore using GitHub Apps.</p></li>
+<li><p>Request additional permissions in our existing OAuth2 integration (<code class="docutils literal notranslate"><span class="pre">project</span></code> scope). Probably not a good idea.</p></li>
+<li><p>Expose this feature in the dashboard for now, and use our GitHub action to simply link to the dashboard.
+Maybe don't even expose the API to the public, just use it internally.</p></li>
+<li><p>Use a custom <a class="reference external" href="https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch">repository dispatch event</a>
+to trigger the action from our webhook. This requires the user to do some additional setup,
+and for our webhooks to support custom headers.</p></li>
+<li><p>Hit the API repeatedly from the GitHub action until the diff is ready.
+This is not ideal, some build may take a long time, and the action may time out.</p></li>
+<li><p>Expose this feature in the addons API only, which will hit the service when a user views the PR preview.</p></li>
+</ul>
+</section>
+<section id="initial-implementation">
+<h2>Initial implementation<a class="headerlink" href="#initial-implementation" title="連結到這個標頭"></a></h2>
+<p>For the initial implementation, we will:</p>
+<ul class="simple">
+<li><p>Generate a manifest of all HTML files from the versions that we want to compare.
+This will be done at the end of the build.</p></li>
+<li><p>Generate the hash based on the main content of the file,
+not the whole file.</p></li>
+<li><p>MD5 will be the hashing algorithm used.</p></li>
+<li><p>Only expose the files that were added, removed, or modified (HTML files only).
+The number of lines that changed won't be exposed.</p></li>
+<li><p>Don't store the results in the DB,
+we can store the results in a next iteration.</p></li>
+<li><p>Expose this feature only via the addons feature.</p></li>
+<li><p>Allow to diff an external version against the version that points to the default branch/tag of the project only.</p></li>
+<li><p>Use a feature flag to enable this feature on projects.</p></li>
+</ul>
+<p>Other features that are not mentioned here, like exposing the number of lines that changed,
+or a public API, will not be implemented in the initial version,
+and may be considered in the future (and their implementation is subject to change).</p>
+</section>
+<section id="possible-issues">
+<h2>Possible issues<a class="headerlink" href="#possible-issues" title="連結到這個標頭"></a></h2>
+<p>In the case that we use a manifest,
+hashing the contents of the files may add some overhead to the build.</p>
+<p>In the case that we use <code class="docutils literal notranslate"><span class="pre">rclone</span></code>,
+even if we don't download files from S3, we are still making calls to S3, and AWS charges for those calls.
+But since we are doing this on demand, and we can cache the results, we can minimize the costs
+(maybe is not that much).</p>
+<p><code class="docutils literal notranslate"><span class="pre">rclone</span> <span class="pre">check</span></code> returns only the list of files that changed,
+if we want to make additional checks over those files, we will need to make additional calls to S3.</p>
+<p>We should also just check a X number of files, we don't want to run a diff of thousands of files,
+and also a limit on the size of the files.</p>
+</section>
+<section id="future-improvements-and-ideas">
+<h2>Future improvements and ideas<a class="headerlink" href="#future-improvements-and-ideas" title="連結到這個標頭"></a></h2>
+<ul class="simple">
+<li><p>Detect moved files.
+This will imply checking the hashes of deleted and added files,
+if that same hash of a file that was deleted matches one from a file that was added,
+we have a move.
+In case we use rclone, since we don't have access to those hashes after rclone is run,
+we would need to re-fetch that metadata from S3.
+Could be a feature request for rclone.</p></li>
+<li><p>Detect changes in sections of HTML files.
+We could reuse the code we have for search indexing.</p></li>
+<li><p>Expand to other file types</p></li>
+<li><p>Allow doing a diff between versions of different projects</p></li>
+<li><p>Allow to configure how the main content of the file is detected
+(like a CSS selector).</p></li>
+<li><p>Allow to configure content that should be ignored when hashing the file
+(like a CSS selector).</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="embed-api.html" class="btn btn-neutral float-left" title="Embed APIv3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="flyout-redesign.html" class="btn btn-neutral float-right" title="Flyout Redesign Design Document" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
