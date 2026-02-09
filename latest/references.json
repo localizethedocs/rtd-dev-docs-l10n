@@ -37,9 +37,9 @@
     "branch" : "main",
     "commit" : 
     {
-      "date" : "2025-12-19 11:35:11 -0500",
-      "hash" : "84154861c236a7573e2ccd3121e815eb12878510",
-      "title" : "Search: Disable search indexing for inactive projects (#12666)"
+      "date" : "2026-02-05 15:26:33 -0500",
+      "hash" : "86f99d6783f3bacb24ac36eb0275a34dd0e70a11",
+      "title" : "Project: don't error when a project doesn't have a valid default version (#12754)"
     }
   },
   "type" : "branch",
