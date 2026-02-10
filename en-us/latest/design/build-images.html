@@ -1,0 +1,602 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Build images" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/build-images.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="This document describes how Read the Docs uses the Docker Images and how they are named. Besides, it proposes a path forward about a new way to create, name and use our Docker build images to reduce its complexity and support installation of other languages (e.g. nodejs, rust, go) as extra requir..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="This document describes how Read the Docs uses the Docker Images and how they are named. Besides, it proposes a path forward about a new way to create, name and use our Docker build images to reduce its complexity and support installation of other languages (e.g. nodejs, rust, go) as extra requir..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build images &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/build-images.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=cc8e41f0"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Embed APIv3" href="embed-api.html" />
+    <link rel="prev" title="Better handling of docs URLs" href="better-doc-urls-handling.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Build images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#non-goals">Non goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pre-built-build-image-structure">Pre-built build image structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-steps">Build steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#specifying-extra-languages-requirements">Specifying extra languages requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#time-required-to-install-languages-at-build-time">Time required to install languages at build time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cache-language-binaries-on-s3">Cache language binaries on S3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#questions">Questions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-python-versions-will-be-pre-compiled-and-cached">What Python versions will be pre-compiled and cached?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-do-we-upgrade-a-python-version">How do we upgrade a Python version?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-do-we-add-a-python-version">How do we add a Python version?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-do-we-remove-an-old-python-version">How do we remove an old Python version?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-do-we-upgrade-system-versions">How do we upgrade system versions?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-do-we-add-an-extra-requirement">How do we add an extra requirement?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-do-we-create-a-mirror-for-each-language">How do we create a mirror for each language?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-local-development-will-work-with-the-new-approach">How local development will work with the new approach?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecation-plan">Deprecation plan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#work-required-and-rollout-plan">Work required and rollout plan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">Build images</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/build-images.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="build-images">
+<h1>Build images<a class="headerlink" href="#build-images" title="Link to this heading"></a></h1>
+<p>This document describes how Read the Docs uses the <a class="reference external" href="https://github.com/readthedocs/readthedocs-docker-images">Docker Images</a> and how they are named.
+Besides, it proposes a path forward about a new way to create, name and use our Docker build images to reduce its complexity
+and support installation of other languages (e.g. nodejs, rust, go) as extra requirements.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>We use Docker images to build user’s documentation.
+Each time a build is triggered, one of our VMs picks the task
+and go through different steps:</p>
+<ol class="arabic simple">
+<li><p>run some application code to spin up a Docker image into a container</p></li>
+<li><p>execute <code class="docutils literal notranslate"><span class="pre">git</span></code> inside the container to clone the repository</p></li>
+<li><p>analyze and parse files (<code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code>) from the repository <em>outside</em> the container</p></li>
+<li><p>spin up a new Docker container based on the config file</p></li>
+<li><p>create the environment and install docs’ dependencies inside the container</p></li>
+<li><p>execute build commands inside the container</p></li>
+<li><p>push the output generated by build commands to the storage</p></li>
+</ol>
+<p><em>All</em> those steps depends on specific commands versions: <code class="docutils literal notranslate"><span class="pre">git</span></code>, <code class="docutils literal notranslate"><span class="pre">python</span></code>, <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>, <code class="docutils literal notranslate"><span class="pre">conda</span></code>, etc.
+Currently, we are pinning only a few of them in our Docker images and that have caused issues
+when re-deploying these images with bugfixes: <strong>the images are not reproducible over time</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have been improving the reproducibility of our images by adding some tests cases.
+These are run inside the Docker image after it’s built and check that it contains the versions we expect.</p>
+</div>
+<p>To allow users to pin the image we ended up exposing three images: <code class="docutils literal notranslate"><span class="pre">stable</span></code>, <code class="docutils literal notranslate"><span class="pre">latest</span></code> and <code class="docutils literal notranslate"><span class="pre">testing</span></code>.
+With that naming, we were able to bugfix issues and add more features
+on each image without asking the users to change the image selected in their config file.</p>
+<p>Then, when a completely different image appeared and after testing <code class="docutils literal notranslate"><span class="pre">testing</span></code> image enough,
+we discarded <code class="docutils literal notranslate"><span class="pre">stable</span></code>, old <code class="docutils literal notranslate"><span class="pre">latest</span></code> became the new <code class="docutils literal notranslate"><span class="pre">stable</span></code> and old <code class="docutils literal notranslate"><span class="pre">testing</span></code> became the new <code class="docutils literal notranslate"><span class="pre">latest</span></code>.
+This produced issues to people pinning their images to any of these names because after this change,
+<em>we changed all the images for all the users</em> and many build issues arose!</p>
+</section>
+<section id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>release completely new Docker images without forcing users to change their pinned image (<code class="docutils literal notranslate"><span class="pre">stable</span></code>, <code class="docutils literal notranslate"><span class="pre">latest</span></code>, <code class="docutils literal notranslate"><span class="pre">testing</span></code>)</p></li>
+<li><p>allow users to select language requirements instead of an image name</p></li>
+<li><p>use a <code class="docutils literal notranslate"><span class="pre">base</span></code> image with the dependencies that don’t change frequently (OS and base requirements)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">base</span></code> image naming is tied to the OS version (e.g. Ubuntu LTS)</p></li>
+<li><p>allow us to add/update a Python version without affecting the <code class="docutils literal notranslate"><span class="pre">base</span></code> image</p></li>
+<li><p>reduce size on builder VM disks by sharing Docker image layers</p></li>
+<li><p>allow users to specify extra languages (e.g. nodejs, rust, go)</p></li>
+<li><p>de-motivate the usage of <code class="docutils literal notranslate"><span class="pre">stable</span></code>, <code class="docutils literal notranslate"><span class="pre">latest</span></code> and <code class="docutils literal notranslate"><span class="pre">testing</span></code>; and promote declaring language requirements instead</p></li>
+<li><p>new images won’t contain old/deprecated OS (eg. Ubuntu 18) and Python versions (eg. 3.5, miniconda2)</p></li>
+<li><p>install language requirements <em>at built time</em> using <code class="docutils literal notranslate"><span class="pre">asdf</span></code> and its plugins</p></li>
+<li><p>create local mirrors for all languages supported</p></li>
+<li><p>deleting a pre-built image won’t make builds to fail; only make them slower</p></li>
+<li><p>support only the latest Ubuntu LTS version and keep the previous one as long as it’s officially supported</p></li>
+</ul>
+</section>
+<section id="non-goals">
+<h2>Non goals<a class="headerlink" href="#non-goals" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>allow creation/usage of custom Docker images</p></li>
+<li><p>allow to execute arbitrary commands via hooks (eg. <code class="docutils literal notranslate"><span class="pre">pre_build</span></code>)</p></li>
+<li><p>automatically build &amp; push <em>all</em> images on commit</p></li>
+<li><p>pre-built multiple images for all the languages combinations</p></li>
+</ul>
+</section>
+<section id="pre-built-build-image-structure">
+<h2>Pre-built build image structure<a class="headerlink" href="#pre-built-build-image-structure" title="Link to this heading"></a></h2>
+<p>The new pre-built images will depend only on the Ubuntu OS.
+They will contain all the requirements to add extra languages support at built time via <code class="docutils literal notranslate"><span class="pre">asdf</span></code> command.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ubuntu20-base</span></code></p>
+<ul>
+<li><p>labels</p></li>
+<li><p>environment variables</p></li>
+<li><p>system dependencies</p></li>
+<li><p>install requirements</p></li>
+<li><p>LaTeX dependencies (for PDF generation)</p></li>
+<li><p>languages version manager (<code class="docutils literal notranslate"><span class="pre">asdf</span></code>) and its plugins for each language</p></li>
+<li><p>UID and GID</p></li>
+</ul>
+</li>
+</ul>
+<p>Instead of building all the Docker image per language versions combination,
+it will be easier to install all of them at build time using the same steps.
+Installing a language only adds a few seconds when binaries are provided.
+However, to reduce the time to install these languages as much as possible,
+a local mirror hosted on S3 for each language will be created.</p>
+<p>It’s important to note that Python does not provide binaries and compiling a version takes around ~2 minutes.
+However, the Python versions could be pre-compiled and expose their binaries via S3 to builders.
+Then, at build time, the builder will only download the binary and copy it in the correct path.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depending on the demand, Read the Docs may pre-build the most common combinations of languages used by users.
+For example, <code class="docutils literal notranslate"><span class="pre">ubuntu20+python39+node14</span></code> or <code class="docutils literal notranslate"><span class="pre">ubuntu20+python39+node14+rust1</span></code>.
+However, this is seen as an optimization for the future and it’s not required for this document.</p>
+</div>
+</section>
+<section id="build-steps">
+<h2>Build steps<a class="headerlink" href="#build-steps" title="Link to this heading"></a></h2>
+<p>With this new approach, the steps followed by a builder will be:</p>
+<ol class="arabic simple">
+<li><p>run some application code to spin up the <code class="docutils literal notranslate"><span class="pre">-base</span></code> Docker image into a container</p></li>
+<li><p>execute <code class="docutils literal notranslate"><span class="pre">git</span></code> inside the container to clone the repository</p></li>
+<li><p>analyze and parse files (<code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code>) from the repository <em>outside</em> the container</p></li>
+<li><p>spin up a new Docker container <strong>based on the Ubuntu OS specified</strong> in the config file</p></li>
+<li><p><strong>install all language dependencies from the cache</strong></p></li>
+<li><p>create the environment and install docs’ dependencies inside the container</p></li>
+<li><p>execute build commands inside the container</p></li>
+<li><p>push the output generated by build commands to the storage</p></li>
+</ol>
+<p>The main difference with the current approach are:</p>
+<ul class="simple">
+<li><p>the image to spin up is selected depending on the OS version</p></li>
+<li><p>all language dependencies are installed at build time</p></li>
+<li><p>languages not offering binaries are pre-compiled by Read the Docs and stored in the cache</p></li>
+<li><p>miniconda/mambaforge are now managed with the same management tool (e.g. <code class="docutils literal notranslate"><span class="pre">asdf</span> <span class="pre">install</span> <span class="pre">python</span> <span class="pre">miniconda3-4.7.12</span></code>)</p></li>
+</ul>
+</section>
+<section id="specifying-extra-languages-requirements">
+<h2>Specifying extra languages requirements<a class="headerlink" href="#specifying-extra-languages-requirements" title="Link to this heading"></a></h2>
+<p>Different users may have different requirements.
+People with specific language dependencies will be able to install them by using <code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code> config file.
+Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">build</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">os</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu20</span>
+<span class="w">  </span><span class="nt">languages</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.9&quot;</span><span class="w">  </span><span class="c1"># supports &quot;pypy3&quot;, &quot;miniconda3&quot; and &quot;mambaforge&quot;</span>
+<span class="w">    </span><span class="nt">nodejs</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;14&quot;</span>
+<span class="w">    </span><span class="nt">rust</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.54&quot;</span>
+<span class="w">    </span><span class="nt">golang</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.17&quot;</span>
+</pre></div>
+</div>
+<p>Important highlights:</p>
+<ul class="simple">
+<li><p>do not treat Python language different from the others (will help us to support other non-Python doctools in the future)</p></li>
+<li><p>specifying <code class="docutils literal notranslate"><span class="pre">build.languages.python:</span> <span class="pre">&quot;3&quot;</span></code> will use Python version <code class="docutils literal notranslate"><span class="pre">3.x.y</span></code>, and may differ between builds</p></li>
+<li><p>specifying <code class="docutils literal notranslate"><span class="pre">build.languages.python:</span> <span class="pre">&quot;3.9&quot;</span></code> will use Python version <code class="docutils literal notranslate"><span class="pre">3.9.y</span></code>, and may differ between builds</p></li>
+<li><p>specifying <code class="docutils literal notranslate"><span class="pre">build.languages.nodejs:</span> <span class="pre">&quot;14&quot;</span></code> will use nodejs version <code class="docutils literal notranslate"><span class="pre">14.x.y</span></code>, and may differ between builds</p></li>
+<li><p>if no full version is declared, it will try first latest available on our cache, and then the latest on <code class="docutils literal notranslate"><span class="pre">asdf</span></code>
+(it has to match the first part of the version declared)</p></li>
+<li><p>specifying minor language versions is not allowed (e.g. <code class="docutils literal notranslate"><span class="pre">3.7.11</span></code>)</p></li>
+<li><p>not specifying <code class="docutils literal notranslate"><span class="pre">build.os</span></code> will make the config file parser to fail</p></li>
+<li><p>not specifying <code class="docutils literal notranslate"><span class="pre">build.languages</span></code> will make the config file parsing to fail (at least one is required)</p></li>
+<li><p>specifying only <code class="docutils literal notranslate"><span class="pre">build.languages.nodejs</span></code> and using Sphinx to build the docs, will make the build to fail (e.g. “Command not found”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build.image</span></code> is incompatible with <code class="docutils literal notranslate"><span class="pre">build.os</span></code> or <code class="docutils literal notranslate"><span class="pre">build.languages</span></code> and will produce an error</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python.version</span></code> is incompatible with <code class="docutils literal notranslate"><span class="pre">build.os</span></code> or <code class="docutils literal notranslate"><span class="pre">build.languages</span></code> and will produce an error</p></li>
+<li><p>Ubuntu 18 will still be available via <code class="docutils literal notranslate"><span class="pre">stable</span></code> and <code class="docutils literal notranslate"><span class="pre">latest</span></code> images, but not in new ones</p></li>
+<li><p>only a subset (not defined yet) of <code class="docutils literal notranslate"><span class="pre">python</span></code>, <code class="docutils literal notranslate"><span class="pre">nodejs</span></code>, <code class="docutils literal notranslate"><span class="pre">rust</span></code> and <code class="docutils literal notranslate"><span class="pre">go</span></code> versions on <code class="docutils literal notranslate"><span class="pre">asdf</span></code> are available to select</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We are moving away from users specifying a particular Docker image.
+With the new approach, users will specify the languages requirements they need,
+and Read the Docs will decide if it will use a pre-built image or will spin up the base one and install these languages on the fly.</p>
+<p>However, <code class="docutils literal notranslate"><span class="pre">build.image</span></code> will be still available for backward compatibility with <code class="docutils literal notranslate"><span class="pre">stable</span></code>, <code class="docutils literal notranslate"><span class="pre">latest</span></code> and <code class="docutils literal notranslate"><span class="pre">testing</span></code> but won’t support the new <code class="docutils literal notranslate"><span class="pre">build.languages</span></code> config.</p>
+</div>
+<p>Note that knowing exactly what packages users are installing,
+could allow us to pre-build the most common combinations used images: <code class="docutils literal notranslate"><span class="pre">ubuntu20+py39+node14</span></code>.</p>
+</section>
+<section id="time-required-to-install-languages-at-build-time">
+<h2>Time required to install languages at build time<a class="headerlink" href="#time-required-to-install-languages-at-build-time" title="Link to this heading"></a></h2>
+<p>Testings using <code class="docutils literal notranslate"><span class="pre">time</span></code> command in ASG instances to install extra languages took these “real” times:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">build-default</span></code></p>
+<ul>
+<li><p>python 3.9.6: 2m21.331s</p></li>
+<li><p>mambaforge 4.10.1: 0m26.291s</p></li>
+<li><p>miniconda3 4.7.12: 0m9.955s</p></li>
+<li><p>nodejs 14.17.5: 0m5.603s</p></li>
+<li><p>rust 1.54.0: 0m13.587s</p></li>
+<li><p>golang 1.17: 1m30.428s</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build-large</span></code></p>
+<ul>
+<li><p>python 3.9.6: 2m33.688s</p></li>
+<li><p>mambaforge 4.10.1: 0m28.781s</p></li>
+<li><p>miniconda3 4.7.12: 0m10.551s</p></li>
+<li><p>nodejs 14.17.5: 0m6.136s</p></li>
+<li><p>rust 1.54.0: 0m14.716s</p></li>
+<li><p>golang 1.17: 1m36.470s</p></li>
+</ul>
+</li>
+</ul>
+<p>Note that the only one that required compilation was Python.
+All the others, spent 100% of its time downloading the binary.
+These download times are <em>way better from EU</em> with a home internet connection.</p>
+<p>In the worst scenario: “none of the specified language version has a pre-built image”,
+the build will require ~5 minutes to install all the language requirements.
+By providing <em>only</em> pre-built images with the Python version (that’s the most time consuming),
+build times will only require ~2 minutes to install the others.
+However, requiring one version of each language is not a common case.</p>
+</section>
+<section id="cache-language-binaries-on-s3">
+<h2>Cache language binaries on S3<a class="headerlink" href="#cache-language-binaries-on-s3" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">asdf</span></code> scripts can be altered to download the <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> dist files from a different mirror than the official one.
+Read the Docs can make usage of this to create a mirror hosted locally on S3 to get faster download speeds.
+This will make a good improvement for languages that offer binaries: <code class="docutils literal notranslate"><span class="pre">nodejs</span></code>, <code class="docutils literal notranslate"><span class="pre">rust</span></code> and <code class="docutils literal notranslate"><span class="pre">go</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nodejs</span></code> uses <code class="docutils literal notranslate"><span class="pre">NODEJS_ORG_MIRROR</span></code>: <a class="reference external" href="https://github.com/asdf-vm/asdf-nodejs/blob/f9957f3f256ebbb3fdeebcaed5082ad305222be6/lib/utils.sh#L5">https://github.com/asdf-vm/asdf-nodejs/blob/f9957f3f256ebbb3fdeebcaed5082ad305222be6/lib/utils.sh#L5</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rust</span></code> uses <code class="docutils literal notranslate"><span class="pre">RUSTUP_UPDATE_ROOT</span></code>: <a class="reference external" href="https://github.com/rust-lang/rustup/blob/499e582bc8ba34fa7e84d5120001aae31151d3c8/rustup-init.sh#L23">https://github.com/rust-lang/rustup/blob/499e582bc8ba34fa7e84d5120001aae31151d3c8/rustup-init.sh#L23</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">go</span></code> has the URL hardcoded: <a class="reference external" href="https://github.com/kennyp/asdf-golang/blob/cc8bc47d4877beed61e10815d46669e1eaaa0bbe/bin/download#L54">https://github.com/kennyp/asdf-golang/blob/cc8bc47d4877beed61e10815d46669e1eaaa0bbe/bin/download#L54</a></p></li>
+</ul>
+<p>However, currently Python does not offer binaries and a different solution is needed.
+Python versions can be pre-compiled once and expose the output on the S3 for the builders to download and extract in the correct PATH.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Since we are building a special cache for pre-compiled Python versions,
+we could use the same method for all the other languages instead of creating a full mirror (many Gigabytes)
+This simple <a class="reference external" href="https://gist.github.com/humitos/191ee6990cbd951cf70318edbd13b922">bash script</a> download the language sources, compiles it and upload it to S3 without requiring a mirror.
+Note that it works in the same way for all the languages, not just for Python.</p>
+</div>
+</section>
+<section id="questions">
+<h2>Questions<a class="headerlink" href="#questions" title="Link to this heading"></a></h2>
+<section id="what-python-versions-will-be-pre-compiled-and-cached">
+<h3>What Python versions will be pre-compiled and cached?<a class="headerlink" href="#what-python-versions-will-be-pre-compiled-and-cached" title="Link to this heading"></a></h3>
+<p>At start only a small subset of Python version will be pre-compiled:</p>
+<ul class="simple">
+<li><p>2.7.x</p></li>
+<li><p>3.7.x</p></li>
+<li><p>3.8.x</p></li>
+<li><p>3.9.x</p></li>
+<li><p>3.10.x</p></li>
+<li><p>pypy3.x</p></li>
+</ul>
+</section>
+<section id="how-do-we-upgrade-a-python-version">
+<h3>How do we upgrade a Python version?<a class="headerlink" href="#how-do-we-upgrade-a-python-version" title="Link to this heading"></a></h3>
+<p>Python patch versions can be upgraded by re-compiling the new patch version and making it available in our cache.
+For example, if version 3.9.6 is the one available and 3.9.7 is released,
+<em>after updating our cache</em>:</p>
+<ul class="simple">
+<li><p>users specifying <code class="docutils literal notranslate"><span class="pre">build.languages.python:</span> <span class="pre">&quot;3.9&quot;</span></code> will get the 3.9.7 version</p></li>
+<li><p>users specifying <code class="docutils literal notranslate"><span class="pre">build.languages.python:</span> <span class="pre">&quot;3&quot;</span></code> will get the 3.9.7 version</p></li>
+</ul>
+<p>As we will have control over these version, we can decide <em>when</em> to upgrade (if ever required)
+and we can roll back if the new pre-compiled version was built with a problem.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Python versions may need to be re-compiled each time that the <code class="docutils literal notranslate"><span class="pre">-base</span></code> image is re-built.
+This is due that some underlying libraries that Python depend on may have changed.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Installing always the latest version is harder to maintain.
+It will require building the newest version each time a new patch version is released.
+Because of that, Read the Docs will always be behind official releases.
+Besides, it will give projects different versions more often.</p>
+<p>Exposing to the user the patch version would require to cache many different versions ourselves,
+and if the user selects one patched version that we don’t have cached by mistake,
+those builds will add extra build time.</p>
+</div>
+</section>
+<section id="how-do-we-add-a-python-version">
+<h3>How do we add a Python version?<a class="headerlink" href="#how-do-we-add-a-python-version" title="Link to this heading"></a></h3>
+<p>Adding a new Python version requires:</p>
+<ul class="simple">
+<li><p>pre-compile the desired version for each Ubuntu OS version supported</p></li>
+<li><p>upload the compressed output to S3</p></li>
+<li><p>add the supported version to the config file validator</p></li>
+</ul>
+</section>
+<section id="how-do-we-remove-an-old-python-version">
+<h3>How do we remove an old Python version?<a class="headerlink" href="#how-do-we-remove-an-old-python-version" title="Link to this heading"></a></h3>
+<p>At some point, an old version of Python will be deprecated (eg. 3.4) and will be removed.
+To achieve this, we can just remove the pre-compiled Python version from the cache.</p>
+<p>However, unless it’s strictly needed for some specific reason, we shouldn’t require to remove support for a Python version
+as long as we support the Ubuntu OS version where this version was compiled for.</p>
+<p>In any case, we will know which projects are using these versions because they are pinning these specific versions in the config file.
+We could show a message in the build output page and also send them an email with the EOL date for this image.</p>
+<p>However, removing pre-compiled Python version that it’s being currently used by some users won’t make their builds to fail.
+Instead, that Python version will be compiled and installed at build time;
+adding a “penalization” time to those projects and motivating them to move forward to a newer version.</p>
+</section>
+<section id="how-do-we-upgrade-system-versions">
+<h3>How do we upgrade system versions?<a class="headerlink" href="#how-do-we-upgrade-system-versions" title="Link to this heading"></a></h3>
+<p>We usually don’t upgrade these dependencies unless we upgrade the Ubuntu version.
+So, they will be only upgraded when we go from Ubuntu 18.04 LTS to Ubuntu 20.04 LTS for example.</p>
+<p>Examples of these versions are:</p>
+<ul class="simple">
+<li><p>doxygen</p></li>
+<li><p>git</p></li>
+<li><p>subversion</p></li>
+<li><p>pandoc</p></li>
+<li><p>swig</p></li>
+<li><p>latex</p></li>
+</ul>
+<p>This case will introduce a new <code class="docutils literal notranslate"><span class="pre">base</span></code> image. Example, <code class="docutils literal notranslate"><span class="pre">ubuntu22-base</span></code> in 2022.
+Note that these images will be completely isolated from the rest and don’t require them to rebuild.
+This also allow us to start testing a newer Ubuntu version (e.g. 22.04 LTS) without breaking people’s builds,
+even before it’s officially released.</p>
+</section>
+<section id="how-do-we-add-an-extra-requirement">
+<h3>How do we add an extra requirement?<a class="headerlink" href="#how-do-we-add-an-extra-requirement" title="Link to this heading"></a></h3>
+<p>In case we need to add an extra requirement to the <code class="docutils literal notranslate"><span class="pre">base</span></code> image,
+we will need to rebuild all of them.
+The new image <em>may have different package versions</em> since there may be updates on the Ubuntu repositories.
+This conveys some risk here, but in general we shouldn’t require to add packages to the base images.</p>
+<p>In case we need an extra requirement for <em>all our images</em>,
+I’d recommend to add it when creating a new base image.</p>
+<p>If it’s strongly needed and we can’t wait for a new base image,
+we could install it at build time in a similar way as we do with <code class="docutils literal notranslate"><span class="pre">build.apt_packages</span></code> as a temporal workaround.</p>
+</section>
+<section id="how-do-we-create-a-mirror-for-each-language">
+<h3>How do we create a mirror for each language?<a class="headerlink" href="#how-do-we-create-a-mirror-for-each-language" title="Link to this heading"></a></h3>
+<p>A mirror can be created with <code class="docutils literal notranslate"><span class="pre">wget</span></code> together with <code class="docutils literal notranslate"><span class="pre">rclone</span></code>:</p>
+<ol class="arabic">
+<li><p>Download all the files from the official mirror:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># https://stackoverflow.com/questions/29802579/create-private-mirror-of-http-nodejs-org-dist</span>
+wget<span class="w"> </span>--mirror<span class="w"> </span>--convert-links<span class="w"> </span>--adjust-extension<span class="w"> </span>--page-requisites<span class="w"> </span>--no-parent<span class="w"> </span>-e<span class="w"> </span><span class="nv">robots</span><span class="o">=</span>off<span class="w"> </span>http://nodejs.org/dist
+</pre></div>
+</div>
+</li>
+<li><p>Upload all the files to S3:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># https://rclone.org/s3/</span>
+rclone<span class="w"> </span>sync<span class="w"> </span>-i<span class="w"> </span>nodejs.org<span class="w"> </span>s3:languages
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Downloading a copy of the official mirror took 15m and 52Gb.</p>
+</div>
+</section>
+<section id="how-local-development-will-work-with-the-new-approach">
+<h3>How local development will work with the new approach?<a class="headerlink" href="#how-local-development-will-work-with-the-new-approach" title="Link to this heading"></a></h3>
+<p>Local development will require scripts to clone the official mirrors for each language and upload them to MinIO (S3).
+Besides, a script to define a set of Python version, pre-compile them and also upload them to S3.</p>
+<p>This is already covered by this simple <a class="reference external" href="https://gist.github.com/humitos/191ee6990cbd951cf70318edbd13b922">bash script</a> and tested in this PR with a POC:
+<a class="reference external" href="https://github.com/readthedocs/readthedocs.org/pull/8453">https://github.com/readthedocs/readthedocs.org/pull/8453</a></p>
+</section>
+</section>
+<section id="deprecation-plan">
+<h2>Deprecation plan<a class="headerlink" href="#deprecation-plan" title="Link to this heading"></a></h2>
+<p>After this design document gets implemented and tested,
+all our current images (<code class="docutils literal notranslate"><span class="pre">stable</span></code>, <code class="docutils literal notranslate"><span class="pre">latest</span></code>, <code class="docutils literal notranslate"><span class="pre">testing</span></code>) will be deprecated and their usage will be de-motivated.
+However, we could keep them on our builders to give users a good time to migrate their projects to the new ones.</p>
+<p>We may want to keep only the latest Ubuntu LTS release available in production,
+with a special consideration for our current Ubuntu 18.04 LTS on <code class="docutils literal notranslate"><span class="pre">stable</span></code>, <code class="docutils literal notranslate"><span class="pre">latest</span></code> and <code class="docutils literal notranslate"><span class="pre">testing</span></code> because 100% of the projects depend on them currently.
+Once Ubuntu 22.04 LTS is released, we should communicate that Ubuntu 20.04 LTS is deprecated,
+and keep it available in our servers during the time that’s officially supported by Ubuntu during the “Maintenance updates”
+(see “Login term support and interim releases” in <a class="reference external" href="https://ubuntu.com/about/release-cycle">https://ubuntu.com/about/release-cycle</a>).
+As an example, Ubuntu 22.04 LTS will be officially released on April 2022 and we will offer support for it until 2027.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Deleting <code class="docutils literal notranslate"><span class="pre">-base</span></code> images from the build servers <strong>will make project’s builds to fail</strong>.
+We want to keep supporting them as much as we can, but having a well-defined deprecation policy is a win.</p>
+</div>
+</section>
+<section id="work-required-and-rollout-plan">
+<h2>Work required and rollout plan<a class="headerlink" href="#work-required-and-rollout-plan" title="Link to this heading"></a></h2>
+<p>The following steps are required to support the full proposal of this document.</p>
+<ol class="arabic simple">
+<li><p>allow users to install extras languages requirements via config file</p>
+<ul class="simple">
+<li><p>update config file to support <code class="docutils literal notranslate"><span class="pre">build.os</span></code> and <code class="docutils literal notranslate"><span class="pre">build.languages</span></code> config</p></li>
+<li><p>modify builder code to run <code class="docutils literal notranslate"><span class="pre">asdf</span> <span class="pre">install</span></code> for all supported languages</p></li>
+</ul>
+</li>
+<li><p>build a new base Docker image with new structure (<code class="docutils literal notranslate"><span class="pre">ubuntu20-base</span></code>)</p>
+<ul class="simple">
+<li><p>build new image with Ubuntu 20.04 LTS and pre-installed <code class="docutils literal notranslate"><span class="pre">asdf</span></code> with all its plugins</p></li>
+<li><p>do not install any language version on base image</p></li>
+<li><p>deploy builders with new base image</p></li>
+</ul>
+</li>
+</ol>
+<p>At this point, we will have a full working setup.
+It will be opt-in by using the new configs <code class="docutils literal notranslate"><span class="pre">build.os</span></code> and <code class="docutils literal notranslate"><span class="pre">build.languages</span></code>.
+However, <em>all languages</em> will be installed at build time;
+which will “penalize” all projects because all of them will have to install Python.</p>
+<p>After testing this for some time, we can continue with the following steps that provides a cache to optimize installation times:</p>
+<ol class="arabic simple">
+<li><p>create mirrors on S3 for all supported languages</p></li>
+<li><p>create mirror for pre-compiled latest 3 Python versions, Python 2.7 and PyPy3</p></li>
+</ol>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>There is no need to differentiate the images by its state (stable, latest, testing)
+but by its main base differences: OS.
+The version of the OS will change many library versions,
+LaTeX dependencies, basic required commands like git and more,
+that doesn’t seem to be useful to have the same OS version with different states.</p>
+<p>Allowing users to install extra languages by using the Config File will cover most of the support requests we have had in the past.
+It also will allow us to know more about how our users are using the platform to make future decisions based on this data.
+Exposing users how we want them to use our platform will allow us to be able to maintain it longer,
+than giving the option to select a specific Docker image by name that we can’t guarantee it will be frozen.</p>
+<p>Finally, having the ability to deprecate and <em>remove</em> pre-built images from our builders over time,
+will reduce the maintenance work required from the core team.
+We can always support all the languages versions by installing them at build time.
+The only required pre-built image for this are the OS <code class="docutils literal notranslate"><span class="pre">-base</span></code> images.
+In fact, even after decided to deprecate and removed a pre-built image from the builders,
+we can re-build it if we find that it’s affecting many projects and slowing down their builds too much,
+causing us problems.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="better-doc-urls-handling.html" class="btn btn-neutral float-left" title="Better handling of docs URLs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="embed-api.html" class="btn btn-neutral float-right" title="Embed APIv3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

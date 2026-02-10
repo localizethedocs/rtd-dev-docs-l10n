@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Server side search" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="server-side-search.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Read the Docs uses Elasticsearch instead of the built in Sphinx search for providing better search results. Documents are indexed in the Elasticsearch index and the search is made through the API. All the Search Code is open source and lives in the GitHub Repository. Currently we are using Elasti..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Read the Docs uses Elasticsearch instead of the built in Sphinx search for providing better search results. Documents are indexed in the Elasticsearch index and the search is made through the API. All the Search Code is open source and lives in the GitHub Repository. Currently we are using Elasti..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Server side search &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/server-side-search.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a48b73ee"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Server side search integration" href="search-integration.html" />
+    <link rel="prev" title="Database migrations" href="migrations.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="ltd-provenance.js"></script>
+<script type="text/javascript" src="ltd-current.js"></script>
+<script type="text/javascript" src="../../ltd-config.js"></script>
+<script type="text/javascript" src="../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrations.html">Database migrations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Server side search</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#local-development-configuration">Local development configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#indexing-into-elasticsearch">Indexing into Elasticsearch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto-indexing">Auto indexing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#indexing">Indexing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-we-index-documentations">How we index documentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-we-index-projects">How we index projects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticsearch-document">Elasticsearch document</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Server side search</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/server-side-search.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="server-side-search">
+<h1>Server side search<a class="headerlink" href="#server-side-search" title="Link to this heading"></a></h1>
+<p>Read the Docs uses <a class="reference external" href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> instead of the built in Sphinx search for providing better search
+results. Documents are indexed in the Elasticsearch index and the search is made through the API.
+All the Search Code is open source and lives in the <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/tree/main/readthedocs/search">GitHub Repository</a>.
+Currently we are using <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.3/index.html">Elasticsearch 6.3</a>.</p>
+<section id="local-development-configuration">
+<h2>Local development configuration<a class="headerlink" href="#local-development-configuration" title="Link to this heading"></a></h2>
+<p>Elasticsearch is installed and run as part of the <a class="reference internal" href="install.html"><span class="doc">development installation guide</span></a>.</p>
+<section id="indexing-into-elasticsearch">
+<h3>Indexing into Elasticsearch<a class="headerlink" href="#indexing-into-elasticsearch" title="Link to this heading"></a></h3>
+<p>For using search, you need to index data to the Elasticsearch Index. Run <code class="docutils literal notranslate"><span class="pre">reindex_elasticsearch</span></code>
+management command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">inv<span class="w"> </span>docker.manage<span class="w"> </span>reindex_elasticsearch</span>
+</pre></div></div><p>For performance optimization, we implemented our own version of management command rather than
+the built in management command provided by the <a class="reference external" href="https://github.com/sabricot/django-elasticsearch-dsl">django-elasticsearch-dsl</a> package.</p>
+</section>
+<section id="auto-indexing">
+<h3>Auto indexing<a class="headerlink" href="#auto-indexing" title="Link to this heading"></a></h3>
+<p>By default, Auto Indexing is turned off in development mode. To turn it on, change the
+<code class="docutils literal notranslate"><span class="pre">ELASTICSEARCH_DSL_AUTOSYNC</span></code> settings to <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">readthedocs/settings/dev.py</span></code> file.
+After that, whenever a documentation successfully builds, or project gets added,
+the search index will update automatically.</p>
+</section>
+</section>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<p>The search architecture is divided into 2 parts.</p>
+<ul class="simple">
+<li><p>One part is responsible for <strong>indexing</strong> the documents and projects (<code class="docutils literal notranslate"><span class="pre">documents.py</span></code>)</p></li>
+<li><p>The other part is responsible for <strong>querying</strong> the Index to show the proper results to users (<code class="docutils literal notranslate"><span class="pre">faceted_search.py</span></code>)</p></li>
+</ul>
+<p>We use the <a class="reference external" href="https://github.com/sabricot/django-elasticsearch-dsl">django-elasticsearch-dsl</a> package for our Document abstraction.
+<a class="reference external" href="https://github.com/sabricot/django-elasticsearch-dsl">django-elasticsearch-dsl</a> is a wrapper around <a class="reference external" href="https://elasticsearch-dsl.readthedocs.io/en/latest/">elasticsearch-dsl</a> for easy configuration
+with Django.</p>
+<section id="indexing">
+<h3>Indexing<a class="headerlink" href="#indexing" title="Link to this heading"></a></h3>
+<p>All the Sphinx documents are indexed into Elasticsearch after the build is successful.
+Currently, we do not index MkDocs documents to elasticsearch, but
+<a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/1088">any kind of help is welcome</a>.</p>
+</section>
+<section id="troubleshooting">
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h3>
+<p>If you get an error like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RequestError</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="s1">&#39;search_phase_execution_exception&#39;</span><span class="p">,</span> <span class="s1">&#39;failed to create query: ...</span>
+</pre></div>
+</div>
+<p>You can fix this by deleting the page index and <a class="reference internal" href="#indexing-into-elasticsearch"><span class="std std-ref">re-indexing</span></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">inv<span class="w"> </span>docker.manage<span class="w"> </span><span class="s1">&#39;search_index --delete&#39;</span></span>
+<span class="prompt1">inv<span class="w"> </span>docker.manage<span class="w"> </span><span class="s1">&#39;reindex_elasticsearch --queue web&#39;</span></span>
+</pre></div></div><section id="how-we-index-documentations">
+<h4>How we index documentations<a class="headerlink" href="#how-we-index-documentations" title="Link to this heading"></a></h4>
+<p>After any build is successfully finished, <code class="xref py py-obj docutils literal notranslate"><span class="pre">HTMLFile</span></code> objects are created for each of the
+<code class="docutils literal notranslate"><span class="pre">HTML</span></code> files and the old version’s <code class="xref py py-obj docutils literal notranslate"><span class="pre">HTMLFile</span></code> object is deleted. By default,
+<a class="reference external" href="https://github.com/sabricot/django-elasticsearch-dsl">django-elasticsearch-dsl</a> package listens to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">post_create</span></code>/<code class="xref py py-obj docutils literal notranslate"><span class="pre">post_delete</span></code> signals
+to index/delete documents, but it has performance drawbacks as it send HTTP request whenever
+any <code class="xref py py-obj docutils literal notranslate"><span class="pre">HTMLFile</span></code> objects is created or deleted. To optimize the performance, <code class="xref py py-obj docutils literal notranslate"><span class="pre">bulk_post_create</span></code>
+and <code class="xref py py-obj docutils literal notranslate"><span class="pre">bulk_post_delete</span></code> <a class="reference external" href="https://docs.djangoproject.com/en/2.1/topics/signals/">signals</a> are dispatched with list of <code class="xref py py-obj docutils literal notranslate"><span class="pre">HTMLFIle</span></code> objects so its possible
+to bulk index documents in elasticsearch ( <code class="xref py py-obj docutils literal notranslate"><span class="pre">bulk_post_create</span></code> signal is dispatched for created
+and <code class="xref py py-obj docutils literal notranslate"><span class="pre">bulk_post_delete</span></code> is dispatched for deleted objects). Both of the signals are dispatched
+with the list of the instances of <code class="xref py py-obj docutils literal notranslate"><span class="pre">HTMLFile</span></code> in <code class="xref py py-obj docutils literal notranslate"><span class="pre">instance_list</span></code> parameter.</p>
+<p>We listen to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">bulk_post_create</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">bulk_post_delete</span></code> signals in our <code class="xref py py-obj docutils literal notranslate"><span class="pre">Search</span></code> application
+and index/delete the documentation content from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">HTMLFile</span></code> instances.</p>
+</section>
+<section id="how-we-index-projects">
+<h4>How we index projects<a class="headerlink" href="#how-we-index-projects" title="Link to this heading"></a></h4>
+<p>We also index project information in our search index so that the user can search for projects
+from the main site. We listen to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">post_create</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">post_delete</span></code> signals of
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">Project</span></code> model and index/delete into Elasticsearch accordingly.</p>
+</section>
+<section id="elasticsearch-document">
+<h4>Elasticsearch document<a class="headerlink" href="#elasticsearch-document" title="Link to this heading"></a></h4>
+<p><a class="reference external" href="https://elasticsearch-dsl.readthedocs.io/en/latest/">elasticsearch-dsl</a> provides a model-like wrapper for <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/guide/current/document.html">the Elasticsearch document</a>.
+As per requirements of <a class="reference external" href="https://github.com/sabricot/django-elasticsearch-dsl">django-elasticsearch-dsl</a>, it is stored in the
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">readthedocs/search/documents.py</span></code> file.</p>
+<blockquote>
+<div><p><strong>ProjectDocument:</strong> It is used for indexing projects. Signal listener of
+<a class="reference external" href="https://github.com/sabricot/django-elasticsearch-dsl">django-elasticsearch-dsl</a> listens to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">post_save</span></code> signal of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Project</span></code> model and
+then index/delete into Elasticsearch.</p>
+<p><strong>PageDocument</strong>: It is used for indexing documentation of projects.
+As mentioned above, our <code class="xref py py-obj docutils literal notranslate"><span class="pre">Search</span></code> app listens to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">bulk_post_create</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">bulk_post_delete</span></code>
+signals and indexes/deleted documentation into Elasticsearch. The signal listeners are in
+the <code class="xref py py-obj docutils literal notranslate"><span class="pre">readthedocs/search/signals.py</span></code> file. Both of the signals are dispatched
+after a successful documentation build.</p>
+<p>The fields and ES Datatypes are specified in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">PageDocument</span></code>. The indexable data is taken
+from <code class="xref py py-obj docutils literal notranslate"><span class="pre">processed_json</span></code> property of <code class="xref py py-obj docutils literal notranslate"><span class="pre">HTMLFile</span></code>. This property provides python dictionary with
+document data like <code class="xref py py-obj docutils literal notranslate"><span class="pre">title</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">sections</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code> etc.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="migrations.html" class="btn btn-neutral float-left" title="Database migrations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="search-integration.html" class="btn btn-neutral float-right" title="Server side search integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

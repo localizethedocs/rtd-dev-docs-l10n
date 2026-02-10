@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Interesting settings" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="settings.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="BUILD_MEMORY_LIMIT: The maximum memory allocated to the virtual machine. If this limit is hit, build processes will be automatically killed. Examples: ‘200m’ for 200MB of total memory, or ‘2g’ for 2GB of total memory. BUILD_TIME_LIMIT: An integer representing the total allowed time limit (in seco..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="BUILD_MEMORY_LIMIT: The maximum memory allocated to the virtual machine. If this limit is hit, build processes will be automatically killed. Examples: ‘200m’ for 200MB of total memory, or ‘2g’ for 2GB of total memory. BUILD_TIME_LIMIT: An integer representing the total allowed time limit (in seco..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interesting settings &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/settings.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a48b73ee"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Testing" href="tests.html" />
+    <link rel="prev" title="GitHub App" href="github-app.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="ltd-provenance.js"></script>
+<script type="text/javascript" src="ltd-current.js"></script>
+<script type="text/javascript" src="../../ltd-config.js"></script>
+<script type="text/javascript" src="../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github-app.html">GitHub App</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Interesting settings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#build-memory-limit">BUILD_MEMORY_LIMIT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-time-limit">BUILD_TIME_LIMIT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#production-domain">PRODUCTION_DOMAIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rtd-intersphinx-url">RTD_INTERSPHINX_URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-privacy-level">DEFAULT_PRIVACY_LEVEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-domain">PUBLIC_DOMAIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-domain-uses-https">PUBLIC_DOMAIN_USES_HTTPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#allow-admin">ALLOW_ADMIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rtd-build-media-storage">RTD_BUILD_MEDIA_STORAGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rtd-filetreediff-all">RTD_FILETREEDIFF_ALL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#elasticsearch-dsl">ELASTICSEARCH_DSL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#es-indexes">ES_INDEXES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#es-task-chunk-size">ES_TASK_CHUNK_SIZE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#es-page-ignore-signals">ES_PAGE_IGNORE_SIGNALS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#elasticsearch-dsl-autosync">ELASTICSEARCH_DSL_AUTOSYNC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-pass-through-settings">Docker pass-through settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#allauth-secrets">Allauth secrets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aws-configuration">AWS configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github-app">GitHub App</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ethical-ads-variables">Ethical Ads variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Interesting settings</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/settings.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="interesting-settings">
+<h1>Interesting settings<a class="headerlink" href="#interesting-settings" title="Link to this heading"></a></h1>
+<section id="build-memory-limit">
+<h2>BUILD_MEMORY_LIMIT<a class="headerlink" href="#build-memory-limit" title="Link to this heading"></a></h2>
+<p>The maximum memory allocated to the virtual machine.
+If this limit is hit, build processes will be automatically killed.
+Examples: ‘200m’ for 200MB of total memory, or ‘2g’ for 2GB of total memory.</p>
+</section>
+<section id="build-time-limit">
+<h2>BUILD_TIME_LIMIT<a class="headerlink" href="#build-time-limit" title="Link to this heading"></a></h2>
+<p>An integer representing the total allowed time limit (in seconds) of build processes.
+This time limit affects the parent process to the virtual machine and will force a virtual machine
+to die if a build is still running after the allotted time expires.</p>
+</section>
+<section id="production-domain">
+<h2>PRODUCTION_DOMAIN<a class="headerlink" href="#production-domain" title="Link to this heading"></a></h2>
+<p>This is the domain that is used by the main application dashboard (not documentation pages).</p>
+</section>
+<section id="rtd-intersphinx-url">
+<h2>RTD_INTERSPHINX_URL<a class="headerlink" href="#rtd-intersphinx-url" title="Link to this heading"></a></h2>
+<p>This is the domain that is used to fetch the intersphinx inventory file.
+If not set explicitly this is the <code class="docutils literal notranslate"><span class="pre">PRODUCTION_DOMAIN</span></code>.</p>
+</section>
+<section id="default-privacy-level">
+<h2>DEFAULT_PRIVACY_LEVEL<a class="headerlink" href="#default-privacy-level" title="Link to this heading"></a></h2>
+<p>What privacy projects default to having. Generally set to <code class="xref py py-obj docutils literal notranslate"><span class="pre">public</span></code>. Also acts as a proxy setting for blocking certain historically insecure options, like serving generated artifacts directly from the media server.</p>
+</section>
+<section id="public-domain">
+<h2>PUBLIC_DOMAIN<a class="headerlink" href="#public-domain" title="Link to this heading"></a></h2>
+<p>A special domain for serving public documentation.
+If set, public docs will be linked here instead of the <code class="xref py py-obj docutils literal notranslate"><span class="pre">PRODUCTION_DOMAIN</span></code>.</p>
+</section>
+<section id="public-domain-uses-https">
+<h2>PUBLIC_DOMAIN_USES_HTTPS<a class="headerlink" href="#public-domain-uses-https" title="Link to this heading"></a></h2>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">PUBLIC_DOMAIN</span></code> is set, that domain will default to
+serving public documentation over HTTPS. By default, documentation is
+served over HTTP.</p>
+</section>
+<section id="allow-admin">
+<h2>ALLOW_ADMIN<a class="headerlink" href="#allow-admin" title="Link to this heading"></a></h2>
+<p>Whether to include <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.contrib.admin</span></code> in the URL’s.</p>
+</section>
+<section id="rtd-build-media-storage">
+<h2>RTD_BUILD_MEDIA_STORAGE<a class="headerlink" href="#rtd-build-media-storage" title="Link to this heading"></a></h2>
+<p>Use this storage class to upload build artifacts to cloud storage (S3, Azure storage).
+This should be a dotted path to the relevant class (eg. <code class="docutils literal notranslate"><span class="pre">'path.to.MyBuildMediaStorage'</span></code>).
+Your class should mixin <code class="xref py py-class docutils literal notranslate"><span class="pre">readthedocs.builds.storage.BuildMediaStorageMixin</span></code>.</p>
+</section>
+<section id="rtd-filetreediff-all">
+<h2>RTD_FILETREEDIFF_ALL<a class="headerlink" href="#rtd-filetreediff-all" title="Link to this heading"></a></h2>
+<p>Set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to enable the file tree diff feature for all projects.</p>
+</section>
+<section id="elasticsearch-dsl">
+<h2>ELASTICSEARCH_DSL<a class="headerlink" href="#elasticsearch-dsl" title="Link to this heading"></a></h2>
+<p>Default:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">&#39;hosts&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1:9200&#39;</span>
+   <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Settings for elasticsearch connection.
+This settings then pass to <a class="reference external" href="https://elasticsearch-dsl.readthedocs.io/en/stable/configuration.html#multiple-clusters">elasticsearch-dsl-py.connections.configure</a></p>
+</section>
+<section id="es-indexes">
+<h2>ES_INDEXES<a class="headerlink" href="#es-indexes" title="Link to this heading"></a></h2>
+<p>Default:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+     <span class="s1">&#39;project&#39;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;project_index&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;settings&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                      <span class="s1">&#39;number_of_replicas&#39;</span><span class="p">:</span> <span class="mi">0</span>
+                      <span class="p">}</span>
+     <span class="p">},</span>
+     <span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;page_index&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;settings&#39;</span><span class="p">:</span> <span class="p">{</span>
+             <span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+             <span class="s1">&#39;number_of_replicas&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+         <span class="p">}</span>
+     <span class="p">},</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>Define the elasticsearch name and settings of all the index separately.
+The key is the type of index, like <code class="docutils literal notranslate"><span class="pre">project</span></code> or <code class="docutils literal notranslate"><span class="pre">page</span></code> and the value is another
+dictionary containing <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">settings</span></code>. Here the <code class="docutils literal notranslate"><span class="pre">name</span></code> is the index name
+and the <code class="docutils literal notranslate"><span class="pre">settings</span></code> is used for configuring the particular index.</p>
+</section>
+<section id="es-task-chunk-size">
+<h2>ES_TASK_CHUNK_SIZE<a class="headerlink" href="#es-task-chunk-size" title="Link to this heading"></a></h2>
+<p>The maximum number of data send to each elasticsearch indexing celery task.
+This has been used while running <code class="docutils literal notranslate"><span class="pre">elasticsearch_reindex</span></code> management command.</p>
+</section>
+<section id="es-page-ignore-signals">
+<h2>ES_PAGE_IGNORE_SIGNALS<a class="headerlink" href="#es-page-ignore-signals" title="Link to this heading"></a></h2>
+<p>This settings is used to determine whether to index each page separately into elasticsearch.
+If the setting is <code class="docutils literal notranslate"><span class="pre">True</span></code>, each <code class="docutils literal notranslate"><span class="pre">HTML</span></code> page will not be indexed separately but will be
+indexed by bulk indexing.</p>
+</section>
+<section id="elasticsearch-dsl-autosync">
+<h2>ELASTICSEARCH_DSL_AUTOSYNC<a class="headerlink" href="#elasticsearch-dsl-autosync" title="Link to this heading"></a></h2>
+<p>This setting is used for automatically indexing objects to elasticsearch.</p>
+</section>
+<section id="docker-pass-through-settings">
+<h2>Docker pass-through settings<a class="headerlink" href="#docker-pass-through-settings" title="Link to this heading"></a></h2>
+<p>If you run a Docker environment, it is possible to pass some secrets through to
+the Docker containers from your host system. For security reasons, we do not
+commit these secrets to our repository. Instead, we individually define these
+settings for our local environments.</p>
+<p>We recommend using <a class="reference external" href="https://direnv.net/">direnv</a> for storing local development secrets.</p>
+<section id="allauth-secrets">
+<h3>Allauth secrets<a class="headerlink" href="#allauth-secrets" title="Link to this heading"></a></h3>
+<p>It is possible to set the Allauth application secrets for our supported
+providers using the following environment variables:</p>
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITHUB_CLIENT_ID">
+<span class="sig-name descname"><span class="pre">RTD_SOCIALACCOUNT_PROVIDERS_GITHUB_CLIENT_ID</span></span><a class="headerlink" href="#envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITHUB_CLIENT_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITHUB_SECRET">
+<span class="sig-name descname"><span class="pre">RTD_SOCIALACCOUNT_PROVIDERS_GITHUB_SECRET</span></span><a class="headerlink" href="#envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITHUB_SECRET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITHUBAPP_CLIENT_ID">
+<span class="sig-name descname"><span class="pre">RTD_SOCIALACCOUNT_PROVIDERS_GITHUBAPP_CLIENT_ID</span></span><a class="headerlink" href="#envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITHUBAPP_CLIENT_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITHUBAPP_SECRET">
+<span class="sig-name descname"><span class="pre">RTD_SOCIALACCOUNT_PROVIDERS_GITHUBAPP_SECRET</span></span><a class="headerlink" href="#envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITHUBAPP_SECRET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITLAB_CLIENT_ID">
+<span class="sig-name descname"><span class="pre">RTD_SOCIALACCOUNT_PROVIDERS_GITLAB_CLIENT_ID</span></span><a class="headerlink" href="#envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITLAB_CLIENT_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITLAB_SECRET">
+<span class="sig-name descname"><span class="pre">RTD_SOCIALACCOUNT_PROVIDERS_GITLAB_SECRET</span></span><a class="headerlink" href="#envvar-RTD_SOCIALACCOUNT_PROVIDERS_GITLAB_SECRET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_SOCIALACCOUNT_PROVIDERS_BITBUCKET_OAUTH2_CLIENT_ID">
+<span class="sig-name descname"><span class="pre">RTD_SOCIALACCOUNT_PROVIDERS_BITBUCKET_OAUTH2_CLIENT_ID</span></span><a class="headerlink" href="#envvar-RTD_SOCIALACCOUNT_PROVIDERS_BITBUCKET_OAUTH2_CLIENT_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_SOCIALACCOUNT_PROVIDERS_BITBUCKET_OAUTH2_SECRET">
+<span class="sig-name descname"><span class="pre">RTD_SOCIALACCOUNT_PROVIDERS_BITBUCKET_OAUTH2_SECRET</span></span><a class="headerlink" href="#envvar-RTD_SOCIALACCOUNT_PROVIDERS_BITBUCKET_OAUTH2_SECRET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_SOCIALACCOUNT_PROVIDERS_GOOGLE_CLIENT_ID">
+<span class="sig-name descname"><span class="pre">RTD_SOCIALACCOUNT_PROVIDERS_GOOGLE_CLIENT_ID</span></span><a class="headerlink" href="#envvar-RTD_SOCIALACCOUNT_PROVIDERS_GOOGLE_CLIENT_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_SOCIALACCOUNT_PROVIDERS_GOOGLE_SECRET">
+<span class="sig-name descname"><span class="pre">RTD_SOCIALACCOUNT_PROVIDERS_GOOGLE_SECRET</span></span><a class="headerlink" href="#envvar-RTD_SOCIALACCOUNT_PROVIDERS_GOOGLE_SECRET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="aws-configuration">
+<h3>AWS configuration<a class="headerlink" href="#aws-configuration" title="Link to this heading"></a></h3>
+<p>The following variables can be used to use AWS in your local environment.
+Useful for testing <a class="reference internal" href="aws-temporary-credentials.html"><span class="doc">temporary credentials</span></a>.</p>
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_S3_PROVIDER">
+<span class="sig-name descname"><span class="pre">RTD_S3_PROVIDER</span></span><a class="headerlink" href="#envvar-RTD_S3_PROVIDER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_AWS_ACCESS_KEY_ID">
+<span class="sig-name descname"><span class="pre">RTD_AWS_ACCESS_KEY_ID</span></span><a class="headerlink" href="#envvar-RTD_AWS_ACCESS_KEY_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_AWS_SECRET_ACCESS_KEY">
+<span class="sig-name descname"><span class="pre">RTD_AWS_SECRET_ACCESS_KEY</span></span><a class="headerlink" href="#envvar-RTD_AWS_SECRET_ACCESS_KEY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_AWS_STS_ASSUME_ROLE_ARN">
+<span class="sig-name descname"><span class="pre">RTD_AWS_STS_ASSUME_ROLE_ARN</span></span><a class="headerlink" href="#envvar-RTD_AWS_STS_ASSUME_ROLE_ARN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_S3_MEDIA_STORAGE_BUCKET">
+<span class="sig-name descname"><span class="pre">RTD_S3_MEDIA_STORAGE_BUCKET</span></span><a class="headerlink" href="#envvar-RTD_S3_MEDIA_STORAGE_BUCKET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_S3_BUILD_COMMANDS_STORAGE_BUCKET">
+<span class="sig-name descname"><span class="pre">RTD_S3_BUILD_COMMANDS_STORAGE_BUCKET</span></span><a class="headerlink" href="#envvar-RTD_S3_BUILD_COMMANDS_STORAGE_BUCKET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_S3_BUILD_TOOLS_STORAGE_BUCKET">
+<span class="sig-name descname"><span class="pre">RTD_S3_BUILD_TOOLS_STORAGE_BUCKET</span></span><a class="headerlink" href="#envvar-RTD_S3_BUILD_TOOLS_STORAGE_BUCKET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_S3_STATIC_STORAGE_BUCKET">
+<span class="sig-name descname"><span class="pre">RTD_S3_STATIC_STORAGE_BUCKET</span></span><a class="headerlink" href="#envvar-RTD_S3_STATIC_STORAGE_BUCKET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_AWS_S3_REGION_NAME">
+<span class="sig-name descname"><span class="pre">RTD_AWS_S3_REGION_NAME</span></span><a class="headerlink" href="#envvar-RTD_AWS_S3_REGION_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="github-app">
+<h3>GitHub App<a class="headerlink" href="#github-app" title="Link to this heading"></a></h3>
+<p>You can use the following environment variables to set the settings used by the GitHub App:</p>
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_GITHUB_APP_ID">
+<span class="sig-name descname"><span class="pre">RTD_GITHUB_APP_ID</span></span><a class="headerlink" href="#envvar-RTD_GITHUB_APP_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_GITHUB_APP_NAME">
+<span class="sig-name descname"><span class="pre">RTD_GITHUB_APP_NAME</span></span><a class="headerlink" href="#envvar-RTD_GITHUB_APP_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_GITHUB_APP_PRIVATE_KEY">
+<span class="sig-name descname"><span class="pre">RTD_GITHUB_APP_PRIVATE_KEY</span></span><a class="headerlink" href="#envvar-RTD_GITHUB_APP_PRIVATE_KEY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_GITHUB_APP_WEBHOOK_SECRET">
+<span class="sig-name descname"><span class="pre">RTD_GITHUB_APP_WEBHOOK_SECRET</span></span><a class="headerlink" href="#envvar-RTD_GITHUB_APP_WEBHOOK_SECRET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="ethical-ads-variables">
+<h3>Ethical Ads variables<a class="headerlink" href="#ethical-ads-variables" title="Link to this heading"></a></h3>
+<p>The following variables are required to use <code class="docutils literal notranslate"><span class="pre">ethicalads</span></code> in dev:</p>
+<dl class="std envvar">
+<dt class="sig sig-object std" id="envvar-RTD_USE_PROMOS">
+<span class="sig-name descname"><span class="pre">RTD_USE_PROMOS</span></span><a class="headerlink" href="#envvar-RTD_USE_PROMOS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="github-app.html" class="btn btn-neutral float-left" title="GitHub App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tests.html" class="btn btn-neutral float-right" title="Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
