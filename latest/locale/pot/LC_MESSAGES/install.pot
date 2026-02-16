@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Read the Docs developer documentation latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-22 08:23+0000\n"
+"POT-Creation-Date: 2026-02-16 08:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -310,7 +310,7 @@ msgid ""
 "\n"
 "# Copy the backup file into the container (replace with your actual "
 "filename)\n"
-"docker cp dump_24-11-2025_10_30_00__abc1234.sql community_database_1:/tmp/"
+"docker cp dump_24-11-2025_10_30_00__abc1234.sql community-database-1:/tmp/"
 "dump.sql\n"
 "\n"
 "# Open a shell in the database container\n"
@@ -536,69 +536,158 @@ msgstr ""
 
 #: ../../../install.rst:304
 msgid ""
-"Callback URL should be ``http://devthedocs.org/accounts/githubapp/login/"
+"``Callback URL`` should be ``http://devthedocs.org/accounts/githubapp/login/"
 "callback/``."
 msgstr ""
 
 #: ../../../install.rst:305
-msgid "Keep marked \"Expire user authorization tokens\""
+msgid "Keep marked ``Expire user authorization tokens``"
 msgstr ""
 
 #: ../../../install.rst:306
 msgid ""
-"Activate the webhook, and set the URL to one provided by a service like "
-"`Webhook.site <https://docs.webhook.site/cli.html>`__ to forward all "
-"incoming webhooks to your local development instance. You should forward all "
-"events to ``http://devthedocs.org/webhook/githubapp/``."
+"Activate the webhook, and set the ``Webhook URL`` to one provided by a "
+"service like `Webhook.site <https://docs.webhook.site/>`__ to forward all "
+"incoming webhooks to your local development instance. Example: ``https://"
+"webhook.site/e6e53a09-1551-4942-a750-c967bc577846``"
 msgstr ""
 
-#: ../../../install.rst:308
+#: ../../../install.rst:307
 msgid "In permissions, select the following:"
 msgstr ""
 
-#: ../../../install.rst:310
-msgid ""
-"Repository permissions: Commit statuses (read and write, so we can create "
-"commit statuses), Contents (read only, so we can clone repos with a token), "
-"Metadata (read only, so we read the repo collaborators), Pull requests (read "
-"and write, so we can post a comment on PRs in the future)."
+#: ../../../install.rst:309
+msgid "Repository permissions"
+msgstr ""
+
+#: ../../../install.rst:311
+msgid "``Commit statuses`` (read and write, so we can create commit statuses),"
+msgstr ""
+
+#: ../../../install.rst:312
+msgid "``Contents`` (read only, so we can clone repos with a token),"
+msgstr ""
+
+#: ../../../install.rst:313
+msgid "``Metadata`` (read only, so we read the repo collaborators),"
 msgstr ""
 
 #: ../../../install.rst:314
 msgid ""
-"Organization permissions: Members (read only so we can read the organization "
-"members)."
+"``Pull requests`` (read and write, so we can post a comment on PRs in the "
+"future)."
 msgstr ""
 
 #: ../../../install.rst:315
 msgid ""
-"Account permissions: Email addresses (read only, so allauth can fetch all "
-"verified emails)."
+"``Checks`` (read and write, so we can use the GitHub Checks API to report "
+"the status of a build)"
 msgstr ""
 
 #: ../../../install.rst:317
-msgid ""
-"Subscribe to the following events: Installation target, Member, "
-"Organization, Membership, Pull request, Push, and Repository."
-msgstr ""
-
-#: ../../../install.rst:318
-msgid ""
-"Copy the \"Client ID\" and \"Client Secret\" and set them as :ref:"
-"`environment variables <settings:Allauth secrets>`."
+msgid "Organization permissions"
 msgstr ""
 
 #: ../../../install.rst:319
-msgid ""
-"Generate a webhook secret and a private key from the GitHub App settings, "
-"and set them as :ref:`environment variables <settings:GitHub App>`."
+msgid "``Members`` (read only so we can read the organization members)."
+msgstr ""
+
+#: ../../../install.rst:321
+msgid "Account Permissions"
 msgstr ""
 
 #: ../../../install.rst:323
-msgid "Troubleshooting"
+msgid ""
+"``Email addresses`` (read only, so allauth can fetch all verified emails)."
+msgstr ""
+
+#: ../../../install.rst:325
+msgid "Subscribe to the following events"
 msgstr ""
 
 #: ../../../install.rst:327
+msgid "``Installation target``"
+msgstr ""
+
+#: ../../../install.rst:328
+msgid "``Member``"
+msgstr ""
+
+#: ../../../install.rst:329
+msgid "``Organization``"
+msgstr ""
+
+#: ../../../install.rst:330
+msgid "``Membership``"
+msgstr ""
+
+#: ../../../install.rst:331
+msgid "``Pull request``"
+msgstr ""
+
+#: ../../../install.rst:332
+msgid "``Push``"
+msgstr ""
+
+#: ../../../install.rst:333
+msgid "``Repository``"
+msgstr ""
+
+#: ../../../install.rst:335
+msgid ""
+"Copy the ``Client ID`` and ``Client Secret`` and set them as :ref:"
+"`environment variables <settings:Allauth secrets>`"
+msgstr ""
+
+#: ../../../install.rst:337
+msgid "``RTD_SOCIALACCOUNT_PROVIDERS_GITHUBAPP_CLIENT_ID``"
+msgstr ""
+
+#: ../../../install.rst:338
+msgid "``RTD_SOCIALACCOUNT_PROVIDERS_GITHUBAPP_SECRET``"
+msgstr ""
+
+#: ../../../install.rst:340
+msgid ""
+"Generate a webhook secret (e.g. with ``openssl rand -hex 32``) and a private "
+"key from the GitHub App settings, and set them as :ref:`environment "
+"variables <settings:GitHub App>`."
+msgstr ""
+
+#: ../../../install.rst:343
+msgid "``RTD_GITHUB_APP_ID``"
+msgstr ""
+
+#: ../../../install.rst:344
+msgid "``RTD_GITHUB_APP_NAME`` (e.g. ``read-the-docs-development``)"
+msgstr ""
+
+#: ../../../install.rst:345
+msgid ""
+"``RTD_GITHUB_APP_PRIVATE_KEY`` (you can use ``$(cat read-the-docs.private-"
+"key.pem)`` as the value of this variable)"
+msgstr ""
+
+#: ../../../install.rst:346
+msgid "``RTD_GITHUB_APP_WEBHOOK_SECRET``"
+msgstr ""
+
+#: ../../../install.rst:348
+msgid ""
+"Then, to receive the webhooks in your local development instance using the "
+"`Webhook.site CLI <https://docs.webhook.site/cli.html>`_, first install the "
+"client with:"
+msgstr ""
+
+#: ../../../install.rst:355
+msgid "and run the following command updating the ``<hash>`` part:"
+msgstr ""
+
+#: ../../../install.rst:363
+msgid "Troubleshooting"
+msgstr ""
+
+#: ../../../install.rst:367
 msgid ""
 "The environment is developed and mainly tested on Docker Compose v1.x. If "
 "you are running Docker Compose 2.x, please make sure you have "
@@ -606,15 +695,15 @@ msgid ""
 "env`` file. If you want to ensure that the file is loaded, run:"
 msgstr ""
 
-#: ../../../install.rst:332
+#: ../../../install.rst:372
 msgid "source .env"
 msgstr ""
 
-#: ../../../install.rst:337
+#: ../../../install.rst:377
 msgid "Builds fail with a generic error"
 msgstr ""
 
-#: ../../../install.rst:339
+#: ../../../install.rst:379
 msgid ""
 "There are projects that do not use the default Docker image downloaded when "
 "setting up the development environment. These extra images are not "
@@ -622,11 +711,11 @@ msgid ""
 "cases. However, if you are seeing the following error"
 msgstr ""
 
-#: ../../../install.rst:347
+#: ../../../install.rst:387
 msgid "Build failing with a generic error"
 msgstr ""
 
-#: ../../../install.rst:350
+#: ../../../install.rst:390
 msgid ""
 "and in the console where the logs are shown you see something like "
 "``BuildAppError: No such image: readthedocs/build:ubuntu-22.04``, that means "
@@ -634,89 +723,89 @@ msgid ""
 "project and it failed."
 msgstr ""
 
-#: ../../../install.rst:353
+#: ../../../install.rst:393
 msgid ""
 "In this case, you can run a command to download all the optional Docker "
 "images:"
 msgstr ""
 
-#: ../../../install.rst:358
+#: ../../../install.rst:398
 msgid "inv docker.pull"
 msgstr ""
 
-#: ../../../install.rst:359
+#: ../../../install.rst:399
 msgid ""
 "However, if you prefer to download only the *specific* image required for "
 "that project and save some space on disk, you have to follow these steps:"
 msgstr ""
 
-#: ../../../install.rst:362
+#: ../../../install.rst:402
 msgid "go to https://hub.docker.com/r/readthedocs/build/tags"
 msgstr ""
 
-#: ../../../install.rst:363
+#: ../../../install.rst:403
 msgid ""
 "find the latest tag for the image shown in the logs (in this example is "
 "``readthedocs/build:ubuntu-22.04``, which the current latest tag on that "
 "page is ``ubuntu-22.04-2022.03.15``)"
 msgstr ""
 
-#: ../../../install.rst:365
+#: ../../../install.rst:405
 msgid "run the Docker command to pull it:"
 msgstr ""
 
-#: ../../../install.rst:371
+#: ../../../install.rst:411
 msgid "tag the downloaded Docker image for the app to findit:"
 msgstr ""
 
-#: ../../../install.rst:377
+#: ../../../install.rst:417
 msgid ""
 "Once this is done, you should be able to trigger a new build on that project "
 "and it should succeed."
 msgstr ""
 
-#: ../../../install.rst:381
+#: ../../../install.rst:421
 msgid "Core team standards"
 msgstr ""
 
-#: ../../../install.rst:383
+#: ../../../install.rst:423
 msgid ""
 "Core team members expect to have a development environment that closely "
 "approximates our production environment, in order to spot bugs and logical "
 "inconsistencies before they make their way to production."
 msgstr ""
 
-#: ../../../install.rst:387
+#: ../../../install.rst:427
 msgid ""
 "This solution gives us many features that allows us to have an environment "
 "closer to production:"
 msgstr ""
 
-#: ../../../install.rst:390
+#: ../../../install.rst:430
 msgid "Celery runs as a separate process"
 msgstr ""
 
-#: ../../../install.rst:391
+#: ../../../install.rst:431
 msgid ""
 "Avoids masking bugs that could be introduced by Celery tasks in a race "
 "conditions."
 msgstr ""
 
-#: ../../../install.rst:393
+#: ../../../install.rst:433
 msgid "Celery runs multiple processes"
 msgstr ""
 
-#: ../../../install.rst:394
+#: ../../../install.rst:434
 msgid ""
 "We run celery with multiple worker processes to discover race conditions "
 "between tasks."
 msgstr ""
 
-#: ../../../install.rst:397
+#: ../../../install.rst:437
 msgid "Docker for builds"
 msgstr ""
 
-#: ../../../install.rst:398
+#: ../../../install.rst:438
 msgid ""
 "Docker is used for a build backend instead of the local host build backend. "
 "There are a number of differences between the two execution methods in how "
@@ -725,22 +814,22 @@ msgid ""
 "not normally possible."
 msgstr ""
 
-#: ../../../install.rst:404
+#: ../../../install.rst:444
 msgid "Serve documentation under a subdomain"
 msgstr ""
 
-#: ../../../install.rst:405
+#: ../../../install.rst:445
 msgid ""
 "There are a number of resolution bugs and cross-domain behavior that can "
 "only be caught by using a ``PUBLIC_DOMAIN`` setting different from the "
 "``PRODUCTION_DOMAIN`` setting."
 msgstr ""
 
-#: ../../../install.rst:408
+#: ../../../install.rst:448
 msgid "PostgreSQL as a database"
 msgstr ""
 
-#: ../../../install.rst:409
+#: ../../../install.rst:449
 msgid ""
 "It is recommended that Postgres be used as the default database whenever "
 "possible, as SQLite has issues with our Django version and we use Postgres "
@@ -749,62 +838,62 @@ msgid ""
 "don't do any Postgres-specific operations yet."
 msgstr ""
 
-#: ../../../install.rst:415
+#: ../../../install.rst:455
 msgid "Celery is isolated from database"
 msgstr ""
 
-#: ../../../install.rst:416
+#: ../../../install.rst:456
 msgid ""
 "Celery workers on our build servers do not have database access and need to "
 "be written to use API access instead."
 msgstr ""
 
-#: ../../../install.rst:419
+#: ../../../install.rst:459
 msgid "Use NGINX as web server"
 msgstr ""
 
-#: ../../../install.rst:420
+#: ../../../install.rst:460
 msgid ""
 "All the site is served via NGINX with the ability to change some "
 "configuration locally."
 msgstr ""
 
-#: ../../../install.rst:422
+#: ../../../install.rst:462
 msgid "MinIO as Django storage backend"
 msgstr ""
 
-#: ../../../install.rst:423
+#: ../../../install.rst:463
 msgid ""
 "All static and media files are served using Minio --an emulator of S3, which "
 "is the one used in production."
 msgstr ""
 
-#: ../../../install.rst:426
+#: ../../../install.rst:466
 msgid "Serve documentation via El Proxito"
 msgstr ""
 
-#: ../../../install.rst:427
+#: ../../../install.rst:467
 msgid ""
 "El Proxito is a small application put in front of the documentation to serve "
 "files from the Django Storage Backend."
 msgstr ""
 
-#: ../../../install.rst:430
+#: ../../../install.rst:470
 msgid "Use Cloudflare Wrangler"
 msgstr ""
 
-#: ../../../install.rst:431
+#: ../../../install.rst:471
 msgid ""
 "Documentation pages are proxied by NGINX to Wrangler, who executes a "
 "JavaScript worker to fetch the response from El Proxito and injects HTML "
 "tags (for addons) based on HTTP headers."
 msgstr ""
 
-#: ../../../install.rst:434
+#: ../../../install.rst:474
 msgid "Search enabled by default"
 msgstr ""
 
-#: ../../../install.rst:435
+#: ../../../install.rst:475
 msgid ""
 "Elasticsearch is properly configured and enabled by default. All the "
 "documentation indexes are updated after a build is finished."
