@@ -1,0 +1,811 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation stable\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-23 10:08+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../install.rst:-1
+msgid ""
+"Install a local development instance of Read the Docs with our step by step "
+"guide."
+msgstr ""
+
+#: ../../../install.rst:2
+msgid "Development installation"
+msgstr "開發安裝"
+
+#: ../../../install.rst:7
+msgid ""
+"These are development setup and :ref:`standards <install:Core team "
+"standards>` that are followed to by the core development team. If you are a "
+"contributor to Read the Docs, it might a be a good idea to follow these "
+"guidelines as well."
+msgstr ""
+
+#: ../../../install.rst:11
+msgid "Requirements"
+msgstr ""
+
+#: ../../../install.rst:13
+msgid ""
+"A development setup can be hosted by your laptop, in a VM, on a separate "
+"server etc. Any such scenario should work fine, as long as it can satisfy "
+"the following:"
+msgstr ""
+
+#: ../../../install.rst:15
+msgid ""
+"Is Unix-like system (Linux, BSD, Mac OSX) which **supports Docker**. Windows "
+"systems should have WSL+Docker or Docker Desktop."
+msgstr ""
+
+#: ../../../install.rst:16
+msgid ""
+"Has **10 GB or more of free disk space** on the drive where Docker's cache "
+"and volumes are stored. If you want to experiment with customizing Docker "
+"containers, you'll likely need more."
+msgstr ""
+
+#: ../../../install.rst:17
+msgid ""
+"Can spare *2 GB of system memory* for running Read the Docs, this typically "
+"means that a development laptop should have **8 GB or more of memory** in "
+"total."
+msgstr ""
+
+#: ../../../install.rst:18
+msgid ""
+"Your system should *ideally* match the production system which uses the "
+"**latest official+stable Docker** distribution for `Ubuntu <https://docs."
+"docker.com/engine/install/ubuntu/>`_ (the ``docker-ce`` package). If you are "
+"on Windows or Mac, you may also want to try `Docker Desktop <https://docs."
+"docker.com/desktop/>`_."
+msgstr ""
+
+#: ../../../install.rst:22
+msgid ""
+"Take into account that this setup is intended for development purposes. We "
+"do not recommend to follow this guide to deploy an instance of Read the Docs "
+"for production."
+msgstr ""
+
+#: ../../../install.rst:27
+msgid "Install external dependencies (Docker, Docker Compose, gVisor)"
+msgstr ""
+
+#: ../../../install.rst:29
+msgid ""
+"Install Docker by following `the official guide <https://docs.docker.com/get-"
+"docker/>`_."
+msgstr ""
+
+#: ../../../install.rst:30
+msgid ""
+"Install Docker Compose with `the official instructions <https://docs.docker."
+"com/compose/install/>`_."
+msgstr ""
+
+#: ../../../install.rst:31
+msgid "Install and set up gVisor following :doc:`rtd-dev:guides/gvisor`."
+msgstr ""
+
+#: ../../../install.rst:35
+msgid "Set up your environment"
+msgstr ""
+
+#: ../../../install.rst:37
+msgid "Clone all the required repositories:"
+msgstr ""
+
+#: ../../../install.rst:45
+msgid "Install or clone additional repositories:"
+msgstr ""
+
+#: ../../../install.rst:49
+msgid "This step is only required for Read the Docs core team members."
+msgstr ""
+
+#: ../../../install.rst:51
+msgid ""
+"Core team should at very least have all required packages installed in their "
+"development image. To install these packages you must define a GitHub token "
+"before building your image:"
+msgstr ""
+
+#: ../../../install.rst:59
+msgid ""
+"In order to make development changes on any of our private repositories, "
+"such as ``readthedocs-ext``, you will also need to check these repositories "
+"out:"
+msgstr ""
+
+#: ../../../install.rst:66
+msgid "Install the requirements from ``common`` submodule:"
+msgstr ""
+
+#: ../../../install.rst:73
+msgid "Build the Docker image for the servers:"
+msgstr ""
+
+#: ../../../install.rst:77
+msgid ""
+"This command could take a while to finish since it will download several "
+"Docker images."
+msgstr ""
+
+#: ../../../install.rst:84
+msgid "Pull down Docker images for the builders:"
+msgstr ""
+
+#: ../../../install.rst:90
+msgid "Start all the containers:"
+msgstr ""
+
+#: ../../../install.rst:98
+msgid "``--init`` is only needed the first time."
+msgstr ""
+
+#: ../../../install.rst:101
+msgid ""
+"Go to http://devthedocs.org to access your local instance of Read the Docs."
+msgstr ""
+
+#: ../../../install.rst:105
+msgid "Check that everything works"
+msgstr ""
+
+#: ../../../install.rst:107
+msgid "Visit http://devthedocs.org"
+msgstr "訪問 http://devthedocs.org"
+
+#: ../../../install.rst:109
+msgid ""
+"Login as ``admin`` /  ``admin`` and verify that the project list appears."
+msgstr ""
+
+#: ../../../install.rst:111
+msgid ""
+"Go to the \"Read the Docs\" project, under section :guilabel:`Build a "
+"version`, click on the :guilabel:`Build version` button selecting "
+"\"latest\", and wait until it finishes (this can take several minutes)."
+msgstr ""
+
+#: ../../../install.rst:116
+msgid ""
+"Read the Docs will compile the Python/Node.js/Rust/Go version on-the-fly "
+"each time when building the documentation. To speed things up, you can pre-"
+"compile and cache all these versions by using ``inv docker."
+"compilebuildtool`` command. *We strongly recommend to pre-compile these "
+"versions if you want to build documentation on your development instance.*"
+msgstr ""
+
+#: ../../../install.rst:120
+msgid ""
+"Click on the \"View docs\" button to browse the documentation, and verify "
+"that it shows the Read the Docs documentation page."
+msgstr ""
+
+#: ../../../install.rst:124
+msgid "Working with Docker Compose"
+msgstr ""
+
+#: ../../../install.rst:126
+msgid ""
+"We wrote a wrapper with ``invoke`` around ``docker-compose`` to have some "
+"shortcuts and save some work while typing docker compose commands. This "
+"section explains these ``invoke`` commands:"
+msgstr ""
+
+#: ../../../install.rst:129
+msgid "``inv docker.build``"
+msgstr ""
+
+#: ../../../install.rst:130
+msgid ""
+"Builds the generic Docker image used by our servers (web, celery, build and "
+"proxito)."
+msgstr ""
+
+#: ../../../install.rst:132
+msgid "``inv docker.up``"
+msgstr ""
+
+#: ../../../install.rst:133
+msgid "Starts all the containers needed to run Read the Docs completely."
+msgstr ""
+
+#: ../../../install.rst:135
+msgid "``--no-search`` can be passed to disable search"
+msgstr ""
+
+#: ../../../install.rst:136
+msgid ""
+"``--init`` is used the first time this command is ran to run initial "
+"migrations, create an admin user, etc"
+msgstr ""
+
+#: ../../../install.rst:137
+msgid ""
+"``--no-reload`` makes all celery processes and django runserver to use no "
+"reload and do not watch for files changes"
+msgstr ""
+
+#: ../../../install.rst:139
+msgid "``--no-django-debug`` runs all containers with ``DEBUG=False``"
+msgstr ""
+
+#: ../../../install.rst:140
+msgid ""
+"``--http-domain`` configures an external domain for the environment (useful "
+"for Ngrok or other http proxy). Note that https proxies aren't supported. "
+"There will also be issues with \"suspicious domain\" failures on Proxito."
+msgstr ""
+
+#: ../../../install.rst:144
+msgid "``inv docker.shell``"
+msgstr ""
+
+#: ../../../install.rst:145
+msgid "Opens a shell in a container (web by default)."
+msgstr ""
+
+#: ../../../install.rst:147
+msgid "``--no-running`` spins up a new container and open a shell"
+msgstr ""
+
+#: ../../../install.rst:148
+msgid "``--container`` specifies in which container the shell is open"
+msgstr ""
+
+#: ../../../install.rst:150
+msgid "``inv docker.manage {command}``"
+msgstr ""
+
+#: ../../../install.rst:151
+msgid "Executes a Django management command in a container."
+msgstr ""
+
+#: ../../../install.rst:153
+msgid ""
+"``--backupdb`` creates a database backup before running the command. The "
+"backup is saved to the current directory with a timestamped filename: "
+"``dump_<DD-MM-YYYY>_<HH_MM_SS>__<git-hash>.sql``"
+msgstr ""
+
+#: ../../../install.rst:159
+msgid "Useful when modifying models to run ``makemigrations``."
+msgstr ""
+
+#: ../../../install.rst:163
+msgid ""
+"Use ``--backupdb`` when running ``migrate`` to create a backup before "
+"applying migrations:"
+msgstr ""
+
+#: ../../../install.rst:165
+msgid "inv docker.manage --backupdb migrate"
+msgstr ""
+
+#: ../../../install.rst:169
+msgid "To restore from this backup, follow these steps:"
+msgstr ""
+
+#: ../../../install.rst:171
+msgid ""
+"# Start only the database container\n"
+"inv docker.compose 'start database'\n"
+"\n"
+"# Copy the backup file into the container (replace with your actual "
+"filename)\n"
+"docker cp dump_24-11-2025_10_30_00__abc1234.sql community_database_1:/tmp/"
+"dump.sql\n"
+"\n"
+"# Open a shell in the database container\n"
+"inv docker.shell --container database"
+msgstr ""
+
+#: ../../../install.rst:182
+msgid "Then inside the database container:"
+msgstr ""
+
+#: ../../../install.rst:184
+msgid ""
+"dropdb -U docs_user docs_db\n"
+"createdb -U docs_user docs_db\n"
+"psql -U docs_user docs_db < /tmp/dump.sql"
+msgstr ""
+
+#: ../../../install.rst:190
+msgid "``inv docker.down``"
+msgstr ""
+
+#: ../../../install.rst:191
+msgid "Stops and removes all containers running."
+msgstr ""
+
+#: ../../../install.rst:193
+msgid ""
+"``--volumes`` will remove the volumes as well (database data will be lost)"
+msgstr ""
+
+#: ../../../install.rst:195
+msgid "``inv docker.restart {containers}``"
+msgstr ""
+
+#: ../../../install.rst:196
+msgid ""
+"Restarts the containers specified (automatically restarts NGINX when needed)."
+msgstr ""
+
+#: ../../../install.rst:198
+msgid "``inv docker.attach {container}``"
+msgstr ""
+
+#: ../../../install.rst:199
+msgid "Grab STDIN/STDOUT control of a running container."
+msgstr ""
+
+#: ../../../install.rst:203
+msgid ""
+"Useful to debug with ``pdb``. Once the program has stopped in your pdb line, "
+"you can run ``inv docker.attach web`` and jump into a pdb session (it also "
+"works with ipdb and pdb++)"
+msgstr ""
+
+#: ../../../install.rst:209
+msgid ""
+"You can hit CTRL-p CTRL-p to detach it without stopping the running process."
+msgstr ""
+
+#: ../../../install.rst:211
+msgid "``inv docker.test``"
+msgstr ""
+
+#: ../../../install.rst:212
+msgid "Runs all the test suites inside the container."
+msgstr ""
+
+#: ../../../install.rst:214
+msgid ""
+"``--arguments`` will pass arguments to Tox command (e.g. ``--arguments \"-e "
+"py312 -- -k test_api\"``)"
+msgstr ""
+
+#: ../../../install.rst:216
+msgid "``inv docker.pull``"
+msgstr ""
+
+#: ../../../install.rst:217
+msgid "Downloads and tags all the Docker images required for builders."
+msgstr ""
+
+#: ../../../install.rst:219
+msgid "``--only-required`` pulls only the image ``ubuntu-20.04``."
+msgstr ""
+
+#: ../../../install.rst:221
+msgid "``inv docker.buildassets``"
+msgstr ""
+
+#: ../../../install.rst:222
+msgid "Build all the assets and \"deploy\" them to the storage."
+msgstr ""
+
+#: ../../../install.rst:224
+msgid "``inv docker.compilebuildtool``"
+msgstr ""
+
+#: ../../../install.rst:225
+msgid ""
+"Pre-compile and cache tools that can be specified in ``build.tools`` to "
+"speed up builds. It requires ``inv docker.up`` running in another terminal "
+"to be able to upload the pre-compiled version to the cache."
+msgstr ""
+
+#: ../../../install.rst:229
+msgid "Adding a new Python dependency"
+msgstr ""
+
+#: ../../../install.rst:231
+msgid ""
+"The Docker image for the servers is built with the requirements defined in "
+"the current checked out branch. In case you need to add a new Python "
+"dependency while developing, you can use the ``common/dockerfiles/"
+"entrypoints/common.sh`` script as shortcut."
+msgstr ""
+
+#: ../../../install.rst:235
+msgid ""
+"This script is run at startup on all the servers (web, celery, builder, "
+"proxito) which allows you to test your dependency without re-building the "
+"whole image. To do this, add the ``pip`` command required for your "
+"dependency in ``common.sh`` file:"
+msgstr ""
+
+#: ../../../install.rst:239
+msgid ""
+"# common.sh\n"
+"pip install my-dependency==1.2.3"
+msgstr ""
+
+#: ../../../install.rst:244
+msgid ""
+"Once the PR that adds this dependency was merged, you can rebuild the image "
+"so the dependency is added to the Docker image itself and it's not needed to "
+"be installed each time the container spins up."
+msgstr ""
+
+#: ../../../install.rst:250
+msgid "Debugging Celery"
+msgstr ""
+
+#: ../../../install.rst:252
+msgid ""
+"In order to step into the worker process, you can't use ``pdb`` or ``ipdb``, "
+"but you can use ``celery.contrib.rdb``:"
+msgstr ""
+
+#: ../../../install.rst:255
+msgid ""
+"from celery.contrib import rdb\n"
+"\n"
+"rdb.set_trace()"
+msgstr ""
+
+#: ../../../install.rst:261
+msgid ""
+"When the breakpoint is hit, the Celery worker will pause on the breakpoint "
+"and will alert you on STDOUT of a port to connect to. You can open a shell "
+"into the container with ``inv docker.shell celery`` (or ``build``) and then "
+"use ``telnet`` or ``netcat`` to connect to the debug process port:"
+msgstr ""
+
+#: ../../../install.rst:269
+msgid "nc 127.0.0.1 6900"
+msgstr ""
+
+#: ../../../install.rst:270
+msgid ""
+"The ``rdb`` debugger is similar to ``pdb``, there is no ``ipdb`` for remote "
+"debugging currently."
+msgstr ""
+
+#: ../../../install.rst:275
+msgid "Configuring connected accounts"
+msgstr ""
+
+#: ../../../install.rst:277
+msgid ""
+"These are optional steps to setup the :doc:`connected accounts <rtd:guides/"
+"connecting-git-account>` (|git_providers_and|) in your development "
+"environment. This will allow you to login to your local development instance "
+"using your GitHub, Bitbucket, or GitLab credentials and this makes the "
+"process of importing repositories easier."
+msgstr ""
+
+#: ../../../install.rst:283
+msgid ""
+"However, because these services will not be able to connect back to your "
+"local development instance, :doc:`incoming webhooks <rtd:reference/git-"
+"integration>` will not function correctly. For some services, the webhooks "
+"will fail to be added when the repository is imported. For others, the "
+"webhook will simply fail to connect when there are new commits to the "
+"repository."
+msgstr ""
+
+#: ../../../install.rst:292
+msgid "Configuring an OAuth consumer for local development on Bitbucket"
+msgstr ""
+
+#: ../../../install.rst:294
+msgid ""
+"Configure the applications on GitHub, Bitbucket, and GitLab. For each of "
+"these, the callback URI is ``http://devthedocs.org/accounts/<provider>/login/"
+"callback/`` where ``<provider>`` is one of ``github``, ``githubapp``, "
+"``gitlab``, or ``bitbucket_oauth2``. When setup, you will be given a "
+"\"Client ID\" (also called an \"Application ID\" or just \"Key\") and a "
+"\"Secret\"."
+msgstr ""
+
+#: ../../../install.rst:298
+msgid ""
+"Take the \"Client ID\" and \"Secret\" for each service and set them as :ref:"
+"`environment variables <settings:Allauth secrets>`."
+msgstr ""
+
+#: ../../../install.rst:301
+msgid "Configuring GitHub App"
+msgstr ""
+
+#: ../../../install.rst:303
+msgid "Create a new GitHub app from https://github.com/settings/apps/new."
+msgstr ""
+
+#: ../../../install.rst:304
+msgid ""
+"Callback URL should be ``http://devthedocs.org/accounts/githubapp/login/"
+"callback/``."
+msgstr ""
+
+#: ../../../install.rst:305
+msgid "Keep marked \"Expire user authorization tokens\""
+msgstr ""
+
+#: ../../../install.rst:306
+msgid ""
+"Activate the webhook, and set the URL to one provided by a service like "
+"`Webhook.site <https://docs.webhook.site/cli.html>`__ to forward all "
+"incoming webhooks to your local development instance. You should forward all "
+"events to ``http://devthedocs.org/webhook/githubapp/``."
+msgstr ""
+
+#: ../../../install.rst:308
+msgid "In permissions, select the following:"
+msgstr ""
+
+#: ../../../install.rst:310
+msgid ""
+"Repository permissions: Commit statuses (read and write, so we can create "
+"commit statuses), Contents (read only, so we can clone repos with a token), "
+"Metadata (read only, so we read the repo collaborators), Pull requests (read "
+"and write, so we can post a comment on PRs in the future)."
+msgstr ""
+
+#: ../../../install.rst:314
+msgid ""
+"Organization permissions: Members (read only so we can read the organization "
+"members)."
+msgstr ""
+
+#: ../../../install.rst:315
+msgid ""
+"Account permissions: Email addresses (read only, so allauth can fetch all "
+"verified emails)."
+msgstr ""
+
+#: ../../../install.rst:317
+msgid ""
+"Subscribe to the following events: Installation target, Member, "
+"Organization, Membership, Pull request, Push, and Repository."
+msgstr ""
+
+#: ../../../install.rst:318
+msgid ""
+"Copy the \"Client ID\" and \"Client Secret\" and set them as :ref:"
+"`environment variables <settings:Allauth secrets>`."
+msgstr ""
+
+#: ../../../install.rst:319
+msgid ""
+"Generate a webhook secret and a private key from the GitHub App settings, "
+"and set them as :ref:`environment variables <settings:GitHub App>`."
+msgstr ""
+
+#: ../../../install.rst:323
+msgid "Troubleshooting"
+msgstr ""
+
+#: ../../../install.rst:327
+msgid ""
+"The environment is developed and mainly tested on Docker Compose v1.x. If "
+"you are running Docker Compose 2.x, please make sure you have "
+"``COMPOSE_COMPATIBILITY=true`` set. This is automatically loaded via the ``."
+"env`` file. If you want to ensure that the file is loaded, run:"
+msgstr ""
+
+#: ../../../install.rst:332
+msgid "source .env"
+msgstr ""
+
+#: ../../../install.rst:337
+msgid "Builds fail with a generic error"
+msgstr ""
+
+#: ../../../install.rst:339
+msgid ""
+"There are projects that do not use the default Docker image downloaded when "
+"setting up the development environment. These extra images are not "
+"downloaded by default because they are big and they are not required in all "
+"cases. However, if you are seeing the following error"
+msgstr ""
+
+#: ../../../install.rst:347
+msgid "Build failing with a generic error"
+msgstr ""
+
+#: ../../../install.rst:350
+msgid ""
+"and in the console where the logs are shown you see something like "
+"``BuildAppError: No such image: readthedocs/build:ubuntu-22.04``, that means "
+"the application wasn't able to find the Docker image required to build that "
+"project and it failed."
+msgstr ""
+
+#: ../../../install.rst:353
+msgid ""
+"In this case, you can run a command to download all the optional Docker "
+"images:"
+msgstr ""
+
+#: ../../../install.rst:358
+msgid "inv docker.pull"
+msgstr ""
+
+#: ../../../install.rst:359
+msgid ""
+"However, if you prefer to download only the *specific* image required for "
+"that project and save some space on disk, you have to follow these steps:"
+msgstr ""
+
+#: ../../../install.rst:362
+msgid "go to https://hub.docker.com/r/readthedocs/build/tags"
+msgstr ""
+
+#: ../../../install.rst:363
+msgid ""
+"find the latest tag for the image shown in the logs (in this example is "
+"``readthedocs/build:ubuntu-22.04``, which the current latest tag on that "
+"page is ``ubuntu-22.04-2022.03.15``)"
+msgstr ""
+
+#: ../../../install.rst:365
+msgid "run the Docker command to pull it:"
+msgstr ""
+
+#: ../../../install.rst:371
+msgid "tag the downloaded Docker image for the app to findit:"
+msgstr ""
+
+#: ../../../install.rst:377
+msgid ""
+"Once this is done, you should be able to trigger a new build on that project "
+"and it should succeed."
+msgstr ""
+
+#: ../../../install.rst:381
+msgid "Core team standards"
+msgstr ""
+
+#: ../../../install.rst:383
+msgid ""
+"Core team members expect to have a development environment that closely "
+"approximates our production environment, in order to spot bugs and logical "
+"inconsistencies before they make their way to production."
+msgstr ""
+
+#: ../../../install.rst:387
+msgid ""
+"This solution gives us many features that allows us to have an environment "
+"closer to production:"
+msgstr ""
+
+#: ../../../install.rst:390
+msgid "Celery runs as a separate process"
+msgstr ""
+
+#: ../../../install.rst:391
+msgid ""
+"Avoids masking bugs that could be introduced by Celery tasks in a race "
+"conditions."
+msgstr ""
+
+#: ../../../install.rst:393
+msgid "Celery runs multiple processes"
+msgstr ""
+
+#: ../../../install.rst:394
+msgid ""
+"We run celery with multiple worker processes to discover race conditions "
+"between tasks."
+msgstr ""
+
+#: ../../../install.rst:397
+msgid "Docker for builds"
+msgstr ""
+
+#: ../../../install.rst:398
+msgid ""
+"Docker is used for a build backend instead of the local host build backend. "
+"There are a number of differences between the two execution methods in how "
+"processes are executed, what is installed, and what can potentially leak "
+"through and mask bugs -- for example, local SSH agent allowing code check "
+"not normally possible."
+msgstr ""
+
+#: ../../../install.rst:404
+msgid "Serve documentation under a subdomain"
+msgstr ""
+
+#: ../../../install.rst:405
+msgid ""
+"There are a number of resolution bugs and cross-domain behavior that can "
+"only be caught by using a ``PUBLIC_DOMAIN`` setting different from the "
+"``PRODUCTION_DOMAIN`` setting."
+msgstr ""
+
+#: ../../../install.rst:408
+msgid "PostgreSQL as a database"
+msgstr ""
+
+#: ../../../install.rst:409
+msgid ""
+"It is recommended that Postgres be used as the default database whenever "
+"possible, as SQLite has issues with our Django version and we use Postgres "
+"in production.  Differences between Postgres and SQLite should be masked for "
+"the most part however, as Django does abstract database procedures, and we "
+"don't do any Postgres-specific operations yet."
+msgstr ""
+
+#: ../../../install.rst:415
+msgid "Celery is isolated from database"
+msgstr ""
+
+#: ../../../install.rst:416
+msgid ""
+"Celery workers on our build servers do not have database access and need to "
+"be written to use API access instead."
+msgstr ""
+
+#: ../../../install.rst:419
+msgid "Use NGINX as web server"
+msgstr ""
+
+#: ../../../install.rst:420
+msgid ""
+"All the site is served via NGINX with the ability to change some "
+"configuration locally."
+msgstr ""
+
+#: ../../../install.rst:422
+msgid "MinIO as Django storage backend"
+msgstr ""
+
+#: ../../../install.rst:423
+msgid ""
+"All static and media files are served using Minio --an emulator of S3, which "
+"is the one used in production."
+msgstr ""
+
+#: ../../../install.rst:426
+msgid "Serve documentation via El Proxito"
+msgstr ""
+
+#: ../../../install.rst:427
+msgid ""
+"El Proxito is a small application put in front of the documentation to serve "
+"files from the Django Storage Backend."
+msgstr ""
+
+#: ../../../install.rst:430
+msgid "Use Cloudflare Wrangler"
+msgstr ""
+
+#: ../../../install.rst:431
+msgid ""
+"Documentation pages are proxied by NGINX to Wrangler, who executes a "
+"JavaScript worker to fetch the response from El Proxito and injects HTML "
+"tags (for addons) based on HTTP headers."
+msgstr ""
+
+#: ../../../install.rst:434
+msgid "Search enabled by default"
+msgstr ""
+
+#: ../../../install.rst:435
+msgid ""
+"Elasticsearch is properly configured and enabled by default. All the "
+"documentation indexes are updated after a build is finished."
+msgstr ""
