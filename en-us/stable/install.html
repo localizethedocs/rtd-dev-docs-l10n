@@ -1,0 +1,536 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Install a local development instance of Read the Docs with our step by step guide." lang="en" name="description" xml:lang="en" />
+<meta property="og:title" content="Development installation" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="install.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="These are development setup and standards that are followed to by the core development team. If you are a contributor to Read the Docs, it might a be a good idea to follow these guidelines as well. Requirements: A development setup can be hosted by your laptop, in a VM, on a separate server etc. ..." />
+<meta property="og:image" content="_images/bitbucket-oauth-setup.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Development installation &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/install.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a48b73ee"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Development guides" href="guides/index.html" />
+    <link rel="prev" title="Roadmap" href="roadmap.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="ltd-provenance.js"></script>
+<script type="text/javascript" src="ltd-current.js"></script>
+<script type="text/javascript" src="../../ltd-config.js"></script>
+<script type="text/javascript" src="../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-external-dependencies-docker-docker-compose-gvisor">Install external dependencies (Docker, Docker Compose, gVisor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-up-your-environment">Set up your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-that-everything-works">Check that everything works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-docker-compose">Working with Docker Compose</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-new-python-dependency">Adding a new Python dependency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debugging-celery">Debugging Celery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-connected-accounts">Configuring connected accounts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-github-app">Configuring GitHub App</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#builds-fail-with-a-generic-error">Builds fail with a generic error</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#core-team-standards">Core team standards</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Development installation</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/install.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="development-installation">
+<h1>Development installation<a class="headerlink" href="#development-installation" title="Link to this heading"></a></h1>
+<p>These are development setup and <a class="reference internal" href="#core-team-standards"><span class="std std-ref">standards</span></a> that are followed to by the core development team.
+If you are a contributor to Read the Docs, it might a be a good idea to follow these guidelines as well.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>A development setup can be hosted by your laptop, in a VM, on a separate server etc. Any such scenario should work fine, as long as it can satisfy the following:</p>
+<ul class="simple">
+<li><p>Is Unix-like system (Linux, BSD, Mac OSX) which <strong>supports Docker</strong>. Windows systems should have WSL+Docker or Docker Desktop.</p></li>
+<li><p>Has <strong>10 GB or more of free disk space</strong> on the drive where Docker’s cache and volumes are stored. If you want to experiment with customizing Docker containers, you’ll likely need more.</p></li>
+<li><p>Can spare <em>2 GB of system memory</em> for running Read the Docs, this typically means that a development laptop should have <strong>8 GB or more of memory</strong> in total.</p></li>
+<li><p>Your system should <em>ideally</em> match the production system which uses the <strong>latest official+stable Docker</strong> distribution for <a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">Ubuntu</a> (the <code class="docutils literal notranslate"><span class="pre">docker-ce</span></code> package). If you are on Windows or Mac, you may also want to try <a class="reference external" href="https://docs.docker.com/desktop/">Docker Desktop</a>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Take into account that this setup is intended for development purposes.
+We do not recommend to follow this guide to deploy an instance of Read the Docs for production.</p>
+</div>
+</section>
+<section id="install-external-dependencies-docker-docker-compose-gvisor">
+<h2>Install external dependencies (Docker, Docker Compose, gVisor)<a class="headerlink" href="#install-external-dependencies-docker-docker-compose-gvisor" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Install Docker by following <a class="reference external" href="https://docs.docker.com/get-docker/">the official guide</a>.</p></li>
+<li><p>Install Docker Compose with <a class="reference external" href="https://docs.docker.com/compose/install/">the official instructions</a>.</p></li>
+<li><p>Install and set up gVisor following <a class="reference external" href="https://docs.readthedocs.com/dev/latest/guides/gvisor.html" title="(in Read the Docs developer documentation v15.14.0)"><span>gVisor installation</span></a>.</p></li>
+</ol>
+</section>
+<section id="set-up-your-environment">
+<h2>Set up your environment<a class="headerlink" href="#set-up-your-environment" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Clone all the required repositories:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/readthedocs/readthedocs.org/</span>
+<span class="prompt1">git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/readthedocs/ext-theme/</span>
+<span class="prompt1">git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/readthedocs/addons/</span>
+</pre></div></div></li>
+<li><p>Install or clone additional repositories:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step is only required for Read the Docs core team members.</p>
+</div>
+<p>Core team should at very least have all required packages installed in their development image.
+To install these packages you must define a GitHub token before building your image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">GITHUB_TOKEN</span><span class="o">=</span><span class="s2">&quot;...&quot;</span></span>
+<span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">GITHUB_USER</span><span class="o">=</span><span class="s2">&quot;...&quot;</span></span>
+</pre></div></div><p>In order to make development changes on any of our private repositories,
+such as <code class="docutils literal notranslate"><span class="pre">readthedocs-ext</span></code>, you will also need to check these repositories out:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/readthedocs/readthedocs-ext/</span>
+</pre></div></div></li>
+<li><p>Install the requirements from <code class="docutils literal notranslate"><span class="pre">common</span></code> submodule:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>common/dockerfiles/requirements.txt</span>
+</pre></div></div></li>
+<li><p>Build the Docker image for the servers:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This command could take a while to finish since it will download several Docker images.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">inv<span class="w"> </span>docker.build</span>
+</pre></div></div></li>
+<li><p>Pull down Docker images for the builders:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">inv<span class="w"> </span>docker.pull</span>
+</pre></div></div></li>
+<li><p>Start all the containers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">inv<span class="w"> </span>docker.up<span class="w">  </span>--init</span>
+</pre></div></div><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">--init</span></code> is only needed the first time.</p>
+</div>
+</li>
+<li><p>Go to <a class="reference external" href="http://devthedocs.org">http://devthedocs.org</a> to access your local instance of Read the Docs.</p></li>
+</ol>
+</section>
+<section id="check-that-everything-works">
+<h2>Check that everything works<a class="headerlink" href="#check-that-everything-works" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Visit <a class="reference external" href="http://devthedocs.org">http://devthedocs.org</a></p></li>
+<li><p>Login as <code class="docutils literal notranslate"><span class="pre">admin</span></code> /  <code class="docutils literal notranslate"><span class="pre">admin</span></code> and verify that the project list appears.</p></li>
+<li><p>Go to the “Read the Docs” project, under section <span class="guilabel">Build a version</span>, click on the <span class="guilabel">Build version</span> button selecting “latest”,
+and wait until it finishes (this can take several minutes).</p></li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Read the Docs will compile the Python/Node.js/Rust/Go version on-the-fly each time when building the documentation.
+To speed things up, you can pre-compile and cache all these versions by using <code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.compilebuildtool</span></code> command.
+<em>We strongly recommend to pre-compile these versions if you want to build documentation on your development instance.</em></p>
+</div>
+<ol class="arabic simple">
+<li><p>Click on the “View docs” button to browse the documentation, and verify that it shows the Read the Docs documentation page.</p></li>
+</ol>
+</section>
+<section id="working-with-docker-compose">
+<h2>Working with Docker Compose<a class="headerlink" href="#working-with-docker-compose" title="Link to this heading"></a></h2>
+<p>We wrote a wrapper with <code class="docutils literal notranslate"><span class="pre">invoke</span></code> around <code class="docutils literal notranslate"><span class="pre">docker-compose</span></code> to have some shortcuts and
+save some work while typing docker compose commands. This section explains these <code class="docutils literal notranslate"><span class="pre">invoke</span></code> commands:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.build</span></code></dt><dd><p>Builds the generic Docker image used by our servers (web, celery, build and proxito).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.up</span></code></dt><dd><p>Starts all the containers needed to run Read the Docs completely.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-search</span></code> can be passed to disable search</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--init</span></code> is used the first time this command is ran to run initial migrations, create an admin user, etc</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-reload</span></code> makes all celery processes and django runserver
+to use no reload and do not watch for files changes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-django-debug</span></code> runs all containers with <code class="docutils literal notranslate"><span class="pre">DEBUG=False</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--http-domain</span></code> configures an external domain for the environment (useful for Ngrok or other http proxy).
+Note that https proxies aren’t supported.
+There will also be issues with “suspicious domain” failures on Proxito.</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.shell</span></code></dt><dd><p>Opens a shell in a container (web by default).</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-running</span></code> spins up a new container and open a shell</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--container</span></code> specifies in which container the shell is open</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.manage</span> <span class="pre">{command}</span></code></dt><dd><p>Executes a Django management command in a container.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--backupdb</span></code> creates a database backup before running the command.
+The backup is saved to the current directory with a timestamped filename:
+<code class="docutils literal notranslate"><span class="pre">dump_&lt;DD-MM-YYYY&gt;_&lt;HH_MM_SS&gt;__&lt;git-hash&gt;.sql</span></code></p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Useful when modifying models to run <code class="docutils literal notranslate"><span class="pre">makemigrations</span></code>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--backupdb</span></code> when running <code class="docutils literal notranslate"><span class="pre">migrate</span></code> to create a backup before applying migrations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>inv<span class="w"> </span>docker.manage<span class="w"> </span>--backupdb<span class="w"> </span>migrate
+</pre></div>
+</div>
+<p>To restore from this backup, follow these steps:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start only the database container</span>
+inv<span class="w"> </span>docker.compose<span class="w"> </span><span class="s1">&#39;start database&#39;</span>
+
+<span class="c1"># Copy the backup file into the container (replace with your actual filename)</span>
+docker<span class="w"> </span>cp<span class="w"> </span>dump_24-11-2025_10_30_00__abc1234.sql<span class="w"> </span>community_database_1:/tmp/dump.sql
+
+<span class="c1"># Open a shell in the database container</span>
+inv<span class="w"> </span>docker.shell<span class="w"> </span>--container<span class="w"> </span>database
+</pre></div>
+</div>
+<p>Then inside the database container:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dropdb<span class="w"> </span>-U<span class="w"> </span>docs_user<span class="w"> </span>docs_db
+createdb<span class="w"> </span>-U<span class="w"> </span>docs_user<span class="w"> </span>docs_db
+psql<span class="w"> </span>-U<span class="w"> </span>docs_user<span class="w"> </span>docs_db<span class="w"> </span>&lt;<span class="w"> </span>/tmp/dump.sql
+</pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.down</span></code></dt><dd><p>Stops and removes all containers running.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--volumes</span></code> will remove the volumes as well (database data will be lost)</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.restart</span> <span class="pre">{containers}</span></code></dt><dd><p>Restarts the containers specified (automatically restarts NGINX when needed).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.attach</span> <span class="pre">{container}</span></code></dt><dd><p>Grab STDIN/STDOUT control of a running container.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Useful to debug with <code class="docutils literal notranslate"><span class="pre">pdb</span></code>. Once the program has stopped in your pdb line,
+you can run <code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.attach</span> <span class="pre">web</span></code> and jump into a pdb session
+(it also works with ipdb and pdb++)</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can hit CTRL-p CTRL-p to detach it without stopping the running process.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.test</span></code></dt><dd><p>Runs all the test suites inside the container.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--arguments</span></code> will pass arguments to Tox command (e.g. <code class="docutils literal notranslate"><span class="pre">--arguments</span> <span class="pre">&quot;-e</span> <span class="pre">py312</span> <span class="pre">--</span> <span class="pre">-k</span> <span class="pre">test_api&quot;</span></code>)</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.pull</span></code></dt><dd><p>Downloads and tags all the Docker images required for builders.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--only-required</span></code> pulls only the image <code class="docutils literal notranslate"><span class="pre">ubuntu-20.04</span></code>.</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.buildassets</span></code></dt><dd><p>Build all the assets and “deploy” them to the storage.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.compilebuildtool</span></code></dt><dd><p>Pre-compile and cache tools that can be specified in <code class="docutils literal notranslate"><span class="pre">build.tools</span></code> to speed up builds.
+It requires <code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.up</span></code> running in another terminal to be able to upload the pre-compiled version to the cache.</p>
+</dd>
+</dl>
+<section id="adding-a-new-python-dependency">
+<h3>Adding a new Python dependency<a class="headerlink" href="#adding-a-new-python-dependency" title="Link to this heading"></a></h3>
+<p>The Docker image for the servers is built with the requirements defined in the current checked out branch.
+In case you need to add a new Python dependency while developing,
+you can use the <code class="docutils literal notranslate"><span class="pre">common/dockerfiles/entrypoints/common.sh</span></code> script as shortcut.</p>
+<p>This script is run at startup on all the servers (web, celery, builder, proxito) which
+allows you to test your dependency without re-building the whole image.
+To do this, add the <code class="docutils literal notranslate"><span class="pre">pip</span></code> command required for your dependency in <code class="docutils literal notranslate"><span class="pre">common.sh</span></code> file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># common.sh</span>
+pip<span class="w"> </span>install<span class="w"> </span>my-dependency<span class="o">==</span><span class="m">1</span>.2.3
+</pre></div>
+</div>
+<p>Once the PR that adds this dependency was merged, you can rebuild the image
+so the dependency is added to the Docker image itself and it’s not needed to be installed
+each time the container spins up.</p>
+</section>
+<section id="debugging-celery">
+<h3>Debugging Celery<a class="headerlink" href="#debugging-celery" title="Link to this heading"></a></h3>
+<p>In order to step into the worker process, you can’t use <code class="docutils literal notranslate"><span class="pre">pdb</span></code> or <code class="docutils literal notranslate"><span class="pre">ipdb</span></code>, but
+you can use <code class="docutils literal notranslate"><span class="pre">celery.contrib.rdb</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">celery.contrib</span><span class="w"> </span><span class="kn">import</span> <span class="n">rdb</span>
+
+<span class="n">rdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When the breakpoint is hit, the Celery worker will pause on the breakpoint and
+will alert you on STDOUT of a port to connect to. You can open a shell into the container
+with <code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">docker.shell</span> <span class="pre">celery</span></code> (or <code class="docutils literal notranslate"><span class="pre">build</span></code>) and then use <code class="docutils literal notranslate"><span class="pre">telnet</span></code> or <code class="docutils literal notranslate"><span class="pre">netcat</span></code>
+to connect to the debug process port:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">nc<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="m">6900</span></span>
+</pre></div></div><p>The <code class="docutils literal notranslate"><span class="pre">rdb</span></code> debugger is similar to <code class="docutils literal notranslate"><span class="pre">pdb</span></code>, there is no <code class="docutils literal notranslate"><span class="pre">ipdb</span></code> for remote
+debugging currently.</p>
+</section>
+<section id="configuring-connected-accounts">
+<h3>Configuring connected accounts<a class="headerlink" href="#configuring-connected-accounts" title="Link to this heading"></a></h3>
+<p>These are optional steps to setup the <a class="reference external" href="https://docs.readthedocs.com/platform/stable/guides/connecting-git-account.html" title="(in Read the Docs user documentation v15.14.0)"><span class="xref std std-doc">connected accounts</span></a>
+(GitHub, Bitbucket, and GitLab) in your development environment.
+This will allow you to login to your local development instance
+using your GitHub, Bitbucket, or GitLab credentials
+and this makes the process of importing repositories easier.</p>
+<p>However, because these services will not be able to connect back to your local development instance,
+<a class="reference external" href="https://docs.readthedocs.com/platform/stable/reference/git-integration.html" title="(in Read the Docs user documentation v15.14.0)"><span class="xref std std-doc">incoming webhooks</span></a> will not function correctly.
+For some services, the webhooks will fail to be added when the repository is imported.
+For others, the webhook will simply fail to connect when there are new commits to the repository.</p>
+<figure class="align-center" id="id1" style="width: 80%">
+<img alt="_images/bitbucket-oauth-setup.png" src="_images/bitbucket-oauth-setup.png" />
+<figcaption>
+<p><span class="caption-text">Configuring an OAuth consumer for local development on Bitbucket</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Configure the applications on GitHub, Bitbucket, and GitLab.
+For each of these, the callback URI is <code class="docutils literal notranslate"><span class="pre">http://devthedocs.org/accounts/&lt;provider&gt;/login/callback/</span></code>
+where <code class="docutils literal notranslate"><span class="pre">&lt;provider&gt;</span></code> is one of <code class="docutils literal notranslate"><span class="pre">github</span></code>, <code class="docutils literal notranslate"><span class="pre">githubapp</span></code>, <code class="docutils literal notranslate"><span class="pre">gitlab</span></code>, or <code class="docutils literal notranslate"><span class="pre">bitbucket_oauth2</span></code>.
+When setup, you will be given a “Client ID” (also called an “Application ID” or just “Key”) and a “Secret”.</p></li>
+<li><p>Take the “Client ID” and “Secret” for each service and set them as <a class="reference internal" href="settings.html#allauth-secrets"><span class="std std-ref">environment variables</span></a>.</p></li>
+</ul>
+</section>
+<section id="configuring-github-app">
+<h3>Configuring GitHub App<a class="headerlink" href="#configuring-github-app" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Create a new GitHub app from <a class="reference external" href="https://github.com/settings/apps/new">https://github.com/settings/apps/new</a>.</p></li>
+<li><p>Callback URL should be <code class="docutils literal notranslate"><span class="pre">http://devthedocs.org/accounts/githubapp/login/callback/</span></code>.</p></li>
+<li><p>Keep marked “Expire user authorization tokens”</p></li>
+<li><p>Activate the webhook, and set the URL to one provided by a service like <a class="reference external" href="https://docs.webhook.site/cli.html">Webhook.site</a> to forward all incoming webhooks to your local development instance.
+You should forward all events to <code class="docutils literal notranslate"><span class="pre">http://devthedocs.org/webhook/githubapp/</span></code>.</p></li>
+<li><p>In permissions, select the following:</p>
+<ul>
+<li><p>Repository permissions: Commit statuses (read and write, so we can create commit statuses),
+Contents (read only, so we can clone repos with a token),
+Metadata (read only, so we read the repo collaborators),
+Pull requests (read and write, so we can post a comment on PRs in the future).</p></li>
+<li><p>Organization permissions: Members (read only so we can read the organization members).</p></li>
+<li><p>Account permissions: Email addresses (read only, so allauth can fetch all verified emails).</p></li>
+</ul>
+</li>
+<li><p>Subscribe to the following events: Installation target, Member, Organization, Membership, Pull request, Push, and Repository.</p></li>
+<li><p>Copy the “Client ID” and “Client Secret” and set them as <a class="reference internal" href="settings.html#allauth-secrets"><span class="std std-ref">environment variables</span></a>.</p></li>
+<li><p>Generate a webhook secret and a private key from the GitHub App settings,
+and set them as <a class="reference internal" href="settings.html#github-app"><span class="std std-ref">environment variables</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The environment is developed and mainly tested on Docker Compose v1.x.
+If you are running Docker Compose 2.x, please make sure you have <code class="docutils literal notranslate"><span class="pre">COMPOSE_COMPATIBILITY=true</span></code> set.
+This is automatically loaded via the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file.
+If you want to ensure that the file is loaded, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source .env</span>
+</pre></div>
+</div>
+</div>
+<section id="builds-fail-with-a-generic-error">
+<h3>Builds fail with a generic error<a class="headerlink" href="#builds-fail-with-a-generic-error" title="Link to this heading"></a></h3>
+<p>There are projects that do not use the default Docker image downloaded when setting up the development environment.
+These extra images are not downloaded by default because they are big and they are not required in all cases.
+However, if you are seeing the following error</p>
+<figure class="align-center" id="id2" style="width: 80%">
+<img alt="_images/read-the-docs-build-failing.png" src="_images/read-the-docs-build-failing.png" />
+<figcaption>
+<p><span class="caption-text">Build failing with a generic error</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>and in the console where the logs are shown you see something like <code class="docutils literal notranslate"><span class="pre">BuildAppError:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">image:</span> <span class="pre">readthedocs/build:ubuntu-22.04</span></code>,
+that means the application wasn’t able to find the Docker image required to build that project and it failed.</p>
+<p>In this case, you can run a command to download all the optional Docker images:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">inv<span class="w"> </span>docker.pull</span>
+</pre></div></div><p>However, if you prefer to download only the <em>specific</em> image required for that project and save some space on disk,
+you have to follow these steps:</p>
+<ol class="arabic">
+<li><p>go to <a class="reference external" href="https://hub.docker.com/r/readthedocs/build/tags">https://hub.docker.com/r/readthedocs/build/tags</a></p></li>
+<li><p>find the latest tag for the image shown in the logs
+(in this example is <code class="docutils literal notranslate"><span class="pre">readthedocs/build:ubuntu-22.04</span></code>, which the current latest tag on that page is <code class="docutils literal notranslate"><span class="pre">ubuntu-22.04-2022.03.15</span></code>)</p></li>
+<li><p>run the Docker command to pull it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker<span class="w"> </span>pull<span class="w"> </span>readthedocs/build:ubuntu-22.04-2022.03.15</span>
+</pre></div></div></li>
+<li><p>tag the downloaded Docker image for the app to findit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker<span class="w"> </span>tag<span class="w"> </span>readthedocs/build:ubuntu-22.04-2022.03.15<span class="w"> </span>readthedocs/build:ubuntu-22.04</span>
+</pre></div></div></li>
+</ol>
+<p>Once this is done, you should be able to trigger a new build on that project and it should succeed.</p>
+</section>
+</section>
+<section id="core-team-standards">
+<h2>Core team standards<a class="headerlink" href="#core-team-standards" title="Link to this heading"></a></h2>
+<p>Core team members expect to have a development environment that closely
+approximates our production environment, in order to spot bugs and logical
+inconsistencies before they make their way to production.</p>
+<p>This solution gives us many features that allows us to have an
+environment closer to production:</p>
+<dl class="simple">
+<dt>Celery runs as a separate process</dt><dd><p>Avoids masking bugs that could be introduced by Celery tasks in a race conditions.</p>
+</dd>
+<dt>Celery runs multiple processes</dt><dd><p>We run celery with multiple worker processes to discover race conditions
+between tasks.</p>
+</dd>
+<dt>Docker for builds</dt><dd><p>Docker is used for a build backend instead of the local host build backend.
+There are a number of differences between the two execution methods in how
+processes are executed, what is installed, and what can potentially leak
+through and mask bugs – for example, local SSH agent allowing code check
+not normally possible.</p>
+</dd>
+<dt>Serve documentation under a subdomain</dt><dd><p>There are a number of resolution bugs and cross-domain behavior that can
+only be caught by using a <code class="docutils literal notranslate"><span class="pre">PUBLIC_DOMAIN</span></code> setting different from the <code class="docutils literal notranslate"><span class="pre">PRODUCTION_DOMAIN</span></code> setting.</p>
+</dd>
+<dt>PostgreSQL as a database</dt><dd><p>It is recommended that Postgres be used as the default database whenever
+possible, as SQLite has issues with our Django version and we use Postgres
+in production.  Differences between Postgres and SQLite should be masked for
+the most part however, as Django does abstract database procedures, and we
+don’t do any Postgres-specific operations yet.</p>
+</dd>
+<dt>Celery is isolated from database</dt><dd><p>Celery workers on our build servers do not have database access and need
+to be written to use API access instead.</p>
+</dd>
+<dt>Use NGINX as web server</dt><dd><p>All the site is served via NGINX with the ability to change some configuration locally.</p>
+</dd>
+<dt>MinIO as Django storage backend</dt><dd><p>All static and media files are served using Minio –an emulator of S3,
+which is the one used in production.</p>
+</dd>
+<dt>Serve documentation via El Proxito</dt><dd><p>El Proxito is a small application put in front of the documentation to serve files
+from the Django Storage Backend.</p>
+</dd>
+<dt>Use Cloudflare Wrangler</dt><dd><p>Documentation pages are proxied by NGINX to Wrangler, who executes a JavaScript worker
+to fetch the response from El Proxito and injects HTML tags (for addons) based on HTTP headers.</p>
+</dd>
+<dt>Search enabled by default</dt><dd><p>Elasticsearch is properly configured and enabled by default.
+All the documentation indexes are updated after a build is finished.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="roadmap.html" class="btn btn-neutral float-left" title="Roadmap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="guides/index.html" class="btn btn-neutral float-right" title="Development guides" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

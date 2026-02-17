@@ -1,0 +1,402 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Contributing to Read the Docs" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="contribute.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Are you here to help on Read the Docs? Awesome! ❤️ Read the Docs, and all of it’s related projects, are all community maintained, open-source projects. We hope you feel welcome as you begin contributing to any of these projects. You’ll find that development is primarily supported by our core team..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Are you here to help on Read the Docs? Awesome! ❤️ Read the Docs, and all of it’s related projects, are all community maintained, open-source projects. We hope you feel welcome as you begin contributing to any of these projects. You’ll find that development is primarily supported by our core team..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contributing to Read the Docs &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/contribute.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a48b73ee"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Code of Conduct" href="code-of-conduct.html" />
+    <link rel="prev" title="Read the Docs developer documentation" href="index.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="ltd-provenance.js"></script>
+<script type="text/javascript" src="ltd-current.js"></script>
+<script type="text/javascript" src="../../ltd-config.js"></script>
+<script type="text/javascript" src="../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing to Read the Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#get-in-touch">Get in touch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#contributing-to-development">Contributing to development</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contributing-to-documentation">Contributing to documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contributing-to-translations">Contributing to translations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#triaging-issues">Triaging issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initial-triage">Initial triage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-labels-for-categorization">Additional labels for categorization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#helpful-links-for-triaging">Helpful links for triaging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Contributing to Read the Docs</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/contribute.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contributing-to-read-the-docs">
+<h1>Contributing to Read the Docs<a class="headerlink" href="#contributing-to-read-the-docs" title="Link to this heading"></a></h1>
+<p>Are you here to help on Read the Docs? Awesome! ❤️</p>
+<p>Read the Docs, and all of it’s related projects, are all community maintained,
+open-source projects. We hope you feel welcome as you begin contributing to any
+of these projects. You’ll find that development is primarily supported by our
+core team members, who all work on Read the Docs full-time.</p>
+<p>All members of our community are expected to follow our <a class="reference internal" href="code-of-conduct.html"><span class="doc">Code of Conduct</span></a>.
+Please make sure you are welcoming and friendly in all of our spaces.</p>
+<section id="get-in-touch">
+<h2>Get in touch<a class="headerlink" href="#get-in-touch" title="Link to this heading"></a></h2>
+<p>If you have a question or comment, we generally suggest the following
+communication channels:</p>
+<ul class="simple">
+<li><p>Ask usage questions (“How do I?”) on <a class="reference external" href="https://stackoverflow.com/questions/tagged/read-the-docs">StackOverflow</a>.</p></li>
+<li><p>Report bugs, suggest features, or view the source code <a class="reference external" href="https://github.com/readthedocs/readthedocs.org">on GitHub</a>.</p></li>
+</ul>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
+<p>There are plenty of places to contribute to Read the Docs, but if you are just
+starting with contributions, we suggest focusing on the following areas:</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#contributing-to-development" id="id1">Contributing to development</a></p></li>
+<li><p><a class="reference internal" href="#contributing-to-documentation" id="id2">Contributing to documentation</a></p></li>
+<li><p><a class="reference internal" href="#contributing-to-translations" id="id3">Contributing to translations</a></p></li>
+</ul>
+</nav>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can also contribute to the <a class="reference external" href="https://sphinx-rtd-theme.readthedocs.io/en/stable/">Read the Docs Sphinx Theme</a>,
+or Sphinx extensions in the <a class="reference external" href="https://github.com/readthedocs">Read the Docs GitHub organization</a> like <a class="reference external" href="https://github.com/readthedocs/sphinx-notfound-page">sphinx-notfound-page</a>.</p>
+</div>
+<section id="contributing-to-development">
+<h3><a class="toc-backref" href="#id1" role="doc-backlink">Contributing to development</a><a class="headerlink" href="#contributing-to-development" title="Link to this heading"></a></h3>
+<p>If you want to deep dive and help out with development on Read the Docs, then
+first get the project installed locally according to the
+<a class="reference internal" href="install.html"><span class="doc">installation guide</span></a>. After that is done we
+suggest you have a look at tickets in our issue tracker that are labelled <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22">Good
+First Issue</a>. These are meant to be a great way to get a smooth start and
+won’t put you in front of the most complex parts of the system.</p>
+<p>If you are up to more challenging tasks with a bigger scope,
+then there are a set of tickets with a <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?direction=desc&amp;labels=Feature&amp;page=1&amp;sort=updated&amp;state=open">Feature</a> or <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?q=is%3Aopen+is%3Aissue+label%3AImprovement">Improvement</a> tag.
+These tickets have a general overview and description of the work required to finish.
+If you want to start somewhere, this would be a good place to start
+(make sure that the issue also have the <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?q=is%3Aopen+is%3Aissue+label%3AAccepted">Accepted</a> label).
+That said, these aren’t necessarily the easiest tickets.
+They are simply things that are explained.
+If you still didn’t find something to work on, search for the <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?q=is%3Aopen+is%3Aissue+label%3ASprintable">Sprintable</a> label.
+Those tickets are meant to be standalone and can be worked on ad-hoc.</p>
+<p>You can read all of our <a class="reference internal" href="index.html"><span class="doc">Read the Docs developer documentation</span></a> to understand more the development of Read the Docs.
+When contributing code, then please follow the standard Contribution Guidelines set forth at <a class="reference external" href="http://www.contribution-guide.org/#submitting-bugs">contribution-guide.org</a>.</p>
+</section>
+<section id="contributing-to-documentation">
+<h3><a class="toc-backref" href="#id2" role="doc-backlink">Contributing to documentation</a><a class="headerlink" href="#contributing-to-documentation" title="Link to this heading"></a></h3>
+<p>Documentation for Read the Docs itself is hosted by Read the Docs at <a class="reference external" href="https://docs.readthedocs.io">https://docs.readthedocs.io</a> (likely the website you are currently reading).</p>
+<p>There are guidelines around writing and formatting documentation for the project.
+For full details, including how to build it, see <a class="reference internal" href="docs.html"><span class="doc">Building and contributing to documentation</span></a>.</p>
+</section>
+<section id="contributing-to-translations">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">Contributing to translations</a><a class="headerlink" href="#contributing-to-translations" title="Link to this heading"></a></h3>
+<p>We use Transifex to manage localization for all of our projects that we support
+localization on. If you are interested in contributing, we suggest joining a
+team on one of <a class="reference external" href="https://explore.transifex.com/readthedocs/">our projects on Transifex</a>. From there, you can suggest
+translations, and can even be added as a reviewer, so you can correct and
+approve suggestions.</p>
+<p>If you don’t see your language in our list of approved languages for any of our
+projects, feel free to suggest the language on Transifex to start the process.</p>
+</section>
+</section>
+<section id="triaging-issues">
+<h2>Triaging issues<a class="headerlink" href="#triaging-issues" title="Link to this heading"></a></h2>
+<p>Everyone is encouraged to help improving, refining, verifying and prioritizing
+issues on Github. The Read the Docs core <a class="reference external" href="https://docs.readthedocs.com/platform/stable/team.html" title="(in Read the Docs user documentation v15.14.0)"><span>Read the Docs team</span></a> uses the following
+guidelines for issue triage on all of our projects. These guidelines describe
+the issue lifecycle step-by-step.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will need Triage permission on the project in order to do this.
+You can ask one of the members of the <a class="reference external" href="https://docs.readthedocs.com/platform/stable/team.html" title="(in Read the Docs user documentation v15.14.0)"><span>Read the Docs team</span></a> to give you access.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Triaging helps identify problems and solutions and ultimately what
+issues that are ready to be worked on. The core
+<a class="reference external" href="https://docs.readthedocs.com/platform/stable/team.html" title="(in Read the Docs user documentation v15.14.0)"><span>Read the Docs team</span></a> maintains a separate <a class="reference internal" href="roadmap.html"><span class="doc">Roadmap</span></a>
+of prioritized issues - issues will only end up on that Roadmap after
+they have been triaged.</p>
+</div>
+<section id="initial-triage">
+<h3>Initial triage<a class="headerlink" href="#initial-triage" title="Link to this heading"></a></h3>
+<p>When sitting down to do some triaging work, we start with the <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?q=is:issue+is:open+no:label">list of
+untriaged tickets</a>. We consider all tickets that do not have a label as
+untriaged. The first step is to categorize the ticket into one of the
+following categories and either close the ticket or assign an appropriate
+label. The reported issue …</p>
+<dl>
+<dt>… is not valid</dt><dd><p>If you think the ticket is invalid comment why you think it is invalid,
+then close the ticket. Tickets might be invalid if they were already fixed
+in the past or it was decided that the proposed feature will not be
+implemented because it does not conform with the overall goal of Read the
+Docs. Also if you happen to know that the problem was already reported,
+reference the other ticket that is already addressing the problem and close the duplicate.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><em>Builds fail when using matplotlib</em>:
+If the described issue was already fixed, then explain and instruct to
+re-trigger the build.</p></li>
+<li><p><em>Provide way to upload arbitrary HTML files</em>:
+It was already decided that Read the Docs is not a dull hosting platform
+for HTML. So explain this and close the ticket.</p></li>
+</ul>
+</dd>
+</dl>
+<dl id="triage-not-enough-information">
+<dt>… does not provide enough information</dt><dd><p>Add the label <strong>Needed: more information</strong> if the reported issue does not
+contain enough information to decide if it is valid or not and ask on the
+ticket for the required information to go forward. We will re-triage all
+tickets that have the label <strong>Needed: more information</strong> assigned. If the
+original reporter left new information we can try to re-categorize the
+ticket. If the reporter did not come back to provide more required
+information after a long enough time, we will close the ticket (this will be
+roughly about two weeks).</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><em>My builds stopped working. Please help!</em>
+Ask for a link to the build log and for which project is affected.</p></li>
+</ul>
+</dd>
+<dt>… is a valid feature proposal</dt><dd><p>If the ticket contains a feature that aligns with the goals
+of Read the Docs, then add the label <strong>Feature</strong>. If the proposal
+seems valid but requires further discussion between core contributors
+because there might be different possibilities on how to implement the
+feature, then also add the label <strong>Needed: design decision</strong>.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><em>Provide better integration with service XYZ</em></p></li>
+<li><p><em>Achieve world domination</em> (also needs the label <strong>Needed: design
+decision</strong>)</p></li>
+</ul>
+</dd>
+<dt>… is a small change to the source code</dt><dd><p>If the ticket is about code cleanup or small changes to existing features
+would likely have the <strong>Improvement</strong> label.
+The distinction for this label is that these issues have a lower priority than a Bug,
+and aren’t implementing new features.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><em>Refactor namedtuples to dataclasses</em></p></li>
+<li><p><em>Change font size for the project’s title</em></p></li>
+</ul>
+</dd>
+<dt>… is a valid problem within the code base:</dt><dd><p>If it’s a valid bug, then add the label <strong>Bug</strong>. Try to reference related
+issues if you come across any.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><em>Builds fail if conf.py contains non-ascii letters</em></p></li>
+</ul>
+</dd>
+<dt>… is a currently valid problem with the infrastructure:</dt><dd><p>Users might report about web server downtimes or that builds are not
+triggered. If the ticket needs investigation on the servers, then add the
+label <strong>Operations</strong>.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><em>Builds are not starting</em></p></li>
+</ul>
+</dd>
+</dl>
+<dl id="triage-support-tickets">
+<dt>… is a question and needs answering:</dt><dd><p>If the ticket contains a question about the Read the Docs platform or the
+code, then add the label <strong>Support</strong>.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><em>My account was set inactive. Why?</em></p></li>
+<li><p><em>How to use C modules with Sphinx autodoc?</em></p></li>
+<li><p><em>Why are my builds failing?</em></p></li>
+</ul>
+</dd>
+<dt>… requires a one-time action on the server:</dt><dd><p>Tasks that require a one time action on the server should be assigned the
+two labels <strong>Support</strong> and <strong>Operations</strong>.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><em>Please change my username</em></p></li>
+<li><p><em>Please set me as owner of this abandoned project</em></p></li>
+</ul>
+</dd>
+</dl>
+<p>After we finished the initial triaging of new tickets, no ticket should be left
+without a label.</p>
+</section>
+<section id="additional-labels-for-categorization">
+<h3>Additional labels for categorization<a class="headerlink" href="#additional-labels-for-categorization" title="Link to this heading"></a></h3>
+<p>Additionally to the labels already involved in the section above, we have a
+few more at hand to further categorize issues.</p>
+<dl class="simple">
+<dt><em>High Priority</em></dt><dd><p>If the issue is urgent, assign this label. In the best case also go forward to
+resolve the ticket yourself as soon as possible.</p>
+</dd>
+<dt><em>Good First Issue</em></dt><dd><p>This label marks tickets that are easy to get started with. The ticket
+should be ideal for beginners to dive into the code base. Better is if the
+fix for the issue only involves touching one part of the code.</p>
+</dd>
+<dt><em>Sprintable</em></dt><dd><p>Sprintable are all tickets that have the right amount of scope to be
+handled during a sprint. They are very focused and encapsulated.</p>
+</dd>
+</dl>
+<p>For a full list of available labels and their meanings, see
+<a class="reference internal" href="issue-labels.html"><span class="doc">Overview of issue labels</span></a>.</p>
+</section>
+<section id="helpful-links-for-triaging">
+<h3>Helpful links for triaging<a class="headerlink" href="#helpful-links-for-triaging" title="Link to this heading"></a></h3>
+<p>Here is a list of links for contributors that look for work:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?q=is:issue+is:open+no:label">Untriaged tickets</a>:
+Go and triage them!</p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?utf8=✓&amp;q=is:open+is:issue+label:&quot;Needed:+more+information&quot;">Tickets labelled with Needed: more information</a>:
+Come back to these tickets once in a while and close those that did not get
+any new information from the reporter. If new information is available, go
+and re-triage the ticket.</p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?q=is:open+is:issue+label:Operations">Tickets labelled with Operations</a>:
+These tickets are for contributors who have access to the servers.</p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?q=is:open+is:issue+label:Support">Tickets labelled with Support</a>:
+Experienced contributors or community members with a broad knowledge about
+the project should handle those.</p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues?q=is:open+is:issue+label:&quot;Needed:+design+decision&quot;">Tickets labelled with Needed: design decision</a>:
+Project leaders must take actions on these tickets. Otherwise no other
+contributor can go forward on them.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Read the Docs developer documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="code-of-conduct.html" class="btn btn-neutral float-right" title="Code of Conduct" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

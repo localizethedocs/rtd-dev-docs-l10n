@@ -1,0 +1,465 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Proposed contents for new Sphinx guides" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/new-sphinx-guides.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="The two main objectives are: Contributing a good Sphinx tutorial for beginners. This should introduce the readers to all the various Sphinx major features in a pedagogical way, and be mostly focused on Markdown using MyST. We would try to find a place for it in the official Sphinx documentation.,..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="The two main objectives are: Contributing a good Sphinx tutorial for beginners. This should introduce the readers to all the various Sphinx major features in a pedagogical way, and be mostly focused on Markdown using MyST. We would try to find a place for it in the official Sphinx documentation.,..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposed contents for new Sphinx guides &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/new-sphinx-guides.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=cc8e41f0"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Organizations" href="organizations.html" />
+    <link rel="prev" title="New search API" href="new-search-api.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Proposed contents for new Sphinx guides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sphinx-tutorial">Sphinx tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-the-docs-tutorial">Read the Docs tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#possible-new-how-to-guides">Possible new how-to Guides</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">Proposed contents for new Sphinx guides</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/new-sphinx-guides.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="proposed-contents-for-new-sphinx-guides">
+<h1>Proposed contents for new Sphinx guides<a class="headerlink" href="#proposed-contents-for-new-sphinx-guides" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This work is in progress, see discussion on <a class="reference external" href="https://github.com/sphinx-doc/sphinx/issues/9165">this Sphinx
+issue</a>
+and the pull requests linked at the end.</p>
+</div>
+<p>The two main objectives are:</p>
+<ul class="simple">
+<li><p>Contributing a good Sphinx tutorial for beginners.
+This should introduce the readers to all the various Sphinx major features
+in a pedagogical way, and be mostly focused on Markdown using MyST.
+We would try to find a place for it in the official Sphinx documentation.</p></li>
+<li><p>Write a new narrative tutorial for Read the Docs
+that complements the existing guides
+and offers a cohesive story of how to use the service.</p></li>
+</ul>
+<section id="sphinx-tutorial">
+<h2>Sphinx tutorial<a class="headerlink" href="#sphinx-tutorial" title="Link to this heading"></a></h2>
+<p>Appendixes are optional, i.e. not required to follow the tutorial, but
+highly recommended.</p>
+<ol class="arabic simple">
+<li><p>The Sphinx way</p>
+<ul class="simple">
+<li><p>Preliminary section giving an overview of what Sphinx is, how it works,
+how reStructuredText and Markdown/MyST are related to it, some terminology
+(toctree, builders), what can be done with it.</p></li>
+</ul>
+</li>
+<li><p>About this tutorial</p>
+<ul class="simple">
+<li><p>A section explaining the approach of the tutorial,
+as well as how to download the result of each section
+for closer inspection or for skipping parts of it.</p></li>
+</ul>
+</li>
+<li><p>Getting started</p>
+<ol class="arabic simple">
+<li><p>Creating our project</p>
+<ul class="simple">
+<li><p>Present a fictitious goal for a documentation project</p></li>
+<li><p>Create a blank <code class="docutils literal notranslate"><span class="pre">README.md</span></code> to introduce the most basic elements of Markdown
+(headings and paragraph text)</p></li>
+</ul>
+</li>
+<li><p>Installing Sphinx and cookiecutter in a new development environment</p>
+<ul class="simple">
+<li><p>Install Python (or miniforge)</p></li>
+<li><p>Create a virtual environment (and/or conda environment)</p></li>
+<li><p>Activate our virtual environment (it will always be the first
+step)</p></li>
+<li><p>Install Sphinx inside the virtual environment</p></li>
+<li><p>Check that <code class="docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">--help</span></code> works (yay!)</p></li>
+</ul>
+</li>
+<li><p>Creating the documentation layout</p>
+<ul class="simple">
+<li><p>Apply our cookiecutter to create a minimal <code class="docutils literal notranslate"><span class="pre">docs/</span></code> directory
+(similar to what <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code> does, but
+with source and build separation by default,
+project release 0.1, English language,
+and a MyST index, if at all) <a class="footnote-reference brackets" href="#id4" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></li>
+<li><p>Check that the correct files are created (yay!)</p></li>
+</ul>
+</li>
+<li><p>Appendix: Using version control</p>
+<ul class="simple">
+<li><p>Install git (we will not use it during the tutorial)</p></li>
+<li><p>Add a proper <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file (copied from gitignore.io)</p></li>
+<li><p>Create the first commit for the project (yay!)</p></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>First steps to document our project using Sphinx</p>
+<ol class="arabic simple">
+<li><p>Converting our documentation to local HTML</p>
+<ul class="simple">
+<li><p>Create (or minimally tweak) <code class="docutils literal notranslate"><span class="pre">index.md</span></code></p></li>
+<li><p>Build the HTML output using
+<code class="docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-b</span> <span class="pre">-W</span> <span class="pre">html</span> <span class="pre">doc</span> <span class="pre">doc/_build/html</span></code>  <a class="footnote-reference brackets" href="#id5" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></li>
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">doc/_build/html</span></code> and launch an HTTP server
+(<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">http.server</span></code>)</p></li>
+<li><p>Open <a class="reference external" href="http://localhost:8000">http://localhost:8000</a> in a web browser, and see the HTML
+documentation (yay!)</p></li>
+</ul>
+</li>
+<li><p>Converting our documentation to other formats</p>
+<ul class="simple">
+<li><p>Build PseudoXML using <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">pseudoxml</span></code></p></li>
+<li><p>Build Text using <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">text</span></code></p></li>
+<li><p>See how the various formats change the output (yay!)</p></li>
+</ul>
+</li>
+<li><p>Appendix: Simplify documentation building by using Make <a class="footnote-reference brackets" href="#id6" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a></p>
+<ul class="simple">
+<li><p>Install Make (nothing is needed on Windows, <code class="xref py py-obj docutils literal notranslate"><span class="pre">make.bat</span></code> is standalone)</p></li>
+<li><p>Add more content to <code class="docutils literal notranslate"><span class="pre">index.md</span></code></p></li>
+<li><p>Build HTML doing <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">doc</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">html</span></code></p></li>
+<li><p>Observe that the HTML docs have changed (yay!)</p></li>
+</ul>
+</li>
+<li><p>Appendix: PDF without LaTeX using rinoh (beta)</p></li>
+</ol>
+</li>
+<li><p>Customizing Sphinx configuration</p>
+<ol class="arabic simple">
+<li><p>Changing the HTML theme</p>
+<ul class="simple">
+<li><p>Install <a class="reference external" href="https://pypi.org/project/furo/">https://pypi.org/project/furo/</a></p></li>
+<li><p>Change the <code class="docutils literal notranslate"><span class="pre">html_theme</span></code> in <code class="docutils literal notranslate"><span class="pre">conf.py</span></code></p></li>
+<li><p>Rebuild the HTML documentation and observe that the theme has
+changed (yay!)</p></li>
+</ul>
+</li>
+<li><p>Changing the PDF appearance</p>
+<ul class="simple">
+<li><p>Add a <code class="docutils literal notranslate"><span class="pre">latex_theme</span></code> and set it to <code class="docutils literal notranslate"><span class="pre">howto</span></code></p></li>
+<li><p>Rebuild <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">latexpdf</span></code></p></li>
+<li><p>Check that the appearance changed (yay!)</p></li>
+</ul>
+</li>
+<li><p>Enable an extension</p>
+<ul class="simple">
+<li><p>Add a string to the <code class="docutils literal notranslate"><span class="pre">extensions</span></code> list in <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> for
+<code class="docutils literal notranslate"><span class="pre">sphinx.ext.duration</span></code></p></li>
+<li><p>Rebuild the HTML docs <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> and notice that now the
+times are printed (yay!)</p></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Writing narrative documentation with Sphinx</p>
+<ul class="simple">
+<li><p>First focus on <code class="docutils literal notranslate"><span class="pre">index.md</span></code>, diving more into Markdown
+and mentioning Semantic Line Breaks.</p></li>
+<li><p>Then add another <code class="docutils literal notranslate"><span class="pre">.md</span></code> file to teach how <code class="docutils literal notranslate"><span class="pre">toctree</span></code> works.</p></li>
+<li><p>Then continue introducing elements of the syntax to add pictures,
+cross-references, and the like.</p></li>
+</ul>
+</li>
+<li><p>Describing code in Sphinx</p>
+<ul class="simple">
+<li><p>Explain the Python domain as part of narrative documentation to
+interleave code with text, include doctests, and justify the
+usefulness of the next section.</p></li>
+</ul>
+</li>
+<li><p>Autogenerating documentation from code in Sphinx</p></li>
+<li><p>Deploying a Sphinx project online</p>
+<ul class="simple">
+<li><p>A bit of background on the options: GitHub/GitLab Pages,
+custom server, Netlify, Read the Docs</p></li>
+<li><p>Make reference to Read the Docs tutorial</p></li>
+</ul>
+</li>
+<li><p>Appendix: Using Jupyter notebooks inside Sphinx</p></li>
+<li><p>Appendix: Understanding the docutils document tree</p></li>
+<li><p>Appendix: Where to go from here</p>
+<ul class="simple">
+<li><p>Refer the user to the Sphinx, reST and MyST references,
+prominent projects already using Sphinx,
+compilations of themes and extensions,
+the development documentation.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="read-the-docs-tutorial">
+<h2>Read the Docs tutorial<a class="headerlink" href="#read-the-docs-tutorial" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>The Read the Docs way</p></li>
+<li><p>Getting started</p>
+<ol class="arabic simple">
+<li><p>Preparing our project on GitHub</p>
+<ul class="simple">
+<li><p>Fork a starter GitHub repository (something like <a class="reference external" href="https://github.com/readthedocs/template">our demo template</a>,
+as a starting point that
+helps mimicking the <code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">cookiecutter</span></code> step
+without having to checkout the code locally)</p></li>
+</ul>
+</li>
+<li><p>Importing our project to Read the Docs</p>
+<ul class="simple">
+<li><p>Sign up with GitHub on RTD</p></li>
+<li><p>Import the project (don’t “Edit advanced project options”, we
+will do this later)</p></li>
+<li><p>The project is created on RTD</p></li>
+<li><p>Browse “builds”, open the build live logs, wait a couple of minutes,
+open the docs (yay!)</p></li>
+</ul>
+</li>
+<li><p>Basic configuration changes</p>
+<ul class="simple">
+<li><p>Add a description, homepage, and tags</p></li>
+<li><p>Configure your email for build failure notification
+(until we turn them on by default)</p></li>
+<li><p>Enable “build pull requests for this project” in the advanced settings</p></li>
+<li><p>Edit a file from the GitHub UI as part of a new branch, and open a pull request</p></li>
+<li><p>See the RTD check on the GitHub PR UI, wait a few minutes, open result (yay!)</p></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Customizing the build process</p>
+<ul class="simple">
+<li><p>Use <code class="xref py py-obj docutils literal notranslate"><span class="pre">readthedocs.yaml</span></code> (rather than the web UI) to customize build formats,
+change build requirements and Python version, enable fail-on-warnings</p></li>
+</ul>
+</li>
+<li><p>Versioning documentation</p>
+<ul class="simple">
+<li><p>Explain how to manage versions on RTD: create release branches,
+activate the corresponding version, browse them in the version selector,
+selectively build versions</p></li>
+<li><p>Intermediate topics: hide versions, create Automation Rules</p></li>
+</ul>
+</li>
+<li><p>Getting insights from your projects</p>
+<ul class="simple">
+<li><p>Move around the project, explore results in Traffic Analytics</p></li>
+<li><p>Play around with server-side search, explore results in Search Analytics</p></li>
+</ul>
+</li>
+<li><p>Managing translations</p></li>
+<li><p>Where to go from here</p>
+<ul class="simple">
+<li><p>Reference our existing guides, prominent projects already using RTD,
+domain configuration, our support form, our contributing documentation</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="possible-new-how-to-guides">
+<h2>Possible new how-to Guides<a class="headerlink" href="#possible-new-how-to-guides" title="Link to this heading"></a></h2>
+<p>Some ideas for extra guides on specific topics,
+still for beginners but more problem-oriented documents,
+covering a wide range of use cases:</p>
+<ul class="simple">
+<li><p>How to turn a bunch of Markdown files into a Sphinx project</p></li>
+<li><p>How to turn a bunch of Jupyter notebooks into a Sphinx project</p></li>
+<li><p>How to localize an existing Sphinx project</p></li>
+<li><p>How to customize the appearance of the HTML output of a Sphinx
+project</p></li>
+<li><p>How to convert existing reStructuredText documentation to Markdown</p></li>
+<li><p>How to use Doxygen autogenerated documentation inside a Sphinx
+project</p></li>
+<li><p>How to keep a changelog of your project</p></li>
+</ul>
+</section>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading"></a></h2>
+<p>All the references should be external: the Sphinx reference, the MyST
+and reST syntax specs, and so forth.</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Similar to <a class="reference external" href="https://github.com/sphinx-contrib/cookiecutter">https://github.com/sphinx-contrib/cookiecutter</a>,
+but only for the <code class="xref py py-obj docutils literal notranslate"><span class="pre">docs/</span></code> directory? This way it can be less opinionated
+about everything else</p>
+</aside>
+<aside class="footnote brackets" id="id5" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>At first I considered “make mode”, but the current maintainers don’t
+know much about its original intent (see <a class="reference external" href="https://github.com/sphinx-doc/sphinx/issues/3196#issuecomment-819529513">my comment
+here</a>
+and the discussion after it)</p>
+</aside>
+<aside class="footnote brackets" id="id6" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>There have been attempts at creating a <code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx</span></code> command, see
+<a class="reference external" href="https://github.com/sphinx-doc/sphinx/pull/6938/">this pull request</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="new-search-api.html" class="btn btn-neutral float-left" title="New search API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="organizations.html" class="btn btn-neutral float-right" title="Organizations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

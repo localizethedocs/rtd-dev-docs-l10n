@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Flyout Redesign Design Document" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/flyout-redesign.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="This document describes the design of a new &quot;flyout API&quot; to replace our existing footer_html endpoint in APIv2. The Read the Docs theme uses this API to put an updated version selector with active versions into the lower left menu. On other themes, this appears as a floating menu in the..." />
+<meta property="og:image" content="_images/flyout-expanded.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="This document describes the design of a new &quot;flyout API&quot; to replace our existing footer_html endpoint in APIv2. The Read the Docs theme uses this API to put an updated version selector with active versions into the lower left menu. On other themes, this appears as a floating menu in the..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flyout Redesign Design Document &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/flyout-redesign.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f05dab73"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Future builder" href="future-builder.html" />
+    <link rel="prev" title="Version file tree diff" href="file-tree-diff.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Flyout Redesign Design Document</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#issues-with-the-existing-api">Issues with the existing API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overlap-with-existing-api-endpoints">Overlap with existing API endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#javascript-integration">JavaScript integration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#disabling-the-flyout-entirely">Disabling the flyout entirely</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-steps">Implementation steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#future-changes-not-in-this-rollout">Future changes not in this rollout</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">Flyout Redesign Design Document</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/flyout-redesign.rst" class="fa fa-github"> 在 GitHub 上编辑</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="flyout-redesign-design-document">
+<h1>Flyout Redesign Design Document<a class="headerlink" href="#flyout-redesign-design-document" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>This document detailed an initial idea that was not implemented in the end.
+Lot of things have changed since this document was written.
+A different approach is being implemented as part of the work done on the new addons client at
+<a class="reference external" href="https://github.com/readthedocs/readthedocs-client">https://github.com/readthedocs/readthedocs-client</a></p>
+</div>
+<p>This document describes the design of a new &quot;flyout API&quot;
+to replace our existing <code class="xref py py-obj docutils literal notranslate"><span class="pre">footer_html</span></code> endpoint in APIv2.
+The Read the Docs theme uses this API to put an updated version selector
+with active versions into the lower left menu.
+On other themes, this appears as a floating menu in the lower right.</p>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#issues-with-the-existing-api" id="id3">Issues with the existing API</a></p></li>
+<li><p><a class="reference internal" href="#overlap-with-existing-api-endpoints" id="id4">Overlap with existing API endpoints</a></p></li>
+<li><p><a class="reference internal" href="#javascript-integration" id="id5">JavaScript integration</a></p></li>
+<li><p><a class="reference internal" href="#implementation-steps" id="id6">Implementation steps</a></p></li>
+<li><p><a class="reference internal" href="#future-changes-not-in-this-rollout" id="id7">Future changes not in this rollout</a></p></li>
+</ul>
+</nav>
+<section id="issues-with-the-existing-api">
+<h2>Issues with the existing API<a class="headerlink" href="#issues-with-the-existing-api" title="Link to this heading"></a></h2>
+<figure class="align-right" id="id1" style="width: 300px">
+<a class="reference external image-reference" href="../../_static/images/design-docs/flyout/flyout-expanded.png"><img alt="../_images/flyout-expanded.png" src="../_images/flyout-expanded.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">Read the Docs with an expanded flyout menu in the lower left corner</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The largest problem with the existing <code class="docutils literal notranslate"><span class="pre">/api/v2/footer_html</span></code> endpoint
+is that it returns a blob of HTML.
+This limits the ability to use this data in ways other than to generate our exact flyout.
+For example, Sphinx themes other than our own cannot consume this data easily
+and there's no real integration point for MkDocs at all.</p></li>
+<li><p>Due to how the URLs in the version selector are generated,
+this API endpoint can be fairly expensive in the worst case for projects with many versions.
+As it stands now, this API accounts for approximately 15% of the time taken on our webservers
+at about 70ms for an average request (P95 ~= 150ms, P99 ~= 235ms).</p></li>
+<li><p>The current API is a combination of data about a project that contains information
+on the live versions, translations, sub- and super-projects, and links to various other things
+like downloads, the repository on the VCS, and builds for the project on RTD itself.
+Some of this data never changes (links to the project and builds on RTD itself)
+and are effectively static while some of it could change after the documentation is built (translations, active versions).</p></li>
+</ul>
+</section>
+<section id="overlap-with-existing-api-endpoints">
+<h2>Overlap with existing API endpoints<a class="headerlink" href="#overlap-with-existing-api-endpoints" title="Link to this heading"></a></h2>
+<p>There is already significant overlap between the APIv2 <code class="docutils literal notranslate"><span class="pre">footer_html</span></code> call
+with the existing APIv3 for a project (eg. <code class="docutils literal notranslate"><span class="pre">https://app.readthedocs.org/api/v3/projects/docs/</span></code>).
+The project API already returns much of the data we want,
+but some things like other active versions, translations, and downloads would require additional API calls or options.
+These options already partially implemented via the <a class="reference external" href="https://pypi.org/project/drf-flex-fields/">DRF Flex Fields</a> module
+(eg. <code class="docutils literal notranslate"><span class="pre">https://app.readthedocs.org/api/v3/projects/docs/?expand=active_versions</span></code>).
+Currently, there are separate API endpoints for translations and downloads,
+but ideally all the data needed to generate a version selector would be available from a single API.</p>
+<p>While this is a good approach, it will not be without issues.
+It's likely that some database queries and especially URL generation will need to be optimized
+for this to not perform worse than the existing footer API.</p>
+</section>
+<section id="javascript-integration">
+<h2>JavaScript integration<a class="headerlink" href="#javascript-integration" title="Link to this heading"></a></h2>
+<p>Our current footer API is requested from our embedded document JavaScript (<code class="docutils literal notranslate"><span class="pre">readthedocs-doc-embed.js</span></code>)
+which is placed on pages during the build process.
+Currently, this is a static file that offers no integration points for theme maintainers
+or project authors.
+There is also some static data about the project injected into the HTML of the generated documentation (<code class="docutils literal notranslate"><span class="pre">READTHEDOCS_DATA</span></code>)
+which has some basic data about the project and the specific build being served.
+This includes data such as the project and version slugs, the build date, and theme.</p>
+<p>One of the goals of this project is to give theme authors and project maintainers integration points
+where they can control some aspects of Read the Docs in a repeatable, deterministic way.
+In order to do this, we need to have JavaScript constants and functions that these maintainers can set.
+This proposal suggests creating a new <code class="docutils literal notranslate"><span class="pre">readthedocs</span></code> global variable like so:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// This first line helps handle the case where the project/theme&#39;s overrides</span>
+<span class="c1">// are executed before the readthedocs global is defined.</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{};</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="p">.</span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;READTHEDOCS_DATA&#39;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="p">);</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="p">.</span><span class="nx">integration_version_selector</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Set the default flyout menu code</span>
+<span class="w">    </span><span class="c1">// But only if the user hasn&#39;t overridden it already</span>
+<span class="w">    </span><span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="p">.</span><span class="nx">integration_version_selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">project</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Existing code we use to create the flyout menu</span>
+<span class="w">        </span><span class="c1">// Currently, this is in `core/static-src/core/js/doc-embed/footer.js:injectFooter`</span>
+<span class="w">        </span><span class="c1">// The `project` variable is the result of the v3 project API for the current project</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When Read the Docs goes to create the flyout menu,
+it will call this new <code class="docutils literal notranslate"><span class="pre">readthedocs.integration_version_selector</span></code> method
+which will either be our default flyout menu method or the overridden method from the theme or project.</p>
+<p>This gives us a baseline of how to add these kinds of integrations.
+There are other possible integrations that users may want in the future such as:</p>
+<ul class="simple">
+<li><p>Control how RTD's search overrides Sphinx's built-in search.
+This could be used to remove RTD's search overrides entirely
+or to just change how they take effect.</p></li>
+<li><p>Control how RTD's built-in project analytics sends data.</p></li>
+<li><p>There could be an override to how the project's data is retrieved from the API.
+This could allow not even getting project/version/translation data at all to save an API call for the project.</p></li>
+</ul>
+<section id="disabling-the-flyout-entirely">
+<h3>Disabling the flyout entirely<a class="headerlink" href="#disabling-the-flyout-entirely" title="Link to this heading"></a></h3>
+<p>One nice aspect of this integration is that for projects or themes that want to completely disable
+the version selector, this could be done by having JS like this:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{};</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="p">.</span><span class="nx">integration_version_selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{};</span>
+</pre></div>
+</div>
+<p>An alternative would be a way for JS projects to define constants that affects how RTD works.
+This could be something like:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{};</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">readthedocs</span><span class="p">.</span><span class="nx">customizations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">disable_custom_search</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">disable_version_selector</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">};</span>
+</pre></div>
+</div>
+<figure class="align-right" id="id2" style="width: 300px">
+<a class="reference external image-reference" href="../../_static/images/design-docs/flyout/flask-versions-mockup.png"><img alt="../_images/flask-versions-mockup.png" src="../_images/flask-versions-mockup.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">Flask documentation with a mockup of a custom version selector on the left sidebar</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="implementation-steps">
+<h2>Implementation steps<a class="headerlink" href="#implementation-steps" title="Link to this heading"></a></h2>
+<p>These are the steps that need to be taken to replace our existing footer API v2.
+As much as possible, these steps have been setup so they can be done and rolled out independently
+so they don't need to be completed all at once.</p>
+<ul class="simple">
+<li><p>Make the changes to APIv3 to allow requesting translations, sub- and super-projects, and downloads.</p></li>
+<li><p>Create a feature flag that will make projects use the new APIv3 instead of APIv2.
+Set that feature flag on our own projects.</p></li>
+<li><p>Modify our embedded document JavaScript to use a new <code class="docutils literal notranslate"><span class="pre">readthedocs</span></code> global variable.
+If this new feature flag is set, instead of calling the APIv2, the APIv3 will be called
+and then <code class="docutils literal notranslate"><span class="pre">readthedocs.integration_version_selector</span></code> will be called with the results.</p></li>
+<li><p>If all goes well, remove the feature flag and make APIv3 the default and deprecate APIv2.</p></li>
+</ul>
+</section>
+<section id="future-changes-not-in-this-rollout">
+<h2>Future changes not in this rollout<a class="headerlink" href="#future-changes-not-in-this-rollout" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Removing the old <code class="docutils literal notranslate"><span class="pre">READTHEDOCS_DATA</span></code> variable is not part of this implementation.
+This global will continue to be available but removing it will cause some projects to break for sure.</p></li>
+<li><p>This proposal doesn't involve creating an integration point to control custom search.
+That could happen at a later date.</p></li>
+<li><p>This proposal doesn't rework how the version selector looks either on the RTD Sphinx theme
+or on other themes by default. Any restyling can be done independently of this.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="file-tree-diff.html" class="btn btn-neutral float-left" title="Version file tree diff" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="future-builder.html" class="btn btn-neutral float-right" title="Future builder" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 Read the Docs, Inc &amp; contributors。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

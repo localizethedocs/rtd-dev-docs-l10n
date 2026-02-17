@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Server side search integration" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="search-integration.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Read the Docs provides server side search (SSS) in replace of the default search engine of your site. To accomplish this, Read the Docs parses the content directly from your HTML pages*. If you are the author of a theme or a static site generator you can read this document, and follow some conven..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Read the Docs provides server side search (SSS) in replace of the default search engine of your site. To accomplish this, Read the Docs parses the content directly from your HTML pages*. If you are the author of a theme or a static site generator you can read this document, and follow some conven..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Server side search integration &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/search-integration.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a48b73ee"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="AWS temporary credentials" href="aws-temporary-credentials.html" />
+    <link rel="prev" title="Server side search" href="server-side-search.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="ltd-provenance.js"></script>
+<script type="text/javascript" src="ltd-current.js"></script>
+<script type="text/javascript" src="../../ltd-config.js"></script>
+<script type="text/javascript" src="../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server-side-search.html">Server side search</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Server side search integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#indexing">Indexing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-content-node">Main content node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#irrelevant-content">Irrelevant content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sections">Sections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-special-nodes">Other special nodes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#overriding-the-default-search">Overriding the default search</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sphinx">Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-static-site-generators">Other static site generators</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#supporting-more-themes-and-static-site-generators">Supporting more themes and static site generators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Server side search integration</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/search-integration.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="server-side-search-integration">
+<h1>Server side search integration<a class="headerlink" href="#server-side-search-integration" title="Link to this heading"></a></h1>
+<p>Read the Docs provides <a class="reference external" href="https://docs.readthedocs.com/platform/stable/server-side-search/index.html" title="(in Read the Docs user documentation v15.14.0)"><span class="xref std std-doc">server side search (SSS)</span></a>
+in replace of the default search engine of your site.
+To accomplish this, Read the Docs parses the content directly from your HTML pages <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>*<span class="fn-bracket">]</span></a>.</p>
+<p>If you are the author of a theme or a static site generator you can read this document,
+and follow some conventions in order to improve the integration of SSS with your theme/site.</p>
+<section id="indexing">
+<h2>Indexing<a class="headerlink" href="#indexing" title="Link to this heading"></a></h2>
+<p>The content of the page is parsed into sections,
+in general, the indexing process happens in three steps:</p>
+<ol class="arabic simple">
+<li><p>Identify the main content node.</p></li>
+<li><p>Remove any irrelevant content from the main node.</p></li>
+<li><p>Parse all sections inside the main node.</p></li>
+</ol>
+<p>Read the Docs makes use of <a class="reference external" href="https://www.w3.org/TR/wai-aria/">ARIA</a> roles and other heuristics in order to process the content.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Following the <a class="reference external" href="https://www.w3.org/TR/wai-aria/">ARIA</a> conventions will also improve the accessibility of your site.
+See also <a class="reference external" href="https://webaim.org/techniques/semanticstructure/">https://webaim.org/techniques/semanticstructure/</a>.</p>
+</div>
+<section id="main-content-node">
+<h3>Main content node<a class="headerlink" href="#main-content-node" title="Link to this heading"></a></h3>
+<p>The main content should be inside a <code class="docutils literal notranslate"><span class="pre">&lt;main&gt;</span></code> tag or an element with <code class="docutils literal notranslate"><span class="pre">role=main</span></code>,
+and there should only be one per page.
+This node is the one that contains all the page content to be indexed. Example:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+      ...
+   <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+         This content isn&#39;t processed
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="hll">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;main&quot;</span><span class="p">&gt;</span>
+</span><span class="hll">         All content inside the main node is processed
+</span><span class="hll">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span>
+      <span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;</span>
+         This content isn&#39;t processed
+      <span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>If a main node isn’t found,
+we try to infer the main node from the parent of the first section with a <code class="docutils literal notranslate"><span class="pre">h1</span></code> tag.
+Example:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+      ...
+   <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+         This content isn&#39;t processed
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="hll">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;parent&quot;</span><span class="p">&gt;</span>
+</span><span class="hll">         <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>First title<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span class="hll">         <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">            The parent of the h1 title will
+</span><span class="hll">            be taken as the main node,
+</span><span class="hll">            this is the div tag.
+</span><span class="hll">         <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">
+</span><span class="hll">         <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Second title<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span><span class="hll">         <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>More content<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span>   <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>If a section title isn’t found, we default to the <code class="docutils literal notranslate"><span class="pre">body</span></code> tag.
+Example:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+      ...
+   <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="hll">   <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span class="hll">      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Content<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">   <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="irrelevant-content">
+<h3>Irrelevant content<a class="headerlink" href="#irrelevant-content" title="Link to this heading"></a></h3>
+<p>If you have content inside the main node that isn’t relevant to the page
+(like navigation items, menus, or search box),
+make sure to use the correct role or tag for it.</p>
+<p>Roles to be ignored:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">navigation</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">search</span></code></p></li>
+</ul>
+<p>Tags to be ignored:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nav</span></code></p></li>
+</ul>
+<p>Special rules that are derived from specific documentation tools applied in the generic parser:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.linenos</span></code>, <code class="docutils literal notranslate"><span class="pre">.lineno</span></code> (line numbers in code-blocks, comes from both MkDocs and Sphinx)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.headerlink</span></code> (added by Sphinx to links in headers)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.toctree-wrapper</span></code> (added by Sphinx to the table of contents generated from the <code class="docutils literal notranslate"><span class="pre">toctree</span></code> directive)</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;main&quot;</span><span class="p">&gt;</span>
+   ...
+<span class="hll">   <span class="p">&lt;</span><span class="nt">nav</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;navigation&quot;</span><span class="p">&gt;</span>
+</span><span class="hll">      ...
+</span><span class="hll">   <span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+</span>   ...
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="sections">
+<h3>Sections<a class="headerlink" href="#sections" title="Link to this heading"></a></h3>
+<p>Sections are stored in a dictionary composed of an <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">content</span></code> key.</p>
+<p>Sections are defined as:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">h1-h7</span></code>, all content between one heading level and the next header on the same level is used as content for that section.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dt</span></code> elements with an <code class="docutils literal notranslate"><span class="pre">id</span></code> attribute, we map the <code class="docutils literal notranslate"><span class="pre">title</span></code> to the <code class="docutils literal notranslate"><span class="pre">dt</span></code> element and the content to the <code class="docutils literal notranslate"><span class="pre">dd</span></code> element.</p></li>
+</ul>
+<p>All sections have to be identified by a DOM container’s <code class="docutils literal notranslate"><span class="pre">id</span></code> attribute,
+which will be used to link to the section.
+How the id is detected varies with the type of element:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">h1-h7</span></code> elements use the <code class="docutils literal notranslate"><span class="pre">id</span></code> attribute of the header itself if present, or
+its <code class="docutils literal notranslate"><span class="pre">section</span></code> parent (if exists).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dt</span></code> elements use the <code class="docutils literal notranslate"><span class="pre">id</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">dt</span></code> element.</p></li>
+</ul>
+<p>To avoid duplication and ambiguous section references,
+all indexed <code class="docutils literal notranslate"><span class="pre">dl</span></code> elements are removed from the DOM before indexing of other sections happen.</p>
+<p>Here is an example of how all content below the title,
+until a new section is found,
+will be indexed as part of the section content:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;main&quot;</span><span class="p">&gt;</span>
+<span class="hll">   <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;section-title&quot;</span><span class="p">&gt;</span>
+</span><span class="hll">      Section title
+</span><span class="hll">   <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span class="hll">   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">      Content to be indexed
+</span><span class="hll">   <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">   <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span><span class="hll">      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>This is also part of the section and will be indexed as well<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span><span class="hll">   <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span>
+<span class="hll">   <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;2&quot;</span><span class="p">&gt;</span>
+</span><span class="hll">      This is the start of a new section
+</span><span class="hll">   <span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span><span class="hll">   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">      ...
+</span><span class="hll">   <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span>
+   ...
+
+<span class="hll">   <span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
+</span><span class="hll">      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;3&quot;</span><span class="p">&gt;</span>This is also a valid section title<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span class="hll">   <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+</span><span class="hll">   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">      This is the content of the third section.
+</span><span class="hll">   <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Sections can be contained in up to two nested tags, and can contain other sections (nested sections).
+Note that the section content still needs to be below the section title.
+Example:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;main&quot;</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;section&quot;</span><span class="p">&gt;</span>
+<span class="hll">      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;section-title&quot;</span><span class="p">&gt;</span>
+</span><span class="hll">         Section title
+</span><span class="hll">      <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span class="hll">      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">         Content to be indexed
+</span><span class="hll">      <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span><span class="hll">         <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>This is also part of the section<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span><span class="hll">      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;section&quot;</span><span class="p">&gt;</span>
+<span class="hll">         <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;nested-section&quot;</span><span class="p">&gt;</span>
+</span><span class="hll">            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span><span class="hll">               This is the start of a sub-section
+</span><span class="hll">            <span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span><span class="hll">            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">               With the h tag within two levels
+</span><span class="hll">            <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="hll">         <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span>      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The title of the first section will be the title of the page,
+falling back to the <code class="docutils literal notranslate"><span class="pre">title</span></code> tag.</p>
+</div>
+</section>
+<section id="other-special-nodes">
+<h3>Other special nodes<a class="headerlink" href="#other-special-nodes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Anchors</strong>: If the title of your section contains an anchor, wrap it in a <code class="docutils literal notranslate"><span class="pre">headerlink</span></code> class,
+so it won’t be indexed as part of the title.</p></li>
+</ul>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>
+   Section title
+<span class="hll">   <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;headerlink&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;Permalink to this headline&quot;</span><span class="p">&gt;</span>¶<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Code blocks</strong>: If a code block contains line numbers,
+wrap them in a <code class="docutils literal notranslate"><span class="pre">linenos</span></code> or <code class="docutils literal notranslate"><span class="pre">lineno</span></code> class,
+so they won’t be indexed as part of the code.</p></li>
+</ul>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;highlighttable&quot;</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="hll">      <span class="p">&lt;</span><span class="nt">td</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;linenos&quot;</span><span class="p">&gt;</span>
+</span><span class="hll">         <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;linenodiv&quot;</span><span class="p">&gt;</span>
+</span><span class="hll">            <span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>1 2 3<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span><span class="hll">         <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span class="hll">      <span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+</span>
+      <span class="p">&lt;</span><span class="nt">td</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;code&quot;</span><span class="p">&gt;</span>
+         <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;highlight&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>First line
+Second line
+Third line<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+         <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="overriding-the-default-search">
+<h2>Overriding the default search<a class="headerlink" href="#overriding-the-default-search" title="Link to this heading"></a></h2>
+<p>Static sites usually have their own static search index, and search results are retrieved via JavaScript.
+Read the Docs overrides the default search for Sphinx projects only,
+and provides a fallback to the original search in case of an error or no results.</p>
+<section id="sphinx">
+<h3>Sphinx<a class="headerlink" href="#sphinx" title="Link to this heading"></a></h3>
+<p>Sphinx’s basic theme provides the <a class="reference external" href="https://github.com/sphinx-doc/sphinx/blob/275d9/sphinx/themes/basic/static/searchtools.js">static/searchtools.js</a> file,
+which initializes search with the <code class="docutils literal notranslate"><span class="pre">Search.init()</span></code> method.
+Read the Docs overrides the <code class="docutils literal notranslate"><span class="pre">Search.query</span></code> method and makes use of <code class="docutils literal notranslate"><span class="pre">Search.output.append</span></code> to add the results.
+A simplified example looks like this:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">original_search</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Search</span><span class="p">.</span><span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">search_override</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="kd">var</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fetch_resuls</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">results</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">results</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">process_result</span><span class="p">(</span><span class="nx">results</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="w">         </span><span class="nx">Search</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">original_search</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">Search</span><span class="p">.</span><span class="nx">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">search_override</span><span class="p">;</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">Search</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Highlights from results will be in a <code class="docutils literal notranslate"><span class="pre">span</span></code> tag with the <code class="docutils literal notranslate"><span class="pre">highlighted</span></code> class
+(<code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">&lt;span</span> <span class="pre">class=&quot;highlighted&quot;&gt;result&lt;/span&gt;</span></code>).
+If your theme works with the search from the basic theme, it will work with Read the Docs’ SSS.</p>
+</section>
+<section id="other-static-site-generators">
+<h3>Other static site generators<a class="headerlink" href="#other-static-site-generators" title="Link to this heading"></a></h3>
+<p>All projects that have HTML pages that follow the conventions described in this document
+can make use of the server side search from the dashboard or by calling the API.</p>
+</section>
+</section>
+<section id="supporting-more-themes-and-static-site-generators">
+<h2>Supporting more themes and static site generators<a class="headerlink" href="#supporting-more-themes-and-static-site-generators" title="Link to this heading"></a></h2>
+<p>All themes that follow these conventions should work as expected.
+If you think other generators or other conventions should be supported,
+or content that should be ignored or have an especial treatment,
+or if you found an error with our indexing,
+let us know in <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/">our issue tracker</a>.</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">*</a><span class="fn-bracket">]</span></span>
+<p>For Sphinx projects, the content of the main node is provided by an intermediate step in the build process,
+but the HTML components from the node are preserved.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="server-side-search.html" class="btn btn-neutral float-left" title="Server side search" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="aws-temporary-credentials.html" class="btn btn-neutral float-right" title="AWS temporary credentials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
