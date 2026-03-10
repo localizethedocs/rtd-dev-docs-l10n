@@ -1,0 +1,513 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation stable\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-25 08:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/embed-api.rst:2
+msgid "Embed APIv3"
+msgstr ""
+
+#: ../../../design/embed-api.rst:4
+msgid ""
+"The Embed API allows users to embed content from documentation pages in "
+"other sites. It has been treated as an *experimental* feature without public "
+"documentation or real applications, but recently it started to be used "
+"widely (mainly because we created the ``hoverxref`` Sphinx extension)."
+msgstr ""
+
+#: ../../../design/embed-api.rst:8
+msgid ""
+"The main goal of this document is to design a new version of the Embed API "
+"to be more user friendly, make it more stable over time, support embedding "
+"content from pages not hosted at Read the Docs, and remove some quirkiness "
+"that makes it hard to maintain and difficult to use."
+msgstr ""
+
+#: ../../../design/embed-api.rst:14
+msgid "This work is part of the `CZI grant`_ that Read the Docs received."
+msgstr ""
+
+#: ../../../design/embed-api.rst:24
+msgid "Current implementation"
+msgstr ""
+
+#: ../../../design/embed-api.rst:26
+msgid ""
+"The current implementation of the API is partially documented in :doc:`rtd:"
+"guides/embedding-content`. It has some known problems:"
+msgstr ""
+
+#: ../../../design/embed-api.rst:29
+msgid ""
+"There are different ways of querying the API: ``?url=`` (generic) and ``?"
+"doc=`` (relies on Sphinx's specific concept)"
+msgstr ""
+
+#: ../../../design/embed-api.rst:30
+msgid "Doesn't support MkDocs"
+msgstr ""
+
+#: ../../../design/embed-api.rst:31
+msgid "Lookups are slow (~500 ms)"
+msgstr ""
+
+#: ../../../design/embed-api.rst:32
+msgid ""
+"IDs returned aren't well formed (like empty IDs ``\"headers\": [{\"title\": "
+"\"#\"}]``)"
+msgstr ""
+
+#: ../../../design/embed-api.rst:33
+msgid "The content is always an array of one element"
+msgstr ""
+
+#: ../../../design/embed-api.rst:34
+msgid "It tries different variations of the original ID"
+msgstr ""
+
+#: ../../../design/embed-api.rst:35
+msgid ""
+"It doesn't return valid HTML for definition lists (``dd`` tags without a "
+"``dt`` tag)"
+msgstr ""
+
+#: ../../../design/embed-api.rst:39
+msgid "Goals"
+msgstr ""
+
+#: ../../../design/embed-api.rst:41
+msgid ""
+"We plan to add new features and define a contract that works the same for "
+"all HTML. This project has the following goals:"
+msgstr ""
+
+#: ../../../design/embed-api.rst:44
+msgid "Support embedding content from pages hosted outside Read the Docs"
+msgstr ""
+
+#: ../../../design/embed-api.rst:45
+msgid "Do not depend on Sphinx ``.fjson`` files"
+msgstr ""
+
+#: ../../../design/embed-api.rst:46
+msgid ""
+"Query and parse the ``.html`` file directly (from our storage or from an "
+"external request)"
+msgstr ""
+
+#: ../../../design/embed-api.rst:47
+msgid "Rewrite all links returned in the content to make them absolute"
+msgstr ""
+
+#: ../../../design/embed-api.rst:48
+msgid "Require a valid HTML ``id`` selector"
+msgstr ""
+
+#: ../../../design/embed-api.rst:49
+msgid "Accept only ``?url=`` request GET argument to query the endpoint"
+msgstr ""
+
+#: ../../../design/embed-api.rst:50
+msgid "Support ``?nwords=`` and ``?nparagraphs=`` to return chunked content"
+msgstr ""
+
+#: ../../../design/embed-api.rst:51
+msgid ""
+"Handle special cases for particular doctools (e.g. Sphinx requires to return "
+"the ``.parent()`` element for ``dl``)"
+msgstr ""
+
+#: ../../../design/embed-api.rst:52
+msgid ""
+"Make explicit the client is asking to handle the special cases (e.g. send ``?"
+"doctool=sphinx&version=4.0.1&writer=html4``)"
+msgstr ""
+
+#: ../../../design/embed-api.rst:53
+msgid ""
+"Delete HTML tags from the original document (for well-defined special cases)"
+msgstr ""
+
+#: ../../../design/embed-api.rst:54
+msgid "Add HTTP cache headers to cache responses"
+msgstr ""
+
+#: ../../../design/embed-api.rst:55
+msgid "Allow :abbr:`CORS` from everywhere *only* for public projects"
+msgstr ""
+
+#: ../../../design/embed-api.rst:59
+msgid "The contract"
+msgstr ""
+
+#: ../../../design/embed-api.rst:61
+msgid ""
+"Return the HTML tag (and its children) with the ``id`` selector requested "
+"and replace all the relative links from its content making them absolute."
+msgstr ""
+
+#: ../../../design/embed-api.rst:66
+msgid ""
+"Any other case outside this contract will be considered *special* and will "
+"be implemented only under ``?doctool=``, ``?version=`` and ``?writer=`` "
+"arguments."
+msgstr ""
+
+#: ../../../design/embed-api.rst:69
+msgid ""
+"If no ``id`` selector is sent to the request, the content of the first "
+"meaningful HTML tag (``<main>``, ``<div role=\"main\">`` or other well-"
+"defined standard tags) identifier found is returned."
+msgstr ""
+
+#: ../../../design/embed-api.rst:74
+msgid "Embed endpoints"
+msgstr ""
+
+#: ../../../design/embed-api.rst:76
+msgid "This is the list of endpoints to be implemented in APIv3:"
+msgstr ""
+
+#: ../../../design/embed-api.rst:80
+msgid ""
+"Returns the exact HTML content for a specific identifier (``id``). If no "
+"anchor identifier is specified the content of the first one returned."
+msgstr ""
+
+#: ../../../design/embed-api.rst:83 ../../../design/embed-api.rst:120
+msgid "**Example request**:"
+msgstr ""
+
+#: ../../../design/embed-api.rst:85
+msgid ""
+"$ curl https://app.readthedocs.org/api/v3/embed/?url=https://docs."
+"readthedocs.io/en/latest/development/install.html#set-up-your-environment"
+msgstr ""
+
+#: ../../../design/embed-api.rst:89 ../../../design/embed-api.rst:126
+msgid "**Example response**:"
+msgstr ""
+
+#: ../../../design/embed-api.rst:91
+msgid ""
+"{\n"
+"   \"project\": \"docs\",\n"
+"   \"version\": \"latest\",\n"
+"   \"language\": \"en\",\n"
+"   \"path\": \"development/install.html\",\n"
+"   \"title\": \"Development Installation\",\n"
+"   \"url\": \"https://docs.readthedocs.io/en/latest/install.html#set-up-your-"
+"environment\",\n"
+"   \"id\": \"set-up-your-environment\",\n"
+"   \"content\": \"<div class=\\\"section\\\" id=\\\"development-"
+"installation\\\">\\n<h1>Development Installation<a class=\\\"headerlink\\\" "
+"href=\\\"https://docs.readthedocs.io/en/stable/development/install."
+"html#development-installation\\\" title=\\\"Permalink to this headline\\"
+"\">¶</a></h1>\\n ...\"\n"
+"}"
+msgstr ""
+
+#: ../../../design/embed-api.rst:0
+msgid "Query Parameters"
+msgstr ""
+
+#: ../../../design/embed-api.rst:104
+msgid "Full URL for the documentation page with optional anchor identifier."
+msgstr ""
+
+#: ../../../design/embed-api.rst:109
+msgid "Returns all the available metadata for an specific page."
+msgstr ""
+
+#: ../../../design/embed-api.rst:113
+msgid ""
+"As it's not trivial to get the ``title`` associated with a particular ``id`` "
+"and it's not easy to get a nested list of identifiers, we may not implement "
+"this endpoint in initial version."
+msgstr ""
+
+#: ../../../design/embed-api.rst:116
+msgid ""
+"The endpoint as-is, is mainly useful to explore/discover what are the "
+"identifiers available for a particular page --which is handy in the "
+"development process of a new tool that consumes the API. Because of this, we "
+"don't have too much traction to add it in the initial version."
+msgstr ""
+
+#: ../../../design/embed-api.rst:122
+msgid ""
+"$ curl https://app.readthedocs.org/api/v3/embed/metadata/?url=https://docs."
+"readthedocs.io/en/latest/development/install.html"
+msgstr ""
+
+#: ../../../design/embed-api.rst:128
+msgid ""
+"{\n"
+"  \"identifiers\": {\n"
+"      \"id\": \"set-up-your-environment\",\n"
+"      \"url\": \"https://docs.readthedocs.io/en/latest/development/install."
+"html#set-up-your-environment\"\n"
+"      \"_links\": {\n"
+"          \"embed\": \"https://docs.readthedocs.io/_/api/v3/embed/?"
+"url=https://docs.readthedocs.io/en/latest/development/install.html#set-up-"
+"your-environment\"\n"
+"      }\n"
+"  },\n"
+"  {\n"
+"      \"id\": \"check-that-everything-works\",\n"
+"      \"url\": \"https://docs.readthedocs.io/en/latest/development/install."
+"html#check-that-everything-works\"\n"
+"      \"_links\": {\n"
+"          \"embed\": \"https://docs.readthedocs.io/_/api/v3/embed/?"
+"url=https://docs.readthedocs.io/en/latest/development/install.html#check-"
+"that-everything-works\"\n"
+"      }\n"
+"   },\n"
+"}"
+msgstr ""
+
+#: ../../../design/embed-api.rst:147
+msgid "Full URL for the documentation page"
+msgstr ""
+
+#: ../../../design/embed-api.rst:151
+msgid "Handle specific Sphinx cases"
+msgstr ""
+
+#: ../../../design/embed-api.rst:155
+msgid ""
+"We are currently handling some special cases for Sphinx due how it writes "
+"the HTML output structure. In some cases, we look for the HTML tag with the "
+"identifier requested but we return the ``.next()`` HTML tag or the ``."
+"parent()`` tag instead of the *requested one*."
+msgstr ""
+
+#: ../../../design/embed-api.rst:159
+msgid ""
+"Currently, we have identified that this happens for definition tags (``dl``, "
+"``dt``, ``dd``) --but may be other cases we don't know yet. Sphinx adds the "
+"``id=`` attribute to the ``dt`` tag, which contains only the title of the "
+"definition, but as a user, we are expecting the description of it."
+msgstr ""
+
+#: ../../../design/embed-api.rst:164
+msgid ""
+"In the following example we will return the whole ``dl`` HTML tag instead of "
+"the HTML tag with the identifier ``id=\"term-name\"`` as requested by the "
+"client, because otherwise the \"Term definition for Term Name\" content "
+"won't be included and the response would be useless."
+msgstr ""
+
+#: ../../../design/embed-api.rst:168 ../../../design/embed-api.rst:195
+msgid ""
+"<dl class=\"glossary docutils\">\n"
+"  <dt id=\"term-name\">Term Name</dt>\n"
+"  <dd>Term definition for Term Name</dd>\n"
+"</dl>"
+msgstr ""
+
+#: ../../../design/embed-api.rst:175
+msgid ""
+"If the definition list (``dl``) has more than *one definition* it will "
+"return **only the term requested**. Considering the following example, with "
+"the request ``?url=glossary.html#term-name``"
+msgstr ""
+
+#: ../../../design/embed-api.rst:178
+msgid ""
+"<dl class=\"glossary docutils\">\n"
+"  ...\n"
+"\n"
+"  <dt id=\"term-name\">Term Name</dt>\n"
+"  <dd>Term definition for Term Name</dd>\n"
+"\n"
+"  <dt id=\"term-unknown\">Term Unknown</dt>\n"
+"  <dd>Term definition for Term Unknown </dd>\n"
+"\n"
+"  ...\n"
+"</dl>"
+msgstr ""
+
+#: ../../../design/embed-api.rst:193
+msgid ""
+"It will return the whole ``dl`` with only the ``dt`` and ``dd`` for ``id`` "
+"requested:"
+msgstr ""
+
+#: ../../../design/embed-api.rst:203
+msgid ""
+"However, this assumptions may not apply to documentation pages built with a "
+"different doctool than Sphinx. For this reason, we need to communicate to "
+"the API that we want to handle this special cases in the backend. This will "
+"be done by appending a request GET argument to the Embed API endpoint: ``?"
+"doctool=sphinx&version=4.0.1&writer=html4``. In this case, the backend will "
+"known that has to deal with these special cases."
+msgstr ""
+
+#: ../../../design/embed-api.rst:210
+msgid ""
+"This leaves the door open to be able to support more special cases (e.g. for "
+"other doctools) without breaking the actual behavior."
+msgstr ""
+
+#: ../../../design/embed-api.rst:214
+msgid "Support for external documents"
+msgstr ""
+
+#: ../../../design/embed-api.rst:216
+msgid ""
+"When the ``?url=`` argument passed belongs to a documentation page not "
+"hosted on Read the Docs, the endpoint will do an external request to "
+"download the HTML file, parse it and return the content for the identifier "
+"requested."
+msgstr ""
+
+#: ../../../design/embed-api.rst:220
+msgid ""
+"The whole logic should be the same, the only difference would be where the "
+"source HTML comes from."
+msgstr ""
+
+#: ../../../design/embed-api.rst:224
+msgid ""
+"We should be careful with the URL received from the user because those may "
+"be internal URLs and we could be leaking some data. Example: ``?url=http://"
+"localhost/some-weird-endpoint`` or ``?url=http://169.254.169.254/latest/meta-"
+"data/`` (see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/"
+"instancedata-data-retrieval.html)."
+msgstr ""
+
+#: ../../../design/embed-api.rst:228
+msgid ""
+"This is related to SSRF (https://en.wikipedia.org/wiki/Server-"
+"side_request_forgery). It doesn't seem to be a huge problem, but something "
+"to consider."
+msgstr ""
+
+#: ../../../design/embed-api.rst:231
+msgid ""
+"Also, the endpoint may need to limit the requests per-external domain to "
+"avoid using our servers to take down another site."
+msgstr ""
+
+#: ../../../design/embed-api.rst:235
+msgid ""
+"Due to the potential security issues mentioned, we will start with an "
+"allowed list of domains for common Sphinx docs projects. Projects like "
+"Django and Python, where ``sphinx-hoverxref`` users might commonly want to "
+"embed from. We aren't planning to allow arbitrary HTML from any website."
+msgstr ""
+
+#: ../../../design/embed-api.rst:241
+msgid "Handle project's domain changes"
+msgstr ""
+
+#: ../../../design/embed-api.rst:243
+msgid ""
+"The proposed Embed APIv3 implementation only allows ``?url=`` argument to "
+"embed content from that page. That URL can be:"
+msgstr ""
+
+#: ../../../design/embed-api.rst:246
+msgid "a URL for a project hosted under ``<project-slug>.readthedocs.io``"
+msgstr ""
+
+#: ../../../design/embed-api.rst:247
+msgid "a URL for a project with a custom domain"
+msgstr ""
+
+#: ../../../design/embed-api.rst:249
+msgid ""
+"In the first case, we can easily get the project's slug directly from the "
+"URL. However, in the second case we get the project's slug by querying our "
+"database for a ``Domain`` object with the full domain from the URL."
+msgstr ""
+
+#: ../../../design/embed-api.rst:253
+msgid ""
+"Now, consider that all the links in the documentation page that uses Embed "
+"APIv3 are pointing to ``docs.example.com`` and the author decides to change "
+"the domain to be ``docs.newdomain.com``. At this point there are different "
+"possible scenarios:"
+msgstr ""
+
+#: ../../../design/embed-api.rst:257
+msgid ""
+"The user creates a new ``Domain`` object with ``docs.newdomain.com`` as "
+"domain's name. In this case, old links will keep working because we still "
+"have the old ``Domain`` object in our database and we can use it to get the "
+"project's slug."
+msgstr ""
+
+#: ../../../design/embed-api.rst:260
+msgid ""
+"The user *deletes* the old ``Domain`` besides creating the new one. In this "
+"scenario, our query for a ``Domain`` with name ``docs.example.com`` to our "
+"database will fail. We will need to do a request to ``docs.example.com`` and "
+"check for a 3xx response status code and in that case, we can read the "
+"``Location:`` HTTP header to find the new domain's name for the "
+"documentation. Once we have the new domain from the redirect response, we "
+"can query our database again to find out the project's slug."
+msgstr ""
+
+#: ../../../design/embed-api.rst:268
+msgid "We will follow up to 5 redirects to find out the project's domain."
+msgstr ""
+
+#: ../../../design/embed-api.rst:272
+msgid "Embed APIv2 deprecation"
+msgstr ""
+
+#: ../../../design/embed-api.rst:274
+msgid ""
+"The v2 is currently widely used by projects using the ``sphinx-hoverxref`` "
+"extension. Because of that, we need to keep supporting it as-is for a long "
+"time."
+msgstr ""
+
+#: ../../../design/embed-api.rst:277
+msgid "Next steps on this direction should be:"
+msgstr ""
+
+#: ../../../design/embed-api.rst:279
+msgid "Add a note in the documentation mentioning this endpoint is deprecated"
+msgstr ""
+
+#: ../../../design/embed-api.rst:280
+msgid "Promote the usage of the new Embed APIv3"
+msgstr ""
+
+#: ../../../design/embed-api.rst:281
+msgid "Migrate the ``sphinx-hoverxref`` extension to use the new endpoint"
+msgstr ""
+
+#: ../../../design/embed-api.rst:283
+msgid ""
+"Once we have done them, we could check our NGINX logs to find out if there "
+"are people still using APIv2, contact them and let them know that they have "
+"some months to migrate since the endpoint is deprecated and will be removed."
+msgstr ""
+
+#: ../../../design/embed-api.rst:288
+msgid "Unanswered questions"
+msgstr ""
+
+#: ../../../design/embed-api.rst:290
+msgid ""
+"How do we distinguish between our APIv3 for resources (models in the "
+"database) from these \"feature API endpoints\"?"
+msgstr ""
