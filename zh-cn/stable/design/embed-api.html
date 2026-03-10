@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Embed APIv3" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/embed-api.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="The Embed API allows users to embed content from documentation pages in other sites. It has been treated as an experimental feature without public documentation or real applications, but recently it started to be used widely (mainly because we created the hoverxref Sphinx extension). The main goa..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="The Embed API allows users to embed content from documentation pages in other sites. It has been treated as an experimental feature without public documentation or real applications, but recently it started to be used widely (mainly because we created the hoverxref Sphinx extension). The main goa..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Embed APIv3 &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/embed-api.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f05dab73"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Version file tree diff" href="file-tree-diff.html" />
+    <link rel="prev" title="Build images" href="build-images.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Embed APIv3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#current-implementation">Current implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-contract">The contract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#embed-endpoints">Embed endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#handle-specific-sphinx-cases">Handle specific Sphinx cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#support-for-external-documents">Support for external documents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#handle-project-s-domain-changes">Handle project's domain changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#embed-apiv2-deprecation">Embed APIv2 deprecation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unanswered-questions">Unanswered questions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">Embed APIv3</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/embed-api.rst" class="fa fa-github"> 在 GitHub 上编辑</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="embed-apiv3">
+<h1>Embed APIv3<a class="headerlink" href="#embed-apiv3" title="Link to this heading"></a></h1>
+<p>The Embed API allows users to embed content from documentation pages in other sites.
+It has been treated as an <em>experimental</em> feature without public documentation or real applications,
+but recently it started to be used widely (mainly because we created the <code class="docutils literal notranslate"><span class="pre">hoverxref</span></code> Sphinx extension).</p>
+<p>The main goal of this document is to design a new version of the Embed API to be more user friendly,
+make it more stable over time, support embedding content from pages not hosted at Read the Docs,
+and remove some quirkiness that makes it hard to maintain and difficult to use.</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>This work is part of the <a class="reference external" href="https://blog.readthedocs.com/czi-grant-announcement/">CZI grant</a> that Read the Docs received.</p>
+</div>
+<nav class="contents local" id="id1">
+<ul class="simple">
+<li><p><a class="reference internal" href="#current-implementation" id="id2">Current implementation</a></p></li>
+<li><p><a class="reference internal" href="#goals" id="id3">Goals</a></p></li>
+<li><p><a class="reference internal" href="#the-contract" id="id4">The contract</a></p></li>
+<li><p><a class="reference internal" href="#embed-endpoints" id="id5">Embed endpoints</a></p></li>
+<li><p><a class="reference internal" href="#handle-specific-sphinx-cases" id="id6">Handle specific Sphinx cases</a></p></li>
+<li><p><a class="reference internal" href="#support-for-external-documents" id="id7">Support for external documents</a></p></li>
+<li><p><a class="reference internal" href="#handle-project-s-domain-changes" id="id8">Handle project's domain changes</a></p></li>
+<li><p><a class="reference internal" href="#embed-apiv2-deprecation" id="id9">Embed APIv2 deprecation</a></p></li>
+<li><p><a class="reference internal" href="#unanswered-questions" id="id10">Unanswered questions</a></p></li>
+</ul>
+</nav>
+<section id="current-implementation">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Current implementation</a><a class="headerlink" href="#current-implementation" title="Link to this heading"></a></h2>
+<p>The current implementation of the API is partially documented in <a class="reference external" href="https://docs.readthedocs.com/platform/stable/guides/embedding-content.html" title="（在 Read the Docs user documentation v15.10.0）"><span>How to embed content from your documentation</span></a>.
+It has some known problems:</p>
+<ul class="simple">
+<li><p>There are different ways of querying the API: <code class="docutils literal notranslate"><span class="pre">?url=</span></code> (generic) and <code class="docutils literal notranslate"><span class="pre">?doc=</span></code> (relies on Sphinx's specific concept)</p></li>
+<li><p>Doesn't support MkDocs</p></li>
+<li><p>Lookups are slow (~500 ms)</p></li>
+<li><p>IDs returned aren't well formed (like empty IDs <code class="docutils literal notranslate"><span class="pre">&quot;headers&quot;:</span> <span class="pre">[{&quot;title&quot;:</span> <span class="pre">&quot;#&quot;}]</span></code>)</p></li>
+<li><p>The content is always an array of one element</p></li>
+<li><p>It tries different variations of the original ID</p></li>
+<li><p>It doesn't return valid HTML for definition lists (<code class="docutils literal notranslate"><span class="pre">dd</span></code> tags without a <code class="docutils literal notranslate"><span class="pre">dt</span></code> tag)</p></li>
+</ul>
+</section>
+<section id="goals">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Goals</a><a class="headerlink" href="#goals" title="Link to this heading"></a></h2>
+<p>We plan to add new features and define a contract that works the same for all HTML.
+This project has the following goals:</p>
+<ul class="simple">
+<li><p>Support embedding content from pages hosted outside Read the Docs</p></li>
+<li><p>Do not depend on Sphinx <code class="docutils literal notranslate"><span class="pre">.fjson</span></code> files</p></li>
+<li><p>Query and parse the <code class="docutils literal notranslate"><span class="pre">.html</span></code> file directly (from our storage or from an external request)</p></li>
+<li><p>Rewrite all links returned in the content to make them absolute</p></li>
+<li><p>Require a valid HTML <code class="docutils literal notranslate"><span class="pre">id</span></code> selector</p></li>
+<li><p>Accept only <code class="docutils literal notranslate"><span class="pre">?url=</span></code> request GET argument to query the endpoint</p></li>
+<li><p>Support <code class="docutils literal notranslate"><span class="pre">?nwords=</span></code> and <code class="docutils literal notranslate"><span class="pre">?nparagraphs=</span></code> to return chunked content</p></li>
+<li><p>Handle special cases for particular doctools (e.g. Sphinx requires to return the <code class="docutils literal notranslate"><span class="pre">.parent()</span></code> element for <code class="docutils literal notranslate"><span class="pre">dl</span></code>)</p></li>
+<li><p>Make explicit the client is asking to handle the special cases (e.g. send <code class="docutils literal notranslate"><span class="pre">?doctool=sphinx&amp;version=4.0.1&amp;writer=html4</span></code>)</p></li>
+<li><p>Delete HTML tags from the original document (for well-defined special cases)</p></li>
+<li><p>Add HTTP cache headers to cache responses</p></li>
+<li><p>Allow <abbr>CORS</abbr> from everywhere <em>only</em> for public projects</p></li>
+</ul>
+</section>
+<section id="the-contract">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">The contract</a><a class="headerlink" href="#the-contract" title="Link to this heading"></a></h2>
+<p>Return the HTML tag (and its children) with the <code class="docutils literal notranslate"><span class="pre">id</span></code> selector requested
+and replace all the relative links from its content making them absolute.</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>Any other case outside this contract will be considered <em>special</em> and will be implemented
+only under <code class="docutils literal notranslate"><span class="pre">?doctool=</span></code>, <code class="docutils literal notranslate"><span class="pre">?version=</span></code> and <code class="docutils literal notranslate"><span class="pre">?writer=</span></code> arguments.</p>
+</div>
+<p>If no <code class="docutils literal notranslate"><span class="pre">id</span></code> selector is sent to the request, the content of the first meaningful HTML tag
+(<code class="docutils literal notranslate"><span class="pre">&lt;main&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;div</span> <span class="pre">role=&quot;main&quot;&gt;</span></code> or other well-defined standard tags) identifier found is returned.</p>
+</section>
+<section id="embed-endpoints">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Embed endpoints</a><a class="headerlink" href="#embed-endpoints" title="Link to this heading"></a></h2>
+<p>This is the list of endpoints to be implemented in APIv3:</p>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-v3-embed-">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/v3/embed/</span></span><a class="headerlink" href="#get--api-v3-embed-" title="Link to this definition"></a></dt>
+<dd><p>Returns the exact HTML content for a specific identifier (<code class="docutils literal notranslate"><span class="pre">id</span></code>).
+If no anchor identifier is specified the content of the first one returned.</p>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>curl<span class="w"> </span>https://app.readthedocs.org/api/v3/embed/?url<span class="o">=</span>https://docs.readthedocs.io/en/latest/development/install.html#set-up-your-environment
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;docs&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;latest&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;en&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;development/install.html&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Development Installation&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://docs.readthedocs.io/en/latest/install.html#set-up-your-environment&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;set-up-your-environment&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;div class=\&quot;section\&quot; id=\&quot;development-installation\&quot;&gt;\n&lt;h1&gt;Development Installation&lt;a class=\&quot;headerlink\&quot; href=\&quot;https://docs.readthedocs.io/en/stable/development/install.html#development-installation\&quot; title=\&quot;Permalink to this headline\&quot;&gt;¶&lt;/a&gt;&lt;/h1&gt;\n ...&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(required)</strong> (<em>url</em>) -- Full URL for the documentation page with optional anchor identifier.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-v3-embed-metadata-">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/v3/embed/metadata/</span></span><a class="headerlink" href="#get--api-v3-embed-metadata-" title="Link to this definition"></a></dt>
+<dd><p>Returns all the available metadata for an specific page.</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>As it's not trivial to get the <code class="docutils literal notranslate"><span class="pre">title</span></code> associated with a particular <code class="docutils literal notranslate"><span class="pre">id</span></code> and it's not easy to get a nested list of identifiers,
+we may not implement this endpoint in initial version.</p>
+<p>The endpoint as-is, is mainly useful to explore/discover what are the identifiers available for a particular page
+--which is handy in the development process of a new tool that consumes the API.
+Because of this, we don't have too much traction to add it in the initial version.</p>
+</div>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>curl<span class="w"> </span>https://app.readthedocs.org/api/v3/embed/metadata/?url<span class="o">=</span>https://docs.readthedocs.io/en/latest/development/install.html
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;identifiers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;set-up-your-environment&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="nt">&quot;https://docs.readthedocs.io/en/latest/development/install.html#set-up-your-environment&quot;</span>
+<span class="w">      </span><span class="nt">&quot;_links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;embed&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://docs.readthedocs.io/_/api/v3/embed/?url=https://docs.readthedocs.io/en/latest/development/install.html#set-up-your-environment&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;check-that-everything-works&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="nt">&quot;https://docs.readthedocs.io/en/latest/development/install.html#check-that-everything-works&quot;</span>
+<span class="w">      </span><span class="nt">&quot;_links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;embed&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://docs.readthedocs.io/_/api/v3/embed/?url=https://docs.readthedocs.io/en/latest/development/install.html#check-that-everything-works&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(required)</strong> (<em>url</em>) -- Full URL for the documentation page</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="handle-specific-sphinx-cases">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Handle specific Sphinx cases</a><a class="headerlink" href="#handle-specific-sphinx-cases" title="Link to this heading"></a></h2>
+<p>We are currently handling some special cases for Sphinx due how it writes the HTML output structure.
+In some cases, we look for the HTML tag with the identifier requested but we return
+the <code class="docutils literal notranslate"><span class="pre">.next()</span></code> HTML tag or the <code class="docutils literal notranslate"><span class="pre">.parent()</span></code> tag instead of the <em>requested one</em>.</p>
+<p>Currently, we have identified that this happens for definition tags (<code class="docutils literal notranslate"><span class="pre">dl</span></code>, <code class="docutils literal notranslate"><span class="pre">dt</span></code>, <code class="docutils literal notranslate"><span class="pre">dd</span></code>)
+--but may be other cases we don't know yet.
+Sphinx adds the <code class="docutils literal notranslate"><span class="pre">id=</span></code> attribute to the <code class="docutils literal notranslate"><span class="pre">dt</span></code> tag, which contains only the title of the definition,
+but as a user, we are expecting the description of it.</p>
+<p>In the following example we will return the whole <code class="docutils literal notranslate"><span class="pre">dl</span></code> HTML tag instead of
+the HTML tag with the identifier <code class="docutils literal notranslate"><span class="pre">id=&quot;term-name&quot;</span></code> as requested by the client,
+because otherwise the &quot;Term definition for Term Name&quot; content won't be included and the response would be useless.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">dl</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;glossary docutils&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">dt</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;term-name&quot;</span><span class="p">&gt;</span>Term Name<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>Term definition for Term Name<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">dl</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>If the definition list (<code class="docutils literal notranslate"><span class="pre">dl</span></code>) has more than <em>one definition</em> it will return <strong>only the term requested</strong>.
+Considering the following example, with the request <code class="docutils literal notranslate"><span class="pre">?url=glossary.html#term-name</span></code></p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">dl</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;glossary docutils&quot;</span><span class="p">&gt;</span>
+  ...
+
+  <span class="p">&lt;</span><span class="nt">dt</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;term-name&quot;</span><span class="p">&gt;</span>Term Name<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>Term definition for Term Name<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">dt</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;term-unknown&quot;</span><span class="p">&gt;</span>Term Unknown<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>Term definition for Term Unknown <span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+
+  ...
+<span class="p">&lt;/</span><span class="nt">dl</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>It will return the whole <code class="docutils literal notranslate"><span class="pre">dl</span></code> with only the <code class="docutils literal notranslate"><span class="pre">dt</span></code> and <code class="docutils literal notranslate"><span class="pre">dd</span></code> for <code class="docutils literal notranslate"><span class="pre">id</span></code> requested:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">dl</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;glossary docutils&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">dt</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;term-name&quot;</span><span class="p">&gt;</span>Term Name<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>Term definition for Term Name<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">dl</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>However, this assumptions may not apply to documentation pages built with a different doctool than Sphinx.
+For this reason, we need to communicate to the API that we want to handle this special cases in the backend.
+This will be done by appending a request GET argument to the Embed API endpoint: <code class="docutils literal notranslate"><span class="pre">?doctool=sphinx&amp;version=4.0.1&amp;writer=html4</span></code>.
+In this case, the backend will known that has to deal with these special cases.</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>This leaves the door open to be able to support more special cases (e.g. for other doctools) without breaking the actual behavior.</p>
+</div>
+</section>
+<section id="support-for-external-documents">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Support for external documents</a><a class="headerlink" href="#support-for-external-documents" title="Link to this heading"></a></h2>
+<p>When the <code class="docutils literal notranslate"><span class="pre">?url=</span></code> argument passed belongs to a documentation page not hosted on Read the Docs,
+the endpoint will do an external request to download the HTML file,
+parse it and return the content for the identifier requested.</p>
+<p>The whole logic should be the same, the only difference would be where the source HTML comes from.</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>We should be careful with the URL received from the user because those may be internal URLs and we could be leaking some data.
+Example: <code class="docutils literal notranslate"><span class="pre">?url=http://localhost/some-weird-endpoint</span></code> or <code class="docutils literal notranslate"><span class="pre">?url=http://169.254.169.254/latest/meta-data/</span></code>
+(see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html</a>).</p>
+<p>This is related to SSRF (<a class="reference external" href="https://en.wikipedia.org/wiki/Server-side_request_forgery">https://en.wikipedia.org/wiki/Server-side_request_forgery</a>).
+It doesn't seem to be a huge problem, but something to consider.</p>
+<p>Also, the endpoint may need to limit the requests per-external domain to avoid using our servers to take down another site.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>Due to the potential security issues mentioned, we will start with an allowed list of domains for common Sphinx docs projects.
+Projects like Django and Python, where <code class="docutils literal notranslate"><span class="pre">sphinx-hoverxref</span></code> users might commonly want to embed from.
+We aren't planning to allow arbitrary HTML from any website.</p>
+</div>
+</section>
+<section id="handle-project-s-domain-changes">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Handle project's domain changes</a><a class="headerlink" href="#handle-project-s-domain-changes" title="Link to this heading"></a></h2>
+<p>The proposed Embed APIv3 implementation only allows <code class="docutils literal notranslate"><span class="pre">?url=</span></code> argument to embed content from that page.
+That URL can be:</p>
+<ul class="simple">
+<li><p>a URL for a project hosted under <code class="docutils literal notranslate"><span class="pre">&lt;project-slug&gt;.readthedocs.io</span></code></p></li>
+<li><p>a URL for a project with a custom domain</p></li>
+</ul>
+<p>In the first case, we can easily get the project's slug directly from the URL.
+However, in the second case we get the project's slug by querying our database for a <code class="docutils literal notranslate"><span class="pre">Domain</span></code> object
+with the full domain from the URL.</p>
+<p>Now, consider that all the links in the documentation page that uses Embed APIv3 are pointing to
+<code class="docutils literal notranslate"><span class="pre">docs.example.com</span></code> and the author decides to change the domain to be <code class="docutils literal notranslate"><span class="pre">docs.newdomain.com</span></code>.
+At this point there are different possible scenarios:</p>
+<ul>
+<li><p>The user creates a new <code class="docutils literal notranslate"><span class="pre">Domain</span></code> object with <code class="docutils literal notranslate"><span class="pre">docs.newdomain.com</span></code> as domain's name.
+In this case, old links will keep working because we still have the old <code class="docutils literal notranslate"><span class="pre">Domain</span></code> object in our database
+and we can use it to get the project's slug.</p></li>
+<li><p>The user <em>deletes</em> the old <code class="docutils literal notranslate"><span class="pre">Domain</span></code> besides creating the new one.
+In this scenario, our query for a <code class="docutils literal notranslate"><span class="pre">Domain</span></code> with name <code class="docutils literal notranslate"><span class="pre">docs.example.com</span></code> to our database will fail.
+We will need to do a request to <code class="docutils literal notranslate"><span class="pre">docs.example.com</span></code> and check for a 3xx response status code and in that case,
+we can read the <code class="docutils literal notranslate"><span class="pre">Location:</span></code> HTTP header to find the new domain's name for the documentation.
+Once we have the new domain from the redirect response, we can query our database again to find out the project's slug.</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>We will follow up to 5 redirects to find out the project's domain.</p>
+</div>
+</li>
+</ul>
+</section>
+<section id="embed-apiv2-deprecation">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Embed APIv2 deprecation</a><a class="headerlink" href="#embed-apiv2-deprecation" title="Link to this heading"></a></h2>
+<p>The v2 is currently widely used by projects using the <code class="docutils literal notranslate"><span class="pre">sphinx-hoverxref</span></code> extension.
+Because of that, we need to keep supporting it as-is for a long time.</p>
+<p>Next steps on this direction should be:</p>
+<ul class="simple">
+<li><p>Add a note in the documentation mentioning this endpoint is deprecated</p></li>
+<li><p>Promote the usage of the new Embed APIv3</p></li>
+<li><p>Migrate the <code class="docutils literal notranslate"><span class="pre">sphinx-hoverxref</span></code> extension to use the new endpoint</p></li>
+</ul>
+<p>Once we have done them, we could check our NGINX logs to find out if there are people still using APIv2,
+contact them and let them know that they have some months to migrate since the endpoint is deprecated and will be removed.</p>
+</section>
+<section id="unanswered-questions">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Unanswered questions</a><a class="headerlink" href="#unanswered-questions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>How do we distinguish between our APIv3 for resources (models in the database) from these &quot;feature API endpoints&quot;?</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="build-images.html" class="btn btn-neutral float-left" title="Build images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="file-tree-diff.html" class="btn btn-neutral float-right" title="Version file tree diff" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 Read the Docs, Inc &amp; contributors。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
