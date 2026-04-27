@@ -37,9 +37,9 @@
     "branch" : "main",
     "commit" : 
     {
-      "date" : "2025-12-19 11:35:11 -0500",
-      "hash" : "84154861c236a7573e2ccd3121e815eb12878510",
-      "title" : "Search: Disable search indexing for inactive projects (#12666)"
+      "date" : "2026-04-24 11:41:14 +0800",
+      "hash" : "b8e2239c7383fc4874c446091f2c962b986c1228",
+      "title" : "Docs: add sign up and log in CTA to footer (#12841)"
     }
   },
   "type" : "branch",
