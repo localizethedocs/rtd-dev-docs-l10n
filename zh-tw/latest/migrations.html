@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="資料庫遷移" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="migrations.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="We use Django migrations to manage database schema changes, and the django-safemigrate package to ensure that migrations are run in a given order to avoid downtime. To make sure that migrations don&#x27;t cause downtime, the following rules should be followed for each case. Adding a new field: Wh..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="We use Django migrations to manage database schema changes, and the django-safemigrate package to ensure that migrations are run in a given order to avoid downtime. To make sure that migrations don&#x27;t cause downtime, the following rules should be followed for each case. Adding a new field: Wh..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>資料庫遷移 &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/migrations.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=65c3111a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="Server side search" href="server-side-search.html" />
+    <link rel="prev" title="國際化" href="i18n.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="ltd-provenance.js"></script>
+<script type="text/javascript" src="ltd-current.js"></script>
+<script type="text/javascript" src="../../ltd-config.js"></script>
+<script type="text/javascript" src="../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">一般</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">行為守則</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issue-labels.html">議題標籤概覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">路線圖</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">開發</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">開發安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/index.html">開發指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">設計 Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">文件風格指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="front-end.html">前端開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i18n.html">國際化</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">資料庫遷移</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-new-field">Adding a new field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#removing-a-field">Removing a field</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscriptions.html">訂閱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">有趣的設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">測試</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">資料庫遷移</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/migrations.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="database-migrations">
+<h1>資料庫遷移<a class="headerlink" href="#database-migrations" title="連結到這個標頭"></a></h1>
+<p>We use <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/migrations/">Django migrations</a> to manage database schema changes,
+and the <a class="reference external" href="https://github.com/aspiredu/django-safemigrate">django-safemigrate</a> package to ensure that migrations are run in a given order to avoid downtime.</p>
+<p>To make sure that migrations don't cause downtime,
+the following rules should be followed for each case.</p>
+<section id="adding-a-new-field">
+<h2>Adding a new field<a class="headerlink" href="#adding-a-new-field" title="連結到這個標頭"></a></h2>
+<p><strong>When adding a new field to a model, it should be nullable.</strong>
+This way, the database can be migrated without downtime, and the field can be populated later.
+Don't forget to make the field non-nullable in a separate migration after the data has been populated.
+You can achieve this by following these steps:</p>
+<ol class="arabic">
+<li><p>Set the new field as <code class="docutils literal notranslate"><span class="pre">null=True</span></code> and <code class="docutils literal notranslate"><span class="pre">blank=True</span></code> in the model.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">new_field</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;default&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Make sure that the field is always populated with a proper value in the new code,
+and the code handles the case where the field is null.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">my_model</span><span class="o">.</span><span class="n">new_field</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">]:</span>
+    <span class="k">pass</span>
+
+
+<span class="c1"># If it&#39;s a boolean field, make sure that the null option is removed from the form.</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyModelForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;new_field&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CheckboxInput</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;new_field&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">empty_value</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create the migration file (let's call this migration <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">0001</span></code>),
+and mark it as <code class="docutils literal notranslate"><span class="pre">Safe.before_deploy()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">migrations</span><span class="p">,</span> <span class="n">models</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django_safemigrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Safe</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Migration</span><span class="p">(</span><span class="n">migrations</span><span class="o">.</span><span class="n">Migration</span><span class="p">):</span>
+    <span class="n">safe</span> <span class="o">=</span> <span class="n">Safe</span><span class="o">.</span><span class="n">before_deploy</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create a data migration to populate all null values of the new field with a proper value (let's call this migration <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">0002</span></code>),
+and mark it as <code class="docutils literal notranslate"><span class="pre">Safe.after_deploy()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">migrations</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">migrate</span><span class="p">(</span><span class="n">apps</span><span class="p">,</span> <span class="n">schema_editor</span><span class="p">):</span>
+    <span class="n">MyModel</span> <span class="o">=</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s2">&quot;app&quot;</span><span class="p">,</span> <span class="s2">&quot;MyModel&quot;</span><span class="p">)</span>
+    <span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">new_field</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_field</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Migration</span><span class="p">(</span><span class="n">migrations</span><span class="o">.</span><span class="n">Migration</span><span class="p">):</span>
+    <span class="n">safe</span> <span class="o">=</span> <span class="n">Safe</span><span class="o">.</span><span class="n">after_deploy</span><span class="p">()</span>
+
+    <span class="n">operations</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">migrations</span><span class="o">.</span><span class="n">RunPython</span><span class="p">(</span><span class="n">migrate</span><span class="p">),</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>After the deploy has been completed, create a new migration to set the field as non-nullable (let's call this migration <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">0003</span></code>).
+Run this migration on a new deploy, you can mark it as <code class="docutils literal notranslate"><span class="pre">Safe.before_deploy()</span></code> or <code class="docutils literal notranslate"><span class="pre">Safe.always()</span></code>.</p></li>
+<li><p>Remove any handling of the null case from the code.</p></li>
+</ol>
+<p>At the end, the deploy should look like this:</p>
+<ul class="simple">
+<li><p>Deploy web-extra.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">django-admin</span> <span class="pre">safemigrate</span></code> to run the migration <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">0001</span></code>.</p></li>
+<li><p>Deploy the webs</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">django-admin</span> <span class="pre">migrate</span></code> to run the migration <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">0002</span></code>.</p></li>
+<li><p>Create a new migration to set the field as non-nullable,
+and apply it on the next deploy.</p></li>
+</ul>
+</section>
+<section id="removing-a-field">
+<h2>Removing a field<a class="headerlink" href="#removing-a-field" title="連結到這個標頭"></a></h2>
+<p><strong>When removing a field from a model,
+all usages of the field should be removed from the code before the field is removed from the model,
+and the field should be nullable.</strong>
+You can achieve this by following these steps:</p>
+<ol class="arabic">
+<li><p>Remove all usages of the field from the code.</p></li>
+<li><p>Set the field as <code class="docutils literal notranslate"><span class="pre">null=True</span></code> and <code class="docutils literal notranslate"><span class="pre">blank=True</span></code> in the model.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">field_to_delete</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create the migration file (let's call this migration <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">0001</span></code>),
+and mark it as <code class="docutils literal notranslate"><span class="pre">Safe.before_deploy()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">migrations</span><span class="p">,</span> <span class="n">models</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django_safemigrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Safe</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Migration</span><span class="p">(</span><span class="n">migrations</span><span class="o">.</span><span class="n">Migration</span><span class="p">):</span>
+    <span class="n">safe</span> <span class="o">=</span> <span class="n">Safe</span><span class="o">.</span><span class="n">before_deploy</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create a migration to remove the field from the database (let's call this migration <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">0002</span></code>),
+and mark it as <code class="docutils literal notranslate"><span class="pre">Safe.after_deploy()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">migrations</span><span class="p">,</span> <span class="n">models</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django_safemigrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Safe</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Migration</span><span class="p">(</span><span class="n">migrations</span><span class="o">.</span><span class="n">Migration</span><span class="p">):</span>
+    <span class="n">safe</span> <span class="o">=</span> <span class="n">Safe</span><span class="o">.</span><span class="n">after_deploy</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>At the end, the deploy should look like this:</p>
+<ul class="simple">
+<li><p>Deploy web-extra.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">django-admin</span> <span class="pre">safemigrate</span></code> to run the migration <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">0001</span></code>.</p></li>
+<li><p>Deploy the webs</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">django-admin</span> <span class="pre">migrate</span></code> to run the migration <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">0002</span></code>.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="i18n.html" class="btn btn-neutral float-left" title="國際化" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="server-side-search.html" class="btn btn-neutral float-right" title="Server side search" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
