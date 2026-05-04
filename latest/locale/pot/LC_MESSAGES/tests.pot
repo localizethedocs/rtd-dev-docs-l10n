@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Read the Docs developer documentation latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 08:22+0000\n"
+"POT-Creation-Date: 2026-05-04 10:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,13 +21,13 @@ msgstr ""
 msgid "Testing"
 msgstr ""
 
-#: ../../../tests.rst:6
+#: ../../../tests.rst:4
 msgid ""
 "Before contributing to Read the Docs, make sure your patch passes our test "
 "suite and your code style passes our code linting suite."
 msgstr ""
 
-#: ../../../tests.rst:9
+#: ../../../tests.rst:7
 msgid ""
 "Read the Docs uses `Tox`_ to execute testing and linting procedures. Tox is "
 "the only dependency you need to run linting or our test suite, the remainder "
@@ -35,91 +35,97 @@ msgid ""
 "virtualenv paths. Before testing, make sure you have Tox installed:"
 msgstr ""
 
-#: ../../../tests.rst:17
+#: ../../../tests.rst:15
 msgid "pip install tox"
 msgstr ""
 
-#: ../../../tests.rst:18
+#: ../../../tests.rst:17
+msgid "Running tests"
+msgstr ""
+
+#: ../../../tests.rst:19
 msgid ""
-"To run the full test and lint suite against your changes, simply run Tox. "
-"Tox should return without any errors. You can run Tox against all of our "
-"environments by running:"
+"The test suite is split into separate tox environments that match the CI "
+"pipeline:"
 msgstr ""
 
-#: ../../../tests.rst:25
-msgid "tox"
-msgstr ""
-
-#: ../../../tests.rst:26
+#: ../../../tests.rst:27
 msgid ""
-"By default, tox won't run tests from search, in order to run all test "
-"including the search tests, you need to override tox's posargs. If you don't "
-"have any additional arguments to pass, you can also set the ``TOX_POSARGS`` "
-"environment variable to an empty string:"
+"tox -e py312          # Core tests (no search, no proxito)\n"
+"tox -e search         # Search tests (requires Elasticsearch)\n"
+"tox -e proxito        # Proxito tests"
 msgstr ""
 
-#: ../../../tests.rst:35
-msgid "TOX_POSARGS='' tox"
+#: ../../../tests.rst:28
+msgid "To run all test suites at once:"
 msgstr ""
 
-#: ../../../tests.rst:38
-msgid ""
-"If you need to override tox's posargs, but you still don't want to run the "
-"search tests, you need to include ``-m 'not search'`` to your command:"
+#: ../../../tests.rst:33
+msgid "tox -e py312,search,proxito"
 msgstr ""
 
-#: ../../../tests.rst:44
-msgid "tox -- -m 'not search' -x"
-msgstr ""
-
-#: ../../../tests.rst:45
-msgid "To target a specific environment:"
-msgstr ""
-
-#: ../../../tests.rst:50
-msgid "tox -e py312"
-msgstr ""
-
-#: ../../../tests.rst:51
+#: ../../../tests.rst:34
 msgid "To run a subset of tests:"
 msgstr ""
 
-#: ../../../tests.rst:56
+#: ../../../tests.rst:39
 msgid "tox -e py312 -- -k test_celery"
 msgstr ""
 
-#: ../../../tests.rst:57
+#: ../../../tests.rst:42
+msgid ""
+"Install ``tox-uv`` alongside tox for faster virtualenv creation and "
+"dependency resolution:"
+msgstr ""
+
+#: ../../../tests.rst:50
+msgid "Tox environments"
+msgstr ""
+
+#: ../../../tests.rst:52
 msgid ""
 "The ``tox`` configuration has the following environments configured. You can "
 "target a single environment to limit the test suite:"
 msgstr ""
 
-#: ../../../tests.rst:60
+#: ../../../tests.rst:55
 msgid "py312"
 msgstr ""
 
-#: ../../../tests.rst:61
-msgid "Run our test suite using Python 3.10"
+#: ../../../tests.rst:56
+msgid "Core tests — excludes search, proxito, and embed API markers."
 msgstr ""
 
-#: ../../../tests.rst:63
-msgid "py312-debug"
+#: ../../../tests.rst:58
+msgid "search"
+msgstr ""
+
+#: ../../../tests.rst:59
+msgid "Search tests — requires an Elasticsearch instance."
+msgstr ""
+
+#: ../../../tests.rst:61
+msgid "proxito"
+msgstr ""
+
+#: ../../../tests.rst:62
+msgid "Proxito tests — uses ``readthedocs.settings.proxito.test``."
 msgstr ""
 
 #: ../../../tests.rst:64
-msgid ""
-"Same as ``py312``, but there are some useful debugging tools available in "
-"the environment."
+msgid "pre-commit"
 msgstr ""
 
-#: ../../../tests.rst:66
-msgid "lint"
+#: ../../../tests.rst:65
+msgid "Run linting and formatting checks via pre-commit."
 msgstr ""
 
 #: ../../../tests.rst:67
-msgid ""
-"Run code linting using `Prospector`_. This currently runs `pylint`_, "
-"`pyflakes`_, `pep8`_ and other linting tools."
+msgid "migrations"
+msgstr ""
+
+#: ../../../tests.rst:68
+msgid "Check for missing Django migrations."
 msgstr ""
 
 #: ../../../tests.rst:70
@@ -127,66 +133,98 @@ msgid "docs"
 msgstr ""
 
 #: ../../../tests.rst:71
-msgid "Test documentation compilation with Sphinx."
+msgid "Build user documentation with Sphinx."
 msgstr ""
 
-#: ../../../tests.rst:81
+#: ../../../tests.rst:73
+msgid "docs-dev"
+msgstr ""
+
+#: ../../../tests.rst:74
+msgid "Build developer documentation with Sphinx."
+msgstr ""
+
+#: ../../../tests.rst:80
 msgid "Pytest marks"
 msgstr ""
 
-#: ../../../tests.rst:83
+#: ../../../tests.rst:82
 msgid "The Read the Docs code base is deployed as three instances:"
 msgstr ""
 
-#: ../../../tests.rst:85
+#: ../../../tests.rst:84
 msgid "Main: where you can see the dashboard."
 msgstr ""
 
-#: ../../../tests.rst:86
+#: ../../../tests.rst:85
 msgid "Build: where the builds happen."
 msgstr ""
 
-#: ../../../tests.rst:87
-msgid "Serve/proxito: It is in charge of serving the documentation pages."
+#: ../../../tests.rst:86
+msgid "Serve/proxito: it is in charge of serving the documentation pages."
 msgstr ""
 
-#: ../../../tests.rst:89
+#: ../../../tests.rst:88
 msgid ""
-"Each instance has its own settings. To make sure we test each part as close "
-"as possible to its real settings, we use `pytest marks <https://docs.pytest."
-"org/en/latest/mark.html>`__. This allow us to run each set of tests with "
-"different settings files, or skip some (like search tests)::"
+"Each instance has its own Django settings. To make sure we test each part as "
+"close as possible to its real settings, we use `pytest marks <https://docs."
+"pytest.org/en/latest/mark.html>`__ and separate tox environments."
 msgstr ""
 
-#: ../../../tests.rst:96
-msgid ""
-"DJANGO_SETTINGS_MODULE=custom.settings.file pytest -m mark\n"
-"DJANGO_SETTINGS_MODULE=another.settings.file pytest -m \"not mark\""
-msgstr ""
-
-#: ../../../tests.rst:99
+#: ../../../tests.rst:93
 msgid "Current marks are:"
 msgstr ""
 
-#: ../../../tests.rst:101
-msgid "search (tests that require Elastic Search)"
+#: ../../../tests.rst:95
+msgid "``search`` — tests that require Elasticsearch"
+msgstr ""
+
+#: ../../../tests.rst:96
+msgid "``proxito`` — tests for the serve/proxito instance"
+msgstr ""
+
+#: ../../../tests.rst:97
+msgid "``embed_api`` — tests for the embed API"
+msgstr ""
+
+#: ../../../tests.rst:99
+msgid "Tests without a mark are from the main instance."
 msgstr ""
 
 #: ../../../tests.rst:102
-msgid "proxito (tests from the serve/proxito instance)"
+msgid "Continuous integration"
 msgstr ""
 
 #: ../../../tests.rst:104
-msgid "Tests without mark are from the main instance."
+msgid ""
+"The CI pipeline runs on Circle CI for every push. Tests are split into "
+"parallel jobs:"
 msgstr ""
 
 #: ../../../tests.rst:107
-msgid "Continuous Integration"
+msgid "**checks** — pre-commit linting + migration checks"
+msgstr ""
+
+#: ../../../tests.rst:108
+msgid "**tests** — core tests (no Elasticsearch needed)"
 msgstr ""
 
 #: ../../../tests.rst:109
+msgid "**tests-proxito** — proxito tests"
+msgstr ""
+
+#: ../../../tests.rst:110
 msgid ""
-"The RTD test suite is exercised by Circle CI on every push to our repo at "
-"GitHub. You can check out the current build status: https://app.circleci.com/"
+"**tests-search** — search tests (requires Elasticsearch, runs after the "
+"above pass)"
+msgstr ""
+
+#: ../../../tests.rst:111
+msgid "**tests-embedapi** — embed API tests across multiple Sphinx versions"
+msgstr ""
+
+#: ../../../tests.rst:113
+msgid ""
+"You can check out the current build status: https://app.circleci.com/"
 "pipelines/github/readthedocs/readthedocs.org"
 msgstr ""
