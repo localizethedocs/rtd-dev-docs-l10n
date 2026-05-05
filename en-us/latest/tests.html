@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Testing" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="tests.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Before contributing to Read the Docs, make sure your patch passes our test suite and your code style passes our code linting suite. Read the Docs uses Tox to execute testing and linting procedures. Tox is the only dependency you need to run linting or our test suite, the remainder of our requirem..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Before contributing to Read the Docs, make sure your patch passes our test suite and your code style passes our code linting suite. Read the Docs uses Tox to execute testing and linting procedures. Tox is the only dependency you need to run linting or our test suite, the remainder of our requirem..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testing &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/tests.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a48b73ee"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Interesting settings" href="settings.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="ltd-provenance.js"></script>
+<script type="text/javascript" src="ltd-current.js"></script>
+<script type="text/javascript" src="../../ltd-config.js"></script>
+<script type="text/javascript" src="../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Interesting settings</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pytest-marks">Pytest marks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-integration">Continuous Integration</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Testing</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/tests.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h1>
+<p>Before contributing to Read the Docs, make sure your patch passes our test suite
+and your code style passes our code linting suite.</p>
+<p>Read the Docs uses <a class="reference external" href="https://tox.readthedocs.io/en/latest/index.html">Tox</a> to execute testing and linting procedures. Tox is the
+only dependency you need to run linting or our test suite, the remainder of our
+requirements will be installed by Tox into environment specific virtualenv
+paths. Before testing, make sure you have Tox installed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>tox</span>
+</pre></div></div><p>To run the full test and lint suite against your changes, simply run Tox. Tox
+should return without any errors. You can run Tox against all of our
+environments by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">tox</span>
+</pre></div></div><p>By default, tox won’t run tests from search,
+in order to run all test including the search tests,
+you need to override tox’s posargs.
+If you don’t have any additional arguments to pass,
+you can also set the <code class="docutils literal notranslate"><span class="pre">TOX_POSARGS</span></code> environment variable to an empty string:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">TOX_POSARGS</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span>tox</span>
+</pre></div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you need to override tox’s posargs, but you still don’t want to run the search tests,
+you need to include <code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">'not</span> <span class="pre">search'</span></code> to your command:</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">tox<span class="w"> </span>--<span class="w"> </span>-m<span class="w"> </span><span class="s1">&#39;not search&#39;</span><span class="w"> </span>-x</span>
+</pre></div></div><p>To target a specific environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">tox<span class="w"> </span>-e<span class="w"> </span>py312</span>
+</pre></div></div><p>To run a subset of tests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">tox<span class="w"> </span>-e<span class="w"> </span>py312<span class="w"> </span>--<span class="w"> </span>-k<span class="w"> </span>test_celery</span>
+</pre></div></div><p>The <code class="docutils literal notranslate"><span class="pre">tox</span></code> configuration has the following environments configured. You can
+target a single environment to limit the test suite:</p>
+<dl class="simple">
+<dt>py312</dt><dd><p>Run our test suite using Python 3.10</p>
+</dd>
+<dt>py312-debug</dt><dd><p>Same as <code class="docutils literal notranslate"><span class="pre">py312</span></code>, but there are some useful debugging tools available in the environment.</p>
+</dd>
+<dt>lint</dt><dd><p>Run code linting using <a class="reference external" href="https://prospector.readthedocs.io/en/master/">Prospector</a>. This currently runs <a class="reference external" href="https://pylint.readthedocs.io/">pylint</a>,
+<a class="reference external" href="https://github.com/pyflakes/pyflakes">pyflakes</a>, <a class="reference external" href="https://pep8.readthedocs.io/en/latest/index.html">pep8</a> and other linting tools.</p>
+</dd>
+<dt>docs</dt><dd><p>Test documentation compilation with Sphinx.</p>
+</dd>
+</dl>
+<section id="pytest-marks">
+<h2>Pytest marks<a class="headerlink" href="#pytest-marks" title="Link to this heading"></a></h2>
+<p>The Read the Docs code base is deployed as three instances:</p>
+<ul class="simple">
+<li><p>Main: where you can see the dashboard.</p></li>
+<li><p>Build: where the builds happen.</p></li>
+<li><p>Serve/proxito: It is in charge of serving the documentation pages.</p></li>
+</ul>
+<p>Each instance has its own settings.
+To make sure we test each part as close as possible to its real settings,
+we use <a class="reference external" href="https://docs.pytest.org/en/latest/mark.html">pytest marks</a>.
+This allow us to run each set of tests with different settings files,
+or skip some (like search tests):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DJANGO_SETTINGS_MODULE</span><span class="o">=</span><span class="n">custom</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">file</span> <span class="n">pytest</span> <span class="o">-</span><span class="n">m</span> <span class="n">mark</span>
+<span class="n">DJANGO_SETTINGS_MODULE</span><span class="o">=</span><span class="n">another</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">file</span> <span class="n">pytest</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;not mark&quot;</span>
+</pre></div>
+</div>
+<p>Current marks are:</p>
+<ul class="simple">
+<li><p>search (tests that require Elastic Search)</p></li>
+<li><p>proxito (tests from the serve/proxito instance)</p></li>
+</ul>
+<p>Tests without mark are from the main instance.</p>
+</section>
+<section id="continuous-integration">
+<h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Link to this heading"></a></h2>
+<p>The RTD test suite is exercised by Circle CI on every push to our repo at
+GitHub. You can check out the current build status:
+<a class="reference external" href="https://app.circleci.com/pipelines/github/readthedocs/readthedocs.org">https://app.circleci.com/pipelines/github/readthedocs/readthedocs.org</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="settings.html" class="btn btn-neutral float-left" title="Interesting settings" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
