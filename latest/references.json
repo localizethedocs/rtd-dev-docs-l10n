@@ -37,9 +37,9 @@
     "branch" : "main",
     "commit" : 
     {
-      "date" : "2025-12-19 11:35:11 -0500",
-      "hash" : "84154861c236a7573e2ccd3121e815eb12878510",
-      "title" : "Search: Disable search indexing for inactive projects (#12666)"
+      "date" : "2026-05-21 20:48:21 -0700",
+      "hash" : "2bbf6f21cd113c2ce85f3f08120a0f3d2b4357e8",
+      "title" : "tests: cover stable version selection by verbose_name (#13047)"
     }
   },
   "type" : "branch",
