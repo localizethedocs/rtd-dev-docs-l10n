@@ -1,0 +1,585 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Improving redirects" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/redirects.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Redirects are a core feature of Read the Docs, they allow users to keep old URLs working when they rename or move a page. The current implementation lacks some features and has some undefined/undocumented behaviors. Goals, Non-goals, Current implementation, How other services implement redirects,..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Redirects are a core feature of Read the Docs, they allow users to keep old URLs working when they rename or move a page. The current implementation lacks some features and has some undefined/undocumented behaviors. Goals, Non-goals, Current implementation, How other services implement redirects,..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Improving redirects &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/redirects.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=cc8e41f0"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Refactor RemoteRepository object" href="refactor-remote-repository.html" />
+    <link rel="prev" title="Privacy levels" href="privacy-levels.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Improving redirects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#non-goals">Non-goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#current-implementation">Current implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-other-services-implement-redirects">How other services implement redirects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#improvements">Improvements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-improvements">General improvements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#don-t-run-redirects-on-domains-from-pull-request-previews">Don’t run redirects on domains from pull request previews</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#normalize-paths-with-trailing-slashes">Normalize paths with trailing slashes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-and-splat-for-wildcards">Use <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">:splat</span></code> for wildcards</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#explicit-splat-placeholder">Explicit <code class="docutils literal notranslate"><span class="pre">:splat</span></code> placeholder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#improving-page-redirects">Improving page redirects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#merge-prefix-redirects-with-exact-redirects">Merge prefix redirects with exact redirects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#improving-sphinx-redirects">Improving Sphinx redirects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#other-ideas-to-improve-redirects">Other ideas to improve redirects</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#migration">Migration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">Improving redirects</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/redirects.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="improving-redirects">
+<h1>Improving redirects<a class="headerlink" href="#improving-redirects" title="Link to this heading"></a></h1>
+<p>Redirects are a core feature of Read the Docs,
+they allow users to keep old URLs working when they rename or move a page.</p>
+<p>The current implementation lacks some features and has some undefined/undocumented behaviors.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#goals" id="id1">Goals</a></p></li>
+<li><p><a class="reference internal" href="#non-goals" id="id2">Non-goals</a></p></li>
+<li><p><a class="reference internal" href="#current-implementation" id="id3">Current implementation</a></p></li>
+<li><p><a class="reference internal" href="#how-other-services-implement-redirects" id="id4">How other services implement redirects</a></p></li>
+<li><p><a class="reference internal" href="#improvements" id="id5">Improvements</a></p>
+<ul>
+<li><p><a class="reference internal" href="#general-improvements" id="id6">General improvements</a></p></li>
+<li><p><a class="reference internal" href="#don-t-run-redirects-on-domains-from-pull-request-previews" id="id7">Don’t run redirects on domains from pull request previews</a></p></li>
+<li><p><a class="reference internal" href="#normalize-paths-with-trailing-slashes" id="id8">Normalize paths with trailing slashes</a></p></li>
+<li><p><a class="reference internal" href="#use-and-splat-for-wildcards" id="id9">Use <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">:splat</span></code> for wildcards</a></p></li>
+<li><p><a class="reference internal" href="#explicit-splat-placeholder" id="id10">Explicit <code class="docutils literal notranslate"><span class="pre">:splat</span></code> placeholder</a></p></li>
+<li><p><a class="reference internal" href="#improving-page-redirects" id="id11">Improving page redirects</a></p></li>
+<li><p><a class="reference internal" href="#merge-prefix-redirects-with-exact-redirects" id="id12">Merge prefix redirects with exact redirects</a></p></li>
+<li><p><a class="reference internal" href="#improving-sphinx-redirects" id="id13">Improving Sphinx redirects</a></p></li>
+<li><p><a class="reference internal" href="#other-ideas-to-improve-redirects" id="id14">Other ideas to improve redirects</a></p>
+<ul>
+<li><p><a class="reference internal" href="#allow-matching-query-arguments" id="id15">Allow matching query arguments</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#migration" id="id16">Migration</a></p></li>
+</ul>
+</nav>
+<section id="goals">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Goals</a><a class="headerlink" href="#goals" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Improve the user experience when creating redirects.</p></li>
+<li><p>Improve the current implementation without big breaking changes.</p></li>
+</ul>
+</section>
+<section id="non-goals">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Non-goals</a><a class="headerlink" href="#non-goals" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Replicate every feature of other services without
+having a clear use case for them.</p></li>
+<li><p>Improve the performance of redirects.
+This can be discussed in an issue or pull request.
+Performance should be considered when implementing new improvements.</p></li>
+<li><p>Allow importing redirects.
+We should push users to use our API instead.</p></li>
+<li><p>Allow specifying redirects in the RTD config file.
+We have had several discussions around this,
+but we haven’t reached a consensus.</p></li>
+</ul>
+</section>
+<section id="current-implementation">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Current implementation</a><a class="headerlink" href="#current-implementation" title="Link to this heading"></a></h2>
+<p>We have five types of redirects:</p>
+<dl>
+<dt>Prefix redirect:</dt><dd><p>Allows to redirect all the URLs that start with a prefix to a new URL
+using the default version and language of the project.
+For example: a prefix redirect with the value <code class="docutils literal notranslate"><span class="pre">/prefix/</span></code>
+will redirect <code class="docutils literal notranslate"><span class="pre">/prefix/foo/bar</span></code> to <code class="docutils literal notranslate"><span class="pre">/en/latest/foo/bar</span></code>.</p>
+<p>They are basically the same as an exact redirect with a wildcard at the end.
+They are a shortcut for a redirect like:</p>
+<dl class="simple">
+<dt>From:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/prefix/$rest</span></code></p>
+</dd>
+<dt>To:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/en/latest/</span></code></p>
+</dd>
+</dl>
+<p>Or maybe we could use a prefix redirect to replace the exact redirect with a wildcard?</p>
+</dd>
+<dt>Page redirect:</dt><dd><p>Allows to redirect a single page to a new URL using the current version and language.
+For example: a page redirect with the value <code class="docutils literal notranslate"><span class="pre">/old/page.html</span></code>
+will redirect <code class="docutils literal notranslate"><span class="pre">/en/latest/old/page.html</span></code> to <code class="docutils literal notranslate"><span class="pre">/en/latest/new/page.html</span></code>.</p>
+<p>Cross domain redirects are not allowed in page redirects.
+They apply to all versions,
+if you want it to apply only to a specific version you can use an exact redirect.</p>
+<p>A whole directory can’t be redirected with a page redirect,
+an exact redirect with a wildcard at the end needs to be used instead.</p>
+<p>A page redirect on a single version project is the same as an exact redirect.</p>
+</dd>
+<dt>Exact redirect:</dt><dd><p>Allows to redirect an exact URL to a new URL,
+it allows a wildcard at the end to redirect.
+For example: an exact redirect with the value <code class="docutils literal notranslate"><span class="pre">/en/latest/page.html</span></code>
+will redirect <code class="docutils literal notranslate"><span class="pre">/en/latest/page.html</span></code> to the new URL.</p>
+<p>If an exact redirect with the value <code class="docutils literal notranslate"><span class="pre">/en/latest/dir/$rest</span></code>
+is created, it will redirect all paths that start with <code class="docutils literal notranslate"><span class="pre">/en/latest/dir/</span></code>,
+the rest of the path will be added to the new URL automatically.</p>
+<ul class="simple">
+<li><p>Cross domain redirects are allowed in exact redirects.</p></li>
+<li><p>They apply to all versions.</p></li>
+<li><p>A wildcard is allowed at the end of the URL.</p></li>
+<li><p>If a wildcard is used, the rest of the path will be added to the new URL automatically.</p></li>
+</ul>
+</dd>
+<dt>Sphinx HTMLDir to HTML:</dt><dd><p>Allows to redirect clean-URLs to HTML URLs.
+Useful in case a project changed the style of their URLs.</p>
+<p>They apply to all projects, not just Sphinx projects.</p>
+</dd>
+<dt>Sphinx HTML to HTMLDir:</dt><dd><p>Allows to redirect HTML URLs to clean-URLs.
+Useful in case a project changed the style of their URLs.</p>
+<p>They apply to all projects, not just Sphinx projects.</p>
+</dd>
+</dl>
+</section>
+<section id="how-other-services-implement-redirects">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">How other services implement redirects</a><a class="headerlink" href="#how-other-services-implement-redirects" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Gitbook implementation is very basic,
+they only allow page redirects.</p>
+<p><a class="reference external" href="https://docs.gitbook.com/integrations/git-sync/content-configuration#redirects">https://docs.gitbook.com/integrations/git-sync/content-configuration#redirects</a></p>
+</li>
+<li><p>Cloudflare pages allow to capture placeholders and one wildcard (in any part of the URL).
+They also allow you to set the status code of the redirect,
+and redirects can be specific in a <code class="docutils literal notranslate"><span class="pre">_redirects</span></code> file.</p>
+<p><a class="reference external" href="https://developers.cloudflare.com/pages/platform/redirects/">https://developers.cloudflare.com/pages/platform/redirects/</a></p>
+<p>They have a limit of 2100 redirects.
+In case of multiple matches, the topmost redirect will be used.</p>
+</li>
+<li><p>Netlify allows to capture placeholders and a wildcard (only allowed at the end).
+They also allow you to set the status code of the redirect,
+and redirects can be specific in a <code class="docutils literal notranslate"><span class="pre">_redirects</span></code> file.</p>
+<ul class="simple">
+<li><p>Forced redirects</p></li>
+<li><p>Match query arguments</p></li>
+<li><p>Match by country/language and cookies</p></li>
+<li><p>Per-domain and protocol redirects</p></li>
+<li><p>In case of multiple matches, the topmost redirect will be used.</p></li>
+<li><p>Rewrites, serve a different file without redirecting.</p></li>
+</ul>
+<p><a class="reference external" href="https://docs.netlify.com/routing/redirects/">https://docs.netlify.com/routing/redirects/</a></p>
+</li>
+<li><p>GitLab pages supports the same syntax as Netlify,
+and supports a subset of their features:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">_redirects</span></code> config file</p></li>
+<li><p>Status codes</p></li>
+<li><p>Rewrites</p></li>
+<li><p>Wildcards (splats)</p></li>
+<li><p>Placeholders</p></li>
+</ul>
+<p><a class="reference external" href="https://docs.gitlab.com/ee/user/project/pages/redirects.html">https://docs.gitlab.com/ee/user/project/pages/redirects.html</a></p>
+</li>
+</ul>
+</section>
+<section id="improvements">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Improvements</a><a class="headerlink" href="#improvements" title="Link to this heading"></a></h2>
+<section id="general-improvements">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">General improvements</a><a class="headerlink" href="#general-improvements" title="Link to this heading"></a></h3>
+<p>The following improvements will be applied to all types of redirects.</p>
+<ul class="simple">
+<li><p>Allow choosing the status code of the redirect.
+We already have a field for this, but it’s not exposed to users.</p></li>
+<li><p>Allow to explicitly define the order of redirects.
+This will be similar to the automation rules feature,
+where users can reorder the rules so the most specific ones are first.
+We currently rely on the implicit order of the redirects (updated_at).</p></li>
+<li><p>Allow to disable redirects.
+It’s useful when testing redirects, or when debugging a problem.
+Instead of having to re-create the redirect,
+we can just disable it and re-enable it later.</p></li>
+<li><p>Allow to add a short description.
+It’s useful to document why the redirect was created.</p></li>
+</ul>
+</section>
+<section id="don-t-run-redirects-on-domains-from-pull-request-previews">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Don’t run redirects on domains from pull request previews</a><a class="headerlink" href="#don-t-run-redirects-on-domains-from-pull-request-previews" title="Link to this heading"></a></h3>
+<p>We currently run redirects on domains from pull request previews,
+this is a problem when moving a whole project to a new domain.</p>
+<p>We don’t the need to run redirects on external domains, they
+should be treated as temporary domains.</p>
+</section>
+<section id="normalize-paths-with-trailing-slashes">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Normalize paths with trailing slashes</a><a class="headerlink" href="#normalize-paths-with-trailing-slashes" title="Link to this heading"></a></h3>
+<p>Currently, if users want to redirect a path with a trailing slash and without it,
+they need to create two separate redirects (<code class="docutils literal notranslate"><span class="pre">/page/</span></code> and <code class="docutils literal notranslate"><span class="pre">/page</span></code>).</p>
+<p>We can simplify this by normalizing the path before matching it, or before saving it.</p>
+<p>For example:</p>
+<dl class="simple">
+<dt>From:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/page/</span></code></p>
+</dd>
+<dt>To:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/new/page</span></code></p>
+</dd>
+</dl>
+<p>The from path will be normalized to <code class="docutils literal notranslate"><span class="pre">/page</span></code>,
+and the filename to match will also be normalized before matching it.
+This is similar to what Netlify does:
+<a class="reference external" href="https://docs.netlify.com/routing/redirects/redirect-options/#trailing-slash">https://docs.netlify.com/routing/redirects/redirect-options/#trailing-slash</a>.</p>
+<p>Page and exact redirects without a wildcard at the end will be normalized,
+all other redirects need to be matched as is.</p>
+<p>This makes it impossible to match a path with a trailing slash.</p>
+</section>
+<section id="use-and-splat-for-wildcards">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Use <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">:splat</span></code> for wildcards</a><a class="headerlink" href="#use-and-splat-for-wildcards" title="Link to this heading"></a></h3>
+<p>Currently we are using <code class="docutils literal notranslate"><span class="pre">$rest</span></code> at the end of the <code class="docutils literal notranslate"><span class="pre">From</span> <span class="pre">URL</span></code>
+to indicate that the rest of the path should be added to the target URL.</p>
+<p>A similar feature is implemented in other services using <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">:splat</span></code>.</p>
+<p>Instead of using <code class="docutils literal notranslate"><span class="pre">$rest</span></code> in the URL for the suffix wildcard, we now will use <code class="docutils literal notranslate"><span class="pre">*</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">:splat</span></code> as a placeholder in the target URL to be more consistent with other services.
+Existing redirects can be migrated automatically.</p>
+</section>
+<section id="explicit-splat-placeholder">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Explicit <code class="docutils literal notranslate"><span class="pre">:splat</span></code> placeholder</a><a class="headerlink" href="#explicit-splat-placeholder" title="Link to this heading"></a></h3>
+<p>Explicitly place the <code class="docutils literal notranslate"><span class="pre">:splat</span></code> placeholder in the target URL,
+instead of adding it automatically.</p>
+<p>Some times users want to redirect to a different path,
+we have been adding a query parameter in the target URL to
+prevent the old path from being added in the final path.
+For example <code class="docutils literal notranslate"><span class="pre">/new/path/?_=</span></code>.</p>
+<p>Instead of adding the path automatically,
+users have to add the <code class="docutils literal notranslate"><span class="pre">:splat</span></code> placeholder in the target URL.
+For example:</p>
+<dl class="simple">
+<dt>From:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/old/path/*</span></code></p>
+</dd>
+<dt>To:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/new/path/:splat</span></code></p>
+</dd>
+<dt>From:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/old/path/*</span></code></p>
+</dd>
+<dt>To:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/new/path/?page=:splat&amp;foo=bar</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="improving-page-redirects">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Improving page redirects</a><a class="headerlink" href="#improving-page-redirects" title="Link to this heading"></a></h3>
+<ul>
+<li><p>Allow to redirect to external domains.
+This can be useful to apply a redirect of a well known path
+in all versions to another domain.</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">/security/</span></code> to a their security policy page in another domain.</p>
+<p>This new feature isn’t strictly needed,
+but it will be useful to simplify the explanation of the feature
+(one less restriction to explain).</p>
+<p>Example:</p>
+<dl class="simple">
+<dt>From:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/security/</span></code></p>
+</dd>
+<dt>To:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">https://example.com/security/</span></code></p>
+</dd>
+</dl>
+</li>
+<li><p>Allow a wildcard at the end of the from path.
+This will allow users to migrate a whole directory to a new path
+without having to create an exact redirect for each version.</p>
+<p>Similar to exact redirects, users need to add the <code class="docutils literal notranslate"><span class="pre">:splat</span></code> placeholder explicitly.
+This means that page redirects are the same as exact redirects,
+with the only difference that they apply to all versions.</p>
+<p>Example:</p>
+<dl class="simple">
+<dt>From:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/old/path/*</span></code></p>
+</dd>
+<dt>To:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/new/path/:splat</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="merge-prefix-redirects-with-exact-redirects">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Merge prefix redirects with exact redirects</a><a class="headerlink" href="#merge-prefix-redirects-with-exact-redirects" title="Link to this heading"></a></h3>
+<p>Prefix redirects are the same as exact redirects with a wildcard at the end.
+We will migrate all prefix redirects to exact redirects with a wildcard at the end.</p>
+<p>For example:</p>
+<dl class="simple">
+<dt>From:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/prefix/</span></code></p>
+</dd>
+</dl>
+<p>Will be migrated to:</p>
+<dl class="simple">
+<dt>From:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/prefix/*</span></code></p>
+</dd>
+<dt>To:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/en/latest/:splat</span></code></p>
+</dd>
+</dl>
+<p>Where <code class="docutils literal notranslate"><span class="pre">/en/latest</span></code> is the default version and language of the project.
+For single version projects, the redirect will be:</p>
+<dl class="simple">
+<dt>From:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/prefix/*</span></code></p>
+</dd>
+<dt>To:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/:splat</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="improving-sphinx-redirects">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Improving Sphinx redirects</a><a class="headerlink" href="#improving-sphinx-redirects" title="Link to this heading"></a></h3>
+<p>These redirects are useful, but we should rename them to something more general,
+since they apply to all types of projects, not just Sphinx projects.</p>
+<p>Proposed names:</p>
+<ul class="simple">
+<li><p>HTML URL to clean URL redirect (<code class="docutils literal notranslate"><span class="pre">file.html</span></code> to <code class="docutils literal notranslate"><span class="pre">file/</span></code>)</p></li>
+<li><p>Clean URL to HTML URL redirect (<code class="docutils literal notranslate"><span class="pre">file/</span></code> to <code class="docutils literal notranslate"><span class="pre">file.html</span></code>)</p></li>
+</ul>
+</section>
+<section id="other-ideas-to-improve-redirects">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Other ideas to improve redirects</a><a class="headerlink" href="#other-ideas-to-improve-redirects" title="Link to this heading"></a></h3>
+<p>The following improvements will not be implemented in the first iteration.</p>
+<ul>
+<li><p>Run forced redirects before built-in redirects.
+We currently run built-in redirects before forced redirects,
+this is a problem when moving a whole project to a new domain.
+For example, a forced redirect like <code class="docutils literal notranslate"><span class="pre">/$rest</span></code>,
+won’t work for the root URL of the project,
+since <code class="docutils literal notranslate"><span class="pre">/</span></code> will first redirect to <code class="docutils literal notranslate"><span class="pre">/en/latest/</span></code>.</p>
+<p>But shouldn’t be a real problem, since users will still need to
+handle the <code class="docutils literal notranslate"><span class="pre">/en/latest/file/</span></code> paths.</p>
+</li>
+<li><p>Run redirects on the edge.
+Cloudflare allow us to create redirects on the edge,
+but they have some limitations around the number of
+redirect rules that can be created.</p>
+<p>And they will be useful for forced exact redirects only,
+since we can’t match a redirect based on the response of the origin server.</p>
+</li>
+<li><p>Merge all redirects into a single type.
+This may simplify the implementation,
+but it will make it harder to explain the feature to users.
+And to replace some redirects we need to implement some new features.</p></li>
+<li><p>Placeholders.
+I haven’t seen users requesting this feature.
+We can consider adding it in the future.
+Maybe we can expose the current language and version as placeholders.</p></li>
+<li><p>Per-protocol redirects.
+We should push users to always use HTTPS.</p></li>
+<li><p>Allow a prefix wildcard.
+We currently only allow a suffix wildcard,
+adding support for a prefix wildcard should be easy.
+But do users need this feature?</p></li>
+<li><p>Per-domain redirects.
+The main problem that originated this request was that we were applying redirects on external domains,
+if we stop doing that, there is no need for this feature.
+We can also try to improve how our built-in redirects work
+(specially our canonical domain redirect).</p></li>
+</ul>
+<section id="allow-matching-query-arguments">
+<h4><a class="toc-backref" href="#id15" role="doc-backlink">Allow matching query arguments</a><a class="headerlink" href="#allow-matching-query-arguments" title="Link to this heading"></a></h4>
+<p>We can do this in three ways:</p>
+<ul>
+<li><p>At the DB level with some restrictions.
+If done at the DB level,
+we would need to have a different field
+with just the path, and other with the query arguments normalized and sorted.</p>
+<p>For example, if we have a redirect with the value <code class="docutils literal notranslate"><span class="pre">/foo?blue=1&amp;yellow=2&amp;red=3</span></code>,
+if would be normalized in the DB as <code class="docutils literal notranslate"><span class="pre">/foo</span></code> and <code class="docutils literal notranslate"><span class="pre">blue=1&amp;red=3&amp;yellow=2</span></code>.
+This implies that the URL to be matched must have the exact same query arguments,
+it can’t have more or less.</p>
+<p>I believe the implementation described here is the same being used by Netlify,
+since they have that same restriction.</p>
+<blockquote>
+<div><p>If the URL contains other parameters in addition to or instead of id, the request doesn’t match that rule.</p>
+<p><a class="reference external" href="https://docs.netlify.com/routing/redirects/redirect-options/#query-parameters">https://docs.netlify.com/routing/redirects/redirect-options/#query-parameters</a></p>
+</div></blockquote>
+</li>
+<li><p>At the DB level using a JSONField.
+All query arguments will be saved normalized as a dictionary.
+When matching the URL, we will need to normalize the query arguments,
+and use some a combination of <code class="docutils literal notranslate"><span class="pre">has_keys</span></code> and <code class="docutils literal notranslate"><span class="pre">contained_by</span></code> to match the exact number of query arguments.</p></li>
+<li><p>At the Python level.
+If done at the DB level,
+we would need to have a different field
+with just the path, and other with query arguments.</p>
+<p>The matching of the path would be done at the DB level,
+and the matching of the query arguments would be done at the Python level.
+Here we can be more flexible, allowing any query arguments in the matched URL.</p>
+<p>We had some performance problems in the past,
+but I believe it was mainly due to the use of regex instead of using string operations.
+And matching the path is still done at the DB level.
+We could limit the number of redirects that can be created with query arguments,
+or the number of redirects in general.</p>
+</li>
+</ul>
+<p>We have had only one user requesting this feature,
+so this is not a priority.</p>
+</section>
+</section>
+</section>
+<section id="migration">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Migration</a><a class="headerlink" href="#migration" title="Link to this heading"></a></h2>
+<p>Most of the proposed improvements are backwards compatible,
+and just need a data migration to normalize existing redirects.</p>
+<p>For the exception of adding the <code class="docutils literal notranslate"><span class="pre">$rest</span></code> placeholder in the target URL explicitly,
+that needs users to re-learn how this feature works, i.e, they may be expecting
+to have the path added automatically in the target URL.</p>
+<p>We can create a small blog post explaining the changes.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="privacy-levels.html" class="btn btn-neutral float-left" title="Privacy levels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="refactor-remote-repository.html" class="btn btn-neutral float-right" title="Refactor RemoteRepository object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

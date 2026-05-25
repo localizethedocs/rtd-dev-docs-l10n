@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Future builder" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/future-builder.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Goals, Steps ran by the builder, Defined contract, Config file- build.jobs, build.commands., Intermediate steps for rollout, Final notes. This document is a continuation of Santos’ work about “ Explicit Builders ”. It builds on top of that document some extra features and makes some decisions abo..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Goals, Steps ran by the builder, Defined contract, Config file- build.jobs, build.commands., Intermediate steps for rollout, Final notes. This document is a continuation of Santos’ work about “ Explicit Builders ”. It builds on top of that document some extra features and makes some decisions abo..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future builder &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/future-builder.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=410ae970"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="In-doc search UI" href="in-doc-search-ui.html" />
+    <link rel="prev" title="Flyout Redesign Design Document" href="flyout-redesign.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Future builder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#steps-ran-by-the-builder">Steps ran by the builder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defined-contract">Defined contract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config-file">Config file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#build-jobs"><code class="docutils literal notranslate"><span class="pre">build.jobs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-commands"><code class="docutils literal notranslate"><span class="pre">build.commands</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#intermediate-steps-for-rollout">Intermediate steps for rollout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#final-notes">Final notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">Future builder</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/future-builder.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="future-builder">
+<h1>Future builder<a class="headerlink" href="#future-builder" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#goals" id="id1">Goals</a></p></li>
+<li><p><a class="reference internal" href="#steps-ran-by-the-builder" id="id2">Steps ran by the builder</a></p></li>
+<li><p><a class="reference internal" href="#defined-contract" id="id3">Defined contract</a></p></li>
+<li><p><a class="reference internal" href="#config-file" id="id4">Config file</a></p>
+<ul>
+<li><p><a class="reference internal" href="#build-jobs" id="id5"><code class="docutils literal notranslate"><span class="pre">build.jobs</span></code></a></p></li>
+<li><p><a class="reference internal" href="#build-commands" id="id6"><code class="docutils literal notranslate"><span class="pre">build.commands</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#intermediate-steps-for-rollout" id="id7">Intermediate steps for rollout</a></p></li>
+<li><p><a class="reference internal" href="#final-notes" id="id8">Final notes</a></p></li>
+</ul>
+</nav>
+<p>This document is a continuation of Santos’ work about “<a class="reference external" href="https://github.com/readthedocs/readthedocs.org/pull/8103/">Explicit Builders</a>”.
+It builds on top of that document some extra features and makes some decisions about the final goal,
+proposing a clear direction to move forward with intermediate steps keeping backward and forward compatibility.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A lot of things have changed since this document was written.
+We have had multiple discussions where we already took some decisions and discarded some of the ideas/details proposed here.
+The document was merged as-is without a cleaned up and there could be some inconsistencies.
+Note that <code class="docutils literal notranslate"><span class="pre">build.jobs</span></code> and <code class="docutils literal notranslate"><span class="pre">build.commands</span></code> are already implemented <em>without defining a contract</em> yet,
+and with small differences from the idea described here.</p>
+<p>Please, refer to the following links to read more about all the discussions we already had:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Public discussions:</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/9062">https://github.com/readthedocs/readthedocs.org/issues/9062</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/1083">https://github.com/readthedocs/readthedocs.org/issues/1083</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/9063">https://github.com/readthedocs/readthedocs.org/issues/9063</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/9088">https://github.com/readthedocs/readthedocs.org/issues/9088</a></p></li>
+</ul>
+</li>
+<li><p>Private discussions:</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/readthedocs/meta/discussions/9">https://github.com/readthedocs/meta/discussions/9</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/meta/discussions/14">https://github.com/readthedocs/meta/discussions/14</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/meta/discussions/17">https://github.com/readthedocs/meta/discussions/17</a></p></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<section id="goals">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Goals</a><a class="headerlink" href="#goals" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Keep the current builder working as-is</p></li>
+<li><p>Keep backward and forward (with intermediate steps) compatibility</p></li>
+<li><p>Define a clear support for newbie, intermediate and advanced users</p></li>
+<li><p>Allow users to override a command, run pre/post hook commands or define all commands by themselves</p></li>
+<li><p>Remove the Read the Docs requirement of having access to the build process</p></li>
+<li><p>Translate our current magic at build time to a defined contract with the user</p></li>
+<li><p>Provide a way to add a command argument without implementing it as a config file (e.g. <code class="docutils literal notranslate"><span class="pre">fail_on_warning</span></code>)</p></li>
+<li><p>Define a path forward towards supporting other tools</p></li>
+<li><p>Re-write all <code class="docutils literal notranslate"><span class="pre">readthedocs-sphinx-ext</span></code> features to post-processsing HTML features</p></li>
+<li><p>Reduce complexity maintained by Read the Docs’ core team</p></li>
+<li><p>Make Read the Docs responsible for Sphinx support and delegate other tools to the community</p></li>
+<li><p>Eventually support upload pre-build docs</p></li>
+<li><p>Allow us to add a feature with a defined contract without worry about breaking old builds</p></li>
+<li><p>Introduce <code class="docutils literal notranslate"><span class="pre">build.builder:</span> <span class="pre">2</span></code> config (does not install pre-defined packages) for these new features</p></li>
+<li><p>Motivate users to migrate to <code class="docutils literal notranslate"><span class="pre">v2</span></code> to finally deprecate this magic by educating users</p></li>
+</ul>
+</section>
+<section id="steps-ran-by-the-builder">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Steps ran by the builder</a><a class="headerlink" href="#steps-ran-by-the-builder" title="Link to this heading"></a></h2>
+<p>Read the Docs currently controls all the build process.
+Users are only allowed to modify very limited behavior by using a <code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code> file.
+This drove us to implement features like <code class="docutils literal notranslate"><span class="pre">sphinx.fail_on_warning</span></code>, <code class="docutils literal notranslate"><span class="pre">submodules</span></code>, among others,
+at a high implementation and maintenance cost to the core team.
+Besides, this hasn’t been enough for more advanced users that require more control over these commands.</p>
+<p>This document proposes to clearly define the steps the builder ran and allow users to override them
+depending on their needings:</p>
+<ul class="simple">
+<li><p>Newbie user / simple platform usage: Read the Docs controls all the commands (current builder)</p></li>
+<li><p>Intermediate user: ability to override one or more commands plus running pre/post hooks</p></li>
+<li><p>Advanced user: controls <em>all the commands</em> executed by the builder</p></li>
+</ul>
+<p>The steps identified so far are:</p>
+<ol class="arabic simple">
+<li><p>Checkout</p></li>
+<li><p>Expose project data via environment variables (*)</p></li>
+<li><p>Create environment (virtualenv / conda)</p></li>
+<li><p>Install dependencies</p></li>
+<li><p>Build documentation</p></li>
+<li><p>Generate defined contract (<code class="docutils literal notranslate"><span class="pre">metadata.yaml</span></code>)</p></li>
+<li><p>Post-process HTML (*)</p></li>
+<li><p>Upload to storage (*)</p></li>
+</ol>
+<p>Steps marked with <em>(*)</em> are managed by Read the Docs and can’t be overwritten.</p>
+</section>
+<section id="defined-contract">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Defined contract</a><a class="headerlink" href="#defined-contract" title="Link to this heading"></a></h2>
+<p>Projects building on Read the Docs must provide a <code class="docutils literal notranslate"><span class="pre">metadata.yaml</span></code> file after running their last command.
+This file contains all the data required by Read the Docs to be able to add its integrations.
+If this file is not provided or malformed, Read the Docs will fail the build and stop the process
+communicating to the user that there was a problem with the <code class="docutils literal notranslate"><span class="pre">metadata.yaml</span></code> and we require them to fix the problem.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no restriction about how this file is generated
+(e.g. generated with Python, Bash, statically uploaded to the repository, etc)
+Read the Docs does not have control over it and it’s only responsible for generating it when building with Sphinx.</p>
+</div>
+<p>The following is an example of a <code class="docutils literal notranslate"><span class="pre">metadata.yaml</span></code> that is generated by Read the Docs when building Sphinx documentation:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># metadata.yaml</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">tool</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sphinx</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.5.1</span>
+<span class="w">  </span><span class="nt">builder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html</span>
+<span class="nt">readthedocs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">html_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./_build/html/</span>
+<span class="w">  </span><span class="nt">pdf_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./_build/pdf/myproject.pdf</span>
+<span class="w">  </span><span class="nt">epub_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./_build/pdf/myproject.epub</span>
+<span class="w">  </span><span class="nt">search</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">css_identifier</span><span class="p">:</span><span class="w"> </span><span class="c1">#search-form &gt; input[name=&quot;q&quot;]</span>
+<span class="w">  </span><span class="nt">analytics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">flyout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">canonical</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs.myproject.com</span>
+<span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">metadata.yaml</span></code> contract is not defined yet.
+This is just an example of what we could expect from it to be able to add our integrations.</p>
+</div>
+</section>
+<section id="config-file">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Config file</a><a class="headerlink" href="#config-file" title="Link to this heading"></a></h2>
+<p>As we mentioned, we want all users to use the same config file and have a clear way to override commands as they need.
+This will be done by using the current <code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code> file that we already have by adding two new keys:
+<code class="docutils literal notranslate"><span class="pre">build.jobs</span></code> and <code class="docutils literal notranslate"><span class="pre">build.commands</span></code>.</p>
+<p>If neither <code class="docutils literal notranslate"><span class="pre">build.jobs</span></code> or <code class="docutils literal notranslate"><span class="pre">build.commands</span></code> are present in the config file,
+Read the Docs will execute the builder we currently support without modification,
+keeping compatibility with all projects already building successfully.</p>
+<p>When users make usage of <code class="docutils literal notranslate"><span class="pre">jobs:</span></code> or <code class="docutils literal notranslate"><span class="pre">commands:</span></code> keys we are not responsible for them in case they fail.
+In these cases, we only check for a <code class="docutils literal notranslate"><span class="pre">metadata.yaml</span></code> file and run our code to add the integrations.</p>
+<section id="build-jobs">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">build.jobs</span></code></a><a class="headerlink" href="#build-jobs" title="Link to this heading"></a></h3>
+<p>It allows users to execute one or multiple pre/post hooks and/or overwrite one or multiple commands.
+These are some examples where this is useful:</p>
+<ul class="simple">
+<li><p>User wants to pass an extra argument to <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code></p></li>
+<li><p>Project requires to execute a command <em>before</em> building</p></li>
+<li><p>User has a personal/private PyPI URL</p></li>
+<li><p>Install project with <code class="xref py py-obj docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span></code> (see <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/6243">https://github.com/readthedocs/readthedocs.org/issues/6243</a>)</p></li>
+<li><p>Disable git shallow clone (see <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/5989">https://github.com/readthedocs/readthedocs.org/issues/5989</a>)</p></li>
+<li><p>Call <code class="xref py py-obj docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> with <code class="xref py py-obj docutils literal notranslate"><span class="pre">--constraint</span></code> (see <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/7258">https://github.com/readthedocs/readthedocs.org/issues/7258</a>)</p></li>
+<li><p>Do something _before_ install (see <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/6662">https://github.com/readthedocs/readthedocs.org/issues/6662</a>)</p></li>
+<li><p>Use a conda lock file to create the environment (see <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/7772">https://github.com/readthedocs/readthedocs.org/issues/7772</a>)</p></li>
+<li><p>Run a check after the build is done (e.g. <code class="docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-W</span> <span class="pre">-b</span> <span class="pre">linkcheck</span> <span class="pre">.</span> <span class="pre">_build/html</span></code>)</p></li>
+<li><p>Create virtualenv with <code class="docutils literal notranslate"><span class="pre">--system-site-packages</span></code></p></li>
+<li><p>etc</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># .readthedocs.yaml</span>
+<span class="nt">build</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">builder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">jobs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pre_checkout</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">checkout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git clone --branch main https://github.com/readthedocs/readthedocs.org</span>
+<span class="w">    </span><span class="nt">post_checkout</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pre_create_environment</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">create_environment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python -m virtualenv venv</span>
+<span class="w">    </span><span class="nt">post_create_environment</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pre_install</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">install</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span>
+<span class="w">    </span><span class="nt">post_install</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pre_build</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">html</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sphinx-build -T -j auto -E -b html -d _build/doctrees -D language=en . _build/html</span>
+<span class="w">      </span><span class="nt">pdf</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latexmk -r latexmkrc -pdf -f -dvi- -ps- -jobname=test-builds -interaction=nonstopmode</span>
+<span class="w">      </span><span class="nt">epub</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sphinx -T -j auto -b epub -d _build/doctrees -D language=en . _build/epub</span>
+<span class="w">    </span><span class="nt">post_build</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pre_metadata</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./metadata_sphinx.py</span>
+<span class="w">    </span><span class="nt">post_medatada</span><span class="p">:</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>All these commands</em> are executed passing all the exposed environment variables.</p>
+</div>
+<p>If the user only provides a subset of these jobs, we ran our default commands if the user does not provide them
+(see <a class="reference internal" href="#steps-ran-by-the-builder"><span class="std std-ref">Steps ran by the builder</span></a>).
+For example, the following YAML is enough when the project requires running Doxygen as a pre-build step:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># .readthedocs.yaml</span>
+<span class="nt">build</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">builder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">jobs</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># https://breathe.readthedocs.io/en/latest/readthedocs.html#generating-doxygen-xml-files</span>
+<span class="w">    </span><span class="nt">pre_build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cd ../doxygen; doxygen</span>
+</pre></div>
+</div>
+</section>
+<section id="build-commands">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">build.commands</span></code></a><a class="headerlink" href="#build-commands" title="Link to this heading"></a></h3>
+<p>It allows users to have full control over the commands executed in the build process.
+These are some examples where this is useful:</p>
+<ul class="simple">
+<li><p>project with a custom build process that does map ours</p></li>
+<li><p>specific requirements that we can’t/want to cover as a general rule</p></li>
+<li><p>build documentation with a different tool than Sphinx</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># .readthedocs.yaml</span>
+<span class="nt">build</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">builder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git clone --branch main https://github.com/readthedocs/readthedocs.org</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sphinx-build -T -j auto -E -b html -d _build/doctrees -D language=en . _build/html</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./metadata.py</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="intermediate-steps-for-rollout">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Intermediate steps for rollout</a><a class="headerlink" href="#intermediate-steps-for-rollout" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Remove all the exposed data in the <code class="docutils literal notranslate"><span class="pre">conf.py.tmpl</span></code> file and move it to <code class="docutils literal notranslate"><span class="pre">metadata.yaml</span></code></p></li>
+<li><p>Define structure required for <code class="docutils literal notranslate"><span class="pre">metadata.yaml</span></code> as contract</p></li>
+<li><p>Define the environment variables required (e.g. some from <code class="docutils literal notranslate"><span class="pre">html_context</span></code>) and execute all commands with them</p></li>
+<li><p>Build documentation using this contract</p></li>
+<li><p>Leave <code class="docutils literal notranslate"><span class="pre">readthedocs-sphinx-ext</span></code> as the only package installed and extension install in <code class="docutils literal notranslate"><span class="pre">conf.py.tmpl</span></code></p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">build.builder:</span> <span class="pre">2</span></code> config without any <em>magic</em></p></li>
+<li><p>Build everything needed to support <code class="docutils literal notranslate"><span class="pre">build.jobs</span></code> and <code class="docutils literal notranslate"><span class="pre">build.commands</span></code> keys</p></li>
+<li><p>Write guides about how to use the new keys</p></li>
+<li><p>Re-write <code class="docutils literal notranslate"><span class="pre">readthedocs-sphinx-ext</span></code> features to post-process HTML features</p></li>
+</ol>
+</section>
+<section id="final-notes">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Final notes</a><a class="headerlink" href="#final-notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The migration path from <code class="docutils literal notranslate"><span class="pre">v1</span></code> to <code class="docutils literal notranslate"><span class="pre">v2</span></code> will require users to explicitly specify their requirements
+(we don’t install pre-defined packages anymore)</p></li>
+<li><p>We probably not want to support <code class="docutils literal notranslate"><span class="pre">build.jobs</span></code> on <code class="docutils literal notranslate"><span class="pre">v1</span></code> to reduce core team’s time maintaining that code
+without the ability to update it due to projects randomly breaking.</p></li>
+<li><p>We would be able to start building documentation using new tools without having to <em>integrate them</em>.</p></li>
+<li><p>Building on Read the Docs with a new tool will require:
+- the user to execute a different set of commands by overriding the defaults.
+- the project/build/user to expose a <code class="docutils literal notranslate"><span class="pre">metadata.yaml</span></code> with the contract that Read the Docs expects.
+- none, some or all the integrations will be added to the HTML output (these have to be implemented at Read the Docs core)</p></li>
+<li><p>We are not responsible for extra formats (e.g. PDF, ePub, etc) on other tools.</p></li>
+<li><p>Focus on support Sphinx with nice integrations made in a tool-agnostic way that can be re-used.</p></li>
+<li><p>Removing the manipulation of <code class="docutils literal notranslate"><span class="pre">conf.py.tmpl</span></code> does not require us to implement the same manipulation
+for projects using the new potential feature <code class="docutils literal notranslate"><span class="pre">sphinx.yaml</span></code> file.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="flyout-redesign.html" class="btn btn-neutral float-left" title="Flyout Redesign Design Document" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="in-doc-search-ui.html" class="btn btn-neutral float-right" title="In-doc search UI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
