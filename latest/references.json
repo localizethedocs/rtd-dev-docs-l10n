@@ -16,9 +16,9 @@
       "branch" : "main",
       "commit" : 
       {
-        "date" : "2025-12-19 11:35:11 -0500",
-        "hash" : "84154861c236a7573e2ccd3121e815eb12878510",
-        "title" : "Search: Disable search indexing for inactive projects (#12666)"
+        "date" : "2026-06-01 12:01:03 +0300",
+        "hash" : "987576a458ae0cf7336192da2b9d04114c50eeaa",
+        "title" : "Tests: Reduce tests log levels (#13064)"
       }
     },
     "zh_TW" : 
@@ -26,9 +26,9 @@
       "branch" : "main",
       "commit" : 
       {
-        "date" : "2025-12-19 11:35:11 -0500",
-        "hash" : "84154861c236a7573e2ccd3121e815eb12878510",
-        "title" : "Search: Disable search indexing for inactive projects (#12666)"
+        "date" : "2026-06-01 12:01:03 +0300",
+        "hash" : "987576a458ae0cf7336192da2b9d04114c50eeaa",
+        "title" : "Tests: Reduce tests log levels (#13064)"
       }
     }
   },
