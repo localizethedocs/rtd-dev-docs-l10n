@@ -228,13 +228,3 @@ msgid ""
 "You can check out the current build status: https://app.circleci.com/"
 "pipelines/github/readthedocs/readthedocs.org"
 msgstr ""
-
-#~ msgid ""
-#~ "DJANGO_SETTINGS_MODULE=custom.settings.file pytest -m mark\n"
-#~ "DJANGO_SETTINGS_MODULE=another.settings.file pytest -m \"not mark\""
-#~ msgstr ""
-#~ "DJANGO_SETTINGS_MODULE=custom.settings.file pytest -m mark\n"
-#~ "DJANGO_SETTINGS_MODULE=another.settings.file pytest -m \"not mark\""
-
-#~ msgid "Continuous Integration"
-#~ msgstr "持續整合"
