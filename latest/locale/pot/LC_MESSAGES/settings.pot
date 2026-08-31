@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Read the Docs developer documentation latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 08:22+0000\n"
+"POT-Creation-Date: 2026-08-31 15:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -246,20 +246,20 @@ msgid ""
 "Useful for testing :doc:`temporary credentials </aws-temporary-credentials>`."
 msgstr ""
 
-#: ../../../settings.rst:183
+#: ../../../settings.rst:184
 msgid "GitHub App"
 msgstr ""
 
-#: ../../../settings.rst:185
+#: ../../../settings.rst:186
 msgid ""
 "You can use the following environment variables to set the settings used by "
 "the GitHub App:"
 msgstr ""
 
-#: ../../../settings.rst:193
+#: ../../../settings.rst:194
 msgid "Ethical Ads variables"
 msgstr ""
 
-#: ../../../settings.rst:195
+#: ../../../settings.rst:196
 msgid "The following variables are required to use ``ethicalads`` in dev:"
 msgstr ""

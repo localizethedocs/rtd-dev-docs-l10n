@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Read the Docs developer documentation latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-01 13:30+0000\n"
+"POT-Creation-Date: 2026-08-31 15:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgstr ""
 
 #: ../../../tests.rst:27
 msgid ""
-"tox -e py312          # Core tests (no search, no proxito)\n"
+"tox -e py314          # Core tests (no search, no proxito)\n"
 "tox -e search         # Search tests (requires Elasticsearch)\n"
 "tox -e proxito        # Proxito tests"
 msgstr ""
@@ -61,7 +61,7 @@ msgid "To run all test suites at once:"
 msgstr ""
 
 #: ../../../tests.rst:33
-msgid "tox -e py312,search,proxito"
+msgid "tox -e py314,search,proxito"
 msgstr ""
 
 #: ../../../tests.rst:34
@@ -69,7 +69,7 @@ msgid "To run a subset of tests:"
 msgstr ""
 
 #: ../../../tests.rst:39
-msgid "tox -e py312 -- -k test_celery"
+msgid "tox -e py314 -- -k test_celery"
 msgstr ""
 
 #: ../../../tests.rst:42
@@ -89,7 +89,7 @@ msgid ""
 msgstr ""
 
 #: ../../../tests.rst:55
-msgid "py312"
+msgid "py314"
 msgstr ""
 
 #: ../../../tests.rst:56
