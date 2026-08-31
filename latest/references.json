@@ -37,9 +37,9 @@
     "branch" : "main",
     "commit" : 
     {
-      "date" : "2026-06-01 12:01:03 +0300",
-      "hash" : "987576a458ae0cf7336192da2b9d04114c50eeaa",
-      "title" : "Tests: Reduce tests log levels (#13064)"
+      "date" : "2026-08-31 12:56:59 +0200",
+      "hash" : "d9c02b03822097f23caf8e313b9336de73dd229c",
+      "title" : "Dependencies: all packages updated via pip-tools (#13277)"
     }
   },
   "type" : "branch",
