@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Read the Docs developer documentation stable\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-02 13:01+0000\n"
+"POT-Creation-Date: 2026-09-01 13:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgstr ""
 
 #: ../../../tests.rst:27
 msgid ""
-"tox -e py312          # Core tests (no search, no proxito)\n"
+"tox -e py314          # Core tests (no search, no proxito)\n"
 "tox -e search         # Search tests (requires Elasticsearch)\n"
 "tox -e proxito        # Proxito tests"
 msgstr ""
@@ -61,7 +61,7 @@ msgid "To run all test suites at once:"
 msgstr ""
 
 #: ../../../tests.rst:33
-msgid "tox -e py312,search,proxito"
+msgid "tox -e py314,search,proxito"
 msgstr ""
 
 #: ../../../tests.rst:34
@@ -69,7 +69,7 @@ msgid "To run a subset of tests:"
 msgstr ""
 
 #: ../../../tests.rst:39
-msgid "tox -e py312 -- -k test_celery"
+msgid "tox -e py314 -- -k test_celery"
 msgstr ""
 
 #: ../../../tests.rst:42
@@ -89,7 +89,7 @@ msgid ""
 msgstr ""
 
 #: ../../../tests.rst:55
-msgid "py312"
+msgid "py314"
 msgstr ""
 
 #: ../../../tests.rst:56
@@ -145,85 +145,134 @@ msgid "Build developer documentation with Sphinx."
 msgstr ""
 
 #: ../../../tests.rst:80
-msgid "Pytest marks"
+msgid "Debug logging"
 msgstr ""
 
 #: ../../../tests.rst:82
-msgid "The Read the Docs code base is deployed as three instances:"
-msgstr ""
-
-#: ../../../tests.rst:84
-msgid "Main: where you can see the dashboard."
-msgstr ""
-
-#: ../../../tests.rst:85
-msgid "Build: where the builds happen."
+msgid ""
+"Test failure reports only include ``WARNING`` and above log records, so the "
+"error you're looking at isn't buried under ``DEBUG``/``INFO`` output from "
+"the ``readthedocs`` logger."
 msgstr ""
 
 #: ../../../tests.rst:86
+msgid ""
+"Full ``DEBUG`` output is always written to ``logs/debug.log`` by the "
+"``debug`` file handler configured in ``readthedocs/settings/base.py``. After "
+"a failing run, tail or open that file to see everything the failing test "
+"logged — no re-running with extra flags required:"
+msgstr ""
+
+#: ../../../tests.rst:94
+msgid "tail -n 200 logs/debug.log"
+msgstr ""
+
+#: ../../../tests.rst:95
+msgid ""
+"If you'd rather see the debug records inline with the failure report, "
+"override the level on the command line:"
+msgstr ""
+
+#: ../../../tests.rst:101
+msgid "tox -e py312 -- --log-level=DEBUG -k test_something"
+msgstr ""
+
+#: ../../../tests.rst:102
+msgid "The ``WARNING`` threshold for the test report is set in two places:"
+msgstr ""
+
+#: ../../../tests.rst:104
+msgid ""
+"``pytest.ini`` — ``log_level = WARNING`` controls what pytest captures and "
+"shows on test failure."
+msgstr ""
+
+#: ../../../tests.rst:106
+msgid ""
+"``readthedocs/settings/test.py`` — the Django ``console`` log handler is "
+"pinned to ``WARNING`` for the test settings module."
+msgstr ""
+
+#: ../../../tests.rst:110
+msgid "Pytest marks"
+msgstr ""
+
+#: ../../../tests.rst:112
+msgid "The Read the Docs code base is deployed as three instances:"
+msgstr ""
+
+#: ../../../tests.rst:114
+msgid "Main: where you can see the dashboard."
+msgstr ""
+
+#: ../../../tests.rst:115
+msgid "Build: where the builds happen."
+msgstr ""
+
+#: ../../../tests.rst:116
 msgid "Serve/proxito: it is in charge of serving the documentation pages."
 msgstr ""
 
-#: ../../../tests.rst:88
+#: ../../../tests.rst:118
 msgid ""
 "Each instance has its own Django settings. To make sure we test each part as "
 "close as possible to its real settings, we use `pytest marks <https://docs."
 "pytest.org/en/latest/mark.html>`__ and separate tox environments."
 msgstr ""
 
-#: ../../../tests.rst:93
+#: ../../../tests.rst:123
 msgid "Current marks are:"
 msgstr ""
 
-#: ../../../tests.rst:95
+#: ../../../tests.rst:125
 msgid "``search`` — tests that require Elasticsearch"
 msgstr ""
 
-#: ../../../tests.rst:96
+#: ../../../tests.rst:126
 msgid "``proxito`` — tests for the serve/proxito instance"
 msgstr ""
 
-#: ../../../tests.rst:97
+#: ../../../tests.rst:127
 msgid "``embed_api`` — tests for the embed API"
 msgstr ""
 
-#: ../../../tests.rst:99
+#: ../../../tests.rst:129
 msgid "Tests without a mark are from the main instance."
 msgstr ""
 
-#: ../../../tests.rst:102
+#: ../../../tests.rst:132
 msgid "Continuous integration"
 msgstr ""
 
-#: ../../../tests.rst:104
+#: ../../../tests.rst:134
 msgid ""
 "The CI pipeline runs on Circle CI for every push. Tests are split into "
 "parallel jobs:"
 msgstr ""
 
-#: ../../../tests.rst:107
+#: ../../../tests.rst:137
 msgid "**checks** — pre-commit linting + migration checks"
 msgstr ""
 
-#: ../../../tests.rst:108
+#: ../../../tests.rst:138
 msgid "**tests** — core tests (no Elasticsearch needed)"
 msgstr ""
 
-#: ../../../tests.rst:109
+#: ../../../tests.rst:139
 msgid "**tests-proxito** — proxito tests"
 msgstr ""
 
-#: ../../../tests.rst:110
+#: ../../../tests.rst:140
 msgid ""
 "**tests-search** — search tests (requires Elasticsearch, runs after the "
 "above pass)"
 msgstr ""
 
-#: ../../../tests.rst:111
+#: ../../../tests.rst:141
 msgid "**tests-embedapi** — embed API tests across multiple Sphinx versions"
 msgstr ""
 
-#: ../../../tests.rst:113
+#: ../../../tests.rst:143
 msgid ""
 "You can check out the current build status: https://app.circleci.com/"
 "pipelines/github/readthedocs/readthedocs.org"
