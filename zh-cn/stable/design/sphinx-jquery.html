@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="sphinxcontrib-jquery" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/sphinx-jquery.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="jQuery will be removed from Sphinx 6.0.0. We can expect 6.0.0 to ship in late 2022. This is a &quot;request for comments&quot; for a community-owned Sphinx extension that bundles jQuery. Overview: Comment deadline:, November 1st, 2022,, Package-name:, sphinxcontrib-jquery,, Python package:, sphin..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="jQuery will be removed from Sphinx 6.0.0. We can expect 6.0.0 to ship in late 2022. This is a &quot;request for comments&quot; for a community-owned Sphinx extension that bundles jQuery. Overview: Comment deadline:, November 1st, 2022,, Package-name:, sphinxcontrib-jquery,, Python package:, sphin..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sphinxcontrib-jquery &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/sphinx-jquery.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f05dab73"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Allow installation of system packages" href="system-packages.html" />
+    <link rel="prev" title="Secure API access from builders" href="secure-api-access-from-builders.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">sphinxcontrib-jquery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#theme-and-extension-developers">Theme and extension developers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#documentation-project-owners">Documentation project owners</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calling-app-setup-extension-sphinxcontrib-jquery">Calling <code class="docutils literal notranslate"><span class="pre">app.setup_extension(&quot;sphinxcontrib.jquery&quot;)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#config-value-jquery-force-enable">Config value: <code class="docutils literal notranslate"><span class="pre">jquery_force_enable</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#jquery-version-and-inclusion">jQuery version and inclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">sphinxcontrib-jquery</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/sphinx-jquery.rst" class="fa fa-github"> 在 GitHub 上编辑</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sphinxcontrib-jquery">
+<h1>sphinxcontrib-jquery<a class="headerlink" href="#sphinxcontrib-jquery" title="Link to this heading"></a></h1>
+<p>jQuery will be removed from Sphinx 6.0.0. We can expect 6.0.0 to ship in late 2022.</p>
+<div class="admonition seealso">
+<p class="admonition-title">参见</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/sphinx-doc/sphinx/issues/7405">https://github.com/sphinx-doc/sphinx/issues/7405</a></p></li>
+<li><p><a class="reference external" href="https://github.com/sphinx-doc/sphinx/issues/10070">https://github.com/sphinx-doc/sphinx/issues/10070</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/sphinx-hoverxref/issues/160">https://github.com/readthedocs/sphinx-hoverxref/issues/160</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/sphinx_rtd_theme/issues/1253">https://github.com/readthedocs/sphinx_rtd_theme/issues/1253</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pydata/pydata-sphinx-theme/issues/764">https://github.com/pydata/pydata-sphinx-theme/issues/764</a></p></li>
+</ul>
+</div>
+<p>This is a &quot;request for comments&quot; for a community-owned Sphinx extension that bundles jQuery.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Comment deadline:</dt><dd><p>November 1st, 2022</p>
+</dd>
+<dt>Package-name:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">sphinxcontrib-jquery</span></code></p>
+</dd>
+<dt>Python package:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">sphinxcontrib.jquery</span></code></p>
+</dd>
+<dt>Dependencies:</dt><dd><p>Python 3+, Sphinx 1.8+ (or perhaps no lower bound?)</p>
+</dd>
+<dt>Ownership:</dt><dd><p>Read the Docs core team will implement the initial releases of an otherwise community-owned package that lives in <a class="reference external" href="https://github.com/sphinx-contrib/jquery">https://github.com/sphinx-contrib/jquery</a></p>
+</dd>
+<dt>Functionality:</dt><dd><p>sphinxcontrib-jquery is a Sphinx extension that provides a simple mechanism for other Sphinx extensions and themes to ensure that jQuery is included into the HTML build outputs and loaded in the HTML DOM itself.
+More specifically, the extension ensures that jQuery is loaded exactly once no matter how many themes and extensions that request to include jQuery nor the version of Sphinx.</p>
+</dd>
+<dt>Scope:</dt><dd><p>This extension assumes that it's enough to provide a single version of jQuery for all of its dependent extensions and themes.
+As the name implies, this extension is built to handle jQuery only.
+It's not a general asset manager and it's not looking to do dependency resolution of jQuery versions.</p>
+</dd>
+</dl>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>The primary users of this package are
+<strong>theme and extension developers</strong> and
+<strong>documentation project owners</strong>.</p>
+<section id="theme-and-extension-developers">
+<h3>Theme and extension developers<a class="headerlink" href="#theme-and-extension-developers" title="Link to this heading"></a></h3>
+<p>The following 2 steps need to be completed:</p>
+<ol class="arabic simple">
+<li><p>A Sphinx theme or extension should depend on the python package <code class="docutils literal notranslate"><span class="pre">sphinxcontrib-jquery</span></code>.</p></li>
+<li><p>In your extension's or theme's <code class="docutils literal notranslate"><span class="pre">setup(app)</span></code>, call <code class="docutils literal notranslate"><span class="pre">app.setup_extension(&quot;sphinxcontrib.jquery&quot;)</span></code>.</p></li>
+</ol>
+<p>In addition to this, we recommend extension and theme developers to log to the browser's <code class="docutils literal notranslate"><span class="pre">console.error</span></code> in case jQuery isn't found. The log message could for instance say:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (typeof $ == &quot;undefined&quot;) console.error(&quot;&lt;package-name&gt; depends on sphinxcontrib-jquery. Please ensure that &lt;package-name&gt;.setup(app) is called or add &#39;sphinxcontrib-jquery&#39; to your conf.py extensions setting.&quot;)
+</pre></div>
+</div>
+</section>
+<section id="documentation-project-owners">
+<h3>Documentation project owners<a class="headerlink" href="#documentation-project-owners" title="Link to this heading"></a></h3>
+<p>If you are depending on a theme or extension that did not itself address the removal of jQuery from Sphinx 6, you can patch up your project like this:</p>
+<ol class="arabic simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">sphinxcontrib-jquery</span></code> to your installed dependencies.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">sphinxcontrib.jquery</span></code> to your <code class="docutils literal notranslate"><span class="pre">extensions</span></code> setting in <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>.</p></li>
+</ol>
+</section>
+<section id="calling-app-setup-extension-sphinxcontrib-jquery">
+<h3>Calling <code class="docutils literal notranslate"><span class="pre">app.setup_extension(&quot;sphinxcontrib.jquery&quot;)</span></code><a class="headerlink" href="#calling-app-setup-extension-sphinxcontrib-jquery" title="Link to this heading"></a></h3>
+<p>When a Sphinx theme or extension calls <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.setup_extension">setup_extension()</a>, a call to <code class="docutils literal notranslate"><span class="pre">sphinxcontrib.jquery.setup(app)</span></code> will happen. Adding <code class="docutils literal notranslate"><span class="pre">sphinxcontrib.jquery</span></code> to a documentation project's <code class="docutils literal notranslate"><span class="pre">conf.extensions</span></code> will also call <code class="docutils literal notranslate"><span class="pre">sphinxcontrib.jquery.setup(app)</span></code> (at most once).</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">sphinxcontrib.jquery.setup(app)</span></code>, jQuery is added. The default behaviour is to detect the Sphinx version and include jQuery via <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_js_file">app.add_js_file</a> when Sphinx is from version 6 and up. jQuery is added at most once.</p>
+</section>
+<section id="config-value-jquery-force-enable">
+<h3>Config value: <code class="docutils literal notranslate"><span class="pre">jquery_force_enable</span></code><a class="headerlink" href="#config-value-jquery-force-enable" title="Link to this heading"></a></h3>
+<p>When setting <code class="docutils literal notranslate"><span class="pre">jquery_force_enable=True</span></code>, jQuery is added no matter the Sphinx version, but at most once. This is useful if you want to handle alternative conditions for adding jQuery.</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>If you set <code class="docutils literal notranslate"><span class="pre">jquery_force_enable=True</span></code>, you most likely should also add <code class="docutils literal notranslate"><span class="pre">Sphinx&gt;=6</span></code> to your theme's/extension's dependencies since versions before this already bundles jQuery!</p>
+</div>
+</section>
+</section>
+<section id="jquery-version-and-inclusion">
+<h2>jQuery version and inclusion<a class="headerlink" href="#jquery-version-and-inclusion" title="Link to this heading"></a></h2>
+<p>jQuery should be shipped together with the Python package and not be referenced from a CDN.</p>
+<p>Sphinx has kept relatively up to date with jQuery, and this package intends to follow.
+The most recently bundled jQuery version was v3.5.1 and only two releases have happened since: 3.6.0 and 3.6.1.
+The 3.6.0 release had a very small backwards incompatibility which illustrates how harmless these upgrades are for the general purpose Sphinx package.</p>
+<p>Therefore, we propose to start the release of <code class="docutils literal notranslate"><span class="pre">sphinxcontrib-jquery</span></code> at 3.5.1 (the currently shipped version) and subsequently release 3.6.1 in an update. This will give users that need 3.5.1 a choice of a lower version.</p>
+<p>The bundled jQuery version will be NPM pre-minified and distributed together with the PyPI package.</p>
+<p>The minified jQuery JS file is ultimately included by calling <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_js_file">app.add_js_file</a>, which is passed the following arguments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app</span><span class="o">.</span><span class="n">add_js_file</span><span class="p">(</span>
+    <span class="n">get_jquery_url_path</span><span class="p">(),</span>
+    <span class="n">loading_method</span><span class="o">=</span><span class="s2">&quot;defer&quot;</span><span class="p">,</span>
+    <span class="n">priority</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">integrity</span><span class="o">=</span><span class="s2">&quot;sha256-</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">get_jquery_sha256_checksum</span><span class="p">()),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>It's possible to include jQuery in other ways, but this ultimately doesn't require this extension and is therefore not supported.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="secure-api-access-from-builders.html" class="btn btn-neutral float-left" title="Secure API access from builders" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="system-packages.html" class="btn btn-neutral float-right" title="Allow installation of system packages" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 Read the Docs, Inc &amp; contributors。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
