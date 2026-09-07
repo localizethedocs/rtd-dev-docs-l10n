@@ -37,9 +37,9 @@
     "branch" : "main",
     "commit" : 
     {
-      "date" : "2026-06-01 12:01:03 +0300",
-      "hash" : "987576a458ae0cf7336192da2b9d04114c50eeaa",
-      "title" : "Tests: Reduce tests log levels (#13064)"
+      "date" : "2026-09-02 05:48:09 -0700",
+      "hash" : "34efe647829228c6f1f3debda04e1d385c1af192",
+      "title" : "Revise hiding version instructions in user guide (#13282)"
     }
   },
   "type" : "branch",
