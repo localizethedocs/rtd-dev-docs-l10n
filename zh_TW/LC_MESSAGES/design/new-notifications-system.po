@@ -1,0 +1,832 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation stable\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-25 08:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/new-notifications-system.rst:2
+msgid "Notification system: a new approach after lot of discussions"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:4
+msgid ""
+"Notifications have been a recurrent topic in the last years. We have talked "
+"about different problems and solution's approaches during these years. "
+"However, due to the complexity of the change, and without having a clear "
+"path, it has been hard to prioritize."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:8
+msgid ""
+"We've written a lot about the problems and potential solutions for the "
+"current notification system. This is a non-complete list of them just for "
+"reference:"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:11
+msgid "https://github.com/readthedocs/readthedocs.org/issues/4226"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:12
+msgid "https://github.com/readthedocs/readthedocs.org/issues/3399"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:13
+msgid "https://github.com/readthedocs/meta/discussions/126"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:14
+msgid "https://github.com/readthedocs/readthedocs.org/issues/5909"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:15
+msgid "https://github.com/readthedocs/readthedocs.org/issues/9110"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:16
+msgid "https://github.com/readthedocs/readthedocs.org/issues/9279"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:17
+msgid "https://github.com/readthedocs/readthedocs.org/issues/4235"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:19
+msgid ""
+"At the offsite in Portland, Anthony and myself were able to talk deeply "
+"about this and wrote a bunch of thoughts in a Google Doc. We had pretty "
+"similar ideas and we thought we were solving most of the problems we "
+"identified already."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:22
+msgid ""
+"I read all of these issues and all the discussions I found and wrote this "
+"document that summarizes my proposal: *create a new notification system that "
+"we can customize and expand as we need in the future*:"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:25
+msgid "A Django model to store the notifications' data"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:26
+msgid ""
+"API endpoints to retrieve the notifications for a particular resource (User, "
+"Build, Project, Organization)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:27
+msgid "Frontend code to display them (*outside the scope of this document*)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:31
+msgid "Goals"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:33
+msgid "Keep raising exceptions for errors from the build process"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:34
+msgid "Ability to add non-error notifications from the build process"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:35
+msgid ""
+"Add extra metadata associated to the notification: icon, header, body, etc"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:36
+msgid ""
+"Support different types of notifications (e.g. error, warning, note, tip)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:37
+msgid ""
+"Reuse the new notification system for product updates (e.g. new features, "
+"deprecated config keys)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:38
+msgid ""
+"Message content lives on Python classes that can be translated and formatted "
+"with objects (e.g. Build, Project)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:39
+msgid ""
+"Message could have richer content (e.g. HTML code) to generate links and "
+"emphasis"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:40
+msgid ""
+"Notifications have trackable state (e.g. unread (default)=never shown, "
+"read=shown, dismissed=don't show again, cancelled=auto-removed after user "
+"action)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:41
+msgid ""
+"An object (e.g. Build, Organization) can have more than 1 notification "
+"attached"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:42
+msgid "Remove hardcoded notifications from the templates"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:43
+msgid ""
+"Notifications can be attached to Project, Organization, Build and User models"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:44
+msgid "Specific notifications can be shown under the user's bell icon"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:45
+msgid ""
+"Easy way to cleanup notification on status changes (e.g. subscription "
+"failure notification is auto-deleted after CC updated)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:46
+msgid ""
+"Notifications attached to Organization/Project disappear for all the users "
+"once they are dismissed by anyone"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:50
+msgid "Non-goals"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:52
+msgid "Create new Build \"state\" or \"status\" option for these fields"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:53
+msgid "Implement the new notification in the old dashboard"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:54
+msgid "Define front-end code implementation"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:55
+msgid "Replace email or webhook notifications"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:59
+msgid "Small notes and other considerations"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:61
+msgid "Django message system is not enough for this purpose."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:62
+msgid ""
+"Use a new model to store all the required data (expandable in the future)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:63
+msgid ""
+"How do we handle translations? We should use ``_(\"This is the message shown "
+"to the user\")`` in Python code and return the proper translation when they "
+"are read."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:65
+msgid ""
+"Reduce complexity on ``Build`` object (remove ``Build.status`` and ``Build."
+"error`` fields among others)."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:66
+msgid ""
+"Since the ``Build`` object could have more than 1 notification, when showing "
+"them, we will sort them by importance: errors, warnings, note, tip."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:67
+msgid ""
+"In case we need a pretty specific order, we can add an extra field for that, "
+"but it adds unnecessary complexity at this point."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:68
+msgid ""
+"For those notifications that are attached to the ``Project`` or "
+"``Organization``, should it be shown to all the members even if they don't "
+"have admin permissions? If yes, this is good because all of them will be "
+"notified but only some of them will be able to take an action. If no, non-"
+"admin users won't see the notification and won't be able to communicate this "
+"to the admins"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:71
+msgid ""
+"Notification could be attached to a ``BuildCommand`` in case we want to "
+"display a specific message on a command itself. We don't know how useful "
+"this will be, but it's something we can consider in the future."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:73
+msgid ""
+"Notification preferences: what kind of notifications I want to see in my own "
+"bell icon?"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:75
+msgid "Build errors"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:76
+msgid "Build tips"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:77
+msgid "Product updates"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:78
+msgid "Blog post news"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:79
+msgid "Organization updates"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:80
+msgid "Project updates"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:84
+msgid "Implementation ideas"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:86
+msgid ""
+"This section shows all the classes and models involved for the notification "
+"system as well as some already known use-cases."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:88
+msgid "Accessing the database from the build process"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:90
+msgid ""
+"Builders doesn't have access to the database due to security reasons. We had "
+"solved this limitation by creating an API endpoint the builder hits once "
+"they need to interact with the database to get a ``Project``, ``Version`` "
+"and ``Build`` resources, create a ``BuildCommand`` resource, etc."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:93
+msgid ""
+"Besides, the build process is capable to trigger Celery tasks that are "
+"useful for managing more complex logic that also require accessing from and "
+"writing to the database."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:96
+msgid ""
+"Currently, ``readthedocs.doc_builder.director.Director`` and ``readthedocs."
+"doc_builder.environments.DockerBuildEnvironment`` have access to the API "
+"client and can use it to create the ``Notification`` resources."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:100
+msgid ""
+"I plan to use the same pattern to create ``Notification`` resources by "
+"hitting the API from the director or the build environment. In case we "
+"require hitting the API from other places, we will need to pass the API "
+"client instance to those other classes as well."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:106
+msgid "``Message`` class definition"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:108
+msgid ""
+"This class encapsulates the content of the notification (e.g. header, body, "
+"icon, etc) --the message it's shown to the uer--, and some helper logic to "
+"return in the API response."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:111
+msgid ""
+"class Message:\n"
+"    def __init__(self):\n"
+"        header = str\n"
+"        body = str\n"
+"        icon = str\n"
+"        icon_style = str(SOLID, DUOTONE)\n"
+"        type = str(ERROR, WARNING, NOTE, TIP)\n"
+"\n"
+"    def get_display_icon(self):\n"
+"        if self.icon:\n"
+"            return self.icon\n"
+"\n"
+"        if self.type == ERROR:\n"
+"            return \"fa-exclamation\"\n"
+"        if self.type == WARNING:\n"
+"            return \"fa-triangle-exclamation\""
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:132
+msgid "Definition of notifications to display to users"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:134
+msgid ""
+"This constant defines all the possible notifications to be displayed to the "
+"user. Each notification has to be defined here using the ``Message`` class "
+"previously defined."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:137
+msgid ""
+"NOTIFICATION_MESSAGES = {\n"
+"    \"generic-with-build-id\": Message(\n"
+"        header=_(\"Unknown problem\"),\n"
+"        # Note the message receives the instance it's attached to\n"
+"        # and could be use it to inject related data\n"
+"        body=_(\n"
+"            \"\"\"\n"
+"      There was a problem with Read the Docs while building your "
+"documentation.\n"
+"      Please try again later.\n"
+"      If this problem persists,\n"
+"      report this error to us with your build id ({instance[pk]}).\n"
+"    \"\"\",\n"
+"            type=ERROR,\n"
+"        ),\n"
+"    ),\n"
+"    \"build-os-required\": Message(\n"
+"        header=_(\"Invalid configuration\"),\n"
+"        body=_(\n"
+"            \"\"\"\n"
+"      The configuration key \"build.os\" is required to build your "
+"documentation.\n"
+"      <a href='https://docs.readthedocs.io/en/stable/config-file/v2."
+"html#build-os'>Read more.</a>\n"
+"    \"\"\",\n"
+"            type=ERROR,\n"
+"        ),\n"
+"    ),\n"
+"    \"cancelled-by-user\": Message(\n"
+"        header=_(\"User action\"),\n"
+"        body=_(\n"
+"            \"\"\"\n"
+"      Build cancelled by the user.\n"
+"    \"\"\",\n"
+"            type=ERROR,\n"
+"        ),\n"
+"    ),\n"
+"    \"os-ubuntu-18.04-deprecated\": Message(\n"
+"        header=_(\"Deprecated OS selected\"),\n"
+"        body=_(\n"
+"            \"\"\"\n"
+"      Ubuntu 18.04 is deprecated and will be removed soon.\n"
+"      Update your <code>.readthedocs.yaml</code> to use a newer image.\n"
+"    \"\"\",\n"
+"            type=TIP,\n"
+"        ),\n"
+"    ),\n"
+"}"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:188
+msgid "``Notification`` model definition"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:190
+msgid ""
+"This class is the representation of a notification attached to an resource "
+"(e.g. User, Build, etc) in the database. It contains an identifier "
+"(``message_id``) pointing to one of the messages defined in the previous "
+"section (key in constant ``NOTIFICATION_MESSAGES``)."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:193
+msgid ""
+"import textwrap\n"
+"from django.utils.translation import gettext_noop as _\n"
+"\n"
+"\n"
+"class Notification(TimeStampedModel):\n"
+"    # Message identifier\n"
+"    message_id = models.CharField(max_length=128)\n"
+"\n"
+"    # UNREAD: the notification was not shown to the user\n"
+"    # READ: the notification was shown\n"
+"    # DISMISSED: the notification was shown and the user dismissed it\n"
+"    # CANCELLED: removed automatically because the user has done the action "
+"required (e.g. paid the subscription)\n"
+"    state = models.CharField(\n"
+"        choices=[UNREAD, READ, DISMISSED, CANCELLED],\n"
+"        default=UNREAD,\n"
+"        db_index=True,\n"
+"    )\n"
+"\n"
+"    # Makes the notification impossible to dismiss (useful for Build "
+"notifications)\n"
+"    dismissable = models.BooleanField(default=False)\n"
+"\n"
+"    # Show the notification under the bell icon for the user\n"
+"    news = models.BooleanField(default=False, help_text=\"Show under bell "
+"icon\")\n"
+"\n"
+"    # Notification attached to\n"
+"    #\n"
+"    # Uses ContentType for this.\n"
+"    # https://docs.djangoproject.com/en/4.2/ref/contrib/contenttypes/"
+"#generic-relations\n"
+"    #\n"
+"    attached_to_content_type = models.ForeignKey(ContentType, "
+"on_delete=models.CASCADE)\n"
+"    attached_to_id = models.PositiveIntegerField()\n"
+"    attached_to = GenericForeignKey(\"attached_to_content_type\", "
+"\"attached_to_id\")\n"
+"\n"
+"    # If we don't want to use ContentType, we could define all the potential "
+"models\n"
+"    # the notification could be attached to\n"
+"    #\n"
+"    # organization = models.ForeignKey(Organization, null=True, blank=True, "
+"default=None)\n"
+"    # project = models.ForeignKey(Project, null=True, blank=True, "
+"default=None)\n"
+"    # build = models.ForeignKey(Build, null=True, blank=True, default=None)\n"
+"    # user = models.ForeignKey(User, null=True, blank=True, default=None)\n"
+"\n"
+"    def get_display_message(self):\n"
+"        return textwrap.dedent(\n"
+"            NOTIFICATION_MESSAGES.get(self.message_id).format(\n"
+"                instance=self.attached_to,  # Build, Project, Organization, "
+"User\n"
+"            )\n"
+"        )"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:245
+msgid "Attach error ``Notification`` during the build process"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:247
+msgid "During the build, we will keep raising exceptions to both things:"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:249
+msgid "stop the build process immediately"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:250
+msgid ""
+"communicate back to the ``doc_builder.director.Director`` class the build "
+"failed."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:252
+msgid ""
+"The director is the one in charge of creating the error ``Notification``, in "
+"a similar way it currently works now. The only difference is that instead of "
+"saving the error under ``Build.error`` as it currently works now, it will "
+"create a ``Notification`` object and attach it to the particular ``Build``. "
+"Note the director does not have access to the DB, so it will need to create/"
+"associate the object via an API endpoint/Celery task."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:258
+msgid ""
+"Example of how the exception ``BuildCancelled`` creates an error "
+"``Notification``:"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:261
+msgid ""
+"class UpdateDocsTask(...):\n"
+"    def on_failure(self):\n"
+"        self.data.api_client.build(self.data.build[\"id\"]).notifications."
+"post(\n"
+"            {\n"
+"                \"message_id\": \"cancelled-by-user\",\n"
+"                # Override default fields if required\n"
+"                \"type\": WARNING,\n"
+"            }\n"
+"        )"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:276
+msgid "Attach non-error ``Notification`` during the build process"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:278
+msgid ""
+"During the build, we will be able attach non-error notifications with the "
+"following pattern:"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:280
+msgid ""
+"check something in particular (e.g. using a deprecated key in ``readthedocs."
+"yaml``)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:281
+msgid ""
+"create a non-error ``Notification`` and attach it to the particular "
+"``Build`` object"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:283
+msgid ""
+"class DockerBuildEnvironment(...):\n"
+"    def check_deprecated_os_image(self):\n"
+"        if self.config.build.os == \"ubuntu-18.04\":\n"
+"            self.api_client.build(self.data.build[\"id\"]).notifications."
+"post(\n"
+"                {\n"
+"                    \"message_id\": \"os-ubuntu-18.04-deprecated\",\n"
+"                }\n"
+"            )"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:297
+msgid "Show a ``Notification`` under the user's bell icon"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:299
+msgid ""
+"If we want to show a notification on a user's profile, we can create the "
+"notification as follows, maybe from a simple script ran in the Django "
+"shell's console after publishing a blog post:"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:305
+msgid ""
+"users_to_show_notification = User.objects.filter(...)\n"
+"\n"
+"for user in users_to_show_notification:\n"
+"    Notification.objects.create(\n"
+"        message_id=\"blog-post-beta-addons\",\n"
+"        dismissable=True,\n"
+"        news=True,\n"
+"        attached_to=User,\n"
+"        attached_to_id=user.id,\n"
+"    )"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:320
+msgid "Remove notification on status change"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:322
+msgid ""
+"When we show a notification for an unpaid subscription, we want to remove it "
+"once the user has updated and paid the subscription. We can do this with the "
+"following code:"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:327
+msgid ""
+"@handler(\"customer.subscription.updated\", \"customer.subscription."
+"deleted\")\n"
+"def subscription_updated_event(event):\n"
+"    if subscription.status == ACTIVE:\n"
+"        organization = Organization.objects.get(slug=\"read-the-docs\")\n"
+"\n"
+"        Notification.objects.filter(\n"
+"            message_id=\"subscription-update-your-cc-details\",\n"
+"            state__in=[UNREAD, READ],\n"
+"            attached_to=Organization,\n"
+"            attached_to_id=organization.id,\n"
+"        ).update(state=CANCELLED)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:344
+msgid "API definition"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:346
+msgid ""
+"I will follows the same pattern we have on APIv3 that uses nested endpoints. "
+"This means that we will add a ``/notifications/`` postfix to most of the "
+"resource endpoints where we want to be able to attach/list notifications."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:351
+msgid "Notifications list"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:355
+msgid "Retrieve a list of all the notifications for this user."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:359
+msgid "Retrieve a list of all the notifications for this project."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:363
+msgid "Retrieve a list of all the notifications for this organization."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:367
+msgid "Retrieve a list of all the notifications for this build."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:369
+msgid "**Example response**:"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:371
+msgid ""
+"{\n"
+"    \"count\": 25,\n"
+"    \"next\": \"/api/v3/projects/pip/builds/12345/notifications/?"
+"unread=true&sort=type&limit=10&offset=10\",\n"
+"    \"previous\": null,\n"
+"    \"results\": [\n"
+"        {\n"
+"            \"message_id\": \"cancelled-by-user\",\n"
+"            \"state\": \"unread\",\n"
+"            \"dismissable\": false,\n"
+"            \"news\": false,\n"
+"            \"attached_to\": \"build\",\n"
+"            \"message\": {\n"
+"                \"header\": \"User action\",\n"
+"                \"body\": \"Build cancelled by the user.\",\n"
+"                \"type\": \"error\",\n"
+"                \"icon\": \"fa-exclamation\",\n"
+"                \"icon_style\": \"duotone\",\n"
+"            }\n"
+"        }\n"
+"    ]\n"
+"}"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:0
+msgid "Query Parameters"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:395
+msgid "return only unread notifications"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:396
+msgid "filter notifications by type (``error``, ``note``, ``tip``)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:397
+msgid "sort the notifications (``type``, ``date`` (default))"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:401
+msgid "Notification create"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:406
+msgid ""
+"Create a notification for the resource. In this example, for a ``Build`` "
+"resource."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:409
+#: ../../../design/new-notifications-system.rst:437
+msgid "**Example request**:"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:411
+msgid ""
+"{\n"
+"    \"message_id\": \"cancelled-by-user\",\n"
+"    \"type\": \"error\",\n"
+"    \"state\": \"unread\",\n"
+"    \"dismissable\": false,\n"
+"    \"news\": false,\n"
+"}"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:424
+#: ../../../design/new-notifications-system.rst:448
+msgid ""
+"Similar API endpoints will be created for each of the resources we want to "
+"attach a ``Notification`` (e.g. ``User``, ``Organization``, etc)"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:429
+msgid "Notification update"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:434
+msgid ""
+"Update an existing notification. Mainly used to change the state from the "
+"front-end."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:439
+msgid ""
+"{\n"
+"    \"state\": \"read\",\n"
+"}"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:453
+msgid "Backward compatibility"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:455
+msgid ""
+"It's not strictly required, but if we want, we could extract the current "
+"notification logic from:"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:457
+msgid "Django templates"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:459
+msgid "\"Don't want ``setup.py`` called?\""
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:460
+msgid "``build.image`` config key is deprecated"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:461
+msgid "Configuration file is required"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:462
+msgid "``build.commands`` is a beta feature"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:464
+msgid "``Build.error`` fields"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:466
+msgid "Build cancelled by user"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:467
+msgid "Unknown exception"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:468
+msgid "``build.os`` is not found"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:469
+msgid "No config file"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:470
+msgid "No checkout revision"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:471
+msgid "Failed when cloning the repository"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:472
+msgid "etc"
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:474
+msgid ""
+"and iterate over all the ``Build`` objects to create a ``Notification`` "
+"object for each of them."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:476
+msgid ""
+"I'm not planning to implement the \"new notification system\" in the old "
+"templates. It doesn't make sense to spend time in them since we are "
+"deprecating them."
+msgstr ""
+
+#: ../../../design/new-notifications-system.rst:479
+msgid ""
+"Old builds will keep using the current notification approach based on "
+"``build.error`` field. New builds won't have ``build.error`` anymore and "
+"they will use the new notification system on ext-theme."
+msgstr ""
