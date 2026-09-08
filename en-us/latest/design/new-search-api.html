@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="New search API" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/new-search-api.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Goals: Allow to configure search at the API level, instead of having the options in the database., Allow to search a group of projects/versions at the same time., Bring the same syntax to the dashboard search.. Syntax: The parameters will be given in the query using the key:value syntax. Inspired..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Goals: Allow to configure search at the API level, instead of having the options in the database., Allow to search a group of projects/versions at the same time., Bring the same syntax to the dashboard search.. Syntax: The parameters will be given in the query using the key:value syntax. Inspired..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New search API &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/new-search-api.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=cc8e41f0"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Proposed contents for new Sphinx guides" href="new-sphinx-guides.html" />
+    <link rel="prev" title="Notification system: a new approach after lot of discussions" href="new-notifications-system.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">New search API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#syntax">Syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#including-subprojects">Including subprojects</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cache">Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cors">CORS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analytics">Analytics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#response">Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dashboard-search">Dashboard search</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#project-scoped-search">Project scoped search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#global-search-projects">Global search (projects)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#global-search-files">Global search (files)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#facets">Facets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#backwards-compatibility">Backwards compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#future-features">Future features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">New search API</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/new-search-api.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="new-search-api">
+<h1>New search API<a class="headerlink" href="#new-search-api" title="Link to this heading"></a></h1>
+<section id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Allow to configure search at the API level,
+instead of having the options in the database.</p></li>
+<li><p>Allow to search a group of projects/versions at the same time.</p></li>
+<li><p>Bring the same syntax to the dashboard search.</p></li>
+</ul>
+</section>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading"></a></h2>
+<p>The parameters will be given in the query using the <code class="docutils literal notranslate"><span class="pre">key:value</span></code> syntax.
+Inspired by <a class="reference external" href="https://docs.github.com/en/rest/search">GitHub</a> and other services.</p>
+<p>Currently the values from all parameters don’t include spaces,
+so surrounding the value with quotes won’t be supported (<code class="docutils literal notranslate"><span class="pre">key:&quot;value&quot;</span></code>).</p>
+<p>To avoid interpreting a query as a parameter,
+an escape character can be put in place,
+for example <code class="docutils literal notranslate"><span class="pre">project\:docs</span></code> won’t be interpreted as
+a parameter, but as the search term <code class="docutils literal notranslate"><span class="pre">project:docs</span></code>.
+This is only necessary if the query includes a valid parameter,
+unknown parameters (<code class="docutils literal notranslate"><span class="pre">foo:bar</span></code>) don’t require escaping.</p>
+<p>All other tokens that don’t match a valid parameter,
+will be join to form the final search term.</p>
+</section>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl>
+<dt>project:</dt><dd><p>Indicates the project and version
+to includes results from (this doesn’t include subprojects).
+If the version isn’t provided,
+the default version is used.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">project:docs/latest</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project:docs</span></code></p></li>
+</ul>
+<p>It can be one or more project parameters.
+At least one is required.</p>
+<p>If the user doesn’t have permission over one version or if the version doesn’t exist,
+we don’t include results from that version.
+We don’t fail the search, this is so users can use one endpoint for all their users,
+without worrying about what permissions each user has or updating it after a version or project
+has been deleted.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">/</span></code> is used as separator,
+but it could be any other character that isn’t present in the slug of a version or project.
+<code class="docutils literal notranslate"><span class="pre">:</span></code> was considered (<code class="docutils literal notranslate"><span class="pre">project:docs:latest</span></code>), but it could be hard to read
+since <code class="docutils literal notranslate"><span class="pre">:</span></code> is already used to separate the key from the value.</p>
+</dd>
+<dt>subprojects:</dt><dd><p>This allows to specify from what project exactly
+we are going to return subprojects from,
+and also include the version we are going to try to match.
+This includes the parent project in the results.</p>
+<p>As the <code class="docutils literal notranslate"><span class="pre">project</span></code> parameter, the version can be optional,
+and defaults to the default version of the parent project.</p>
+</dd>
+<dt>user:</dt><dd><p>Include results from projects the given user has access to.
+The only supported value is <code class="docutils literal notranslate"><span class="pre">&#64;me</span></code>,
+which is an alias for the current user.</p>
+</dd>
+</dl>
+<section id="including-subprojects">
+<h3>Including subprojects<a class="headerlink" href="#including-subprojects" title="Link to this heading"></a></h3>
+<p>Now that we are returning results only
+from the given projects, we need an easy way to
+include results from subprojects.
+Some ideas for implementing this feature are:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">include-subprojects:true</span></code></dt><dd><p>This doesn’t make it clear from what
+projects we are going to include subprojects from.
+We could make it so it returns subprojects for all projects.
+Users will probably use this with one project only.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">subprojects:project/version</span></code> (inclusive)</dt><dd><p>This allows to specify from what project exactly
+we are going to return subprojects from,
+and also include the version we are going to try to match.
+This includes the parent project in the results.</p>
+<p>As the <code class="docutils literal notranslate"><span class="pre">project</span></code> parameter, the version can be optional,
+and defaults to the default version of the parent project.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">subprojects:project/version</span></code> (exclusive)</dt><dd><p>This is the same as the above,
+but it doesn’t include the parent project in the results.
+If we want to include the results from the project, then
+the query will be <code class="docutils literal notranslate"><span class="pre">project:project/latest</span> <span class="pre">subprojects:project/latest</span></code>.
+Is this useful?</p>
+</dd>
+</dl>
+<p>The second option was chosen, since that’s the current behavior
+of our search when searching on a project with subprojects,
+and avoids having to repeat the project if the user wants to
+include it in the search too.</p>
+</section>
+</section>
+<section id="cache">
+<h2>Cache<a class="headerlink" href="#cache" title="Link to this heading"></a></h2>
+<p>Since the request could be attached to more than one project.
+We will return all the list of projects for the cache tags,
+this is <code class="docutils literal notranslate"><span class="pre">project1,</span> <span class="pre">project1:version,</span> <span class="pre">project2,</span> <span class="pre">project2:version</span></code>.</p>
+</section>
+<section id="cors">
+<h2>CORS<a class="headerlink" href="#cors" title="Link to this heading"></a></h2>
+<p>Since the request could be attached to more than one project.
+we can’t make the decision if we should enable CORS or not on a given request from the middleware easily,
+so we won’t allow cross site requests when using the new API for now.
+We would need to refactor our CORS code,
+so every view can decide if CORS should be allowed or not,
+for this case, cross site requests will be allowed only if all versions of the final search are public,
+another alternative could be to always allow cross site requests,
+but when a request is cross site, we only return results from public versions.</p>
+</section>
+<section id="analytics">
+<h2>Analytics<a class="headerlink" href="#analytics" title="Link to this heading"></a></h2>
+<p>We will record the same query for each project that was used in the final search.</p>
+</section>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Link to this heading"></a></h2>
+<p>The response will be similar to the old one,
+but will include extra information about the search,
+like the projects, versions, and the query that were used in the final search.</p>
+<p>And the <code class="docutils literal notranslate"><span class="pre">version</span></code>, <code class="docutils literal notranslate"><span class="pre">project</span></code>, and <code class="docutils literal notranslate"><span class="pre">project_alias</span></code> attributes will
+now be objects.</p>
+<p>We could just reuse the old response too,
+since the only breaking changes would be the attributes now being objects,
+and we aren’t adding any new information to those objects (yet).
+But also, re-using the current serializers shouldn’t be a problem either.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;next&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;previous&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;projects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;docs&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;versions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;latest&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The final query used in the search&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;results&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;page&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;docs&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;latest&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Main Features&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/en/latest/features.html&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://docs.readthedocs.io&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;highlights&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;blocks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;section&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;full-text-search&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Full-Text Search&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;We provide search across all the projects that we host. This actually comes in two different search experiences: dashboard search on the Read the Docs dashboard and in-doc search on documentation sites, using your own theme and our search results. We offer a number of search features: Search across subprojects Search results land on the exact content you were looking for Search across projects you have access to (available on Read the Docs for Business) A full range of search operators including exact matching and excluding phrases. Learn more about Server Side Search.&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;highlights&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="s2">&quot;Full-&lt;span&gt;Text&lt;/span&gt; Search&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;domain&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http:post&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v3/projects/&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;post--api-v3-projects-&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Import a project under authenticated user. Example request: BashPython$ curl \\ -X POST \\ -H \&quot;Authorization: Token &lt;token&gt;\&quot; https://app.readthedocs.org/api/v3/projects/ \\ -H \&quot;Content-Type: application/json\&quot; \\ -d @body.json import requests import json URL = &#39;https://app.readthedocs.org/api/v3/projects/&#39; TOKEN = &#39;&lt;token&gt;&#39; HEADERS = {&#39;Authorization&#39;: f&#39;token {TOKEN}&#39;} data = json.load(open(&#39;body.json&#39;, &#39;rb&#39;)) response = requests.post( URL, json=data, headers=HEADERS, ) print(response.json()) The content of body.json is like, { \&quot;name\&quot;: \&quot;Test Project\&quot;, \&quot;repository\&quot;: { \&quot;url\&quot;: \&quot;https://github.com/readthedocs/template\&quot;, \&quot;type\&quot;: \&quot;git\&quot; }, \&quot;homepage\&quot;: \&quot;http://template.readthedocs.io/\&quot;, \&quot;programming_language\&quot;: \&quot;py\&quot;, \&quot;language\&quot;: \&quot;es\&quot; } Example response: See Project details Note Read the Docs for Business, also accepts&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;highlights&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">            </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="s2">&quot;, json=data, headers=HEADERS, ) print(response.json()) The content of body.json is like,  &amp;quot;name&amp;quot;: &amp;quot;&lt;span&gt;Test&lt;/span&gt;&quot;</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">project:docs</span> <span class="pre">project:dev/latest</span> <span class="pre">test</span></code>: search for <code class="docutils literal notranslate"><span class="pre">test</span></code> in the default
+version of the <code class="docutils literal notranslate"><span class="pre">docs</span></code> project, and in the latest version of the <code class="docutils literal notranslate"><span class="pre">dev</span></code> project.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">project:docs/stable</span> <span class="pre">search</span> <span class="pre">term</span></code>: search for <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">search</span> <span class="pre">term</span></code> in the
+stable version of the <code class="docutils literal notranslate"><span class="pre">docs</span></code> project.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project:docs</span> <span class="pre">project\:project/version</span></code>: search for <code class="docutils literal notranslate"><span class="pre">project::project/version</span></code> in the
+default version of the <code class="docutils literal notranslate"><span class="pre">docs</span></code> project.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">search</span></code>: invalid, at least one project is required.</p></li>
+</ul>
+</section>
+<section id="dashboard-search">
+<h2>Dashboard search<a class="headerlink" href="#dashboard-search" title="Link to this heading"></a></h2>
+<p>This is the search feature that you can access from
+the readthedocs.org/readthedocs.com domains.</p>
+<p>We have two types:</p>
+<dl>
+<dt>Project scoped search:</dt><dd><p>Search files and versions of the current project only.</p>
+</dd>
+<dt>Global search:</dt><dd><p>Search files and versions of all projects in .org,
+and only the projects the user has access to in .com.</p>
+<p>Global search also allows to search projects by name/description.</p>
+</dd>
+</dl>
+<p>This search also allows you to see the number of results
+from other projects/versions/sphinx domains (facets).</p>
+<section id="project-scoped-search">
+<h3>Project scoped search<a class="headerlink" href="#project-scoped-search" title="Link to this heading"></a></h3>
+<p>Here the new syntax won’t have effect,
+since we are searching for the files of one project only!</p>
+<p>Another approach could be linking to the global search
+with <code class="docutils literal notranslate"><span class="pre">project:{project.slug}</span></code> filled in the query.</p>
+</section>
+<section id="global-search-projects">
+<h3>Global search (projects)<a class="headerlink" href="#global-search-projects" title="Link to this heading"></a></h3>
+<p>We can keep the project search as is,
+without using the new syntax (since it doesn’t make sense there).</p>
+</section>
+<section id="global-search-files">
+<h3>Global search (files)<a class="headerlink" href="#global-search-files" title="Link to this heading"></a></h3>
+<p>Using the same syntax from the API will be allowed,
+by default it will search all projects in .org,
+and all projects the user has access to in .com.</p>
+<p>Another approach could be to allow
+filtering by user on .org, this is <code class="docutils literal notranslate"><span class="pre">user:stsewd</span></code> or <code class="docutils literal notranslate"><span class="pre">user:&#64;me</span></code>
+so a user can search all their projects easily.
+We could allow just <code class="docutils literal notranslate"><span class="pre">&#64;me</span></code> to start.</p>
+</section>
+<section id="facets">
+<h3>Facets<a class="headerlink" href="#facets" title="Link to this heading"></a></h3>
+<p>We will support only the <code class="docutils literal notranslate"><span class="pre">projects</span></code> facet to start.</p>
+<p>We can keep the facets, but they would be a little different,
+since with the new syntax we need to specify a project in order to search for
+a version, i.e, we can’t search all <code class="docutils literal notranslate"><span class="pre">latest</span></code> versions of all projects.</p>
+<p>By default we will use/show the <code class="docutils literal notranslate"><span class="pre">project</span></code> facet,
+and after the user has filtered by a project,
+we will use/show the <code class="docutils literal notranslate"><span class="pre">version</span></code> facet.</p>
+<p>If the user searches more than one project,
+things get complicated, should we keep showing the <code class="docutils literal notranslate"><span class="pre">version</span></code> facet?
+If clicked, should we change the version on all the projects?</p>
+<p>If that is too complicated to explain/implement,
+we should be fine by just supporting the <code class="docutils literal notranslate"><span class="pre">project</span></code>
+facet for now.</p>
+</section>
+<section id="backwards-compatibility">
+<h3>Backwards compatibility<a class="headerlink" href="#backwards-compatibility" title="Link to this heading"></a></h3>
+<p>We should be able to keep the old URLs working in the global search,
+but we could also just ignore the old syntax, or transform
+the old syntax to the new one and redirect the user to it,
+for example <code class="docutils literal notranslate"><span class="pre">?q=test&amp;project=docs&amp;version=latest</span></code>
+would be transformed to <code class="docutils literal notranslate"><span class="pre">?q=test</span> <span class="pre">project:docs/latest</span></code>.</p>
+</section>
+</section>
+<section id="future-features">
+<h2>Future features<a class="headerlink" href="#future-features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Allow searching on several versions of the same project
+(the API response is prepared to support this).</p></li>
+<li><p>Allow searching on all versions of a project easily,
+with a syntax like <code class="docutils literal notranslate"><span class="pre">project:docs/*</span></code> or <code class="docutils literal notranslate"><span class="pre">project:docs/&#64;all</span></code>.</p></li>
+<li><p>Allow specify the type of search:</p>
+<ul>
+<li><p>Multi match (query as is)</p></li>
+<li><p>Simple query string (allows using the ES query syntax)</p></li>
+<li><p>Fuzzy search (same as multi match, but with fuzziness)</p></li>
+</ul>
+</li>
+<li><p>Add the <code class="docutils literal notranslate"><span class="pre">org</span></code> filter,
+so users can search by all projects that belong
+to an organization.
+We would show results of the default versions of each project.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="new-notifications-system.html" class="btn btn-neutral float-left" title="Notification system: a new approach after lot of discussions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="new-sphinx-guides.html" class="btn btn-neutral float-right" title="Proposed contents for new Sphinx guides" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

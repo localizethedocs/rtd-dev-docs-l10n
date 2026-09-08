@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="API v3 design document" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/apiv3.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="This document describes the design, some decisions already made and built (current Version 1 of APIv3) and an implementation plan for next Versions of APIv3. APIv3 will be designed to be easy to use and useful to perform read and write operations as the main two goals. It will be based on Resourc..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="This document describes the design, some decisions already made and built (current Version 1 of APIv3) and an implementation plan for next Versions of APIv3. APIv3 will be designed to be easy to use and useful to perform read and write operations as the main two goals. It will be based on Resourc..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API v3 design document &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/apiv3.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=80428b84"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=cbf116e0"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="Better handling of docs URLs" href="better-doc-urls-handling.html" />
+    <link rel="prev" title="設計文件" href="index.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">一般</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">行為守則</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">議題標籤概覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">路線圖</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">設計文件</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API v3 design document</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#non-goals">Non-Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#problems-with-apiv2">Problems with APIv2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-stages">Implementation stages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#version-1">Version 1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#version-2">Version 2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#version-3">Version 3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#version-4">Version 4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#out-of-roadmap">Out of roadmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nice-to-have">Nice to have</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">開發</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">開發安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">開發指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">設計 Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">文件風格指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">前端開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">國際化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">資料庫遷移</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">訂閱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">有趣的設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">測試</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">設計文件</a></li>
+      <li class="breadcrumb-item active">API v3 design document</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/apiv3.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-v3-design-document">
+<h1>API v3 design document<a class="headerlink" href="#api-v3-design-document" title="連結到這個標頭"></a></h1>
+<p>This document describes the design,
+some decisions already made and built (current Version 1 of APIv3)
+and an implementation plan for next Versions of APIv3.</p>
+<p>APIv3 will be designed to be easy to use and useful to perform read and write operations as the main two goals.</p>
+<p>It will be based on Resources as APIv2 but considering the <code class="docutils literal notranslate"><span class="pre">Project</span></code> resource as the main one,
+from where most of the endpoint will be based on it.</p>
+<nav class="contents local" id="id1">
+<ul class="simple">
+<li><p><a class="reference internal" href="#goals" id="id2">Goals</a></p></li>
+<li><p><a class="reference internal" href="#non-goals" id="id3">Non-Goals</a></p></li>
+<li><p><a class="reference internal" href="#problems-with-apiv2" id="id4">Problems with APIv2</a></p></li>
+<li><p><a class="reference internal" href="#implementation-stages" id="id5">Implementation stages</a></p></li>
+<li><p><a class="reference internal" href="#out-of-roadmap" id="id6">Out of roadmap</a></p></li>
+<li><p><a class="reference internal" href="#nice-to-have" id="id7">Nice to have</a></p></li>
+</ul>
+</nav>
+<section id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="連結到這個標頭"></a></h2>
+<ul class="simple">
+<li><p>Easy to use for our users (access most of resources by <code class="docutils literal notranslate"><span class="pre">slug</span></code>)</p></li>
+<li><p>Useful to perform read and write operations</p></li>
+<li><p>Authentication/Authorization</p>
+<ul>
+<li><p>Authentication based on scoped-tokens</p></li>
+<li><p>Handle Authorization nicely using an abstraction layer</p></li>
+</ul>
+</li>
+<li><p>Cover most useful cases:</p>
+<ul>
+<li><p>Integration on CI (check build status, trigger new build, etc)</p></li>
+<li><p>Usage from public Sphinx/MkDocs extensions</p></li>
+<li><p>Allow creation of flyout menu client-side</p></li>
+<li><p>Simplify migration from other services (import projects, create multiple redirects, etc)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="non-goals">
+<h2>Non-Goals<a class="headerlink" href="#non-goals" title="連結到這個標頭"></a></h2>
+<ul class="simple">
+<li><p>Filter by arbitrary and useless fields</p>
+<ul>
+<li><p>&quot;Builds with <code class="docutils literal notranslate"><span class="pre">exit_code=1</span></code>&quot;</p></li>
+<li><p>&quot;Builds containing <code class="docutils literal notranslate"><span class="pre">ERROR</span></code> on their output&quot;</p></li>
+<li><p>&quot;Projects created after X datetime&quot;</p></li>
+<li><p>&quot;Versions with tag <code class="docutils literal notranslate"><span class="pre">python</span></code>&quot;</p></li>
+</ul>
+</li>
+<li><p>Cover <em>all the actions</em> available from the WebUI</p></li>
+</ul>
+</section>
+<section id="problems-with-apiv2">
+<h2>Problems with APIv2<a class="headerlink" href="#problems-with-apiv2" title="連結到這個標頭"></a></h2>
+<p>There are several problem with our current APIv2 that we can list:</p>
+<ul class="simple">
+<li><p>No authentication</p></li>
+<li><p>It's read-only</p></li>
+<li><p>Not designed for slugs</p></li>
+<li><p>Useful APIs not exposed (only for internal usage currently)</p></li>
+<li><p>Error reporting is a mess</p></li>
+<li><p>Relationships between API resources is not obvious</p></li>
+<li><p>Footer API endpoint returns HTML</p></li>
+</ul>
+</section>
+<section id="implementation-stages">
+<h2>Implementation stages<a class="headerlink" href="#implementation-stages" title="連結到這個標頭"></a></h2>
+<section id="version-1">
+<h3>Version 1<a class="headerlink" href="#version-1" title="連結到這個標頭"></a></h3>
+<p>The first implementation of APIv3 will cover the following aspects:</p>
+<ul class="simple">
+<li><p>Authentication</p>
+<ul>
+<li><p>all endpoints require authentication via <code class="docutils literal notranslate"><span class="pre">Authorization:</span></code> request header</p></li>
+<li><p>detail endpoints are available for all authenticated users</p></li>
+<li><p>only Project's maintainers can access listing endpoints</p></li>
+<li><p>personalized listing</p></li>
+</ul>
+</li>
+<li><p>Read and Write</p>
+<ul>
+<li><p>edit attributes from Version (only <code class="docutils literal notranslate"><span class="pre">active</span></code> and <code class="docutils literal notranslate"><span class="pre">privacy_level</span></code>)</p></li>
+<li><p>trigger Build for a specific Version</p></li>
+</ul>
+</li>
+<li><p>Accessible by slug</p>
+<ul>
+<li><p>Projects are accessed by <code class="docutils literal notranslate"><span class="pre">slug</span></code></p></li>
+<li><p>Versions are accessed by <code class="docutils literal notranslate"><span class="pre">slug</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/projects/</span></code> endpoint is the main one and all of the other are nested under it</p></li>
+<li><p>Builds are accessed by  <code class="docutils literal notranslate"><span class="pre">id</span></code>, as exception to this rule</p></li>
+<li><p>access all (active/non-active) Versions of a Project by <code class="docutils literal notranslate"><span class="pre">slug</span></code></p></li>
+<li><p>get latest Build for a Project (and Version) by <code class="docutils literal notranslate"><span class="pre">slug</span></code></p></li>
+<li><p>filter by relevant fields</p></li>
+</ul>
+</li>
+<li><p>Proper status codes to report errors</p></li>
+<li><p>Browse-able endpoints</p>
+<ul>
+<li><p>browse is allowed hitting <code class="docutils literal notranslate"><span class="pre">/api/v3/projects/</span></code> as starting point</p></li>
+<li><p>ability to navigate clicking on other resources under <code class="docutils literal notranslate"><span class="pre">_links</span></code> attribute</p></li>
+</ul>
+</li>
+<li><p>Rate limited</p></li>
+</ul>
+</section>
+<section id="version-2">
+<h3>Version 2<a class="headerlink" href="#version-2" title="連結到這個標頭"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>This is currently implemented and live.</p>
+</div>
+<p>Second iteration will polish issues found from the first step,
+and add new endpoints to allow <em>import a project and configure it</em>
+without the needed of using the WebUI as a main goal.</p>
+<p>After Version 2 is deployed,
+we will invite users that reach us as beta testers to receive more feedback
+and continue improving it by supporting more use cases.</p>
+<p>This iteration will include:</p>
+<ul class="simple">
+<li><p>Minor changes to fields returned in the objects</p></li>
+<li><p>Import Project endpoint</p></li>
+<li><p>Edit Project attributes (&quot;Settings&quot; and &quot;Advanced settings-Global settings&quot; in the WebUI)</p></li>
+<li><p>Trigger Build for default version</p></li>
+<li><p>Allow CRUD for Redirect, Environment Variables and Notifications (<code class="docutils literal notranslate"><span class="pre">WebHook</span></code> and <code class="docutils literal notranslate"><span class="pre">EmailHook</span></code>)</p></li>
+<li><p>Create/Delete a Project as subproject of another Project</p></li>
+<li><p>Documentation</p></li>
+</ul>
+</section>
+<section id="version-3">
+<h3>Version 3<a class="headerlink" href="#version-3" title="連結到這個標頭"></a></h3>
+<p>Third iteration will implement granular permissions.
+Keeping in mind how Sphinx extension will use it:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sphinx-version-warning</span></code> needs to get <em>all active Versions of a Project</em></p></li>
+<li><p>An extension that creates a landing page, will need <em>all the subprojects of a Project</em></p></li>
+</ul>
+<p>To fulfill these requirements, this iteration will include:</p>
+<ul class="simple">
+<li><p>Scope-based authorization token</p></li>
+</ul>
+</section>
+<section id="version-4">
+<h3>Version 4<a class="headerlink" href="#version-4" title="連結到這個標頭"></a></h3>
+<ul class="simple">
+<li><p>Specific endpoint for our flyout menu (returning JSON instead of HTML)</p></li>
+</ul>
+</section>
+</section>
+<section id="out-of-roadmap">
+<h2>Out of roadmap<a class="headerlink" href="#out-of-roadmap" title="連結到這個標頭"></a></h2>
+<p>These are some features that we may want to build at some point.
+Although, they are currently out of our near roadmap because they don't affect too many users,
+or are for internal usage only.</p>
+<ul class="simple">
+<li><p>CRUD for Domain</p></li>
+<li><p>Add User as maintainer</p></li>
+<li><p>Give access to a documentation page (<code class="docutils literal notranslate"><span class="pre">objects.inv</span></code>, <code class="docutils literal notranslate"><span class="pre">/design/core.html</span></code>)</p></li>
+<li><p>Internal Build process</p></li>
+</ul>
+</section>
+<section id="nice-to-have">
+<h2>Nice to have<a class="headerlink" href="#nice-to-have" title="連結到這個標頭"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Request-ID</span></code> header</p></li>
+<li><p><a class="reference external" href="https://geemus.gitbooks.io/http-api-design/content/en/responses/keep-json-minified-in-all-responses.html">JSON minified by default</a> (maybe with <code class="docutils literal notranslate"><span class="pre">?pretty=true</span></code>)</p></li>
+<li><p><a class="reference external" href="https://geemus.gitbooks.io/http-api-design/content/en/responses/keep-json-minified-in-all-responses.html">JSON schema and validation</a> with <a class="reference external" href="https://geemus.gitbooks.io/http-api-design/content/en/artifacts/provide-human-readable-docs.html">docs</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="設計文件" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="better-doc-urls-handling.html" class="btn btn-neutral float-right" title="Better handling of docs URLs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

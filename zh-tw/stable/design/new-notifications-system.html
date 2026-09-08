@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Notification system: a new approach after lot of discussions" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/new-notifications-system.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Notifications have been a recurrent topic in the last years. We have talked about different problems and solution&#x27;s approaches during these years. However, due to the complexity of the change, and without having a clear path, it has been hard to prioritize. We&#x27;ve written a lot about the..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Notifications have been a recurrent topic in the last years. We have talked about different problems and solution&#x27;s approaches during these years. However, due to the complexity of the change, and without having a clear path, it has been hard to prioritize. We&#x27;ve written a lot about the..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notification system: a new approach after lot of discussions &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/new-notifications-system.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=80428b84"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=cbf116e0"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="New search API" href="new-search-api.html" />
+    <link rel="prev" title="In-doc search UI" href="in-doc-search-ui.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">一般</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">行為守則</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">議題標籤概覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">路線圖</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">設計文件</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Notification system: a new approach after lot of discussions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#non-goals">Non-goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#small-notes-and-other-considerations">Small notes and other considerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-ideas">Implementation ideas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#message-class-definition"><code class="docutils literal notranslate"><span class="pre">Message</span></code> class definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#definition-of-notifications-to-display-to-users">Definition of notifications to display to users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#notification-model-definition"><code class="docutils literal notranslate"><span class="pre">Notification</span></code> model definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attach-error-notification-during-the-build-process">Attach error <code class="docutils literal notranslate"><span class="pre">Notification</span></code> during the build process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attach-non-error-notification-during-the-build-process">Attach non-error <code class="docutils literal notranslate"><span class="pre">Notification</span></code> during the build process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#show-a-notification-under-the-user-s-bell-icon">Show a <code class="docutils literal notranslate"><span class="pre">Notification</span></code> under the user's bell icon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remove-notification-on-status-change">Remove notification on status change</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#api-definition">API definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#notifications-list">Notifications list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#notification-create">Notification create</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#notification-update">Notification update</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#backward-compatibility">Backward compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">開發</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">開發安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">開發指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">設計 Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">文件風格指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">前端開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">國際化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">資料庫遷移</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">訂閱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">有趣的設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">測試</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">設計文件</a></li>
+      <li class="breadcrumb-item active">Notification system: a new approach after lot of discussions</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/new-notifications-system.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="notification-system-a-new-approach-after-lot-of-discussions">
+<h1>Notification system: a new approach after lot of discussions<a class="headerlink" href="#notification-system-a-new-approach-after-lot-of-discussions" title="連結到這個標頭"></a></h1>
+<p>Notifications have been a recurrent topic in the last years.
+We have talked about different problems and solution's approaches during these years.
+However, due to the complexity of the change, and without having a clear path, it has been hard to prioritize.</p>
+<p>We've written a lot about the problems and potential solutions for the current notification system.
+This is a non-complete list of them just for reference:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/4226">https://github.com/readthedocs/readthedocs.org/issues/4226</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/3399">https://github.com/readthedocs/readthedocs.org/issues/3399</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/meta/discussions/126">https://github.com/readthedocs/meta/discussions/126</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/5909">https://github.com/readthedocs/readthedocs.org/issues/5909</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/9110">https://github.com/readthedocs/readthedocs.org/issues/9110</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/9279">https://github.com/readthedocs/readthedocs.org/issues/9279</a></p></li>
+<li><p><a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/4235">https://github.com/readthedocs/readthedocs.org/issues/4235</a></p></li>
+</ul>
+<p>At the offsite in Portland, Anthony and myself were able to talk deeply about this and wrote a bunch of thoughts in a Google Doc.
+We had pretty similar ideas and we thought we were solving most of the problems we identified already.</p>
+<p>I read all of these issues and all the discussions I found and wrote this document that summarizes my proposal:
+<em>create a new notification system that we can customize and expand as we need in the future</em>:</p>
+<ul class="simple">
+<li><p>A Django model to store the notifications' data</p></li>
+<li><p>API endpoints to retrieve the notifications for a particular resource (User, Build, Project, Organization)</p></li>
+<li><p>Frontend code to display them (<em>outside the scope of this document</em>)</p></li>
+</ul>
+<section id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="連結到這個標頭"></a></h2>
+<ul class="simple">
+<li><p>Keep raising exceptions for errors from the build process</p></li>
+<li><p>Ability to add non-error notifications from the build process</p></li>
+<li><p>Add extra metadata associated to the notification: icon, header, body, etc</p></li>
+<li><p>Support different types of notifications (e.g. error, warning, note, tip)</p></li>
+<li><p>Reuse the new notification system for product updates (e.g. new features, deprecated config keys)</p></li>
+<li><p>Message content lives on Python classes that can be translated and formatted with objects (e.g. Build, Project)</p></li>
+<li><p>Message could have richer content (e.g. HTML code) to generate links and emphasis</p></li>
+<li><p>Notifications have trackable state (e.g. unread (default)=never shown, read=shown, dismissed=don't show again, cancelled=auto-removed after user action)</p></li>
+<li><p>An object (e.g. Build, Organization) can have more than 1 notification attached</p></li>
+<li><p>Remove hardcoded notifications from the templates</p></li>
+<li><p>Notifications can be attached to Project, Organization, Build and User models</p></li>
+<li><p>Specific notifications can be shown under the user's bell icon</p></li>
+<li><p>Easy way to cleanup notification on status changes (e.g. subscription failure notification is auto-deleted after CC updated)</p></li>
+<li><p>Notifications attached to Organization/Project disappear for all the users once they are dismissed by anyone</p></li>
+</ul>
+</section>
+<section id="non-goals">
+<h2>Non-goals<a class="headerlink" href="#non-goals" title="連結到這個標頭"></a></h2>
+<ul class="simple">
+<li><p>Create new Build &quot;state&quot; or &quot;status&quot; option for these fields</p></li>
+<li><p>Implement the new notification in the old dashboard</p></li>
+<li><p>Define front-end code implementation</p></li>
+<li><p>Replace email or webhook notifications</p></li>
+</ul>
+</section>
+<section id="small-notes-and-other-considerations">
+<h2>Small notes and other considerations<a class="headerlink" href="#small-notes-and-other-considerations" title="連結到這個標頭"></a></h2>
+<ul class="simple">
+<li><p>Django message system is not enough for this purpose.</p></li>
+<li><p>Use a new model to store all the required data (expandable in the future)</p></li>
+<li><p>How do we handle translations?
+We should use <code class="docutils literal notranslate"><span class="pre">_(&quot;This</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">message</span> <span class="pre">shown</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">user&quot;)</span></code> in Python code and return the proper translation when they are read.</p></li>
+<li><p>Reduce complexity on <code class="docutils literal notranslate"><span class="pre">Build</span></code> object (remove <code class="docutils literal notranslate"><span class="pre">Build.status</span></code> and <code class="docutils literal notranslate"><span class="pre">Build.error</span></code> fields among others).</p></li>
+<li><p>Since the <code class="docutils literal notranslate"><span class="pre">Build</span></code> object could have more than 1 notification, when showing them, we will sort them by importance: errors, warnings, note, tip.</p></li>
+<li><p>In case we need a pretty specific order, we can add an extra field for that, but it adds unnecessary complexity at this point.</p></li>
+<li><p>For those notifications that are attached to the <code class="docutils literal notranslate"><span class="pre">Project</span></code> or <code class="docutils literal notranslate"><span class="pre">Organization</span></code>, should it be shown to all the members even if they don't have admin permissions?
+If yes, this is good because all of them will be notified but only some of them will be able to take an action.
+If no, non-admin users won't see the notification and won't be able to communicate this to the admins</p></li>
+<li><p>Notification could be attached to a <code class="docutils literal notranslate"><span class="pre">BuildCommand</span></code> in case we want to display a specific message on a command itself.
+We don't know how useful this will be, but it's something we can consider in the future.</p></li>
+<li><p>Notification preferences: what kind of notifications I want to see in my own bell icon?</p>
+<ul>
+<li><p>Build errors</p></li>
+<li><p>Build tips</p></li>
+<li><p>Product updates</p></li>
+<li><p>Blog post news</p></li>
+<li><p>Organization updates</p></li>
+<li><p>Project updates</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="implementation-ideas">
+<h2>Implementation ideas<a class="headerlink" href="#implementation-ideas" title="連結到這個標頭"></a></h2>
+<p>This section shows all the classes and models involved for the notification system as well as some already known use-cases.</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>Accessing the database from the build process</p>
+<p>Builders doesn't have access to the database due to security reasons.
+We had solved this limitation by creating an API endpoint the builder hits once they need to interact with the database to get a <code class="docutils literal notranslate"><span class="pre">Project</span></code>, <code class="docutils literal notranslate"><span class="pre">Version</span></code> and <code class="docutils literal notranslate"><span class="pre">Build</span></code> resources, create a <code class="docutils literal notranslate"><span class="pre">BuildCommand</span></code> resource, etc.</p>
+<p>Besides, the build process is capable to trigger Celery tasks that are useful for managing more complex logic
+that also require accessing from and writing to the database.</p>
+<p>Currently, <code class="docutils literal notranslate"><span class="pre">readthedocs.doc_builder.director.Director</span></code> and
+<code class="docutils literal notranslate"><span class="pre">readthedocs.doc_builder.environments.DockerBuildEnvironment</span></code>
+have access to the API client and can use it to create the <code class="docutils literal notranslate"><span class="pre">Notification</span></code> resources.</p>
+<p>I plan to use the same pattern to create <code class="docutils literal notranslate"><span class="pre">Notification</span></code> resources by hitting the API from the director or the build environment.
+In case we require hitting the API from other places, we will need to pass the API client instance to those other classes as well.</p>
+</div>
+<section id="message-class-definition">
+<h3><code class="docutils literal notranslate"><span class="pre">Message</span></code> class definition<a class="headerlink" href="#message-class-definition" title="連結到這個標頭"></a></h3>
+<p>This class encapsulates the content of the notification (e.g. header, body, icon, etc) --the message it's shown to the uer--,
+and some helper logic to return in the API response.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Message</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="nb">str</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="nb">str</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="nb">str</span>
+        <span class="n">icon_style</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">SOLID</span><span class="p">,</span> <span class="n">DUOTONE</span><span class="p">)</span>
+        <span class="nb">type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ERROR</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">NOTE</span><span class="p">,</span> <span class="n">TIP</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_display_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">icon</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">icon</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">ERROR</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;fa-exclamation&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">WARNING</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;fa-triangle-exclamation&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="definition-of-notifications-to-display-to-users">
+<h3>Definition of notifications to display to users<a class="headerlink" href="#definition-of-notifications-to-display-to-users" title="連結到這個標頭"></a></h3>
+<p>This constant defines all the possible notifications to be displayed to the user.
+Each notification has to be defined here using the <code class="docutils literal notranslate"><span class="pre">Message</span></code> class previously defined.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NOTIFICATION_MESSAGES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;generic-with-build-id&quot;</span><span class="p">:</span> <span class="n">Message</span><span class="p">(</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Unknown problem&quot;</span><span class="p">),</span>
+        <span class="c1"># Note the message receives the instance it&#39;s attached to</span>
+        <span class="c1"># and could be use it to inject related data</span>
+        <span class="n">body</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      There was a problem with Read the Docs while building your documentation.</span>
+<span class="sd">      Please try again later.</span>
+<span class="sd">      If this problem persists,</span>
+<span class="sd">      report this error to us with your build id ({instance[pk]}).</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">ERROR</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;build-os-required&quot;</span><span class="p">:</span> <span class="n">Message</span><span class="p">(</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Invalid configuration&quot;</span><span class="p">),</span>
+        <span class="n">body</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      The configuration key &quot;build.os&quot; is required to build your documentation.</span>
+<span class="sd">      &lt;a href=&#39;https://docs.readthedocs.io/en/stable/config-file/v2.html#build-os&#39;&gt;Read more.&lt;/a&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">ERROR</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;cancelled-by-user&quot;</span><span class="p">:</span> <span class="n">Message</span><span class="p">(</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;User action&quot;</span><span class="p">),</span>
+        <span class="n">body</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Build cancelled by the user.</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">ERROR</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;os-ubuntu-18.04-deprecated&quot;</span><span class="p">:</span> <span class="n">Message</span><span class="p">(</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Deprecated OS selected&quot;</span><span class="p">),</span>
+        <span class="n">body</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Ubuntu 18.04 is deprecated and will be removed soon.</span>
+<span class="sd">      Update your &lt;code&gt;.readthedocs.yaml&lt;/code&gt; to use a newer image.</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">TIP</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="notification-model-definition">
+<h3><code class="docutils literal notranslate"><span class="pre">Notification</span></code> model definition<a class="headerlink" href="#notification-model-definition" title="連結到這個標頭"></a></h3>
+<p>This class is the representation of a notification attached to an resource (e.g. User, Build, etc) in the database.
+It contains an identifier (<code class="docutils literal notranslate"><span class="pre">message_id</span></code>) pointing to one of the messages defined in the previous section (key in constant <code class="docutils literal notranslate"><span class="pre">NOTIFICATION_MESSAGES</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">textwrap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.utils.translation</span><span class="w"> </span><span class="kn">import</span> <span class="n">gettext_noop</span> <span class="k">as</span> <span class="n">_</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Notification</span><span class="p">(</span><span class="n">TimeStampedModel</span><span class="p">):</span>
+    <span class="c1"># Message identifier</span>
+    <span class="n">message_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+
+    <span class="c1"># UNREAD: the notification was not shown to the user</span>
+    <span class="c1"># READ: the notification was shown</span>
+    <span class="c1"># DISMISSED: the notification was shown and the user dismissed it</span>
+    <span class="c1"># CANCELLED: removed automatically because the user has done the action required (e.g. paid the subscription)</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="n">UNREAD</span><span class="p">,</span> <span class="n">READ</span><span class="p">,</span> <span class="n">DISMISSED</span><span class="p">,</span> <span class="n">CANCELLED</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">UNREAD</span><span class="p">,</span>
+        <span class="n">db_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Makes the notification impossible to dismiss (useful for Build notifications)</span>
+    <span class="n">dismissable</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Show the notification under the bell icon for the user</span>
+    <span class="n">news</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;Show under bell icon&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Notification attached to</span>
+    <span class="c1">#</span>
+    <span class="c1"># Uses ContentType for this.</span>
+    <span class="c1"># https://docs.djangoproject.com/en/4.2/ref/contrib/contenttypes/#generic-relations</span>
+    <span class="c1">#</span>
+    <span class="n">attached_to_content_type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ContentType</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">attached_to_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveIntegerField</span><span class="p">()</span>
+    <span class="n">attached_to</span> <span class="o">=</span> <span class="n">GenericForeignKey</span><span class="p">(</span><span class="s2">&quot;attached_to_content_type&quot;</span><span class="p">,</span> <span class="s2">&quot;attached_to_id&quot;</span><span class="p">)</span>
+
+    <span class="c1"># If we don&#39;t want to use ContentType, we could define all the potential models</span>
+    <span class="c1"># the notification could be attached to</span>
+    <span class="c1">#</span>
+    <span class="c1"># organization = models.ForeignKey(Organization, null=True, blank=True, default=None)</span>
+    <span class="c1"># project = models.ForeignKey(Project, null=True, blank=True, default=None)</span>
+    <span class="c1"># build = models.ForeignKey(Build, null=True, blank=True, default=None)</span>
+    <span class="c1"># user = models.ForeignKey(User, null=True, blank=True, default=None)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_display_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span>
+            <span class="n">NOTIFICATION_MESSAGES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message_id</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">attached_to</span><span class="p">,</span>  <span class="c1"># Build, Project, Organization, User</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="attach-error-notification-during-the-build-process">
+<h3>Attach error <code class="docutils literal notranslate"><span class="pre">Notification</span></code> during the build process<a class="headerlink" href="#attach-error-notification-during-the-build-process" title="連結到這個標頭"></a></h3>
+<p>During the build, we will keep raising exceptions to both things:</p>
+<ul class="simple">
+<li><p>stop the build process immediately</p></li>
+<li><p>communicate back to the <code class="docutils literal notranslate"><span class="pre">doc_builder.director.Director</span></code> class the build failed.</p></li>
+</ul>
+<p>The director is the one in charge of creating the error <code class="docutils literal notranslate"><span class="pre">Notification</span></code>,
+in a similar way it currently works now.
+The only difference is that instead of saving the error under <code class="docutils literal notranslate"><span class="pre">Build.error</span></code> as it currently works now,
+it will create a <code class="docutils literal notranslate"><span class="pre">Notification</span></code> object and attach it to the particular <code class="docutils literal notranslate"><span class="pre">Build</span></code>.
+Note the director does not have access to the DB, so it will need to create/associate the object via an API endpoint/Celery task.</p>
+<p>Example of how the exception <code class="docutils literal notranslate"><span class="pre">BuildCancelled</span></code> creates an error <code class="docutils literal notranslate"><span class="pre">Notification</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">UpdateDocsTask</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_failure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">api_client</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">build</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">notifications</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;message_id&quot;</span><span class="p">:</span> <span class="s2">&quot;cancelled-by-user&quot;</span><span class="p">,</span>
+                <span class="c1"># Override default fields if required</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">WARNING</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="attach-non-error-notification-during-the-build-process">
+<h3>Attach non-error <code class="docutils literal notranslate"><span class="pre">Notification</span></code> during the build process<a class="headerlink" href="#attach-non-error-notification-during-the-build-process" title="連結到這個標頭"></a></h3>
+<p>During the build, we will be able attach non-error notifications with the following pattern:</p>
+<ul class="simple">
+<li><p>check something in particular (e.g. using a deprecated key in <code class="docutils literal notranslate"><span class="pre">readthedocs.yaml</span></code>)</p></li>
+<li><p>create a non-error <code class="docutils literal notranslate"><span class="pre">Notification</span></code> and attach it to the particular <code class="docutils literal notranslate"><span class="pre">Build</span></code> object</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">DockerBuildEnvironment</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_deprecated_os_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;ubuntu-18.04&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">api_client</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">build</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">notifications</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;message_id&quot;</span><span class="p">:</span> <span class="s2">&quot;os-ubuntu-18.04-deprecated&quot;</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="show-a-notification-under-the-user-s-bell-icon">
+<h3>Show a <code class="docutils literal notranslate"><span class="pre">Notification</span></code> under the user's bell icon<a class="headerlink" href="#show-a-notification-under-the-user-s-bell-icon" title="連結到這個標頭"></a></h3>
+<p>If we want to show a notification on a user's profile,
+we can create the notification as follows,
+maybe from a simple script ran in the Django shell's console
+after publishing a blog post:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">users_to_show_notification</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users_to_show_notification</span><span class="p">:</span>
+    <span class="n">Notification</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">message_id</span><span class="o">=</span><span class="s2">&quot;blog-post-beta-addons&quot;</span><span class="p">,</span>
+        <span class="n">dismissable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">news</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">attached_to</span><span class="o">=</span><span class="n">User</span><span class="p">,</span>
+        <span class="n">attached_to_id</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="remove-notification-on-status-change">
+<h3>Remove notification on status change<a class="headerlink" href="#remove-notification-on-status-change" title="連結到這個標頭"></a></h3>
+<p>When we show a notification for an unpaid subscription,
+we want to remove it once the user has updated and paid the subscription.
+We can do this with the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@handler</span><span class="p">(</span><span class="s2">&quot;customer.subscription.updated&quot;</span><span class="p">,</span> <span class="s2">&quot;customer.subscription.deleted&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">subscription_updated_event</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">subscription</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">ACTIVE</span><span class="p">:</span>
+        <span class="n">organization</span> <span class="o">=</span> <span class="n">Organization</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="s2">&quot;read-the-docs&quot;</span><span class="p">)</span>
+
+        <span class="n">Notification</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">message_id</span><span class="o">=</span><span class="s2">&quot;subscription-update-your-cc-details&quot;</span><span class="p">,</span>
+            <span class="n">state__in</span><span class="o">=</span><span class="p">[</span><span class="n">UNREAD</span><span class="p">,</span> <span class="n">READ</span><span class="p">],</span>
+            <span class="n">attached_to</span><span class="o">=</span><span class="n">Organization</span><span class="p">,</span>
+            <span class="n">attached_to_id</span><span class="o">=</span><span class="n">organization</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">CANCELLED</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="api-definition">
+<h2>API definition<a class="headerlink" href="#api-definition" title="連結到這個標頭"></a></h2>
+<p>I will follows the same pattern we have on APIv3 that uses nested endpoints.
+This means that we will add a <code class="docutils literal notranslate"><span class="pre">/notifications/</span></code> postfix to most of the resource endpoints
+where we want to be able to attach/list notifications.</p>
+<section id="notifications-list">
+<h3>Notifications list<a class="headerlink" href="#notifications-list" title="連結到這個標頭"></a></h3>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-v3-users-(str-user_username)-notifications-">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/v3/users/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">str:</span> </em><em class="sig-param"><span class="pre">user_username</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/notifications/</span></span><a class="headerlink" href="#get--api-v3-users-(str-user_username)-notifications-" title="連結到這個定義"></a></dt>
+<dd><p>Retrieve a list of all the notifications for this user.</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-v3-projects-(str-project_slug)-notifications-">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/v3/projects/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">str:</span> </em><em class="sig-param"><span class="pre">project_slug</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/notifications/</span></span><a class="headerlink" href="#get--api-v3-projects-(str-project_slug)-notifications-" title="連結到這個定義"></a></dt>
+<dd><p>Retrieve a list of all the notifications for this project.</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-v3-organizations-(str-organization_slug)-notifications-">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/v3/organizations/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">str:</span> </em><em class="sig-param"><span class="pre">organization_slug</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/notifications/</span></span><a class="headerlink" href="#get--api-v3-organizations-(str-organization_slug)-notifications-" title="連結到這個定義"></a></dt>
+<dd><p>Retrieve a list of all the notifications for this organization.</p>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-v3-projects-(str-project_slug)-builds-(int-build_id)-notifications-">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/v3/projects/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">str:</span> </em><em class="sig-param"><span class="pre">project_slug</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/builds/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">int:</span> </em><em class="sig-param"><span class="pre">build_id</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/notifications/</span></span><a class="headerlink" href="#get--api-v3-projects-(str-project_slug)-builds-(int-build_id)-notifications-" title="連結到這個定義"></a></dt>
+<dd><p>Retrieve a list of all the notifications for this build.</p>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;next&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/v3/projects/pip/builds/12345/notifications/?unread=true&amp;sort=type&amp;limit=10&amp;offset=10&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;previous&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;results&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;message_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cancelled-by-user&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unread&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;dismissable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;news&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;attached_to&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;build&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;header&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;User action&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Build cancelled by the user.&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;icon&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fa-exclamation&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;icon_style&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;duotone&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unread</strong> (<em>boolean</em>) -- return only unread notifications</p></li>
+<li><p><strong>type</strong> (<em>string</em>) -- filter notifications by type (<code class="docutils literal notranslate"><span class="pre">error</span></code>, <code class="docutils literal notranslate"><span class="pre">note</span></code>, <code class="docutils literal notranslate"><span class="pre">tip</span></code>)</p></li>
+<li><p><strong>sort</strong> (<em>string</em>) -- sort the notifications (<code class="docutils literal notranslate"><span class="pre">type</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code> (default))</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="notification-create">
+<h3>Notification create<a class="headerlink" href="#notification-create" title="連結到這個標頭"></a></h3>
+<dl class="http post">
+<dt class="sig sig-object http" id="post--api-v3-projects-(str-project_slug)-builds-(int-build_id)-notifications-">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/api/v3/projects/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">str:</span> </em><em class="sig-param"><span class="pre">project_slug</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/builds/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">int:</span> </em><em class="sig-param"><span class="pre">build_id</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/notifications/</span></span><a class="headerlink" href="#post--api-v3-projects-(str-project_slug)-builds-(int-build_id)-notifications-" title="連結到這個定義"></a></dt>
+<dd><p>Create a notification for the resource.
+In this example, for a <code class="docutils literal notranslate"><span class="pre">Build</span></code> resource.</p>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;message_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cancelled-by-user&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unread&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;dismissable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;news&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>Similar API endpoints will be created for each of the resources
+we want to attach a <code class="docutils literal notranslate"><span class="pre">Notification</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">User</span></code>, <code class="docutils literal notranslate"><span class="pre">Organization</span></code>, etc)</p>
+</div>
+</section>
+<section id="notification-update">
+<h3>Notification update<a class="headerlink" href="#notification-update" title="連結到這個標頭"></a></h3>
+<dl class="http patch">
+<dt class="sig sig-object http" id="patch--api-v3-projects-(str-project_slug)-builds-(int-build_id)-notifications-(int-notification_id)-">
+<span class="sig-name descname"><span class="pre">PATCH</span> </span><span class="sig-name descname"><span class="pre">/api/v3/projects/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">str:</span> </em><em class="sig-param"><span class="pre">project_slug</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/builds/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">int:</span> </em><em class="sig-param"><span class="pre">build_id</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/notifications/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">int:</span> </em><em class="sig-param"><span class="pre">notification_id</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/</span></span><a class="headerlink" href="#patch--api-v3-projects-(str-project_slug)-builds-(int-build_id)-notifications-(int-notification_id)-" title="連結到這個定義"></a></dt>
+<dd><p>Update an existing notification.
+Mainly used to change the state from the front-end.</p>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;read&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>Similar API endpoints will be created for each of the resources
+we want to attach a <code class="docutils literal notranslate"><span class="pre">Notification</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">User</span></code>, <code class="docutils literal notranslate"><span class="pre">Organization</span></code>, etc)</p>
+</div>
+</section>
+</section>
+<section id="backward-compatibility">
+<h2>Backward compatibility<a class="headerlink" href="#backward-compatibility" title="連結到這個標頭"></a></h2>
+<p>It's not strictly required, but if we want, we could extract the current notification logic from:</p>
+<ul class="simple">
+<li><p>Django templates</p>
+<ul>
+<li><p>&quot;Don't want <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> called?&quot;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build.image</span></code> config key is deprecated</p></li>
+<li><p>Configuration file is required</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build.commands</span></code> is a beta feature</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Build.error</span></code> fields</p>
+<ul>
+<li><p>Build cancelled by user</p></li>
+<li><p>Unknown exception</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build.os</span></code> is not found</p></li>
+<li><p>No config file</p></li>
+<li><p>No checkout revision</p></li>
+<li><p>Failed when cloning the repository</p></li>
+<li><p>etc</p></li>
+</ul>
+</li>
+</ul>
+<p>and iterate over all the <code class="docutils literal notranslate"><span class="pre">Build</span></code> objects to create a <code class="docutils literal notranslate"><span class="pre">Notification</span></code> object for each of them.</p>
+<p>I'm not planning to implement the &quot;new notification system&quot; in the old templates.
+It doesn't make sense to spend time in them since we are deprecating them.</p>
+<p>Old builds will keep using the current notification approach based on <code class="docutils literal notranslate"><span class="pre">build.error</span></code> field.
+New builds won't have <code class="docutils literal notranslate"><span class="pre">build.error</span></code> anymore and they will use the new notification system on ext-theme.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="in-doc-search-ui.html" class="btn btn-neutral float-left" title="In-doc search UI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="new-search-api.html" class="btn btn-neutral float-right" title="New search API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
