@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Organizations" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/organizations.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Currently we don’t support organizations in the community site (a way to group different projects), we only support individual accounts. Several integrations that we support like GitHub and Bitbucket have organizations, where users group their repositories and manage them in groups rather than in..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Currently we don’t support organizations in the community site (a way to group different projects), we only support individual accounts. Several integrations that we support like GitHub and Bitbucket have organizations, where users group their repositories and manage them in groups rather than in..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Organizations &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/organizations.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=cc8e41f0"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Design of pull request builder" href="pr-builder.html" />
+    <link rel="prev" title="Proposed contents for new Sphinx guides" href="new-sphinx-guides.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Organizations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#why-move-organizations-in-the-community-site">Why move organizations in the community site?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-are-we-going-to-support-organizations">How are we going to support organizations?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-features-of-organizations-are-we-going-to-support">What features of organizations are we going to support?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-migrate-current-projects">How to migrate current projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-migrate-the-organizations-app">How to migrate the organizations app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#namespace">Namespace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#future-changes">Future Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">Organizations</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/organizations.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="organizations">
+<h1>Organizations<a class="headerlink" href="#organizations" title="Link to this heading"></a></h1>
+<p>Currently we don’t support organizations in the community site
+(a way to group different projects),
+we only support individual accounts.</p>
+<p>Several integrations that we support like GitHub and Bitbucket have organizations,
+where users group their repositories and manage them in groups rather than individually.</p>
+<section id="why-move-organizations-in-the-community-site">
+<h2>Why move organizations in the community site?<a class="headerlink" href="#why-move-organizations-in-the-community-site" title="Link to this heading"></a></h2>
+<p>We support organizations in the commercial site,
+having no organizations in the community site makes the code maintenance difficult for Read the Docs developers.
+Having organizations in the community site will make the differences between both more easy to manage.</p>
+<p>Users from the community site can have organizations in external sites from where we import their projects
+(like GitHub, Gitlab).
+Currently users have all projects from different organizations in their account.
+Having not a clear way to group/separate those.</p>
+<p>We are going to first move the code,
+and after that enable the feature on the community site.</p>
+</section>
+<section id="how-are-we-going-to-support-organizations">
+<h2>How are we going to support organizations?<a class="headerlink" href="#how-are-we-going-to-support-organizations" title="Link to this heading"></a></h2>
+<p>Currently only users can own projects in the community site.
+With organizations this is going to change to:
+Users and organizations can own projects.</p>
+<p>With this, the migration process would be straightforward for the community site.</p>
+<p>For the commercial site we are only to allow organizations to own projects for now
+(since the we have only subscriptions per organizations).</p>
+</section>
+<section id="what-features-of-organizations-are-we-going-to-support">
+<h2>What features of organizations are we going to support?<a class="headerlink" href="#what-features-of-organizations-are-we-going-to-support" title="Link to this heading"></a></h2>
+<p>We have the following features in the commercial site that we don’t have on the community site:</p>
+<ul class="simple">
+<li><p>Owners</p></li>
+<li><p>Teams</p></li>
+<li><p>Permissions</p></li>
+<li><p>Subscriptions</p></li>
+</ul>
+<p>Owners should be included to represent owners of the current organization.</p>
+<p>Teams, this is also handy to manage access to different projects under the same organization.</p>
+<p>Permissions,
+currently we have two type of permissions for teams: admin and read only.
+Read only permissions doesn’t make sense in the community site since we only support public projects/versions
+(we do support private versions now, but we are planning to remove those).
+So, we should only support admin permissions for teams.</p>
+<p>Subscriptions, this is only valid for the corporate site,
+since we don’t charge for use in the community site.</p>
+</section>
+<section id="how-to-migrate-current-projects">
+<h2>How to migrate current projects<a class="headerlink" href="#how-to-migrate-current-projects" title="Link to this heading"></a></h2>
+<p>Since we are not replacing the current implementation,
+we don’t need to migrate current projects from the community site nor from the corporate site.</p>
+</section>
+<section id="how-to-migrate-the-organizations-app">
+<h2>How to migrate the organizations app<a class="headerlink" href="#how-to-migrate-the-organizations-app" title="Link to this heading"></a></h2>
+<p>The migration can be split in:</p>
+<ol class="arabic simple">
+<li><p>Remove/simplify code from the organizations app on the corporate site.</p></li>
+<li><p>Isolate/separate models and code that isn’t going to be moved.</p></li>
+<li><p>Start by moving the models, managers, and figure out how to handle migrations.</p></li>
+<li><p>Move the rest of the code as needed.</p></li>
+<li><p>Activate organizations app on the community site.</p></li>
+<li><p>Integrate the code from the community site to the new code.</p></li>
+<li><p>UI changes</p></li>
+</ol>
+<p>We should start by removing unused features and dead code from the organizations in the corporate site,
+and simplify existing code if possible (some of this was already done).</p>
+<p>Isolate/separate the models to be moved from the ones that aren’t going to be moved.
+We should move the models that aren’t going to me moved to another app.</p>
+<ul class="simple">
+<li><p>Plan</p></li>
+<li><p>PlanFeature</p></li>
+<li><p>Subscription</p></li>
+</ul>
+<p>This app can be named <em>subscriptions</em>.
+We can get around the table names and migrations by setting the explicitly the table name to <code class="docutils literal notranslate"><span class="pre">organizations_&lt;model&gt;</span></code>,
+and doing a fake migration.
+Following suggestions in <a class="reference external" href="https://stackoverflow.com/questions/48860227/moving-multiple-models-from-one-django-app-to-another">https://stackoverflow.com/questions/48860227/moving-multiple-models-from-one-django-app-to-another</a>,
+that way we avoid having any downtime during the migration and any inconvenient caused from renaming the tables manually.</p>
+<p>Code related to subscriptions should be moved out from the organizations app.</p>
+<p>After that, it should be easier to move the organizations <em>app</em> (or part of it)
+to the community site (and no changes to table names would be required).</p>
+<p>We start by moving the models.</p>
+<ul class="simple">
+<li><p>Organization</p></li>
+<li><p>OrganizationOwner</p></li>
+<li><p>Team</p></li>
+<li><p>TeamInvite</p></li>
+<li><p>TeamMember</p></li>
+</ul>
+<p>Migrations aren’t moved, since all current migrations depend on other models that aren’t
+going to be moved.
+In the community site we run an initial migration,
+for the corporate site we run a fake migration.
+The migrations left from the commercial site can be removed after that.</p>
+<p>For managers and querysets that depend on subscriptions,
+we can use our pattern to make overridable classes (inheriting from <code class="docutils literal notranslate"><span class="pre">SettingsOverrideObject</span></code>).</p>
+<p>Templates, urls, views, forms, notifications, signals, tasks can be moved later
+(we just need to make use of the models from the <code class="docutils literal notranslate"><span class="pre">readthedocs.organizations</span></code> module).</p>
+<p>If we decide to integrate organizations in the community site,
+we can add/move the UI elements and enable the app.</p>
+<p>After the app is moved,
+we can move more code that depends on organizations to the community site.</p>
+</section>
+<section id="namespace">
+<h2>Namespace<a class="headerlink" href="#namespace" title="Link to this heading"></a></h2>
+<p>Currently we use the project’s slug as namespace,
+in the commercial site we use the combination of <code class="docutils literal notranslate"><span class="pre">organization.slug</span></code> + <code class="docutils literal notranslate"><span class="pre">project.slug</span></code> as namespace,
+since in the corporate site we don’t care so much about a unique namespace between all users,
+but a unique namespace per organization.</p>
+<p>For the community site probably this approach isn’t the best,
+since we always serve docs publicly from <code class="docutils literal notranslate"><span class="pre">slug.readthedocs.io</span></code>.
+And most of the users don’t have a custom domain.</p>
+<p>The corporate site will use <code class="docutils literal notranslate"><span class="pre">organization.slug</span></code> + <code class="docutils literal notranslate"><span class="pre">project.slug</span></code> as slug,
+And the community site will always use <code class="docutils literal notranslate"><span class="pre">project.slug</span></code> as slug, even if the project belongs to an organization.</p>
+<p>We need to refactor the way we get the namespace to be more easy to manage in both sites.</p>
+</section>
+<section id="future-changes">
+<h2>Future Changes<a class="headerlink" href="#future-changes" title="Link to this heading"></a></h2>
+<p>Changes that aren’t needed immediately after the migration,
+but that should be done:</p>
+<ul class="simple">
+<li><p>UI for organizations in the community site.</p></li>
+<li><p>Add new endpoints to the API (v3 only).</p></li>
+<li><p>Make the relationship between the models <code class="docutils literal notranslate"><span class="pre">Organization</span></code> and <code class="docutils literal notranslate"><span class="pre">Project</span></code> one to many
+(currently many to many).</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="new-sphinx-guides.html" class="btn btn-neutral float-left" title="Proposed contents for new Sphinx guides" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pr-builder.html" class="btn btn-neutral float-right" title="Design of pull request builder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

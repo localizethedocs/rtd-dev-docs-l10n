@@ -1,0 +1,509 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Collect data about builds" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/telemetry.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="We may want to take some decisions in the future about deprecations and supported versions. Right now we don&#x27;t have data about the usage of packages and their versions on Read the Docs to be able to make an informed decision. 工具, Data to be collected- 組態檔, PIP 軟體包, Conda 軟體包, APT 軟體包, Python..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="We may want to take some decisions in the future about deprecations and supported versions. Right now we don&#x27;t have data about the usage of packages and their versions on Read the Docs to be able to make an informed decision. 工具, Data to be collected- 組態檔, PIP 軟體包, Conda 軟體包, APT 軟體包, Python..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collect data about builds &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/telemetry.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=80428b84"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=cbf116e0"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="Read the Docs data passed to Sphinx build context" href="theme-context.html" />
+    <link rel="prev" title="Allow installation of system packages" href="system-packages.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">一般</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">行為守則</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">議題標籤概覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">路線圖</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">設計文件</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Collect data about builds</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tools">工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-to-be-collected">Data to be collected</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-file">組態檔</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pip-packages">PIP 軟體包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conda-packages">Conda 軟體包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apt-packages">APT 軟體包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#os">OS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#format">Format</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#storage">Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">開發</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">開發安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">開發指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">設計 Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">文件風格指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">前端開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">國際化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">資料庫遷移</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">訂閱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">有趣的設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">測試</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">設計文件</a></li>
+      <li class="breadcrumb-item active">Collect data about builds</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/telemetry.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="collect-data-about-builds">
+<h1>Collect data about builds<a class="headerlink" href="#collect-data-about-builds" title="連結到這個標頭"></a></h1>
+<p>We may want to take some decisions in the future about deprecations and supported versions.
+Right now we don't have data about the usage of packages and their versions on Read the Docs
+to be able to make an informed decision.</p>
+<nav class="contents local" id="id1">
+<ul class="simple">
+<li><p><a class="reference internal" href="#tools" id="id2">工具</a></p></li>
+<li><p><a class="reference internal" href="#data-to-be-collected" id="id3">Data to be collected</a></p>
+<ul>
+<li><p><a class="reference internal" href="#configuration-file" id="id4">組態檔</a></p></li>
+<li><p><a class="reference internal" href="#pip-packages" id="id5">PIP 軟體包</a></p></li>
+<li><p><a class="reference internal" href="#conda-packages" id="id6">Conda 軟體包</a></p></li>
+<li><p><a class="reference internal" href="#apt-packages" id="id7">APT 軟體包</a></p></li>
+<li><p><a class="reference internal" href="#python" id="id8">Python</a></p></li>
+<li><p><a class="reference internal" href="#os" id="id9">OS</a></p></li>
+<li><p><a class="reference internal" href="#format" id="id10">Format</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#storage" id="id11">Storage</a></p></li>
+</ul>
+</nav>
+<section id="tools">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">工具</a><a class="headerlink" href="#tools" title="連結到這個標頭"></a></h2>
+<dl class="simple">
+<dt>Kibana:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://www.elastic.co/kibana">https://www.elastic.co/kibana</a></p></li>
+<li><p>We can import data from ES.</p></li>
+<li><p>Cloud service provided by Elastic.</p></li>
+</ul>
+</dd>
+<dt>Superset:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://superset.apache.org/">https://superset.apache.org/</a></p></li>
+<li><p>We can import data from several DBs (including postgres and ES).</p></li>
+<li><p>Easy to setup locally, but doesn't look like there is cloud provider for it.</p></li>
+</ul>
+</dd>
+<dt>Metabase:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://www.metabase.com/">https://www.metabase.com/</a></p></li>
+<li><p>We can import data from several DBs (including postgres).</p></li>
+<li><p>Cloud service provided by Metabase.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Summary: We have several tools that can inspect data form a postgres DB,
+and we also have <code class="docutils literal notranslate"><span class="pre">Kibana</span></code> that works <em>only</em> with ElasticSearch.
+The data to be collected can be saved in a postgres or ES database.
+Currently, we are making use of Metabase to get other information,
+so it's probably the right choice for this task.</p>
+</section>
+<section id="data-to-be-collected">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Data to be collected</a><a class="headerlink" href="#data-to-be-collected" title="連結到這個標頭"></a></h2>
+<p>The following data can be collected after installing all dependencies.</p>
+<section id="configuration-file">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">組態檔</a><a class="headerlink" href="#configuration-file" title="連結到這個標頭"></a></h3>
+<p>We are saving the config file in our database,
+but to save some space we are saving it only if it's different than the one from a previous build
+(if it's the same we save a reference to it).</p>
+<p>The config file being saved isn't the original one used by the user,
+but the result of merging it with its default values.</p>
+<p>We may also want to have the original config file,
+so we know which settings users are using.</p>
+</section>
+<section id="pip-packages">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">PIP 軟體包</a><a class="headerlink" href="#pip-packages" title="連結到這個標頭"></a></h3>
+<p>We can get a json with all and root dependencies with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span></code>.
+This will allow us to have the name of the packages and their versions used in the build.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip list --pre --local --format json | jq
+# and
+$ pip list --pre --not-required --local --format json | jq
+[
+   {
+      &quot;name&quot;: &quot;requests-mock&quot;,
+      &quot;version&quot;: &quot;1.8.0&quot;
+   },
+   {
+      &quot;name&quot;: &quot;requests-toolbelt&quot;,
+      &quot;version&quot;: &quot;0.9.1&quot;
+   },
+   {
+      &quot;name&quot;: &quot;rstcheck&quot;,
+      &quot;version&quot;: &quot;3.3.1&quot;
+   },
+   {
+      &quot;name&quot;: &quot;selectolax&quot;,
+      &quot;version&quot;: &quot;0.2.10&quot;
+   },
+   {
+      &quot;name&quot;: &quot;slumber&quot;,
+      &quot;version&quot;: &quot;0.7.1&quot;
+   },
+   {
+      &quot;name&quot;: &quot;sphinx-autobuild&quot;,
+      &quot;version&quot;: &quot;2020.9.1&quot;
+   },
+   {
+      &quot;name&quot;: &quot;sphinx-hoverxref&quot;,
+      &quot;version&quot;: &quot;0.5b1&quot;
+   },
+]
+</pre></div>
+</div>
+<p>With the <code class="docutils literal notranslate"><span class="pre">--not-required</span></code> option, pip will list only the root dependencies.</p>
+</section>
+<section id="conda-packages">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Conda 軟體包</a><a class="headerlink" href="#conda-packages" title="連結到這個標頭"></a></h3>
+<p>We can get a json with all dependencies with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">list</span> <span class="pre">--json</span></code>.
+That command gets all the root dependencies and their dependencies
+(there is no way to list only the root dependencies),
+so we may be collecting some noise, but we can use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span></code> as a secondary source.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda list --json --name conda-env
+
+[
+   {
+      &quot;base_url&quot;: &quot;https://conda.anaconda.org/conda-forge&quot;,
+      &quot;build_number&quot;: 0,
+      &quot;build_string&quot;: &quot;py_0&quot;,
+      &quot;channel&quot;: &quot;conda-forge&quot;,
+      &quot;dist_name&quot;: &quot;alabaster-0.7.12-py_0&quot;,
+      &quot;name&quot;: &quot;alabaster&quot;,
+      &quot;platform&quot;: &quot;noarch&quot;,
+      &quot;version&quot;: &quot;0.7.12&quot;
+   },
+   {
+      &quot;base_url&quot;: &quot;https://conda.anaconda.org/conda-forge&quot;,
+      &quot;build_number&quot;: 0,
+      &quot;build_string&quot;: &quot;pyh9f0ad1d_0&quot;,
+      &quot;channel&quot;: &quot;conda-forge&quot;,
+      &quot;dist_name&quot;: &quot;asn1crypto-1.4.0-pyh9f0ad1d_0&quot;,
+      &quot;name&quot;: &quot;asn1crypto&quot;,
+      &quot;platform&quot;: &quot;noarch&quot;,
+      &quot;version&quot;: &quot;1.4.0&quot;
+   },
+   {
+      &quot;base_url&quot;: &quot;https://conda.anaconda.org/conda-forge&quot;,
+      &quot;build_number&quot;: 3,
+      &quot;build_string&quot;: &quot;3&quot;,
+      &quot;channel&quot;: &quot;conda-forge&quot;,
+      &quot;dist_name&quot;: &quot;python-3.5.4-3&quot;,
+      &quot;name&quot;: &quot;python&quot;,
+      &quot;platform&quot;: &quot;linux-64&quot;,
+      &quot;version&quot;: &quot;3.5.4&quot;
+   }
+]
+</pre></div>
+</div>
+</section>
+<section id="apt-packages">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">APT 軟體包</a><a class="headerlink" href="#apt-packages" title="連結到這個標頭"></a></h3>
+<p>We can get the list from the config file,
+or we can list the packages installed with <code class="docutils literal notranslate"><span class="pre">dpkg</span> <span class="pre">--get-selections</span></code>.
+That command would list all pre-installed packages as well, so we may be getting some noise.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>dpkg<span class="w"> </span>--get-selections
+
+<span class="go">adduser                                         install</span>
+<span class="go">apt                                             install</span>
+<span class="go">base-files                                      install</span>
+<span class="go">base-passwd                                     install</span>
+<span class="go">bash                                            install</span>
+<span class="go">binutils                                        install</span>
+<span class="go">binutils-common:amd64                           install</span>
+<span class="go">binutils-x86-64-linux-gnu                       install</span>
+<span class="go">bsdutils                                        install</span>
+<span class="go">build-essential                                 install</span>
+</pre></div>
+</div>
+<p>We can get the installed version with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>dpkg<span class="w"> </span>--status<span class="w"> </span>python3
+
+<span class="go">Package: python3</span>
+<span class="go">Status: install ok installed</span>
+<span class="go">Priority: optional</span>
+<span class="go">Section: python</span>
+<span class="go">Installed-Size: 189</span>
+<span class="go">Maintainer: Ubuntu Developers &lt;ubuntu-devel-discuss@lists.ubuntu.com&gt;</span>
+<span class="go">Architecture: amd64</span>
+<span class="go">Multi-Arch: allowed</span>
+<span class="go">Source: python3-defaults</span>
+<span class="go">Version: 3.8.2-0ubuntu2</span>
+<span class="go">Replaces: python3-minimal (&lt;&lt; 3.1.2-2)</span>
+<span class="go">Provides: python3-profiler</span>
+<span class="go">Depends: python3.8 (&gt;= 3.8.2-1~), libpython3-stdlib (= 3.8.2-0ubuntu2)</span>
+<span class="go">Pre-Depends: python3-minimal (= 3.8.2-0ubuntu2)</span>
+<span class="go">Suggests: python3-doc (&gt;= 3.8.2-0ubuntu2), python3-tk (&gt;= 3.8.2-1~), python3-venv (&gt;= 3.8.2-0ubuntu2)</span>
+<span class="go">Description: interactive high-level object-oriented language (default python3 version)</span>
+<span class="go">Python, the high-level, interactive object oriented language,</span>
+<span class="go">includes an extensive class library with lots of goodies for</span>
+<span class="go">network programming, system administration, sounds and graphics.</span>
+<span class="go">.</span>
+<span class="go">This package is a dependency package, which depends on Debian&#39;s default</span>
+<span class="go">Python 3 version (currently v3.8).</span>
+<span class="go">Homepage: https://www.python.org/</span>
+<span class="go">Original-Maintainer: Matthias Klose &lt;doko@debian.org&gt;</span>
+</pre></div>
+</div>
+<p>Or with</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>apt-cache<span class="w"> </span>policy<span class="w"> </span>python3
+
+<span class="go">Installed: 3.8.2-0ubuntu2</span>
+<span class="go">Candidate: 3.8.2-0ubuntu2</span>
+<span class="go">Version table:</span>
+<span class="go">*** 3.8.2-0ubuntu2 500</span>
+<span class="go">      500 http://archive.ubuntu.com/ubuntu focal/main amd64 Packages</span>
+<span class="go">      100 /var/lib/dpkg/status</span>
+</pre></div>
+</div>
+</section>
+<section id="python">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Python</a><a class="headerlink" href="#python" title="連結到這個標頭"></a></h3>
+<p>We can get the Python version from the config file when using a Python environment,
+and from the <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">list</span></code> output when using a Conda environment.</p>
+</section>
+<section id="os">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">OS</a><a class="headerlink" href="#os" title="連結到這個標頭"></a></h3>
+<p>We can infer the OS version from the build image used in the config file,
+but since it changes with time, we can get it from the OS itself:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lsb_release --description
+Description:    Ubuntu 18.04.5 LTS
+# or
+$ cat /etc/issue
+Ubuntu 18.04.5 LTS \n \l
+</pre></div>
+</div>
+</section>
+<section id="format">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Format</a><a class="headerlink" href="#format" title="連結到這個標頭"></a></h3>
+<p>The final information to be saved would consist of:</p>
+<ul class="simple">
+<li><p>organization: the organization id/slug</p></li>
+<li><p>project: the project id/slug</p></li>
+<li><p>version: the version id/slug</p></li>
+<li><p>build: the build id, date, length, status.</p></li>
+<li><p>user_config: Original user config file</p></li>
+<li><p>final_config: Final configuration used (merged with defaults)</p></li>
+<li><p>packages.pip: List of pip packages with name and version</p></li>
+<li><p>packages.conda: List of conda packages with name, channel, and version</p></li>
+<li><p>packages.apt: List of apt packages</p></li>
+<li><p>python: Python version used</p></li>
+<li><p>os: Operating system used</p></li>
+</ul>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;organization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;docs&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;latest&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;date/start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-04-20-...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;00:06:34&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normal&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;commit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcd1234&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">    </span><span class="nt">&quot;final&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;packages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nt">&quot;pip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sphinx&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.4.5&quot;</span>
+<span class="w">     </span><span class="p">}],</span>
+<span class="w">     </span><span class="nt">&quot;pip_all&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sphinx&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.4.5&quot;</span>
+<span class="w">       </span><span class="p">},</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;docutils&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.16.0&quot;</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;conda&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sphinx&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;channel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;conda-forge&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1&quot;</span>
+<span class="w">     </span><span class="p">}],</span>
+<span class="w">     </span><span class="nt">&quot;apt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python3-dev&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.8.2-0ubuntu2&quot;</span>
+<span class="w">     </span><span class="p">}],</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;python&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ubuntu-18.04.5&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="storage">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Storage</a><a class="headerlink" href="#storage" title="連結到這個標頭"></a></h2>
+<p>All this information can be collected after the build has finished,
+and we can store it in a dedicated database (telemetry), using Django's models.</p>
+<p>Since this information isn't sensitive,
+we should be fine saving this data even if the project/version is deleted.
+As we don't care about historical data,
+we can save the information per-version and from their latest build only.
+And delete old data if it grows too much.</p>
+<p>Should we make heavy use of JSON fields?
+Or try to avoid nesting structures as possible?
+Like config.user/config.final vs user_config/final_config.
+Or having several fields in our model instead of just one big json field?</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="system-packages.html" class="btn btn-neutral float-left" title="Allow installation of system packages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="theme-context.html" class="btn btn-neutral float-right" title="Read the Docs data passed to Sphinx build context" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
