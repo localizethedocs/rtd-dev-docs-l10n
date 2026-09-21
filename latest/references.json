@@ -37,9 +37,9 @@
     "branch" : "main",
     "commit" : 
     {
-      "date" : "2026-06-01 12:01:03 +0300",
-      "hash" : "987576a458ae0cf7336192da2b9d04114c50eeaa",
-      "title" : "Tests: Reduce tests log levels (#13064)"
+      "date" : "2026-09-21 14:56:15 +0200",
+      "hash" : "5ee566597eb32ed1fc2d75ee59dda4fc295f329d",
+      "title" : "Docs: use offline formats instead of downloadable documentation (#13322)"
     }
   },
   "type" : "branch",
