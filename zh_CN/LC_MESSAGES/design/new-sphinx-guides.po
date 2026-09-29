@@ -1,0 +1,539 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation stable\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-25 08:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../design/new-sphinx-guides.rst:2
+msgid "Proposed contents for new Sphinx guides"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:6
+msgid ""
+"This work is in progress, see discussion on `this Sphinx issue <https://"
+"github.com/sphinx-doc/sphinx/issues/9165>`_ and the pull requests linked at "
+"the end."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:10
+msgid "The two main objectives are:"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:12
+msgid ""
+"Contributing a good Sphinx tutorial for beginners. This should introduce the "
+"readers to all the various Sphinx major features in a pedagogical way, and "
+"be mostly focused on Markdown using MyST. We would try to find a place for "
+"it in the official Sphinx documentation."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:16
+msgid ""
+"Write a new narrative tutorial for Read the Docs that complements the "
+"existing guides and offers a cohesive story of how to use the service."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:21
+msgid "Sphinx tutorial"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:23
+msgid ""
+"Appendixes are optional, i.e. not required to follow the tutorial, but "
+"highly recommended."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:26
+msgid "The Sphinx way"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:28
+msgid ""
+"Preliminary section giving an overview of what Sphinx is, how it works, how "
+"reStructuredText and Markdown/MyST are related to it, some terminology "
+"(toctree, builders), what can be done with it."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:32
+msgid "About this tutorial"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:34
+msgid ""
+"A section explaining the approach of the tutorial, as well as how to "
+"download the result of each section for closer inspection or for skipping "
+"parts of it."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:38
+#: ../../../design/new-sphinx-guides.rst:157
+msgid "Getting started"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:40
+msgid "Creating our project"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:42
+msgid "Present a fictitious goal for a documentation project"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:43
+msgid ""
+"Create a blank ``README.md`` to introduce the most basic elements of "
+"Markdown (headings and paragraph text)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:46
+msgid "Installing Sphinx and cookiecutter in a new development environment"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:48
+msgid "Install Python (or miniforge)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:49
+msgid "Create a virtual environment (and/or conda environment)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:50
+msgid "Activate our virtual environment (it will always be the first step)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:52
+msgid "Install Sphinx inside the virtual environment"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:53
+msgid "Check that ``sphinx-build --help`` works (yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:55
+msgid "Creating the documentation layout"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:57
+msgid ""
+"Apply our cookiecutter to create a minimal ``docs/`` directory (similar to "
+"what ``sphinx-quickstart`` does, but with source and build separation by "
+"default, project release 0.1, English language, and a MyST index, if at all) "
+"[1]_"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:62
+msgid "Check that the correct files are created (yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:64
+msgid "Appendix: Using version control"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:66
+msgid "Install git (we will not use it during the tutorial)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:67
+msgid "Add a proper ``.gitignore`` file (copied from gitignore.io)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:68
+msgid "Create the first commit for the project (yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:70
+msgid "First steps to document our project using Sphinx"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:72
+msgid "Converting our documentation to local HTML"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:74
+msgid "Create (or minimally tweak) ``index.md``"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:75
+msgid ""
+"Build the HTML output using ``sphinx-build -b -W html doc doc/_build/html``  "
+"[2]_"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:77
+msgid ""
+"Navigate to ``doc/_build/html`` and launch an HTTP server (``python -m http."
+"server``)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:79
+msgid ""
+"Open http://localhost:8000 in a web browser, and see the HTML documentation "
+"(yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:82
+msgid "Converting our documentation to other formats"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:84
+msgid "Build PseudoXML using ``make pseudoxml``"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:85
+msgid "Build Text using ``make text``"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:86
+msgid "See how the various formats change the output (yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:88
+msgid "Appendix: Simplify documentation building by using Make [3]_"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:90
+msgid "Install Make (nothing is needed on Windows, `make.bat` is standalone)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:91
+msgid "Add more content to ``index.md``"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:92
+msgid "Build HTML doing ``cd doc && make html``"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:93
+msgid "Observe that the HTML docs have changed (yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:95
+msgid "Appendix: PDF without LaTeX using rinoh (beta)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:97
+msgid "Customizing Sphinx configuration"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:99
+msgid "Changing the HTML theme"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:101
+msgid "Install https://pypi.org/project/furo/"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:102
+msgid "Change the ``html_theme`` in ``conf.py``"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:103
+msgid ""
+"Rebuild the HTML documentation and observe that the theme has changed (yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:106
+msgid "Changing the PDF appearance"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:108
+msgid "Add a ``latex_theme`` and set it to ``howto``"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:109
+msgid "Rebuild ``make latexpdf``"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:110
+msgid "Check that the appearance changed (yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:112
+msgid "Enable an extension"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:114
+msgid ""
+"Add a string to the ``extensions`` list in ``conf.py`` for ``sphinx.ext."
+"duration``"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:116
+msgid ""
+"Rebuild the HTML docs ``make html`` and notice that now the times are "
+"printed (yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:119
+msgid "Writing narrative documentation with Sphinx"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:121
+msgid ""
+"First focus on ``index.md``, diving more into Markdown and mentioning "
+"Semantic Line Breaks."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:123
+msgid "Then add another ``.md`` file to teach how ``toctree`` works."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:124
+msgid ""
+"Then continue introducing elements of the syntax to add pictures, cross-"
+"references, and the like."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:127
+msgid "Describing code in Sphinx"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:129
+msgid ""
+"Explain the Python domain as part of narrative documentation to interleave "
+"code with text, include doctests, and justify the usefulness of the next "
+"section."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:133
+msgid "Autogenerating documentation from code in Sphinx"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:134
+msgid "Deploying a Sphinx project online"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:136
+msgid ""
+"A bit of background on the options: GitHub/GitLab Pages, custom server, "
+"Netlify, Read the Docs"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:138
+msgid "Make reference to Read the Docs tutorial"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:140
+msgid "Appendix: Using Jupyter notebooks inside Sphinx"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:141
+msgid "Appendix: Understanding the docutils document tree"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:142
+msgid "Appendix: Where to go from here"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:144
+msgid ""
+"Refer the user to the Sphinx, reST and MyST references, prominent projects "
+"already using Sphinx, compilations of themes and extensions, the development "
+"documentation."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:154
+msgid "Read the Docs tutorial"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:156
+msgid "The Read the Docs way"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:159
+msgid "Preparing our project on GitHub"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:161
+msgid ""
+"Fork a starter GitHub repository (something like `our demo template <https://"
+"github.com/readthedocs/template>`_, as a starting point that helps mimicking "
+"the `sphinx-quickstart` or `cookiecutter` step without having to checkout "
+"the code locally)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:167
+msgid "Importing our project to Read the Docs"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:169
+msgid "Sign up with GitHub on RTD"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:170
+msgid ""
+"Import the project (don't \"Edit advanced project options\", we will do this "
+"later)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:172
+msgid "The project is created on RTD"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:173
+msgid ""
+"Browse \"builds\", open the build live logs, wait a couple of minutes, open "
+"the docs (yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:176
+msgid "Basic configuration changes"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:178
+msgid "Add a description, homepage, and tags"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:179
+msgid ""
+"Configure your email for build failure notification (until we turn them on "
+"by default)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:181
+msgid ""
+"Enable \"build pull requests for this project\" in the advanced settings"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:182
+msgid ""
+"Edit a file from the GitHub UI as part of a new branch, and open a pull "
+"request"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:183
+msgid ""
+"See the RTD check on the GitHub PR UI, wait a few minutes, open result (yay!)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:185
+msgid "Customizing the build process"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:187
+msgid ""
+"Use `.readthedocs.yaml` (rather than the web UI) to customize build formats, "
+"change build requirements and Python version, enable fail-on-warnings"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:190
+msgid "Versioning documentation"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:192
+msgid ""
+"Explain how to manage versions on RTD: create release branches, activate the "
+"corresponding version, browse them in the version selector, selectively "
+"build versions"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:195
+msgid "Intermediate topics: hide versions, create Automation Rules"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:197
+msgid "Getting insights from your projects"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:199
+msgid "Move around the project, explore results in Traffic Analytics"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:200
+msgid ""
+"Play around with server-side search, explore results in Search Analytics"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:202
+msgid "Managing translations"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:204
+msgid "Where to go from here"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:206
+msgid ""
+"Reference our existing guides, prominent projects already using RTD, domain "
+"configuration, our support form, our contributing documentation"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:210
+msgid "Possible new how-to Guides"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:212
+msgid ""
+"Some ideas for extra guides on specific topics, still for beginners but more "
+"problem-oriented documents, covering a wide range of use cases:"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:216
+msgid "How to turn a bunch of Markdown files into a Sphinx project"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:217
+msgid "How to turn a bunch of Jupyter notebooks into a Sphinx project"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:218
+msgid "How to localize an existing Sphinx project"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:219
+msgid "How to customize the appearance of the HTML output of a Sphinx project"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:221
+msgid "How to convert existing reStructuredText documentation to Markdown"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:222
+msgid "How to use Doxygen autogenerated documentation inside a Sphinx project"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:224
+msgid "How to keep a changelog of your project"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:227
+msgid "Reference"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:229
+msgid ""
+"All the references should be external: the Sphinx reference, the MyST and "
+"reST syntax specs, and so forth."
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:233
+msgid ""
+"Similar to https://github.com/sphinx-contrib/cookiecutter, but only for the "
+"`docs/` directory? This way it can be less opinionated about everything else"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:237
+msgid ""
+"At first I considered “make mode”, but the current maintainers don’t know "
+"much about its original intent (see `my comment here <https://github.com/"
+"sphinx-doc/sphinx/issues/3196#issuecomment-819529513>`__ and the discussion "
+"after it)"
+msgstr ""
+
+#: ../../../design/new-sphinx-guides.rst:242
+msgid ""
+"There have been attempts at creating a `sphinx` command, see `this pull "
+"request <https://github.com/sphinx-doc/sphinx/pull/6938/>`__"
+msgstr ""
