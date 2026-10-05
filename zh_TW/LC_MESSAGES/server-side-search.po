@@ -1,0 +1,215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Read the Docs, Inc & contributors
+# This file is distributed under the same license as the Read the Docs developer documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Read the Docs developer documentation latest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-27 08:22+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../server-side-search.rst:2
+msgid "Server side search"
+msgstr ""
+
+#: ../../../server-side-search.rst:4
+msgid ""
+"Read the Docs uses Elasticsearch_ instead of the built in Sphinx search for "
+"providing better search results. Documents are indexed in the Elasticsearch "
+"index and the search is made through the API. All the Search Code is open "
+"source and lives in the `GitHub Repository`_. Currently we are using "
+"`Elasticsearch 6.3`_."
+msgstr ""
+
+#: ../../../server-side-search.rst:10
+msgid "Local development configuration"
+msgstr ""
+
+#: ../../../server-side-search.rst:12
+msgid ""
+"Elasticsearch is installed and run as part of the :doc:`development "
+"installation guide </install>`."
+msgstr ""
+
+#: ../../../server-side-search.rst:15
+msgid "Indexing into Elasticsearch"
+msgstr ""
+
+#: ../../../server-side-search.rst:17
+msgid ""
+"For using search, you need to index data to the Elasticsearch Index. Run "
+"``reindex_elasticsearch`` management command:"
+msgstr ""
+
+#: ../../../server-side-search.rst:23
+msgid "inv docker.manage reindex_elasticsearch"
+msgstr ""
+
+#: ../../../server-side-search.rst:24
+msgid ""
+"For performance optimization, we implemented our own version of management "
+"command rather than the built in management command provided by the `django-"
+"elasticsearch-dsl`_ package."
+msgstr ""
+
+#: ../../../server-side-search.rst:28
+msgid "Auto indexing"
+msgstr ""
+
+#: ../../../server-side-search.rst:30
+msgid ""
+"By default, Auto Indexing is turned off in development mode. To turn it on, "
+"change the ``ELASTICSEARCH_DSL_AUTOSYNC`` settings to `True` in the "
+"`readthedocs/settings/dev.py` file. After that, whenever a documentation "
+"successfully builds, or project gets added, the search index will update "
+"automatically."
+msgstr ""
+
+#: ../../../server-side-search.rst:36
+msgid "Architecture"
+msgstr ""
+
+#: ../../../server-side-search.rst:37
+msgid "The search architecture is divided into 2 parts."
+msgstr ""
+
+#: ../../../server-side-search.rst:39
+msgid ""
+"One part is responsible for **indexing** the documents and projects "
+"(``documents.py``)"
+msgstr ""
+
+#: ../../../server-side-search.rst:40
+msgid ""
+"The other part is responsible for **querying** the Index to show the proper "
+"results to users (``faceted_search.py``)"
+msgstr ""
+
+#: ../../../server-side-search.rst:42
+msgid ""
+"We use the `django-elasticsearch-dsl`_ package for our Document abstraction. "
+"`django-elasticsearch-dsl`_ is a wrapper around `elasticsearch-dsl`_ for "
+"easy configuration with Django."
+msgstr ""
+
+#: ../../../server-side-search.rst:47
+msgid "Indexing"
+msgstr ""
+
+#: ../../../server-side-search.rst:49
+msgid ""
+"All the Sphinx documents are indexed into Elasticsearch after the build is "
+"successful. Currently, we do not index MkDocs documents to elasticsearch, "
+"but `any kind of help is welcome <https://github.com/readthedocs/readthedocs."
+"org/issues/1088>`_."
+msgstr ""
+
+#: ../../../server-side-search.rst:54
+msgid "Troubleshooting"
+msgstr ""
+
+#: ../../../server-side-search.rst:56
+msgid "If you get an error like::"
+msgstr ""
+
+#: ../../../server-side-search.rst:58
+msgid ""
+"RequestError(400, 'search_phase_execution_exception', 'failed to create "
+"query: ..."
+msgstr ""
+
+#: ../../../server-side-search.rst:60
+msgid ""
+"You can fix this by deleting the page index and :ref:`re-indexing <server-"
+"side-search:indexing into elasticsearch>`:"
+msgstr ""
+
+#: ../../../server-side-search.rst:66
+msgid ""
+"inv docker.manage 'search_index --delete'\n"
+"inv docker.manage 'reindex_elasticsearch --queue web'"
+msgstr ""
+
+#: ../../../server-side-search.rst:68
+msgid "How we index documentations"
+msgstr ""
+
+#: ../../../server-side-search.rst:70
+msgid ""
+"After any build is successfully finished, `HTMLFile` objects are created for "
+"each of the ``HTML`` files and the old version's `HTMLFile` object is "
+"deleted. By default, `django-elasticsearch-dsl`_ package listens to the "
+"`post_create`/`post_delete` signals to index/delete documents, but it has "
+"performance drawbacks as it send HTTP request whenever any `HTMLFile` "
+"objects is created or deleted. To optimize the performance, "
+"`bulk_post_create` and `bulk_post_delete` signals_ are dispatched with list "
+"of `HTMLFIle` objects so its possible to bulk index documents in "
+"elasticsearch ( `bulk_post_create` signal is dispatched for created and "
+"`bulk_post_delete` is dispatched for deleted objects). Both of the signals "
+"are dispatched with the list of the instances of `HTMLFile` in "
+"`instance_list` parameter."
+msgstr ""
+
+#: ../../../server-side-search.rst:80
+msgid ""
+"We listen to the `bulk_post_create` and `bulk_post_delete` signals in our "
+"`Search` application and index/delete the documentation content from the "
+"`HTMLFile` instances."
+msgstr ""
+
+#: ../../../server-side-search.rst:85
+msgid "How we index projects"
+msgstr ""
+
+#: ../../../server-side-search.rst:87
+msgid ""
+"We also index project information in our search index so that the user can "
+"search for projects from the main site. We listen to the `post_create` and "
+"`post_delete` signals of `Project` model and index/delete into Elasticsearch "
+"accordingly."
+msgstr ""
+
+#: ../../../server-side-search.rst:93
+msgid "Elasticsearch document"
+msgstr ""
+
+#: ../../../server-side-search.rst:95
+msgid ""
+"`elasticsearch-dsl`_ provides a model-like wrapper for `the Elasticsearch "
+"document`_. As per requirements of `django-elasticsearch-dsl`_, it is stored "
+"in the `readthedocs/search/documents.py` file."
+msgstr ""
+
+#: ../../../server-side-search.rst:99
+msgid ""
+"**ProjectDocument:** It is used for indexing projects. Signal listener of "
+"`django-elasticsearch-dsl`_ listens to the `post_save` signal of `Project` "
+"model and then index/delete into Elasticsearch."
+msgstr ""
+
+#: ../../../server-side-search.rst:103
+msgid ""
+"**PageDocument**: It is used for indexing documentation of projects. As "
+"mentioned above, our `Search` app listens to the `bulk_post_create` and "
+"`bulk_post_delete` signals and indexes/deleted documentation into "
+"Elasticsearch. The signal listeners are in the `readthedocs/search/signals."
+"py` file. Both of the signals are dispatched after a successful "
+"documentation build."
+msgstr ""
+
+#: ../../../server-side-search.rst:109
+msgid ""
+"The fields and ES Datatypes are specified in the `PageDocument`. The "
+"indexable data is taken from `processed_json` property of `HTMLFile`. This "
+"property provides python dictionary with document data like `title`, "
+"`sections`, `path` etc."
+msgstr ""
