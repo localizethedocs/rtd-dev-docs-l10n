@@ -37,9 +37,9 @@
     "branch" : "main",
     "commit" : 
     {
-      "date" : "2026-06-01 12:01:03 +0300",
-      "hash" : "987576a458ae0cf7336192da2b9d04114c50eeaa",
-      "title" : "Tests: Reduce tests log levels (#13064)"
+      "date" : "2026-10-05 17:43:03 +0200",
+      "hash" : "aac3843b455dd983b46246a65b0524ed3a2f8ff3",
+      "title" : "Tests: fix tests on corporate for direct upload (#13368)"
     }
   },
   "type" : "branch",
