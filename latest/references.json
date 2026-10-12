@@ -37,9 +37,9 @@
     "branch" : "main",
     "commit" : 
     {
-      "date" : "2026-06-01 12:01:03 +0300",
-      "hash" : "987576a458ae0cf7336192da2b9d04114c50eeaa",
-      "title" : "Tests: Reduce tests log levels (#13064)"
+      "date" : "2026-10-08 17:27:29 +0200",
+      "hash" : "01c933ef544963a3ad7100b9ad7d4e91b0d5177d",
+      "title" : "Storage: log rclone's stderr when a command fails (#13416)"
     }
   },
   "type" : "branch",
