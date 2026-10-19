@@ -37,9 +37,9 @@
     "branch" : "main",
     "commit" : 
     {
-      "date" : "2026-06-01 12:01:03 +0300",
-      "hash" : "987576a458ae0cf7336192da2b9d04114c50eeaa",
-      "title" : "Tests: Reduce tests log levels (#13064)"
+      "date" : "2026-10-19 13:38:31 +0200",
+      "hash" : "f0982da6b9b7dd52a360c0c7aa0292db4e237c2c",
+      "title" : "Upload: say why an uploaded build was cancelled (#13433)"
     }
   },
   "type" : "branch",
