@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Allow installation of system packages" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/system-packages.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Currently we don’t allow executing arbitrary commands in the build process. The more common use case is to install extra dependencies. Current status, Security concerns, Exposing apt install, Using docker exec, Config file, Possible problems, Other possible solutions. Current status: There is a w..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Currently we don’t allow executing arbitrary commands in the build process. The more common use case is to install extra dependencies. Current status, Security concerns, Exposing apt install, Using docker exec, Config file, Possible problems, Other possible solutions. Current status: There is a w..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Allow installation of system packages &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/system-packages.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=410ae970"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Collect data about builds" href="telemetry.html" />
+    <link rel="prev" title="sphinxcontrib-jquery" href="sphinx-jquery.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Allow installation of system packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#current-status">Current status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#security-concerns">Security concerns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exposing-apt-install">Exposing <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-docker-exec">Using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config-file">Config file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#possible-problems">Possible problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-possible-solutions">Other possible solutions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">Allow installation of system packages</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/system-packages.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="allow-installation-of-system-packages">
+<h1>Allow installation of system packages<a class="headerlink" href="#allow-installation-of-system-packages" title="Link to this heading"></a></h1>
+<p>Currently we don’t allow executing arbitrary commands in the build process.
+The more common use case is to install extra dependencies.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#current-status" id="id2">Current status</a></p></li>
+<li><p><a class="reference internal" href="#security-concerns" id="id3">Security concerns</a></p></li>
+<li><p><a class="reference internal" href="#exposing-apt-install" id="id4">Exposing <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span></code></a></p></li>
+<li><p><a class="reference internal" href="#using-docker-exec" id="id5">Using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span></code></a></p></li>
+<li><p><a class="reference internal" href="#config-file" id="id6">Config file</a></p></li>
+<li><p><a class="reference internal" href="#possible-problems" id="id7">Possible problems</a></p></li>
+<li><p><a class="reference internal" href="#other-possible-solutions" id="id8">Other possible solutions</a></p></li>
+</ul>
+</nav>
+<section id="current-status">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Current status</a><a class="headerlink" href="#current-status" title="Link to this heading"></a></h2>
+<p>There is a workaround when using Sphinx to run arbitrary commands,
+this is executing the commands inside the <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> file.
+There isn’t a workaround for MkDocs, but this problem is more common in Sphinx,
+since users need to install some extra dependencies in order to use autodoc or build Jupyter Notebooks.</p>
+<p>However, installation of some dependencies require root access,
+or are easier to install using <code class="docutils literal notranslate"><span class="pre">apt</span></code>.
+Most of the CI services allow to use <code class="docutils literal notranslate"><span class="pre">apt</span></code> or execute any command with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>,
+so users are more familiar with that workflow.</p>
+<p>Some users use Conda instead of pip to install dependencies in order to avoid these problems,
+but not all pip users are familiar with Conda, or want to migrate to Conda just to use Read the Docs.</p>
+</section>
+<section id="security-concerns">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Security concerns</a><a class="headerlink" href="#security-concerns" title="Link to this heading"></a></h2>
+<p>Builds are run in a Docker container,
+but the app controlling that container lives in the same server.
+Allowing to execute arbitrary commands with super user privileges may introduce some security issues.</p>
+</section>
+<section id="exposing-apt-install">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Exposing <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span></code></a><a class="headerlink" href="#exposing-apt-install" title="Link to this heading"></a></h2>
+<p>For the previous reasons we won’t allow to execute arbitrary commands with root (yet),
+but instead allow only to install extra packages using <code class="docutils literal notranslate"><span class="pre">apt</span></code>.</p>
+<p>We would expose this through the config file.
+Users will provide a list of packages to install, and under the hook we would run:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">update</span> <span class="pre">-y</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">{packages}</span></code></p></li>
+</ul>
+<p>These commands will be run before the Python setup step and after the clone step.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All package names must be validated to avoid injection of extra options
+(like <code class="docutils literal notranslate"><span class="pre">-v</span></code>).</p>
+</div>
+</section>
+<section id="using-docker-exec">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span></code></a><a class="headerlink" href="#using-docker-exec" title="Link to this heading"></a></h2>
+<p>Currently we use <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span></code> to execute commands in a running container.
+This command also allows to pass a user which is used to run the commands (<a class="reference external" href="https://github.com/readthedocs/readthedocs.org/pull/8058">#8058</a>).
+We can run the <code class="docutils literal notranslate"><span class="pre">apt</span></code> commands in our current containers using a super user momentarily.</p>
+</section>
+<section id="config-file">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Config file</a><a class="headerlink" href="#config-file" title="Link to this heading"></a></h2>
+<p>The config file can add an additional mapping <code class="docutils literal notranslate"><span class="pre">build.apt_packages</span></code> to a list of packages to install.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+
+<span class="nt">build</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">apt_packages</span><span class="p">:</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cmatrix</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql-server</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Other names that were considered were:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">build.packages</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build.extra_packages</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build.system_packages</span></code></p></li>
+</ul>
+<p>These were rejected to avoid confusion with existing keys,
+and to be explicit about the type of package.</p>
+</div>
+</section>
+<section id="possible-problems">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Possible problems</a><a class="headerlink" href="#possible-problems" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Some users may require to pass some additional flags or install from a ppa.</p></li>
+<li><p>Some packages may require some additional setup after installation.</p></li>
+</ul>
+</section>
+<section id="other-possible-solutions">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Other possible solutions</a><a class="headerlink" href="#other-possible-solutions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>We can allow to run the containers as root doing something similar to what Travis does:
+They have one tool to convert the config file to a shell script (<a class="reference external" href="https://github.com/travis-ci/travis-build">travis-build</a>),
+and another that spins a docker container, executes that shell script and streams the logs back (<a class="reference external" href="https://github.com/travis-ci/worker">travis-worker</a>).</p>
+</li>
+<li><p>A similar solution could be implemented using <a class="reference external" href="https://aws.amazon.com/lambda/">AWS Lambda</a>.</p>
+</li>
+</ul>
+<p>This of course would require a large amount of work,
+but may be useful for the future.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sphinx-jquery.html" class="btn btn-neutral float-left" title="sphinxcontrib-jquery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="telemetry.html" class="btn btn-neutral float-right" title="Collect data about builds" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
