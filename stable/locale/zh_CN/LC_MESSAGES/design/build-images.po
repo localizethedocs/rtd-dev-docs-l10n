@@ -318,8 +318,8 @@ msgstr ""
 #: ../../../design/build-images.rst:132
 msgid ""
 "Different users may have different requirements. People with specific "
-"language dependencies will be able to install them by using ``.readthedocs."
-"yaml`` config file. Example:"
+"language dependencies will be able to install them by using "
+"``.readthedocs.yaml`` config file. Example:"
 msgstr ""
 
 #: ../../../design/build-images.rst:136
@@ -346,20 +346,20 @@ msgstr ""
 
 #: ../../../design/build-images.rst:149
 msgid ""
-"specifying ``build.languages.python: \"3\"`` will use Python version ``3.x."
-"y``, and may differ between builds"
+"specifying ``build.languages.python: \"3\"`` will use Python version "
+"``3.x.y``, and may differ between builds"
 msgstr ""
 
 #: ../../../design/build-images.rst:150
 msgid ""
-"specifying ``build.languages.python: \"3.9\"`` will use Python version ``3.9."
-"y``, and may differ between builds"
+"specifying ``build.languages.python: \"3.9\"`` will use Python version "
+"``3.9.y``, and may differ between builds"
 msgstr ""
 
 #: ../../../design/build-images.rst:151
 msgid ""
-"specifying ``build.languages.nodejs: \"14\"`` will use nodejs version ``14.x."
-"y``, and may differ between builds"
+"specifying ``build.languages.nodejs: \"14\"`` will use nodejs version "
+"``14.x.y``, and may differ between builds"
 msgstr ""
 
 #: ../../../design/build-images.rst:152
@@ -777,8 +777,8 @@ msgstr ""
 #: ../../../design/build-images.rst:331
 msgid ""
 "If it's strongly needed and we can't wait for a new base image, we could "
-"install it at build time in a similar way as we do with ``build."
-"apt_packages`` as a temporal workaround."
+"install it at build time in a similar way as we do with "
+"``build.apt_packages`` as a temporal workaround."
 msgstr ""
 
 #: ../../../design/build-images.rst:335

@@ -426,8 +426,8 @@ msgstr ""
 
 #: ../../../design/redirects.rst:197
 msgid ""
-"A similar feature is implemented in other services using ``*`` and ``:"
-"splat``."
+"A similar feature is implemented in other services using ``*`` and "
+"``:splat``."
 msgstr ""
 
 #: ../../../design/redirects.rst:199

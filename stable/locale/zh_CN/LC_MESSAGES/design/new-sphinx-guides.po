@@ -173,8 +173,8 @@ msgstr ""
 
 #: ../../../design/new-sphinx-guides.rst:77
 msgid ""
-"Navigate to ``doc/_build/html`` and launch an HTTP server (``python -m http."
-"server``)"
+"Navigate to ``doc/_build/html`` and launch an HTTP server (``python -m "
+"http.server``)"
 msgstr ""
 
 #: ../../../design/new-sphinx-guides.rst:79
@@ -266,8 +266,8 @@ msgstr ""
 
 #: ../../../design/new-sphinx-guides.rst:114
 msgid ""
-"Add a string to the ``extensions`` list in ``conf.py`` for ``sphinx.ext."
-"duration``"
+"Add a string to the ``extensions`` list in ``conf.py`` for "
+"``sphinx.ext.duration``"
 msgstr ""
 
 #: ../../../design/new-sphinx-guides.rst:116

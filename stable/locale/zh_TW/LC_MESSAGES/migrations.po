@@ -100,8 +100,8 @@ msgstr ""
 #: ../../../migrations.rst:55
 msgid ""
 "Create a data migration to populate all null values of the new field with a "
-"proper value (let's call this migration ``app 0002``), and mark it as ``Safe."
-"after_deploy()``."
+"proper value (let's call this migration ``app 0002``), and mark it as "
+"``Safe.after_deploy()``."
 msgstr ""
 
 #: ../../../migrations.rst:58
@@ -126,8 +126,8 @@ msgstr ""
 msgid ""
 "After the deploy has been completed, create a new migration to set the field "
 "as non-nullable (let's call this migration ``app 0003``). Run this migration "
-"on a new deploy, you can mark it as ``Safe.before_deploy()`` or ``Safe."
-"always()``."
+"on a new deploy, you can mark it as ``Safe.before_deploy()`` or "
+"``Safe.always()``."
 msgstr ""
 
 #: ../../../migrations.rst:77

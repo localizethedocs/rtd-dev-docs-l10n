@@ -413,8 +413,9 @@ msgstr ""
 msgid ""
 "Sphinx's basic theme provides the `static/searchtools.js`_ file, which "
 "initializes search with the ``Search.init()`` method. Read the Docs "
-"overrides the ``Search.query`` method and makes use of ``Search.output."
-"append`` to add the results. A simplified example looks like this:"
+"overrides the ``Search.query`` method and makes use of "
+"``Search.output.append`` to add the results. A simplified example looks like "
+"this:"
 msgstr ""
 
 #: ../../../search-integration.rst:288

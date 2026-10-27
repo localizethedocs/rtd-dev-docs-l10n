@@ -219,8 +219,8 @@ msgstr ""
 #: ../../../style-guide.rst:86
 msgid ""
 "``.readthedocs.yaml`` is the general name of the build configuration file. "
-"Even though we allow custom paths to the config file, we only validate ``."
-"readthedocs.yaml`` as the file name. Older variations of the name are "
+"Even though we allow custom paths to the config file, we only validate "
+"``.readthedocs.yaml`` as the file name. Older variations of the name are "
 "considered legacy. We do not refer to it in general terms."
 msgstr ""
 
@@ -260,11 +260,11 @@ msgstr ""
 
 #: ../../../style-guide.rst:105
 msgid ""
-"Since the above Word List is for internal reference, we also maintain a :doc:"
-"`rtd:glossary` with terms that have canonical definitions in our docs. Terms "
-"that can otherwise have multiple definitions *or* have a particular meaning "
-"in Read the Docs context should always be added to the :doc:`rtd:glossary` "
-"and referenced using the ``:term:`` role."
+"Since the above Word List is for internal reference, we also maintain "
+"a :doc:`rtd:glossary` with terms that have canonical definitions in our "
+"docs. Terms that can otherwise have multiple definitions *or* have a "
+"particular meaning in Read the Docs context should always be added to "
+"the :doc:`rtd:glossary` and referenced using the ``:term:`` role."
 msgstr ""
 
 #: ../../../style-guide.rst:111
@@ -332,8 +332,8 @@ msgstr ""
 
 #: ../../../style-guide.rst:154
 msgid ""
-"If the contents aren't suitable for a ``note::``, you can also use ``tabs::"
-"``. We are using `sphinx-tabs`_, however since `sphinx-design`_ also "
+"If the contents aren't suitable for a ``note::``, you can also use "
+"``tabs::``. We are using `sphinx-tabs`_, however since `sphinx-design`_ also "
 "provides tabs, it should be noted that we don't use that feature of sphinx-"
 "design."
 msgstr ""

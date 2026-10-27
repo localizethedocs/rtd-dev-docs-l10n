@@ -167,8 +167,8 @@ msgstr ""
 #: ../../../tests.rst:88
 msgid ""
 "Each instance has its own Django settings. To make sure we test each part as "
-"close as possible to its real settings, we use `pytest marks <https://docs."
-"pytest.org/en/latest/mark.html>`__ and separate tox environments."
+"close as possible to its real settings, we use `pytest marks <https://"
+"docs.pytest.org/en/latest/mark.html>`__ and separate tox environments."
 msgstr ""
 
 #: ../../../tests.rst:93

@@ -152,8 +152,8 @@ msgstr ""
 
 #: ../../../design/sphinx-jquery.rst:58
 msgid ""
-"In your extension's or theme's ``setup(app)``, call ``app."
-"setup_extension(\"sphinxcontrib.jquery\")``."
+"In your extension's or theme's ``setup(app)``, call "
+"``app.setup_extension(\"sphinxcontrib.jquery\")``."
 msgstr ""
 
 #: ../../../design/sphinx-jquery.rst:60
@@ -195,21 +195,21 @@ msgstr ""
 
 #: ../../../design/sphinx-jquery.rst:77
 msgid ""
-"When a Sphinx theme or extension calls `setup_extension() <https://www."
-"sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx."
-"setup_extension>`_, a call to ``sphinxcontrib.jquery.setup(app)`` will "
-"happen. Adding ``sphinxcontrib.jquery`` to a documentation project's ``conf."
-"extensions`` will also call ``sphinxcontrib.jquery.setup(app)`` (at most "
-"once)."
+"When a Sphinx theme or extension calls `setup_extension() <https://"
+"www.sphinx-doc.org/en/master/extdev/"
+"appapi.html#sphinx.application.Sphinx.setup_extension>`_, a call to "
+"``sphinxcontrib.jquery.setup(app)`` will happen. Adding "
+"``sphinxcontrib.jquery`` to a documentation project's ``conf.extensions`` "
+"will also call ``sphinxcontrib.jquery.setup(app)`` (at most once)."
 msgstr ""
 
 #: ../../../design/sphinx-jquery.rst:79
 msgid ""
 "In ``sphinxcontrib.jquery.setup(app)``, jQuery is added. The default "
-"behaviour is to detect the Sphinx version and include jQuery via `app."
-"add_js_file <https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx."
-"application.Sphinx.add_js_file>`__ when Sphinx is from version 6 and up. "
-"jQuery is added at most once."
+"behaviour is to detect the Sphinx version and include jQuery via "
+"`app.add_js_file <https://www.sphinx-doc.org/en/master/extdev/"
+"appapi.html#sphinx.application.Sphinx.add_js_file>`__ when Sphinx is from "
+"version 6 and up. jQuery is added at most once."
 msgstr ""
 
 #: ../../../design/sphinx-jquery.rst:83
@@ -264,9 +264,10 @@ msgstr ""
 
 #: ../../../design/sphinx-jquery.rst:105
 msgid ""
-"The minified jQuery JS file is ultimately included by calling `app."
-"add_js_file <https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx."
-"application.Sphinx.add_js_file>`__, which is passed the following arguments:"
+"The minified jQuery JS file is ultimately included by calling "
+"`app.add_js_file <https://www.sphinx-doc.org/en/master/extdev/"
+"appapi.html#sphinx.application.Sphinx.add_js_file>`__, which is passed the "
+"following arguments:"
 msgstr ""
 
 #: ../../../design/sphinx-jquery.rst:107

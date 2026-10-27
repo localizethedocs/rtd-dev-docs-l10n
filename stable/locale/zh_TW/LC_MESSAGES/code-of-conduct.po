@@ -153,7 +153,7 @@ msgstr ""
 
 #: ../../../code-of-conduct.rst:78
 msgid ""
-"Original text courtesy of the `Speak Up! project <http://web.archive.org/"
-"web/20141109123859/http://speakup.io/coc.html>`__. This version was adopted "
-"from the `Django Code of Conduct <https://www.djangoproject.com/conduct/>`_."
+"Original text courtesy of the `Speak Up! project <http://web.archive.org/web/"
+"20141109123859/http://speakup.io/coc.html>`__. This version was adopted from "
+"the `Django Code of Conduct <https://www.djangoproject.com/conduct/>`_."
 msgstr ""

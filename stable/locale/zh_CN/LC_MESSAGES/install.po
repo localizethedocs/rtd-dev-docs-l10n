@@ -69,10 +69,10 @@ msgstr ""
 #: ../../../install.rst:18
 msgid ""
 "Your system should *ideally* match the production system which uses the "
-"**latest official+stable Docker** distribution for `Ubuntu <https://docs."
-"docker.com/engine/install/ubuntu/>`_ (the ``docker-ce`` package). If you are "
-"on Windows or Mac, you may also want to try `Docker Desktop <https://docs."
-"docker.com/desktop/>`_."
+"**latest official+stable Docker** distribution for `Ubuntu <https://"
+"docs.docker.com/engine/install/ubuntu/>`_ (the ``docker-ce`` package). If "
+"you are on Windows or Mac, you may also want to try `Docker Desktop <https://"
+"docs.docker.com/desktop/>`_."
 msgstr ""
 
 #: ../../../install.rst:22
@@ -94,8 +94,8 @@ msgstr ""
 
 #: ../../../install.rst:30
 msgid ""
-"Install Docker Compose with `the official instructions <https://docs.docker."
-"com/compose/install/>`_."
+"Install Docker Compose with `the official instructions <https://"
+"docs.docker.com/compose/install/>`_."
 msgstr ""
 
 #: ../../../install.rst:31
@@ -187,9 +187,10 @@ msgstr ""
 msgid ""
 "Read the Docs will compile the Python/Node.js/Rust/Go version on-the-fly "
 "each time when building the documentation. To speed things up, you can pre-"
-"compile and cache all these versions by using ``inv docker."
-"compilebuildtool`` command. *We strongly recommend to pre-compile these "
-"versions if you want to build documentation on your development instance.*"
+"compile and cache all these versions by using ``inv "
+"docker.compilebuildtool`` command. *We strongly recommend to pre-compile "
+"these versions if you want to build documentation on your development "
+"instance.*"
 msgstr ""
 
 #: ../../../install.rst:120
@@ -521,8 +522,8 @@ msgstr ""
 msgid ""
 "``--export-all`` allows the daemon to serve any repository, without needing "
 "a ``git-daemon-export-ok`` marker file in each repo. ``--base-path=/tmp`` "
-"means that ``/tmp`` is stripped from the path in URLs, so ``/tmp/readthedocs."
-"org`` is served as ``git://HOST/readthedocs.org``."
+"means that ``/tmp`` is stripped from the path in URLs, so ``/tmp/"
+"readthedocs.org`` is served as ``git://HOST/readthedocs.org``."
 msgstr ""
 
 #: ../../../install.rst:307
@@ -584,8 +585,8 @@ msgstr ""
 
 #: ../../../install.rst:345
 msgid ""
-"Take the \"Client ID\" and \"Secret\" for each service and set them as :ref:"
-"`environment variables <settings:Allauth secrets>`."
+"Take the \"Client ID\" and \"Secret\" for each service and set them "
+"as :ref:`environment variables <settings:Allauth secrets>`."
 msgstr ""
 
 #: ../../../install.rst:348
@@ -697,8 +698,8 @@ msgstr ""
 
 #: ../../../install.rst:382
 msgid ""
-"Copy the ``Client ID`` and ``Client Secret`` and set them as :ref:"
-"`environment variables <settings:Allauth secrets>`"
+"Copy the ``Client ID`` and ``Client Secret`` and set them "
+"as :ref:`environment variables <settings:Allauth secrets>`"
 msgstr ""
 
 #: ../../../install.rst:384
@@ -753,8 +754,8 @@ msgstr ""
 msgid ""
 "The environment is developed and mainly tested on Docker Compose v1.x. If "
 "you are running Docker Compose 2.x, please make sure you have "
-"``COMPOSE_COMPATIBILITY=true`` set. This is automatically loaded via the ``."
-"env`` file. If you want to ensure that the file is loaded, run:"
+"``COMPOSE_COMPATIBILITY=true`` set. This is automatically loaded via the "
+"``.env`` file. If you want to ensure that the file is loaded, run:"
 msgstr ""
 
 #: ../../../install.rst:419

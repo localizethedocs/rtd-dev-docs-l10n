@@ -73,8 +73,8 @@ msgstr ""
 
 #: ../../../docs.rst:31
 msgid ""
-"$ git clone --recurse-submodules https://github.com/readthedocs/readthedocs."
-"org/"
+"$ git clone --recurse-submodules https://github.com/readthedocs/"
+"readthedocs.org/"
 msgstr ""
 
 #: ../../../docs.rst:35

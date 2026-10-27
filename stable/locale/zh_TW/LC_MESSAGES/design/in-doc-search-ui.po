@@ -152,8 +152,8 @@ msgstr ""
 
 #: ../../../design/in-doc-search-ui.rst:86
 msgid ""
-"Add CSS into `readthedocs-doc-embed.css` and JS into `readthedocs-doc-embed."
-"js` and it will get included."
+"Add CSS into `readthedocs-doc-embed.css` and JS into `readthedocs-doc-"
+"embed.js` and it will get included."
 msgstr ""
 
 #: ../../../design/in-doc-search-ui.rst:88
