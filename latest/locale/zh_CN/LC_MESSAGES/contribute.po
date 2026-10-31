@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Read the Docs developer documentation latest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-24 08:20+0000\n"
+"POT-Creation-Date: 2026-10-26 14:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,11 +83,11 @@ msgstr ""
 #: ../../../contribute.rst:46
 msgid ""
 "If you want to deep dive and help out with development on Read the Docs, "
-"then first get the project installed locally according to the :doc:"
-"`installation guide </install>`. After that is done we suggest you have a "
-"look at tickets in our issue tracker that are labelled `Good First Issue`_. "
-"These are meant to be a great way to get a smooth start and won't put you in "
-"front of the most complex parts of the system."
+"then first get the project installed locally according to "
+"the :doc:`installation guide </install>`. After that is done we suggest you "
+"have a look at tickets in our issue tracker that are labelled `Good First "
+"Issue`_. These are meant to be a great way to get a smooth start and won't "
+"put you in front of the most complex parts of the system."
 msgstr ""
 
 #: ../../../contribute.rst:53
@@ -116,7 +116,7 @@ msgstr ""
 #: ../../../contribute.rst:77
 msgid ""
 "Documentation for Read the Docs itself is hosted by Read the Docs at https://"
-"docs.readthedocs.io (likely the website you are currently reading)."
+"docs.readthedocs.com/dev/ (likely the website you are currently reading)."
 msgstr ""
 
 #: ../../../contribute.rst:79
@@ -152,9 +152,10 @@ msgstr ""
 #: ../../../contribute.rst:99
 msgid ""
 "Everyone is encouraged to help improving, refining, verifying and "
-"prioritizing issues on Github. The Read the Docs core :external+rtd:doc:"
-"`team` uses the following guidelines for issue triage on all of our "
-"projects. These guidelines describe the issue lifecycle step-by-step."
+"prioritizing issues on Github. The Read the Docs "
+"core :external+rtd:doc:`team` uses the following guidelines for issue triage "
+"on all of our projects. These guidelines describe the issue lifecycle step-"
+"by-step."
 msgstr ""
 
 #: ../../../contribute.rst:104
@@ -436,10 +437,10 @@ msgstr ""
 
 #: ../../../contribute.rst:261
 msgid ""
-"`Tickets labelled with Support <https://github.com/readthedocs/readthedocs."
-"org/issues?q=is:open+is:issue+label:Support>`_: Experienced contributors or "
-"community members with a broad knowledge about the project should handle "
-"those."
+"`Tickets labelled with Support <https://github.com/readthedocs/"
+"readthedocs.org/issues?q=is:open+is:issue+label:Support>`_: Experienced "
+"contributors or community members with a broad knowledge about the project "
+"should handle those."
 msgstr ""
 
 #: ../../../contribute.rst:265

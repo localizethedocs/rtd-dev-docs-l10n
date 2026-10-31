@@ -16,9 +16,9 @@
       "branch" : "main",
       "commit" : 
       {
-        "date" : "2026-06-01 12:01:03 +0300",
-        "hash" : "987576a458ae0cf7336192da2b9d04114c50eeaa",
-        "title" : "Tests: Reduce tests log levels (#13064)"
+        "date" : "2026-10-26 13:01:39 +0100",
+        "hash" : "9af61db775efca367133aca048584a60f7a5e669",
+        "title" : "Version: show duplicated version slug when renaming (#13438)"
       }
     },
     "zh_TW" : 
@@ -26,9 +26,9 @@
       "branch" : "main",
       "commit" : 
       {
-        "date" : "2026-06-01 12:01:03 +0300",
-        "hash" : "987576a458ae0cf7336192da2b9d04114c50eeaa",
-        "title" : "Tests: Reduce tests log levels (#13064)"
+        "date" : "2026-10-26 13:01:39 +0100",
+        "hash" : "9af61db775efca367133aca048584a60f7a5e669",
+        "title" : "Version: show duplicated version slug when renaming (#13438)"
       }
     }
   },
