@@ -14,7 +14,7 @@ var CONFIG_OPTIONS = {
     ["Index",   "https://projects.localizethedocs.org"],
     ["Crowdin", "https://localizethedocs.crowdin.com/rtd-dev-docs-l10n"],
     ["GitHub",  "https://github.com/localizethedocs/rtd-dev-docs-l10n"],
-    ["GitCode", "https://gitcode.com/localizethedocs/rtd-dev-docs-l10n"],
+    ["AtomGit", "https://atomgit.com/localizethedocs/rtd-dev-docs-l10n"],
     ["GitFlic", "https://gitflic.ru/project/localizethedocs/rtd-dev-docs-l10n"],
   ]
 };
