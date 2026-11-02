@@ -272,8 +272,8 @@ msgstr ""
 #: ../../../design/organizations.rst:118
 msgid ""
 "Templates, urls, views, forms, notifications, signals, tasks can be moved "
-"later (we just need to make use of the models from the ``readthedocs."
-"organizations`` module)."
+"later (we just need to make use of the models from the "
+"``readthedocs.organizations`` module)."
 msgstr ""
 
 #: ../../../design/organizations.rst:121

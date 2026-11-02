@@ -256,8 +256,8 @@ msgstr ""
 
 #: ../../../design/pr-builder.rst:126
 msgid ""
-"Using ``pr-<pr_number>`` as the version slug ``https://<project_slug>."
-"readthedocs.io/<language_code>/pr-<pr_number>/``"
+"Using ``pr-<pr_number>`` as the version slug ``https://"
+"<project_slug>.readthedocs.io/<language_code>/pr-<pr_number>/``"
 msgstr ""
 
 #: ../../../design/pr-builder.rst:127

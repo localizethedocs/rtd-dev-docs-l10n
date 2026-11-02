@@ -56,8 +56,8 @@ msgstr ""
 
 #: ../../../github-app.rst:19
 msgid ""
-"You can read more about GitHub Apps in `GitHub's documentation <https://docs."
-"github.com/en/apps/overview>`__."
+"You can read more about GitHub Apps in `GitHub's documentation <https://"
+"docs.github.com/en/apps/overview>`__."
 msgstr ""
 
 #: ../../../github-app.rst:22

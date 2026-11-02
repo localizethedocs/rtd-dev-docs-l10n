@@ -25,8 +25,8 @@ msgstr ""
 msgid ""
 "This document covers the details regarding internationalization and "
 "localization that are applied in Read the Docs. The guidelines described are "
-"mostly based on `Kitsune's localization documentation <https://kitsune."
-"readthedocs.io/en/latest/localization.html>`_."
+"mostly based on `Kitsune's localization documentation <https://"
+"kitsune.readthedocs.io/en/latest/localization.html>`_."
 msgstr ""
 
 #: ../../../i18n.rst:10
@@ -61,9 +61,9 @@ msgstr ""
 #: ../../../i18n.rst:30
 msgid ""
 "A string is often a combination of a fixed string and something changing, "
-"for example, ``Welcome, James`` is a combination of the fixed part ``Welcome,"
-"``, and the changing part ``James``. The naive solution is to localize the "
-"first part and then follow it with the name::"
+"for example, ``Welcome, James`` is a combination of the fixed part "
+"``Welcome,``, and the changing part ``James``. The naive solution is to "
+"localize the first part and then follow it with the name::"
 msgstr ""
 
 #: ../../../i18n.rst:35
@@ -136,10 +136,10 @@ msgstr ""
 
 #: ../../../i18n.rst:80
 msgid ""
-"To make it possible to localize these correctly, we can add "
-"\"context\" (known in gettext as *msgctxt*) to differentiate two otherwise "
-"identical strings. Django provides a :func:`~django.utils.translation."
-"pgettext` function for this."
+"To make it possible to localize these correctly, we can add \"context\" "
+"(known in gettext as *msgctxt*) to differentiate two otherwise identical "
+"strings. Django provides a :func:`~django.utils.translation.pgettext` "
+"function for this."
 msgstr ""
 
 #: ../../../i18n.rst:84
@@ -169,8 +169,8 @@ msgstr ""
 #: ../../../i18n.rst:101
 msgid ""
 "*You have 1 new messages* grates on discerning ears. Fortunately, gettext "
-"gives us a way to fix that in English *and* other locales, the :func:"
-"`~django.utils.translation.ngettext` function::"
+"gives us a way to fix that in English *and* other locales, "
+"the :func:`~django.utils.translation.ngettext` function::"
 msgstr ""
 
 #: ../../../i18n.rst:105
@@ -339,8 +339,8 @@ msgstr ""
 
 #: ../../../i18n.rst:205
 msgid ""
-"Context information can be supplied by using the :func:`~django.utils."
-"translation.pgettext` function::"
+"Context information can be supplied by using "
+"the :func:`~django.utils.translation.pgettext` function::"
 msgstr ""
 
 #: ../../../i18n.rst:208
@@ -359,8 +359,8 @@ msgstr ""
 
 #: ../../../i18n.rst:215
 msgid ""
-"If you need to use plurals, import the :func:`~django.utils.translation."
-"ungettext` function::"
+"If you need to use plurals, import "
+"the :func:`~django.utils.translation.ungettext` function::"
 msgstr ""
 
 #: ../../../i18n.rst:218
@@ -377,10 +377,11 @@ msgstr ""
 
 #: ../../../i18n.rst:227
 msgid ""
-"You can use :func:`~django.utils.translation.gettext` or :func:`~django."
-"utils.translation.ungettext` only in views or functions called from views. "
-"If the function will be evaluated when the module is loaded, then the string "
-"may end up in English or the locale of the last request!"
+"You can use :func:`~django.utils.translation.gettext` "
+"or :func:`~django.utils.translation.ungettext` only in views or functions "
+"called from views. If the function will be evaluated when the module is "
+"loaded, then the string may end up in English or the locale of the last "
+"request!"
 msgstr ""
 
 #: ../../../i18n.rst:232
@@ -388,10 +389,11 @@ msgid ""
 "Examples include strings in module-level code, arguments to functions in "
 "class definitions, strings in functions called from outside the context of a "
 "view. To internationalize these strings, you need to use the ``_lazy`` "
-"versions of the above methods, :func:`~django.utils.translation."
-"gettext_lazy` and :func:`~django.utils.translation.ungettext_lazy`. The "
-"result doesn't get translated until it is evaluated as a string, for example "
-"by being output or passed to ``unicode()``::"
+"versions of the above "
+"methods, :func:`~django.utils.translation.gettext_lazy` "
+"and :func:`~django.utils.translation.ungettext_lazy`. The result doesn't get "
+"translated until it is evaluated as a string, for example by being output or "
+"passed to ``unicode()``::"
 msgstr ""
 
 #: ../../../i18n.rst:240
@@ -427,9 +429,9 @@ msgstr ""
 
 #: ../../../i18n.rst:262
 msgid ""
-"The updated files can now be localized in a `PO editor <https://en.wikipedia."
-"org/wiki/Category:Software-localization_tools>`_ or crowd-sourced online "
-"translation tool."
+"The updated files can now be localized in a `PO editor <https://"
+"en.wikipedia.org/wiki/Category:Software-localization_tools>`_ or crowd-"
+"sourced online translation tool."
 msgstr ""
 
 #: ../../../i18n.rst:267

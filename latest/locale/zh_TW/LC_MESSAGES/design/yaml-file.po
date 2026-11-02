@@ -185,9 +185,9 @@ msgstr ""
 
 #: ../../../design/yaml-file.rst:68
 msgid ""
-"Several settings are already implemented and documented on https://docs."
-"readthedocs.io/en/latest/yaml-config.html. So, they aren't covered with much "
-"detail here."
+"Several settings are already implemented and documented on https://"
+"docs.readthedocs.io/en/latest/yaml-config.html. So, they aren't covered with "
+"much detail here."
 msgstr ""
 
 #: ../../../design/yaml-file.rst:72
@@ -282,8 +282,8 @@ msgstr ""
 msgid ""
 "The current spec is documented on https://docs.readthedocs.io/en/latest/yaml-"
 "config.html. It will be used as base for the future spec. The spec will be "
-"written using a validation schema such as https://json-schema-everywhere."
-"github.io/yaml."
+"written using a validation schema such as https://json-schema-"
+"everywhere.github.io/yaml."
 msgstr ""
 
 #: ../../../design/yaml-file.rst:112

@@ -152,8 +152,8 @@ msgstr ""
 
 #: ../../../design/refactor-remote-repository.rst:72
 msgid ""
-"`Update webhook`_ when user clicks \"Resync webhook\" from the :guilabel:"
-"`Admin` > :guilabel:`Integrations` tab"
+"`Update webhook`_ when user clicks \"Resync webhook\" from "
+"the :guilabel:`Admin` > :guilabel:`Integrations` tab"
 msgstr ""
 
 #: ../../../design/refactor-remote-repository.rst:73
