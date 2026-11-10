@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-US" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Better handling of docs URLs" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/better-doc-urls-handling.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="proxito is the component of our code base in charge of serving documentation to users and handling any other URLs from the user documentation domain. The current implementation has some problems that are discussed in this document, and an alternative implementation is proposed to solve those prob..." />
+<meta property="og:image" content="https://docs.readthedocs.io/en/latest/_static/img/logo-opengraph.png" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="proxito is the component of our code base in charge of serving documentation to users and handling any other URLs from the user documentation domain. The current implementation has some problems that are discussed in this document, and an alternative implementation is proposed to solve those prob..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Better handling of docs URLs &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/better-doc-urls-handling.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=410ae970"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Build images" href="build-images.html" />
+    <link rel="prev" title="API v3 design document" href="apiv3.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">Overview of issue labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Better handling of docs URLs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#non-goals">Non-goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#current-implementation">Current implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#alternative-implementation">Alternative implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#look-up-process">Look up process</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#custom-urls">Custom URLs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#project-with-versions-and-translations">Project with versions and translations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#project-with-subprojects-and-translations">Project with subprojects and translations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#single-version-project-with-subprojects">Single version project with subprojects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#project-with-single-version-subprojects">Project with single version subprojects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#project-with-custom-prefix">Project with custom prefix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#project-with-custom-subproject-prefix-empty">Project with custom subproject prefix (empty)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-example">Implementation example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#performance">Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#questions">Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in-doc-search-ui.html">In-doc search UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Development installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Designing Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">Documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">Front-end development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">Database migrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">Subscriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Interesting settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Design documents</a></li>
+      <li class="breadcrumb-item active">Better handling of docs URLs</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/better-doc-urls-handling.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="better-handling-of-docs-urls">
+<h1>Better handling of docs URLs<a class="headerlink" href="#better-handling-of-docs-urls" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">proxito</span></code> is the component of our code base in charge of serving documentation
+to users and handling any other URLs from the user documentation domain.</p>
+<p>The current implementation has some problems that are discussed in this document,
+and an alternative implementation is proposed to solve those problems.</p>
+<section id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Simplifying our parsing logic for URLs</p></li>
+<li><p>Removing reserved paths and ambiguities from URLs</p></li>
+<li><p>Allow serving docs from a different prefix and subproject prefix.</p></li>
+</ul>
+</section>
+<section id="non-goals">
+<h2>Non-goals<a class="headerlink" href="#non-goals" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Allowing fully arbitrary URL generation for projects,
+like changing the order of the elements or removing them.</p></li>
+</ul>
+</section>
+<section id="current-implementation">
+<h2>Current implementation<a class="headerlink" href="#current-implementation" title="Link to this heading"></a></h2>
+<p>The current implementation is based on Django URLs
+trying to match a pattern that looks like a single project, a versioned project,
+or a subproject, this means that a couple of URLs are <em>reserved</em>,
+and won’t resolve to the correct file if it exists
+(<a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/8399">https://github.com/readthedocs/readthedocs.org/issues/8399</a>, <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/2292">https://github.com/readthedocs/readthedocs.org/issues/2292</a>),
+this usually happens with single version projects.</p>
+<p>And to support custom URLs we are hacking into Django’s urlconf
+to override it at runtime,
+this doesn’t allow us to implement custom URLs for subprojects easily
+(<a class="reference external" href="https://github.com/readthedocs/readthedocs.org/pull/8327">https://github.com/readthedocs/readthedocs.org/pull/8327</a>).</p>
+</section>
+<section id="alternative-implementation">
+<h2>Alternative implementation<a class="headerlink" href="#alternative-implementation" title="Link to this heading"></a></h2>
+<p>Instead of trying to map a URL to a view,
+we first analyze the root project (given from the subdomain),
+and based on that we map each part of the URL to the <em>current</em> project and version.</p>
+<p>This will allow us to reuse this code in our unresolver
+without the need to override the Django’s urlconf at runtime,
+or guessing a project only by the structure of its URL.</p>
+<p>Terminology:</p>
+<dl class="simple">
+<dt>Root project</dt><dd><p>The project from where the documentation
+is served (usually the parent project of a subproject or translation).</p>
+</dd>
+<dt>Current project</dt><dd><p>The project that owns the current file being served
+(a subproject, a translation, etc).</p>
+</dd>
+<dt>Requested file</dt><dd><p>The final path to the file that we need to serve from the current project.</p>
+</dd>
+</dl>
+</section>
+<section id="look-up-process">
+<h2>Look up process<a class="headerlink" href="#look-up-process" title="Link to this heading"></a></h2>
+<p>Proxito will process all documentation requests from a single <em>docs serve</em> view,
+excluding <code class="docutils literal notranslate"><span class="pre">/_</span></code> URLs.</p>
+<p>This view then will process the current URL using the root project as follows:</p>
+<ul class="simple">
+<li><p>Check if the root project has translations
+(the project itself is a translation if isn’t a single version project),
+and the first part is a language code and the second is a version.</p>
+<ul>
+<li><p>If the lang code doesn’t match, we continue.</p></li>
+<li><p>If the lang code matches, but the version doesn’t, we return 404.</p></li>
+</ul>
+</li>
+<li><p>Check if it has subprojects and the first part of the URL matches the subprojects prefix (<code class="docutils literal notranslate"><span class="pre">projects</span></code>),
+and if the second part of the URL matches a subproject alias.</p>
+<ul>
+<li><p>If the subproject prefix or the alias don’t match, we continue.</p></li>
+<li><p>If they match, we try to match the rest of the URL for translations/versions and single versions
+(i.e, we don’t search for subprojects) and we use the subproject as the new <em>root project</em>.</p></li>
+</ul>
+</li>
+<li><p>Check if the project is a single version.
+Here we just try to serve the rest of the URL as the file.</p></li>
+<li><p>Check if the first part of the URL is <code class="docutils literal notranslate"><span class="pre">page</span></code>,
+then this is a <code class="docutils literal notranslate"><span class="pre">page</span></code> redirect.
+Note that this is done after we have discarded the project being a single version
+project, since it doesn’t makes sense to use that redirect with single version projects,
+and it could collide with the project having a <code class="docutils literal notranslate"><span class="pre">page/</span></code> directory.</p></li>
+<li><p>404 if none of the above rules match.</p></li>
+</ul>
+<section id="custom-urls">
+<h3>Custom URLs<a class="headerlink" href="#custom-urls" title="Link to this heading"></a></h3>
+<p>We are using custom URLs mainly to serve the documentation
+from a different directory:</p>
+<ul class="simple">
+<li><p>deeplearning/nemo/user-guide/docs/$language/$version/$filename</p></li>
+<li><p>deeplearning/nemo/user-guide/docs/$language/$version/$filename</p></li>
+<li><p>deeplearning/frameworks/nvtx-plugins/user-guide/docs/$language/$version/$filename</p></li>
+</ul>
+<p>We always keep the lang/version/filename order,
+do we need/want to support changing this order?
+Doesn’t seem useful to do so.</p>
+<p>So, what we need is have a way to specify a prefix only.
+We would have a prefix used for translations and another one used for subprojects.
+These prefixes will be set in the root project.</p>
+<p>The look up order would be as follow:</p>
+<ul class="simple">
+<li><p>If the root project has a custom prefix, and the current URL matches that prefix,
+remove the prefix and follow the translations and single version look up process.
+We exclude subprojects from it, i.e, we don’t check for <code class="docutils literal notranslate"><span class="pre">{prefix}/projects</span></code>.</p></li>
+<li><p>If the root project has subprojects and a custom subprojects prefix (<code class="docutils literal notranslate"><span class="pre">projects</span></code> by default),
+and if the current URL matches that prefix,
+and the next part of the URL matches a subproject alias,
+continue with the subproject look up process.</p></li>
+</ul>
+</section>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>The next examples are organized in the following way:</p>
+<ul class="simple">
+<li><p>First there is a list of the projects involved,
+with their available versions.</p></li>
+<li><p>The first project would be the root project.</p></li>
+<li><p>The other projects will be related to the root project
+(their relationship is given by their name).</p></li>
+<li><p>Next we will have a table of the requests,
+and their result.</p></li>
+</ul>
+<section id="project-with-versions-and-translations">
+<h3>Project with versions and translations<a class="headerlink" href="#project-with-versions-and-translations" title="Link to this heading"></a></h3>
+<p>Projects:</p>
+<ul class="simple">
+<li><p>project (latest, 1.0)</p></li>
+<li><p>project-es (latest, 1.0)</p></li>
+</ul>
+<p>Requests:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Request</p></th>
+<th class="head"><p>Requested file</p></th>
+<th class="head"><p>Current project</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/en/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>project</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>/en/1.0/manual/index.html</p></td>
+<td><p>/1.0/manual/index.html</p></td>
+<td><p>project</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>/en/1.0/404</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The file doesn’t exist</p></td>
+</tr>
+<tr class="row-odd"><td><p>/en/2.0/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The version doesn’t exist</p></td>
+</tr>
+<tr class="row-even"><td><p>/es/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>project-es</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>/es/1.0/manual/index.html</p></td>
+<td><p>/1.0/manual/index.html</p></td>
+<td><p>project-es</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>/es/1.0/404</p></td>
+<td><p>404</p></td>
+<td><p>project-es</p></td>
+<td><p>The translation exist, but not the file</p></td>
+</tr>
+<tr class="row-odd"><td><p>/es/2.0/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project-es</p></td>
+<td><p>The translation exist, but not the version</p></td>
+</tr>
+<tr class="row-even"><td><p>/pt/latest/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The translation doesn’t exist</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="project-with-subprojects-and-translations">
+<h3>Project with subprojects and translations<a class="headerlink" href="#project-with-subprojects-and-translations" title="Link to this heading"></a></h3>
+<p>Projects:</p>
+<ul class="simple">
+<li><p>project (latest, 1.0)</p></li>
+<li><p>project-es (latest, 1.0)</p></li>
+<li><p>subproject (latest, 1.0)</p></li>
+<li><p>subproject-es (latest, 1.0)</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Request</p></th>
+<th class="head"><p>Requested file</p></th>
+<th class="head"><p>Current project</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/projects/subproject/en/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>subproject</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>/projects/subproject/en/latest/404</p></td>
+<td><p>404</p></td>
+<td><p>subproject</p></td>
+<td><p>The subproject exists, but not the file</p></td>
+</tr>
+<tr class="row-even"><td><p>/projects/subproject/en/2.x/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>subproject</p></td>
+<td><p>The subproject exists, but not the version</p></td>
+</tr>
+<tr class="row-odd"><td><p>/projects/subproject/es/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>subproject-es</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>/projects/subproject/br/latest/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>subproject</p></td>
+<td><p>The subproject exists, but not the translation</p></td>
+</tr>
+<tr class="row-odd"><td><p>/projects/nothing/en/latest/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The subproject doesn’t exist</p></td>
+</tr>
+<tr class="row-even"><td><p>/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="single-version-project-with-subprojects">
+<h3>Single version project with subprojects<a class="headerlink" href="#single-version-project-with-subprojects" title="Link to this heading"></a></h3>
+<p>Projects:</p>
+<ul class="simple">
+<li><p>project (latest)</p></li>
+<li><p>subproject (latest, 1.0)</p></li>
+<li><p>subproject-es (latest, 1.0)</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Request</p></th>
+<th class="head"><p>Requested file</p></th>
+<th class="head"><p>Current project</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/projects/subproject/en/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>subproject</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>/projects/subproject/en/latest/404</p></td>
+<td><p>404</p></td>
+<td><p>subproject</p></td>
+<td><p>The subproject exists, but the file doesn’t</p></td>
+</tr>
+<tr class="row-even"><td><p>/projects/subproject/en/2.x/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>subproject</p></td>
+<td><p>The subproject exists, but the version doesn’t</p></td>
+</tr>
+<tr class="row-odd"><td><p>/projects/subproject/es/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>subproject-es</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>/projects/subproject/br/latest/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>subproject</p></td>
+<td><p>The subproject exists, but the translation doesn’t</p></td>
+</tr>
+<tr class="row-odd"><td><p>/projects/nothing/en/latest/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The subproject doesn’t exist</p></td>
+</tr>
+<tr class="row-even"><td><p>/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>project</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>/404</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The file doesn’t exist</p></td>
+</tr>
+<tr class="row-even"><td><p>/projects/index.html</p></td>
+<td><p>/latest/projects/index.html</p></td>
+<td><p>project</p></td>
+<td><p>The project has a <code class="docutils literal notranslate"><span class="pre">projects</span></code> directory!</p></td>
+</tr>
+<tr class="row-odd"><td><p>/en/index.html</p></td>
+<td><p>/latest/en/index.html</p></td>
+<td><p>project</p></td>
+<td><p>The project has an <code class="docutils literal notranslate"><span class="pre">en</span></code> directory!</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="project-with-single-version-subprojects">
+<h3>Project with single version subprojects<a class="headerlink" href="#project-with-single-version-subprojects" title="Link to this heading"></a></h3>
+<p>Projects:</p>
+<ul class="simple">
+<li><p>project (latest, 1.0)</p></li>
+<li><p>project-es (latest, 1.0)</p></li>
+<li><p>subproject (latest)</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Request</p></th>
+<th class="head"><p>Requested file</p></th>
+<th class="head"><p>Current project</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/projects/subproject/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>subproject</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>/projects/subproject/en/latest/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>subproject</p></td>
+<td><p>The subproject is single version</p></td>
+</tr>
+<tr class="row-even"><td><p>/projects/subproject/404</p></td>
+<td><p>404</p></td>
+<td><p>subproject</p></td>
+<td><p>The subproject exists, but the file doesn’t</p></td>
+</tr>
+<tr class="row-odd"><td><p>/projects/subproject/br/latest/manual/index.html</p></td>
+<td><p>/latest/br/latest/manual/index.html</p></td>
+<td><p>subproject</p></td>
+<td><p>The subproject has a <code class="docutils literal notranslate"><span class="pre">br</span></code> directory!</p></td>
+</tr>
+<tr class="row-even"><td><p>/projects/nothing/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The subproject doesn’t exist</p></td>
+</tr>
+<tr class="row-odd"><td><p>/en/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>project</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>/404</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="project-with-custom-prefix">
+<h3>Project with custom prefix<a class="headerlink" href="#project-with-custom-prefix" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>project (latest, 1.0)</p></li>
+<li><p>subproject (latest, 1.0)</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">project</span></code> has the <code class="docutils literal notranslate"><span class="pre">prefix</span></code> prefix, and <code class="docutils literal notranslate"><span class="pre">sub</span></code> subproject prefix.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Request</p></th>
+<th class="head"><p>Requested file</p></th>
+<th class="head"><p>Current project</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/en/latest/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The prefix doesn’t match</p></td>
+</tr>
+<tr class="row-odd"><td><p>/prefix/en/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>project</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>/projects/subproject/en/latest/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The subproject prefix doesn’t match</p></td>
+</tr>
+<tr class="row-odd"><td><p>/sub/subproject/en/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>subproject</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>/sub/nothing/en/latest/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The subproject doesn’t exist</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="project-with-custom-subproject-prefix-empty">
+<h3>Project with custom subproject prefix (empty)<a class="headerlink" href="#project-with-custom-subproject-prefix-empty" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>project (latest, 1.0)</p></li>
+<li><p>subproject (latest, 1.0)</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">project</span></code> has the <code class="docutils literal notranslate"><span class="pre">/</span></code> subproject prefix,
+this allow us to serve subprojects without using a prefix.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Request</p></th>
+<th class="head"><p>Requested file</p></th>
+<th class="head"><p>Current project</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/en/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>project</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>/projects/subproject/en/latest/manual/index.html</p></td>
+<td><p>404</p></td>
+<td><p>project</p></td>
+<td><p>The subproject prefix doesn’t match</p></td>
+</tr>
+<tr class="row-even"><td><p>/subproject/en/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>subproject</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>/nothing/en/latest/manual/index.html</p></td>
+<td><p>/latest/manual/index.html</p></td>
+<td><p>project</p></td>
+<td><p>The subproject/file doesn’t exist</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="implementation-example">
+<h2>Implementation example<a class="headerlink" href="#implementation-example" title="Link to this heading"></a></h2>
+<p>This is a simplified version of the implementation,
+there are some small optimizations and validations that will be in the
+final implementation.</p>
+<p>In the final implementation we will be using regular expressions to extract
+the parts from the URL.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">readthedocs.projects.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Project</span>
+
+<span class="n">LANGUAGES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;es&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">pop_parts</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="n">n</span><span class="p">:]</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">end</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">end</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">resolve</span><span class="p">(</span><span class="n">canonical_project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">check_subprojects</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+    <span class="k">if</span> <span class="n">canonical_project</span><span class="o">.</span><span class="n">prefix</span><span class="p">:</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">canonical_project</span><span class="o">.</span><span class="n">prefix</span>
+    <span class="n">subproject_prefix</span> <span class="o">=</span> <span class="s2">&quot;/projects&quot;</span>
+    <span class="k">if</span> <span class="n">canonical_project</span><span class="o">.</span><span class="n">subproject_prefix</span><span class="p">:</span>
+        <span class="n">subproject_prefix</span> <span class="o">=</span> <span class="n">canonical_project</span><span class="o">.</span><span class="n">subproject_prefix</span>
+
+    <span class="c1"># Multiversion project.</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+        <span class="n">new_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+        <span class="n">parts</span><span class="p">,</span> <span class="n">new_path</span> <span class="o">=</span> <span class="n">pop_parts</span><span class="p">(</span><span class="n">new_path</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">language</span><span class="p">,</span> <span class="n">version_slug</span> <span class="o">=</span> <span class="n">parts</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">canonical_project</span><span class="o">.</span><span class="n">single_version</span> <span class="ow">and</span> <span class="n">language</span> <span class="ow">in</span> <span class="n">LANGUAGES</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">canonical_project</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="n">language</span><span class="p">:</span>
+                <span class="n">project</span> <span class="o">=</span> <span class="n">canonical_project</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">project</span> <span class="o">=</span> <span class="n">canonical_project</span><span class="o">.</span><span class="n">translations</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">project</span><span class="p">:</span>
+                <span class="n">version</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">versions</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">version_slug</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">project</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">new_path</span>
+                <span class="k">return</span> <span class="n">project</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="c1"># Subprojects.</span>
+    <span class="k">if</span> <span class="n">check_subprojects</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">subproject_prefix</span><span class="p">):</span>
+        <span class="n">new_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="n">subproject_prefix</span><span class="p">)</span>
+        <span class="n">parts</span><span class="p">,</span> <span class="n">new_path</span> <span class="o">=</span> <span class="n">pop_parts</span><span class="p">(</span><span class="n">new_path</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">project_slug</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">project</span> <span class="o">=</span> <span class="n">canonical_project</span><span class="o">.</span><span class="n">subprojects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">alias</span><span class="o">=</span><span class="n">project_slug</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">project</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">resolve</span><span class="p">(</span>
+                <span class="n">canonical_project</span><span class="o">=</span><span class="n">project</span><span class="p">,</span>
+                <span class="n">path</span><span class="o">=</span><span class="n">new_path</span><span class="p">,</span>
+                <span class="n">check_subprojects</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Single project.</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+        <span class="n">new_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">canonical_project</span><span class="o">.</span><span class="n">single_version</span><span class="p">:</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="n">canonical_project</span><span class="o">.</span><span class="n">versions</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+                <span class="n">slug</span><span class="o">=</span><span class="n">canonical_project</span><span class="o">.</span><span class="n">default_version</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">canonical_project</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">new_path</span>
+            <span class="k">return</span> <span class="n">canonical_project</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="n">canonical_project</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">current_project</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">file</span> <span class="o">=</span> <span class="n">resolve</span><span class="p">(</span>
+        <span class="n">canonical_project</span><span class="o">=</span><span class="n">canonical_project</span><span class="p">,</span>
+        <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">current_project</span> <span class="ow">and</span> <span class="n">version</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">serve</span><span class="p">(</span><span class="n">current_project</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">current_project</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">serve_404</span><span class="p">(</span><span class="n">current_project</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">serve_404</span><span class="p">(</span><span class="n">canonical_project</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">serve_404</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">serve</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<section id="performance">
+<h3>Performance<a class="headerlink" href="#performance" title="Link to this heading"></a></h3>
+<p>Performance is mainly driven by the number of database lookups.
+There is an additional impact performing a regex lookup.</p>
+<ul class="simple">
+<li><p>A single version project:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/index.html</span></code>: 1, the version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/projects/guides/index.html</span></code>: 2, the version and one additional lookup for a path that looks like a subproject.</p></li>
+</ul>
+</li>
+<li><p>A multi version project:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/en/latest/index.html</span></code>: 1, the version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/es/latest/index.html</span></code>: 2, the translation and the version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/br/latest/index.html</span></code>: 1, the translation (it doesn’t exist).</p></li>
+</ul>
+</li>
+<li><p>A project with single version subprojects:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/projects/subproject/index.html</span></code>: 2, the subproject and its version.</p></li>
+</ul>
+</li>
+<li><p>A project with multi version subprojects:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/projects/subproject/en/latest/index.html</span></code>: 2, the subproject and its version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/projects/subproject/es/latest/index.html</span></code>: 3, the subproject, the translation, and its version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/projects/subproject/br/latest/index.html</span></code>: 2, the subproject and the translation (it doesn’t exist).</p></li>
+</ul>
+</li>
+</ul>
+<p>As seen, the number of database lookups are the minimal
+required to get the current project and version,
+this is a minimum of 1, and maximum of 3.</p>
+</section>
+</section>
+<section id="questions">
+<h2>Questions<a class="headerlink" href="#questions" title="Link to this heading"></a></h2>
+<ul>
+<li><p>When using custom URLs,
+should we support changing the URLs
+that aren’t related to doc serving?</p>
+<p>These are:</p>
+<ul class="simple">
+<li><p>Health check</p></li>
+<li><p>Proxied APIs</p></li>
+<li><p>robots and sitemap</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">page</span></code> redirect</p></li>
+</ul>
+<p>This can be useful for people that proxy us from another path.</p>
+</li>
+<li><p>Should we use the urlconf from the subproject when processing it?
+This is an URL like <code class="docutils literal notranslate"><span class="pre">/projects/subproject/custom/prefix/en/latest/index.html</span></code>.</p>
+<p>I don’t think that’s useful, but it should be easy to support if needed.</p>
+</li>
+<li><p>Should we support the page redirect when using a custom subproject prefix?
+This is <code class="docutils literal notranslate"><span class="pre">/{prefix}/subproject/page/index.html</span></code>.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="apiv3.html" class="btn btn-neutral float-left" title="API v3 design document" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="build-images.html" class="btn btn-neutral float-right" title="Build images" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

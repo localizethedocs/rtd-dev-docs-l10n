@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="In-doc search UI" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="design/in-doc-search-ui.html" />
+<meta property="og:site_name" content="Read the Docs Documentation" />
+<meta property="og:description" content="Giving readers the ability to easily search the information that they are looking for is important for us. We have already upgraded to the latest version of Elasticsearch and we plan to implement search as you type feature for all the documentations hosted by us. It will be designed to provide in..." />
+<meta property="og:image" content="_images/in-doc-search-ui-demo.gif" />
+<meta property="og:image:alt" content="Read the Docs Documentation" />
+<meta name="description" content="Giving readers the ability to easily search the information that they are looking for is important for us. We have already upgraded to the latest version of Elasticsearch and we plan to implement search as you type feature for all the documentations hosted by us. It will be designed to provide in..." />
+<meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In-doc search UI &mdash; Read the Docs developer documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca6f9a36" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_prompt_css.css?v=351d85e3" />
+
+  
+    <link rel="canonical" href="https://projects.localizethedocs.org/rtd-dev-docs-l10n/design/in-doc-search-ui.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=80428b84"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=cbf116e0"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/js/expand_tabs.js?v=1e151f68"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜尋" href="../search.html" />
+    <link rel="next" title="Notification system: a new approach after lot of discussions" href="new-notifications-system.html" />
+    <link rel="prev" title="Future builder" href="future-builder.html" />
+
+   
+
+  
+
+<script type="text/javascript" src="../ltd-provenance.js"></script>
+<script type="text/javascript" src="../ltd-current.js"></script>
+<script type="text/javascript" src="../../../ltd-config.js"></script>
+<script type="text/javascript" src="../../../ltd-flyout.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">一般</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">行為守則</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../issue-labels.html">議題標籤概覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">路線圖</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">設計文件</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apiv3.html">API v3 design document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="better-doc-urls-handling.html">Better handling of docs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-images.html">Build images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embed-api.html">Embed APIv3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-tree-diff.html">Version file tree diff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flyout-redesign.html">Flyout Redesign Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-builder.html">Future builder</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">In-doc search UI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#goals-and-non-goals">Goals And non-Goals</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#project-goals">專案目標</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#non-goals">Non-goals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#existing-search-implementation">Existing search implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proposed-architecture-for-in-doc-search-ui">Proposed architecture for in-doc search UI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#frontend">前端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#backend">Backend</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#milestones">里程碑</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#open-questions">Open questions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="new-notifications-system.html">Notification system: a new approach after lot of discussions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-search-api.html">New search API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-sphinx-guides.html">Proposed contents for new Sphinx guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizations.html">Organizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pr-builder.html">Design of pull request builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="privacy-levels.html">Privacy levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redirects.html">Improving redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refactor-remote-repository.html">Refactor <code class="docutils literal notranslate"><span class="pre">RemoteRepository</span></code> object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secure-api-access-from-builders.html">Secure API access from builders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx-jquery.html">sphinxcontrib-jquery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-packages.html">Allow installation of system packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html">Collect data about builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theme-context.html">Read the Docs data passed to Sphinx build context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml-file.html">YAML configuration file</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">開發</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">開發安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">開發指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">設計 Read the Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Building and contributing to documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style-guide.html">文件風格指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../front-end.html">前端開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../i18n.html">國際化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrations.html">資料庫遷移</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server-side-search.html">Server side search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-integration.html">Server side search integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aws-temporary-credentials.html">AWS temporary credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subscriptions.html">訂閱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../github-app.html">GitHub App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">有趣的設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">測試</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Read the Docs developer documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">設計文件</a></li>
+      <li class="breadcrumb-item active">In-doc search UI</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/readthedocs/readthedocs.org/blob/main/docs/dev/design/in-doc-search-ui.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="in-doc-search-ui">
+<h1>In-doc search UI<a class="headerlink" href="#in-doc-search-ui" title="連結到這個標頭"></a></h1>
+<p>Giving readers the ability to easily search the information
+that they are looking for is important for us.
+We have already upgraded to the latest version of <a class="reference external" href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> and
+we plan to implement <code class="xref py py-obj docutils literal notranslate"><span class="pre">search</span> <span class="pre">as</span> <span class="pre">you</span> <span class="pre">type</span></code> feature for all the documentations hosted by us.
+It will be designed to provide instant results as soon as the user starts
+typing in the search bar with a clean and minimal frontend.
+This design document aims to provides the details of it.
+This is a GSoC'19 project.</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>This design document details future features that are <strong>not yet implemented</strong>.
+To discuss this document, please get in touch in the <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues">issue tracker</a>.</p>
+</div>
+<p>The final result may look something like this:</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/in-doc-search-ui-demo.gif" src="../_images/in-doc-search-ui-demo.gif" />
+<figcaption>
+<p><span class="caption-text">Short demo</span><a class="headerlink" href="#id1" title="連結到這個圖片"></a></p>
+</figcaption>
+</figure>
+<section id="goals-and-non-goals">
+<h2>Goals And non-Goals<a class="headerlink" href="#goals-and-non-goals" title="連結到這個標頭"></a></h2>
+<section id="project-goals">
+<h3>專案目標<a class="headerlink" href="#project-goals" title="連結到這個標頭"></a></h3>
+<ul class="simple">
+<li><p>Support a search-as-you-type/autocomplete interface.</p></li>
+<li><p>Support across all (or virtually all) Sphinx themes.</p></li>
+<li><p>Support for the JavaScript user experience down to IE11 or graceful degradation where we can't support it.</p></li>
+<li><p>Project maintainers should have a way to opt-in/opt-out of this feature.</p></li>
+<li><p>(Optional) Project maintainers should have the flexibility to change some of the styles using custom CSS and JS files.</p></li>
+</ul>
+</section>
+<section id="non-goals">
+<h3>Non-goals<a class="headerlink" href="#non-goals" title="連結到這個標頭"></a></h3>
+<ul class="simple">
+<li><p>For the initial release, we are targeting only Sphinx documentations
+as we don't index MkDocs documentations to our Elasticsearch index.</p></li>
+</ul>
+</section>
+</section>
+<section id="existing-search-implementation">
+<h2>Existing search implementation<a class="headerlink" href="#existing-search-implementation" title="連結到這個標頭"></a></h2>
+<p>We have a detailed documentation explaining the underlying architecture of our search backend
+and how we index documents to our Elasticsearch index.
+You can read about it <a class="reference internal" href="../server-side-search.html"><span class="doc">here</span></a>.</p>
+</section>
+<section id="proposed-architecture-for-in-doc-search-ui">
+<h2>Proposed architecture for in-doc search UI<a class="headerlink" href="#proposed-architecture-for-in-doc-search-ui" title="連結到這個標頭"></a></h2>
+<section id="frontend">
+<h3>前端<a class="headerlink" href="#frontend" title="連結到這個標頭"></a></h3>
+<section id="technologies">
+<h4>Technologies<a class="headerlink" href="#technologies" title="連結到這個標頭"></a></h4>
+<p>Frontend is to designed in a theme agnostics way. For that,
+we explored various libraries which may be of use but none of them fits our needs.
+So, we might be using vanilla JavaScript for this purpose.
+This will provide us some advantages over using any third party library:</p>
+<ul class="simple">
+<li><p>Better control over the DOM.</p></li>
+<li><p>Performance benefits.</p></li>
+</ul>
+</section>
+<section id="proposed-architecture">
+<h4>Proposed architecture<a class="headerlink" href="#proposed-architecture" title="連結到這個標頭"></a></h4>
+<p>We plan to select the search bar, which is present in every theme,
+and use the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector">querySelector()</a> method of JavaScript.
+Then add an event listener to it to listen for the changes and
+fire a search query to our backend as soon as there is any change.
+Our backend will then return the suggestions,
+which will be shown to the user in a clean and minimal UI.
+We will be using <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement">document.createElement()</a> and <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild">node.removeChild()</a> method
+provided by JavaScript as we don't want empty <code class="xref py py-obj docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> hanging out in the DOM.</p>
+<p>We have a few ways to include the required JavaScript and CSS files in all the projects:</p>
+<ul class="simple">
+<li><p>Add CSS into <code class="xref py py-obj docutils literal notranslate"><span class="pre">readthedocs-doc-embed.css</span></code> and JS into <code class="xref py py-obj docutils literal notranslate"><span class="pre">readthedocs-doc-embed.js</span></code>
+and it will get included.</p></li>
+<li><p>Package the in-doc search into it's own self-contained CSS and JS files
+and include them in a similar manner to <code class="xref py py-obj docutils literal notranslate"><span class="pre">readthedocs-doc-embed.*</span></code>.</p></li>
+<li><p>It might be possible to package up the in-doc CSS/JS as a sphinx extension.
+This might be nice because then it's easy to enable it on a per-project basis.
+When we are ready to roll it out to a wider audience,
+we can make a decision to just turn it on for everybody (put it in <a class="reference external" href="https://github.com/readthedocs/readthedocs.org/blob/9ca5858e859dea0759d913e8db70a623d62d6a16/readthedocs/doc_builder/templates/doc_builder/conf.py.tmpl#L135-L142">here</a>)
+or we could enable it as an opt-in feature like the <a class="reference external" href="https://github.com/readthedocs/sphinx-notfound-page">404 extension</a>.</p></li>
+</ul>
+</section>
+<section id="ui-ux">
+<h4>UI/UX<a class="headerlink" href="#ui-ux" title="連結到這個標頭"></a></h4>
+<p>We have two ways which can be used to show suggestions to the user.</p>
+<ul class="simple">
+<li><p>Show suggestions below the search bar.</p></li>
+<li><p>Open a full page search interface when the user click on search field.</p></li>
+</ul>
+</section>
+</section>
+<section id="backend">
+<h3>Backend<a class="headerlink" href="#backend" title="連結到這個標頭"></a></h3>
+<p>We have a few options to support <code class="xref py py-obj docutils literal notranslate"><span class="pre">search</span> <span class="pre">as</span> <span class="pre">you</span> <span class="pre">type</span></code> feature,
+but we need to decide that which option would be best for our use-case.</p>
+<section id="edge-ngram-tokenizer">
+<h4>Edge NGram Tokenizer<a class="headerlink" href="#edge-ngram-tokenizer" title="連結到這個標頭"></a></h4>
+<ul class="simple">
+<li><p>Pros</p>
+<ul>
+<li><p>More effective than Completion Suggester when it comes to autocompleting
+words that can appear in any order.</p></li>
+<li><p>It is considerable fast because most of the work is being done at index time,
+hence the time taken for autocompletion is reduced.</p></li>
+<li><p>Supports highlighting of the matching terms.</p></li>
+</ul>
+</li>
+<li><p>Cons</p>
+<ul>
+<li><p>Requires greater disk space.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="completion-suggester">
+<h4>Completion suggester<a class="headerlink" href="#completion-suggester" title="連結到這個標頭"></a></h4>
+<ul class="simple">
+<li><p>Pros</p>
+<ul>
+<li><p>Really fast as it is optimized for speed.</p></li>
+<li><p>Does not require large disk space.</p></li>
+</ul>
+</li>
+<li><p>Cons</p>
+<ul>
+<li><p>Matching always starts at the beginning of the text. So, for example,
+&quot;Hel&quot; will match &quot;Hello, World&quot; but not &quot;World Hello&quot;.</p></li>
+<li><p>Highlighting of the matching words is not supported.</p></li>
+<li><p>According to the official docs for Completion Suggester,
+fast lookups are costly to build and are stored in-memory.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="milestones">
+<h2>里程碑<a class="headerlink" href="#milestones" title="連結到這個標頭"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>里程碑</p></th>
+<th class="head"><p>Due Date</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A local implementation of the project.</p></td>
+<td><p>12th June, 2019</p></td>
+</tr>
+<tr class="row-odd"><td><p>In-doc search on a test project hosted on Read the Docs using the RTD Search API.</p></td>
+<td><p>20th June, 2019</p></td>
+</tr>
+<tr class="row-even"><td><p>In-doc search on docs.readthedocs.io.</p></td>
+<td><p>20th June, 2019</p></td>
+</tr>
+<tr class="row-odd"><td><p>Friendly user trial where users can add this on their own docs.</p></td>
+<td><p>5th July, 2019</p></td>
+</tr>
+<tr class="row-even"><td><p>Additional UX testing on the top-10 Sphinx themes.</p></td>
+<td><p>15th July, 2019</p></td>
+</tr>
+<tr class="row-odd"><td><p>Finalize the UI.</p></td>
+<td><p>25th July, 2019</p></td>
+</tr>
+<tr class="row-even"><td><p>Improve the search backend for efficient and fast search results.</p></td>
+<td><p>10th August, 2019</p></td>
+</tr>
+</tbody>
+</table>
+<section id="open-questions">
+<h3>Open questions<a class="headerlink" href="#open-questions" title="連結到這個標頭"></a></h3>
+<ul class="simple">
+<li><p>Should we rely on jQuery, any third party library or pure vanilla JavaScript?</p></li>
+<li><p>Are the subprojects to be searched?</p></li>
+<li><p>Is our existing Search API is sufficient?</p></li>
+<li><p>Should we go for edge ngrams or completion suggester?</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="future-builder.html" class="btn btn-neutral float-left" title="Future builder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="new-notifications-system.html" class="btn btn-neutral float-right" title="Notification system: a new approach after lot of discussions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Read the Docs, Inc &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
