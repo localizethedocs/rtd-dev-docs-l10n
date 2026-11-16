@@ -37,9 +37,9 @@
     "branch" : "main",
     "commit" : 
     {
-      "date" : "2026-10-26 13:01:39 +0100",
-      "hash" : "9af61db775efca367133aca048584a60f7a5e669",
-      "title" : "Version: show duplicated version slug when renaming (#13438)"
+      "date" : "2026-11-16 11:56:40 -0500",
+      "hash" : "bc70036220b5d1f5020f5e2ec963be8593dbc537",
+      "title" : "Sync AGENTS.md from readthedocs/common"
     }
   },
   "type" : "branch",
