@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Read the Docs developer documentation stable\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 14:27+0000\n"
+"POT-Creation-Date: 2026-11-17 17:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,6 +92,12 @@ msgstr ""
 
 #: ../../../contribute.rst:53
 msgid ""
+"Before you commit, :ref:`set up the pre-commit hooks <install:Set up pre-"
+"commit hooks>` so your changes pass the same linting checks that run in CI."
+msgstr ""
+
+#: ../../../contribute.rst:56
+msgid ""
 "If you are up to more challenging tasks with a bigger scope, then there are "
 "a set of tickets with a `Feature`_ or `Improvement`_ tag. These tickets have "
 "a general overview and description of the work required to finish. If you "
@@ -102,34 +108,34 @@ msgid ""
 "label. Those tickets are meant to be standalone and can be worked on ad-hoc."
 msgstr ""
 
-#: ../../../contribute.rst:63
+#: ../../../contribute.rst:66
 msgid ""
 "You can read all of our :doc:`/index` to understand more the development of "
 "Read the Docs. When contributing code, then please follow the standard "
 "Contribution Guidelines set forth at `contribution-guide.org`_."
 msgstr ""
 
-#: ../../../contribute.rst:75
+#: ../../../contribute.rst:78
 msgid "Contributing to documentation"
 msgstr ""
 
-#: ../../../contribute.rst:77
+#: ../../../contribute.rst:80
 msgid ""
 "Documentation for Read the Docs itself is hosted by Read the Docs at https://"
 "docs.readthedocs.com/dev/ (likely the website you are currently reading)."
 msgstr ""
 
-#: ../../../contribute.rst:79
+#: ../../../contribute.rst:82
 msgid ""
 "There are guidelines around writing and formatting documentation for the "
 "project. For full details, including how to build it, see :doc:`/docs`."
 msgstr ""
 
-#: ../../../contribute.rst:83
+#: ../../../contribute.rst:86
 msgid "Contributing to translations"
 msgstr ""
 
-#: ../../../contribute.rst:85
+#: ../../../contribute.rst:88
 msgid ""
 "We use Transifex to manage localization for all of our projects that we "
 "support localization on. If you are interested in contributing, we suggest "
@@ -138,18 +144,18 @@ msgid ""
 "correct and approve suggestions."
 msgstr ""
 
-#: ../../../contribute.rst:91
+#: ../../../contribute.rst:94
 msgid ""
 "If you don't see your language in our list of approved languages for any of "
 "our projects, feel free to suggest the language on Transifex to start the "
 "process."
 msgstr ""
 
-#: ../../../contribute.rst:97
+#: ../../../contribute.rst:100
 msgid "Triaging issues"
 msgstr ""
 
-#: ../../../contribute.rst:99
+#: ../../../contribute.rst:102
 msgid ""
 "Everyone is encouraged to help improving, refining, verifying and "
 "prioritizing issues on Github. The Read the Docs "
@@ -158,13 +164,13 @@ msgid ""
 "by-step."
 msgstr ""
 
-#: ../../../contribute.rst:104
+#: ../../../contribute.rst:107
 msgid ""
 "You will need Triage permission on the project in order to do this. You can "
 "ask one of the members of the :external+rtd:doc:`team` to give you access."
 msgstr ""
 
-#: ../../../contribute.rst:107
+#: ../../../contribute.rst:110
 msgid ""
 "Triaging helps identify problems and solutions and ultimately what issues "
 "that are ready to be worked on. The core :external+rtd:doc:`team` maintains "
@@ -172,11 +178,11 @@ msgid ""
 "on that Roadmap after they have been triaged."
 msgstr ""
 
-#: ../../../contribute.rst:114
+#: ../../../contribute.rst:117
 msgid "Initial triage"
 msgstr ""
 
-#: ../../../contribute.rst:116
+#: ../../../contribute.rst:119
 msgid ""
 "When sitting down to do some triaging work, we start with the `list of "
 "untriaged tickets`_. We consider all tickets that do not have a label as "
@@ -185,11 +191,11 @@ msgid ""
 "label. The reported issue …"
 msgstr ""
 
-#: ../../../contribute.rst:122
+#: ../../../contribute.rst:125
 msgid "… is not valid"
 msgstr ""
 
-#: ../../../contribute.rst:123
+#: ../../../contribute.rst:126
 msgid ""
 "If you think the ticket is invalid comment why you think it is invalid, then "
 "close the ticket. Tickets might be invalid if they were already fixed in the "
@@ -199,31 +205,31 @@ msgid ""
 "other ticket that is already addressing the problem and close the duplicate."
 msgstr ""
 
-#: ../../../contribute.rst:130 ../../../contribute.rst:151
-#: ../../../contribute.rst:163 ../../../contribute.rst:175
-#: ../../../contribute.rst:184 ../../../contribute.rst:193
-#: ../../../contribute.rst:203 ../../../contribute.rst:213
+#: ../../../contribute.rst:133 ../../../contribute.rst:154
+#: ../../../contribute.rst:166 ../../../contribute.rst:178
+#: ../../../contribute.rst:187 ../../../contribute.rst:196
+#: ../../../contribute.rst:206 ../../../contribute.rst:216
 msgid "Examples:"
 msgstr ""
 
-#: ../../../contribute.rst:132
+#: ../../../contribute.rst:135
 msgid ""
 "*Builds fail when using matplotlib*: If the described issue was already "
 "fixed, then explain and instruct to re-trigger the build."
 msgstr ""
 
-#: ../../../contribute.rst:135
+#: ../../../contribute.rst:138
 msgid ""
 "*Provide way to upload arbitrary HTML files*: It was already decided that "
 "Read the Docs is not a dull hosting platform for HTML. So explain this and "
 "close the ticket."
 msgstr ""
 
-#: ../../../contribute.rst:141
+#: ../../../contribute.rst:144
 msgid "… does not provide enough information"
 msgstr ""
 
-#: ../../../contribute.rst:142
+#: ../../../contribute.rst:145
 msgid ""
 "Add the label **Needed: more information** if the reported issue does not "
 "contain enough information to decide if it is valid or not and ask on the "
@@ -235,17 +241,17 @@ msgid ""
 "roughly about two weeks)."
 msgstr ""
 
-#: ../../../contribute.rst:153
+#: ../../../contribute.rst:156
 msgid ""
 "*My builds stopped working. Please help!* Ask for a link to the build log "
 "and for which project is affected."
 msgstr ""
 
-#: ../../../contribute.rst:156
+#: ../../../contribute.rst:159
 msgid "… is a valid feature proposal"
 msgstr ""
 
-#: ../../../contribute.rst:157
+#: ../../../contribute.rst:160
 msgid ""
 "If the ticket contains a feature that aligns with the goals of Read the "
 "Docs, then add the label **Feature**. If the proposal seems valid but "
@@ -254,20 +260,20 @@ msgid ""
 "label **Needed: design decision**."
 msgstr ""
 
-#: ../../../contribute.rst:165
+#: ../../../contribute.rst:168
 msgid "*Provide better integration with service XYZ*"
 msgstr ""
 
-#: ../../../contribute.rst:166
+#: ../../../contribute.rst:169
 msgid ""
 "*Achieve world domination* (also needs the label **Needed: design decision**)"
 msgstr ""
 
-#: ../../../contribute.rst:169
+#: ../../../contribute.rst:172
 msgid "… is a small change to the source code"
 msgstr ""
 
-#: ../../../contribute.rst:170
+#: ../../../contribute.rst:173
 msgid ""
 "If the ticket is about code cleanup or small changes to existing features "
 "would likely have the **Improvement** label. The distinction for this label "
@@ -275,151 +281,151 @@ msgid ""
 "implementing new features."
 msgstr ""
 
-#: ../../../contribute.rst:177
+#: ../../../contribute.rst:180
 msgid "*Refactor namedtuples to dataclasses*"
 msgstr ""
 
-#: ../../../contribute.rst:178
+#: ../../../contribute.rst:181
 msgid "*Change font size for the project's title*"
 msgstr ""
 
-#: ../../../contribute.rst:180
+#: ../../../contribute.rst:183
 msgid "… is a valid problem within the code base:"
 msgstr ""
 
-#: ../../../contribute.rst:181
+#: ../../../contribute.rst:184
 msgid ""
 "If it's a valid bug, then add the label **Bug**. Try to reference related "
 "issues if you come across any."
 msgstr ""
 
-#: ../../../contribute.rst:186
+#: ../../../contribute.rst:189
 msgid "*Builds fail if conf.py contains non-ascii letters*"
 msgstr ""
 
-#: ../../../contribute.rst:188
+#: ../../../contribute.rst:191
 msgid "… is a currently valid problem with the infrastructure:"
 msgstr ""
 
-#: ../../../contribute.rst:189
+#: ../../../contribute.rst:192
 msgid ""
 "Users might report about web server downtimes or that builds are not "
 "triggered. If the ticket needs investigation on the servers, then add the "
 "label **Operations**."
 msgstr ""
 
-#: ../../../contribute.rst:195
+#: ../../../contribute.rst:198
 msgid "*Builds are not starting*"
 msgstr ""
 
-#: ../../../contribute.rst:199
+#: ../../../contribute.rst:202
 msgid "… is a question and needs answering:"
 msgstr ""
 
-#: ../../../contribute.rst:200
+#: ../../../contribute.rst:203
 msgid ""
 "If the ticket contains a question about the Read the Docs platform or the "
 "code, then add the label **Support**."
 msgstr ""
 
-#: ../../../contribute.rst:205
+#: ../../../contribute.rst:208
 msgid "*My account was set inactive. Why?*"
 msgstr ""
 
-#: ../../../contribute.rst:206
+#: ../../../contribute.rst:209
 msgid "*How to use C modules with Sphinx autodoc?*"
 msgstr ""
 
-#: ../../../contribute.rst:207
+#: ../../../contribute.rst:210
 msgid "*Why are my builds failing?*"
 msgstr ""
 
-#: ../../../contribute.rst:209
+#: ../../../contribute.rst:212
 msgid "… requires a one-time action on the server:"
 msgstr ""
 
-#: ../../../contribute.rst:210
+#: ../../../contribute.rst:213
 msgid ""
 "Tasks that require a one time action on the server should be assigned the "
 "two labels **Support** and **Operations**."
 msgstr ""
 
-#: ../../../contribute.rst:215
+#: ../../../contribute.rst:218
 msgid "*Please change my username*"
 msgstr ""
 
-#: ../../../contribute.rst:216
+#: ../../../contribute.rst:219
 msgid "*Please set me as owner of this abandoned project*"
 msgstr ""
 
-#: ../../../contribute.rst:218
+#: ../../../contribute.rst:221
 msgid ""
 "After we finished the initial triaging of new tickets, no ticket should be "
 "left without a label."
 msgstr ""
 
-#: ../../../contribute.rst:224
+#: ../../../contribute.rst:227
 msgid "Additional labels for categorization"
 msgstr ""
 
-#: ../../../contribute.rst:226
+#: ../../../contribute.rst:229
 msgid ""
 "Additionally to the labels already involved in the section above, we have a "
 "few more at hand to further categorize issues."
 msgstr ""
 
-#: ../../../contribute.rst:229
+#: ../../../contribute.rst:232
 msgid "*High Priority*"
 msgstr ""
 
-#: ../../../contribute.rst:230
+#: ../../../contribute.rst:233
 msgid ""
 "If the issue is urgent, assign this label. In the best case also go forward "
 "to resolve the ticket yourself as soon as possible."
 msgstr ""
 
-#: ../../../contribute.rst:233
+#: ../../../contribute.rst:236
 msgid "*Good First Issue*"
 msgstr ""
 
-#: ../../../contribute.rst:234
+#: ../../../contribute.rst:237
 msgid ""
 "This label marks tickets that are easy to get started with. The ticket "
 "should be ideal for beginners to dive into the code base. Better is if the "
 "fix for the issue only involves touching one part of the code."
 msgstr ""
 
-#: ../../../contribute.rst:238
+#: ../../../contribute.rst:241
 msgid "*Sprintable*"
 msgstr ""
 
-#: ../../../contribute.rst:239
+#: ../../../contribute.rst:242
 msgid ""
 "Sprintable are all tickets that have the right amount of scope to be handled "
 "during a sprint. They are very focused and encapsulated."
 msgstr ""
 
-#: ../../../contribute.rst:242
+#: ../../../contribute.rst:245
 msgid ""
 "For a full list of available labels and their meanings, see :doc:`/issue-"
 "labels`."
 msgstr ""
 
-#: ../../../contribute.rst:246
+#: ../../../contribute.rst:249
 msgid "Helpful links for triaging"
 msgstr ""
 
-#: ../../../contribute.rst:248
+#: ../../../contribute.rst:251
 msgid "Here is a list of links for contributors that look for work:"
 msgstr ""
 
-#: ../../../contribute.rst:250
+#: ../../../contribute.rst:253
 msgid ""
 "`Untriaged tickets <https://github.com/readthedocs/readthedocs.org/issues?"
 "q=is:issue+is:open+no:label>`_: Go and triage them!"
 msgstr ""
 
-#: ../../../contribute.rst:253
+#: ../../../contribute.rst:256
 msgid ""
 "`Tickets labelled with Needed: more information <https://github.com/"
 "readthedocs/readthedocs.org/issues?utf8=✓&q=is:open+is:issue+label:\"Needed:"
@@ -428,14 +434,14 @@ msgid ""
 "information is available, go and re-triage the ticket."
 msgstr ""
 
-#: ../../../contribute.rst:258
+#: ../../../contribute.rst:261
 msgid ""
 "`Tickets labelled with Operations <https://github.com/readthedocs/"
 "readthedocs.org/issues?q=is:open+is:issue+label:Operations>`_: These tickets "
 "are for contributors who have access to the servers."
 msgstr ""
 
-#: ../../../contribute.rst:261
+#: ../../../contribute.rst:264
 msgid ""
 "`Tickets labelled with Support <https://github.com/readthedocs/"
 "readthedocs.org/issues?q=is:open+is:issue+label:Support>`_: Experienced "
@@ -443,7 +449,7 @@ msgid ""
 "should handle those."
 msgstr ""
 
-#: ../../../contribute.rst:265
+#: ../../../contribute.rst:268
 msgid ""
 "`Tickets labelled with Needed: design decision <https://github.com/"
 "readthedocs/readthedocs.org/issues?q=is:open+is:issue+label:\"Needed:"
